@@ -1,0 +1,23 @@
+<center>    
+<div class="container-fluid">
+       
+        <div class="row">
+                <% page.views[0].views.forEach( (view)=>{ %>      
+        
+            <div class="col-sm-6 col-lg-3">
+                    <a href="#!<%=view.url%>">
+            <div class="card card-menu">
+                <div class="card-body">
+                    <h5 class="card-title"><b><%=view.title%></b></h5>
+                    <% if(view.img) { %>
+                    <img src="../<%=view.img%>" style="width:100px"/>
+                    <% } %> 
+                </div>
+            </div>
+        </a>
+            </div>
+       
+        <% }) %>
+    </div> 
+</div>
+</center>

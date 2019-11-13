@@ -1,0 +1,100 @@
+{
+    "title": "IAQSE",
+    "template": "simple",
+    "baseurl": "cat2",
+    "pages": [
+        {
+            "title": "Inici",
+            "ejs": "inici",
+            "url": "index",
+            "views": [],
+            "template": "simple"
+        },
+        {
+            "title": "Qui som",
+            "ejs": "qui_som",
+            "url": "quisom",
+            "views": [
+                {
+                    "title": "Index",
+                    "ejs": "quisom/quisom_index",
+                    "url": "index"
+                },
+                {
+                    "title": "Personal",
+                    "ejs": "quisom/quisom_personal",
+                    "url": "personal"
+                },
+                {
+                    "title": "Funcions",
+                    "ejs": "quisom/quisom_funcions",
+                    "url": "funcions"
+                },
+                {
+                    "title": "Legislació",
+                    "ejs": "quisom/quisom_legislacio",
+                    "url": "legislacio"
+                }
+            ]
+        },
+        {
+            "title": "Avaluacions",
+            "ejs": "avaluacions",
+            "url": "avaluacions",
+            "views": [
+                {
+                    "title": "Index",
+                    "ejs": "avaluacions/avaluacions_index",
+                    "url": "index",
+                    "views": [
+                        {
+                            "title": "Avaluacions final d'etapa",
+                            "ejs": "avaluacions/avaluacions_final_etapa",
+                            "url": "final_etapa",
+                            "controller": "finaletapa"
+                        },
+                        {
+                            "title": "Avaluacions de diagnòstic",
+                            "ejs": "avaluacions/avaluacions_diagnostic",
+                            "url": "diagnostic",
+                            "controller": "diagnostic"
+                        },
+                        {
+                            "title": "Avaluacions internacionals",
+                            "ejs": "avaluacions/avaluacions_internacionals",
+                            "url": "internacionals" ,
+                            "controller": "internacionals"
+                        },
+                        {
+                            "title": "Altres avaluacions",
+                            "ejs": "avaluacions/avaluacions_altres",
+                            "url": "altres",
+                            "controller": "altres"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "title": "Publicacions",
+            "ejs": "publicacions",
+            "url": "publicacions"
+        },
+        {
+            "title": "Indicadors",
+            "ejs": "indicadors",
+            "url": "indicadors"
+        },
+        {
+            "title": "Enllaços",
+            "ejs": "enllacos",
+            "url": "enllacos"
+        },
+        {
+            "title": "Proves",
+            "title_long": "Proves alliberades",
+            "ejs": "proves",
+            "url": "proves"
+        }
+    ]
+}

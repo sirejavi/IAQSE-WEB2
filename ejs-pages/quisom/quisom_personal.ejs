@@ -1,0 +1,34 @@
+ 
+<div class="row" style="text-align: center;">
+    <% personal.forEach( (person) => { %>
+    <div class="div_bloque_persona">
+        <div class="div_img_persona">
+            <img class="img_persona" src="../<%=person.img%>" title="<%=person.nom%>">
+        </div>
+
+        <div class="div_bloque_persona_cont">
+            <div class="div_bloque_persona_nombre">
+                <p>
+                        <%=person.nom%>
+            </div>
+            <div class="div_bloque_persona_cargo">
+                <p>
+                        <%=person.carrec%>
+                </p>
+            </div>
+            <div class="div_bloque_persona_ext">
+                <p title="Extensió">
+                        <i class="fa fa-phone"></i> <%=person.ext%>
+                </p>
+            </div>
+        </div>
+        <div class="div_bloque_persona_correu">
+            <p>
+                    <i class="fa fa-envelope" style="color:whitesmoke;"></i> <a href="mailto:<%=person.email%>" style="color:lightblue; text-decoration: none;"><%=person.email%></a>
+            </p>
+        </div>
+    </div>
+
+    <% }) %>
+
+</div>

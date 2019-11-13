@@ -1,0 +1,92 @@
+<nav aria-label="breadcrumb">
+<ol class="breadcrumb">
+<li class="breadcrumb-item"><a href="index.html"><i class="fas fa-home"></i></a></li>
+<li class="breadcrumb-item"><a href="#">Avaluacions</a></li>
+<li class="breadcrumb-item"><a href="#!index">Index</a></li>
+<li class="breadcrumb-item active">Avaluacions final d'etapa</li>
+</ol>
+</nav><!--comboNivell-->
+<div class="btn-group" title="Nivell de la prova" style="margin-left: 5px;">
+    <button class="btn btn-secondary dropdown-toggle" type="button" id="nivellCombo" 
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fa fa-tags"></i> <span ng-bind="selectedNivell.label"></span></button>
+    <div class="dropdown-menu" aria-labelledby="nivellCombo">
+        <a class="dropdown-item" ng-click="chooseNivell($index)" ng-repeat="item in nivells"><span ng-bind="item.label"></span></a>
+    </div>
+</div>
+<hr />
+<p ng-if="avaluacions.length==0">No s'han trobat avaluacions</p>
+<p ng-if="avaluacions.length==1">S'ha trobat una avaluació</p>
+<p ng-if="avaluacions.length>1">S'han trobat <span ng-bind="avaluacions.length"></span> avaluacions</p>
+<hr />
+
+<!--accordion avaluacions-->
+<div id="accordion"> 
+    <!--Desplegable amb els seus documents-->
+    <div class="card" ng-repeat="ava in avaluacions">
+        <div class="card-header" id="heading{{$index}}">
+            <button class="btn-link collapsed" data-toggle="collapse" data-target="#collapseAva{{$index}}"
+                style="text-decoration: none; border: none; cursor: pointer;">
+                <i class="fa"></i> <b style="font-size: 90%;"><span ng-bind="ava.title"></span></b>
+            </button>
+        </div>
+
+        <div id="collapseAva{{$index}}" class="collapse" data-parent="#accordion"
+            aria-labelledby="heading{{$index}}">
+            <!--list documents--> 
+            <div class="row" ng-repeat="chk in ava.chunks">
+                <div class="col-md-6 list-group-item list-group-item-hover" ng-repeat="doc in chk">
+                    <a href="../{{doc.url}}" target="_blank">
+                        <img ng-src="../{{doc.img}}" width="60px" class="fa-pull-left"
+                            style="margin-right:10px; box-shadow: 3px 3px gray;" />
+                        <p style="vertical-align: middle;font-size: 90%;" ng-bind="doc.title"></p>
+                    </a>
+                </div>                   
+            </div> 
+        </div>
+    </div>
+
+</div>
+
+<script>
+var chunker = function(arr, chunkSize) {
+        var R = [];
+        for (var i=0,len=arr.length; i<len; i+=chunkSize)
+            R.push(arr.slice(i,i+chunkSize));
+        return R;
+    };
+var avaJSON =[{"title":"Avaluació final d'etapa 6è d'EP i 4t d'ESO 2018-2019","tag":"EP","documents":[{"title":"Resolució llistes definitives del professorat corrector seleccionat.","url":"../documentos/avaluacions/altres/afe_6ep_4eso_2018_2019/resol_aplicadors_def.pdf","img":"../img/avaluacions/altres/afe_6ep_4eso_2018_2019/resol_aplicadors_def.jpg","description":"Resolució del director general de Planificació, Ordenació i Centres de dia 13 de juny de 2019, per la qual s'aproven les llistes definitives del professorat corrector seleccionat i del professorat exclòs de les avaluacions de diagnòstic de final d'etapa del curs acadèmic 2018-2019, que han realitzat, en una mostra de centres, els alumnes de sisè curs d'educació primària i de quart curs d'educació secundària obligatòria, de la Comunitat Autònoma de les Illes Balears."},{"title":"Resolució llistes provisionals del professorat corrector seleccionat.","url":"../documentos/avaluacions/altres/afe_6ep_4eso_2018_2019/resol_aplicadors.pdf","img":"../img/avaluacions/altres/afe_6ep_4eso_2018_2019/resol_aplicadors.jpg","description":"Resolució del director general de Planificació, Ordenació i Centres de dia 10 de juny de 2019, per la qual s'aproven les llistes provisionals del professorat corrector seleccionat i del professorat corrector exclòs de les avaluacions de diagnòstic de final d'etapa del curs acadèmic 2018-2019, que han realitzat, en una mostra de centres, els alumnes de sisè curs d'educació primària i de quart curs d'educació secundària obligatòria, de la Comunitat Autònoma de les Illes Balears."},{"title":"Annex IV - Resolució de dia 17 de maig de 2019","url":"../documentos/avaluacions/altres/afe_6ep_4eso_2018_2019/annex_iv.pdf","img":"../img/avaluacions/altres/afe_6ep_4eso_2018_2019/annex_iv.jpg","description":"Resolució del director general de Planificació, Ordenació i Centres de dia 17 de maig de 2019 per la qual es regula el procediment selectiu de correctors de les proves corresponents a les avaluacions de final d'etapa dels alumnes de sisè curs d'educació primària i de quart curs d'educació secundària obligatòria en una mostra de centres, d'ambdues etapes educatives, de la Comunitat Autònoma de les Illes Balears."},{"title":"Resolució de dia 17 de maig de 2019 per la qual es regula el procediment selectiu de correctors de les proves","url":"../documentos/avaluacions/altres/afe_6ep_4eso_2018_2019/res_aplicadors.pdf","img":"../img/avaluacions/altres/afe_6ep_4eso_2018_2019/res_aplicadors.jpg","description":"Resolució del director general de Planificació, Ordenació i Centres de dia 17 de maig de 2019 per la qual es regula el procediment selectiu de correctors de les proves corresponents a les avaluacions de final d'etapa dels alumnes de sisè curs d'educació primària i de quart curs d'educació secundària obligatòria en una mostra de centres, d'ambdues etapes educatives, de la Comunitat Autònoma de les Illes Balears."},{"title":"Resolució per la qual es fa públic el lllistat de centres mostrals.","url":"../documentos/avaluacions/altres/afe_6ep_4eso_2018_2019/Resolucio_mostra.pdf","img":"../img/avaluacions/altres/afe_6ep_4eso_2018_2019/Resolucio_mostra.jpg","description":"Resolució del director general de Planificació, Ordenació i Centres per la qual es fa públic el lllistat de centres mostrals."},{"title":"Resolució per la qual es dicten instruccions per a la realització de les proves.","url":"../documentos/avaluacions/altres/afe_6ep_4eso_2018_2019/21032019_resolucio.pdf","img":"../img/avaluacions/altres/afe_6ep_4eso_2018_2019/21032019_resolucio.jpg","description":"Resolució del conseller d'Educació i Universitat per la qual es dicten instruccions per a la realització de les proves corresponents a les avaluacions de diagnòstic de final d' etapa del curs acadèmic 2018-2019."}]},{"title":"Avaluació final d'etapa 4t d'ESO 2017-2018","tag":"ESO","documents":[{"title":"Resolució del director general de Planificació, Ordenació i Centres per la qual s'aproven les llistes definitives de correctors","url":"../documentos/avaluacions/altres/ad_4t_eso_2017_2018/180605Resolucio.pdf","img":"../img/avaluacions/altres/ad_4t_eso_2017_2018/180605Resolucio.jpg","description":"Resolució del director general de Planificació, Ordenació i Centres per la qual s'aproven les llistes definitives de correctors"},{"title":"Resolució del director general de Planificació, Ordenació i Centres per la qual s'aproven les llistes provisionals de correctors","url":"../documentos/avaluacions/altres/ad_4t_eso_2017_2018/180516Resolucio.pdf","img":"../img/avaluacions/altres/ad_4t_eso_2017_2018/180516Resolucio.jpg","description":"Resolució del director general de Planificació, Ordenació i Centres per la qual s'aproven les llistes provisionals de correctors"},{"title":"Resolució del director general de Planificació, Ordenació i Centres que regula el procediment selectiu de correctors de les proves","url":"../documentos/avaluacions/altres/ad_4t_eso_2017_2018/180516Resolucio.pdf","img":"../img/avaluacions/altres/ad_4t_eso_2017_2018/180516Resolucio.jpg","description":"Resolució del director general de Planificació, Ordenació i Centres que regula el procediment selectiu de correctors de les proves"},{"title":"Resolució del conseller d'Educació i Universitat de les avaluacions de diagnòstic de final d'etapa el curs 2017-2018","url":"../documentos/avaluacions/altres/ad_4t_eso_2017_2018/180331Boib.pdf","img":"../img/avaluacions/altres/ad_4t_eso_2017_2018/180331Boib.jpg","description":"Resolució del conseller d''Educació i Universitat de les avaluacions de diagnòstic de final d'etapa als alumnes de quart curs d'educació secundària obligatòriael curs acadèmic 2017-2018"}]},{"title":"Avaluació final d'etapa de 6è EP del curs 2016-2017","tag":"EP","documents":[{"title":"Informe Executiu Avaluació final etapa 6EP 2016-2017.","url":"../documentos/publicacions/Informe_Executiu_6EP_2016_2017.pdf","img":"../img/publicacions/Informe_Executiu_6EP_2016_2017.jpg","description":"Informe Executiu Avaluació final etapa 6EP 2016-2017"},{"title":"Prova competència matemàtica avaluació final d'etapa 6è d'EP curs 2016-2017.","url":"../documentos/proves/PFE_CMAT_6EP_2016_2017.zip","img":"../img/general/zip_img.png","description":"Prova final d'etapa CMAT 6EP 2016-2017"},{"title":"Prova competència ciència i tecnologia avaluació final d'etapa 6è d'EP curs 2016-2017.","url":"../documentos/proves/PFE_CMAT_6EP_2016_2017.zip","img":"../img/general/zip_img.png","description":"Prova final d'etapa CBCT 6EP 2016-2017"},{"title":"Prova competència en comunicació lingüística en llengua anglesa avaluació final d'etapa 6è d'EP curs 2016-2017.","url":"../documentos/proves/PFE_CCLA_6EP_2016_2017.zip","img":"../img/general/zip_img.png","description":"Prova final d'etapa CCLA 6EP 2016-2017"},{"title":"Prova final d'etapa competència en comunicació lingüística en llengua catalana avaluació final d'etapa 6è d'EP curs 2016-2017.","url":"../documentos/proves/PFE_CCLC_6EP_2016_2017.zip","img":"../img/general/zip_img.png","description":"Prova final d'etapa CCLC 6EP 2016-2017"},{"title":"Prova competència en comunicació lingüística en llengua castellana avaluació final d'etapa 6è d'EP curs 2016-2017.","url":"../documentos/proves/PFE_CCLE_6EP_2016_2017.zip","img":"../img/general/zip_img.png","description":"Prova final d'etapa CCLE 6EP 2016-2017"}]},{"title":"Avaluació final d'etapa del 4t curs d'ESO 2016-2017","tag":"ESO","documents":[{"title":"Informe Executiu Avaluació final etapa 4ESO 2016-2017.","url":"../documentos/publicacions/Informe_Executiu_4ESO_2016_2017.pdf","img":"../img/publicacions/Informe_Executiu_4ESO_2016_2017.jpg","description":"Informe Executiu Avaluació final etapa 4ESO 2016-2017"},{"title":"Prova competència matemàtica aplicada avaluació final d'etapa 4t d'ESO curs 2016-2017.","url":"../documentos/proves/PFE_CMAC_4ESO_2016_2017.zip","img":"../img/general/zip_img.png","description":"Prova final d'etapa CMAC 4tESO 2016-2017"},{"title":"Prova competència matemàtica acadèmica avaluació final d'etapa 4t d'ESO curs 2016-2017.","url":"../documentos/proves/PFE_CMAP_4ESO_2016_2017.zip","img":"../img/general/zip_img.png","description":"Prova final d'etapa CMAP 4tESO 2016-2017"},{"title":"Prova competència en comunicació lingüística en llengua anglesa avaluació final d'etapa 4t d'ESO curs 2016-2017.","url":"../documentos/proves/PFE_CCLA_4ESO_2016_2017.zip","img":"../img/general/zip_img.png","description":"Prova final d'etapa CCLA 4tESO 2016-2017"},{"title":"Prova competència en comunicació lingüística en llengua catalana avaluació final d'etapa 4t d'ESO curs 2016-2017.","url":"../documentos/proves/PFE_CCLC_4ESO_2016_2017.zip","img":"../img/general/zip_img.png","description":"Prova final d'etapa CCLC 4tESO 2016-2017"},{"title":"Prova competència en comunicació lingüística en llengua castellana avaluació final d'etapa 4t d'ESO curs 2016-2017.","url":"../documentos/proves/PFE_CCLE_4ESO_2016_2017.zip","img":"../img/general/zip_img.png","description":"Prova final d'etapa CCLE 4tESO 2016-2017"},{"title":"Prova competència social i cívica avaluació final d'etapa 4t d'ESO curs 2016-2017.","url":"../documentos/proves/PFE_CSiC_4ESO_2016_2017.zip","img":"../img/general/zip_img.png","description":"Prova final d'etapa CSiC 4tESO 2016-2017"}]}];
+app.controller("finaletapaController", function ($scope) {
+    $scope.avaluacions = [];
+    $scope.nivells = [
+        { label: "Tots els nivells", value: "" }, 
+        { label: "6è EP", value: "6e" }, 
+        { label: "4t ESO", value: "4t" }
+    ];
+
+    $scope.selectedNivell = $scope.nivells[0];
+
+    $scope.chooseNivell = function(index){
+        $scope.selectedNivell = $scope.nivells[index];
+        $scope.search();
+    };
+
+    $scope.search = function () {
+        var list = [];
+                
+            for (var i = 0, len = avaJSON.length; i < len; i++) {
+                var item = avaJSON[i];
+                var title = item.title.replace("6è", "6e");
+                if (!$scope.selectedNivell.value || title.indexOf($scope.selectedNivell.value) >= 0) {
+                    item.chunks = chunker(item.documents, 2);
+                    list.push(item);
+                }
+            }
+             
+        $scope.avaluacions = list;
+    };
+
+    $scope.search();
+
+});
+</script>

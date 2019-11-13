@@ -1,0 +1,80 @@
+<div ng-controller="mainController">
+<div class="btn-group" role="group" aria-label="Tipus d'indicador">
+        <button type="button" class="btn" ng-click="select(menuItem)"
+            ng-class="menuItem.selected?'btn-primary':'btn-secondary'" ng-repeat="menuItem in menuItems">
+            <span ng-bind="menuItem.label"></span>
+        </button> 
+</div>
+
+<hr />
+<p ng-if="pubslength==0">No s'han trobat indicadors</p>
+<p ng-if="pubslength==1">S'ha trobat un indicador</p>
+<p ng-if="pubslength>1">S'han trobat <span ng-bind="pubslength"></span> indicadors</p>
+<hr />
+
+<div class="list-group">
+    <div class="row" ng-repeat="chunk in pubs">
+    <div class="col-md-6 list-group-item list-group-item-hover" ng-repeat="pub in chunk">
+        <div class="fa-pull-left">
+            <i ng-if="pub.destacat" class="fa fa-star"></i>
+            <a href="../{{pub.url}}" target="_blank">
+                <img ng-src="../{{pub.img}}" class="publication-img" />
+            </a>
+        </div>
+
+        <p class="publication-title"><a href="../{{pub.url}}" target="_blank" ng-bind="pub.title"></a></p>
+        <p ng-bind="pub.description"></p>
+        <p class="fa-pull-right publication-date" ng-bind="pub.pubdate"></p>
+
+    </div>
+</div>
+</div>
+</div>
+
+<script>
+    var chunker = function(arr, chunkSize) {
+            var R = [];
+            for (var i=0,len=arr.length; i<len; i+=chunkSize)
+                R.push(arr.slice(i,i+chunkSize));
+            return R;
+    };
+    var indicadorsJSON=<%-JSON.stringify(indicadors)%>; 
+    app.controller("mainController", function($scope){
+        
+        $scope.pubs = [];
+        $scope.pubslength = 0;
+
+        $scope.menuItems = [
+            {label: "Sistema educatiu IB", value: "ISEIB", selected: true},
+            {label: "Resultats acadèmics", value: "RESULTATS", selected: false},
+        ];
+
+        $scope.select = function(item) {
+            for(var i=0, len=$scope.menuItems.length; i<len; i++) {
+                $scope.menuItems[i].selected = false;
+            }
+            item.selected = true;
+            $scope.display();
+        };
+
+        $scope.display = function() {
+            var list = [];
+            for(var i=0, len=indicadorsJSON.length; i<len; i++) {
+                var pub = indicadorsJSON[i];
+                 var show = true;
+                for(var k=0, len2=$scope.menuItems.length; k<len2; k++){
+                    if($scope.menuItems[k].selected) {
+                        show &= pub.tag == $scope.menuItems[k].value;
+                    }
+                }
+                if(show){
+                    list.push(pub);
+                }
+            }
+            $scope.pubslength = list.length;
+            $scope.pubs = chunker(list, 2); 
+        };
+
+        $scope.display();
+    });
+</script>

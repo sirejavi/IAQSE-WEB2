@@ -1,0 +1,70 @@
+<div class="row">
+    <div class="col-md-6">
+        <div id="carouselIndicators" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+                <% inici.carousel.forEach( (item, idx) => { %>
+                <li data-target="#carouselIndicators" data-slide-to="<%=idx%>" <% if(idx==0) { %>class="active"<% } %> ></li>
+                <% }) %> 
+            </ol>
+            <div class="carousel-inner">
+                <% inici.carousel.forEach( (item, idx) => { %>
+                <div class="carousel-item <% if(idx==0) { %>active<% } %>">
+                    <img class="d-block w-100" src="../<%=item.img%>" alt="Imatge <%=idx+1%>">
+                    <% if(item.title || item.description) { %>
+                    <% if(item.url) {%>
+                        <a href="<%=item.url%>" target="<%=item.target?item.target:''%>">
+                    <% } %>
+                    <div class="carousel-caption" style="background: rgba(100,100,100,0.5);">
+                        <% if(item.title) { %>
+                        <h5 style="font-family: Arial, Helvetica, sans-serif;"><%=item.title%></h5>
+                        <% } %>
+                        <% if(item.description) { %>
+                            <p style="text-align: center;"><%=item.description%></p>
+                        <% } %>
+                    </div>
+                    <% if(item.url) {%>
+                        </a>
+                    <% } %>
+
+                    <% } %>
+                </div> 
+            <% }) %> 
+            </div>
+            <a class="carousel-control-prev" href="#carouselIndicators" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Anterior</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselIndicators" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Següent</span>
+            </a>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <h4 style="margin-top: 5px;"><i class="fa fa-star btn-warning"></i>Destacats</h4>
+        <div class="list-group panel-destacats">
+        <!--destacats definits per usuari-->
+        <% inici.destacats.forEach( item => { %>
+            <div class="list-group-item-hover list-group-item clearfix btn-warning">
+                <a href="<%=item.url%>" target="_blank">
+                    <% if(item.img) { %>
+                    <img src="../<%=item.img%>" class="float-left" style="height:50px;margin-right:10px"/>
+                    <% } %>
+                    <p><%=item.title%></p>
+                </a>
+            </div>
+        <% }) %>
+        <!--Destacats generats automàticament-->
+        <% destacats.forEach( item => { %>
+            <div class="list-group-item-hover list-group-item clearfix">
+                <a href="<%=item.url%>" target="_blank">
+                    <% if(item.img) { %>
+                    <img src="../<%=item.img%>" class="float-left" style="height:50px;margin-right:10px"/>
+                    <% } %>
+                    <p style="text-align: left;"><%=item.title%></p>
+                </a>
+            </div>
+        <% }) %>
+    </div>
+    </div>
+</div>

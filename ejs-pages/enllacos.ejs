@@ -1,0 +1,60 @@
+<div ng-controller="mainController">
+
+    <!--Tipus d'enllaç-->
+    <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" 
+        aria-haspopup="true" aria-expanded="false" style="white-space: normal;">
+          {{selectedType.type}}
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <% enllacos.forEach( (groupType, i) => { %>
+                <a class="dropdown-item" ng-click="chooseType(<%=i%>);" style="cursor: pointer;">
+                    <i class="fas fa-circle" style="font-size: 50%; vertical-align: middle;"></i>
+                    <%=groupType.type%>
+                </a>
+            <% }) %>
+        </div>
+    </div> 
+    <hr />
+    <p ng-if="selectedType.length==0">No s'han trobat enllaços</p>
+    <p ng-if="selectedType.length==1">S'ha trobat un enllaç</p>
+    <p ng-if="selectedType.length>1">S'han trobat <span ng-bind="selectedType.length"></span> enllaços</p>
+    <hr />
+
+    <div ng-if="selectedType!=null" class="container-fluid">
+         
+        <div class="row" ng-repeat="chk in selectedType.list">
+        <div class="list-group-item list-group-item-hover col-md-6" ng-repeat="pub in chk">           
+            <div class="fa-pull-left"> 
+                <a href="{{pub.url}}" title="{{pub.url_title}}" target="_blank"> 
+                      <img ng-src="../{{pub.img}}" title="{{pub.img_title}}" class="enllacos-img"/>               
+                </a>
+            </div>            
+            <a href="{{pub.url}}" title="{{pub.url_title}}" target="_blank"> 
+                 <p  class="enllacos-title" ng-bind="pub.description"></p>
+            </a>         
+        </div> 
+        </div>
+
+    </div>
+    </div>
+    <script>
+        var chunker = function(arr, chunkSize) {
+                var R = [];
+                for (var i=0,len=arr.length; i<len; i+=chunkSize) {
+                    R.push(arr.slice(i,i+chunkSize));
+                }
+                return R;
+        };
+        var enllacosJSON = <%-JSON.stringify(enllacos)%>;
+        for(var i=0, len=enllacosJSON.length; i< len; i++) {
+            enllacosJSON[i].length = enllacosJSON[i].list.length;
+            enllacosJSON[i].list = chunker(enllacosJSON[i].list, 2);
+        }
+        app.controller("mainController", function($scope){
+            $scope.chooseType = function(i) {
+                $scope.selectedType = window.enllacosJSON[i];
+            };
+            $scope.chooseType(0);           
+        });
+    </script>

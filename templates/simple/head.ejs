@@ -1,0 +1,69 @@
+  <meta charset="iso-8859-1">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="Institut d'avaluació i qualitat del sistema educatiu">
+  <meta name="author" content="iaqse@iaqse.caib.es">
+	<meta name="language" content="cat" />
+  
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+	<meta name="robots" content="index,follow">
+	<meta name="document-classification" content="Education">
+	<meta name="document-type" content="Public">
+	<meta name="document-rating" content="Safe for Kids">
+	  
+	<link rel="icon" href="../css/img/favicon.ico" type="image/x-icon">
+	<link rel="shortcut icon" type="image/x-icon" href="../css/img/favicon.ico">	 
+	 
+
+  <title>IAQSE</title>
+  
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css">
+  <!-- Custom styles for this template -->
+  <link href="/css/layout.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+  
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.8/angular.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.8/angular-route.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.8/angular-animate.min.js"></script>
+<script>
+  window.app = angular.module("iaqse", ["ngRoute", "ngAnimate"]);
+  window.app.config(function($controllerProvider, $provide, $compileProvider) {
+    // Since the "shorthand" methods for component
+    // definitions are no longer valid, we can just
+    // override them to use the providers for post-
+    // bootstrap loading.
+    // Let's keep the older references.
+    app._controller = app.controller;
+    app._service = app.service;
+    app._factory = app.factory;
+    app._value = app.value;
+    app._directive = app.directive;
+    app.controller = function(name, constructor) {
+      $controllerProvider.register(name, constructor);
+      return (this);
+    };
+    // Provider-based service.
+    app.service = function(name, constructor) {
+      $provide.service(name, constructor);
+      return (this);
+    };
+    // Provider-based factory.
+    app.factory = function(name, factory) {
+      $provide.factory(name, factory);
+      return (this);
+    };
+    // Provider-based value.
+    app.value = function(name, value) {
+      $provide.value(name, value);
+      return (this);
+    };
+    // Provider-based directive.
+    app.directive = function(name, factory) {
+      $compileProvider.directive(name, factory);
+      return (this);
+    };
+  });
+</script>

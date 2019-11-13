@@ -1,0 +1,14 @@
+<div class="container-fluid">
+        <% chunk(normativa, 2).forEach( chk => { %>
+        <div class="row">
+            <% chk.forEach( norm => { %>   
+            <div class="list-group-item list-group-item-hover col-md-6">           
+                    <a href="../<%=norm.url%>" target="_blank">
+                        <img src="../<%=norm.img%>" width="80px" class="fa-pull-left enllacos-img"/>
+                        <p class="enllacos-title"><%=norm.title%></p>
+                    </a>                 
+            </div>
+            <% }) %> 
+        </div>
+        <% }) %> 
+</div>
