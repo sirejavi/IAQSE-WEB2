@@ -39,22 +39,20 @@
     </div>
     </div>
     <script>
-        var chunker = function(arr, chunkSize) {
-                var R = [];
-                for (var i=0,len=arr.length; i<len; i+=chunkSize) {
-                    R.push(arr.slice(i,i+chunkSize));
-                }
-                return R;
-        };
-        var enllacosJSON = <%-JSON.stringify(enllacos)%>;
-        for(var i=0, len=enllacosJSON.length; i< len; i++) {
-            enllacosJSON[i].length = enllacosJSON[i].list.length;
-            enllacosJSON[i].list = chunker(enllacosJSON[i].list, 2);
-        }
-        app.controller("mainController", function($scope){
+        
+        
+        app.controller("mainController", ["$scope","httpService", function($scope, httpService){
             $scope.chooseType = function(i) {
                 $scope.selectedType = window.enllacosJSON[i];
             };
-            $scope.chooseType(0);           
-        });
+            httpService.loadSchema("enllacos").then(function(response){
+                enllacosJSON = response.data;
+                for(var i=0, len=enllacosJSON.length; i< len; i++) {
+                    enllacosJSON[i].length = enllacosJSON[i].list.length;
+                    enllacosJSON[i].list = chunker(enllacosJSON[i].list, 2);
+                }
+                $scope.chooseType(0);           
+            });
+            
+        }]);
     </script>

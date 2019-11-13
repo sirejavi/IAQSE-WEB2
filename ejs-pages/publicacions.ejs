@@ -54,8 +54,7 @@
         </div>
     </div>
 </div>
-<script>
-    var pubJSON = <%-JSON.stringify(publicacions) %>;
+<script> 
     app.service("PubService", function () {
         var service = {};
         service.findByTags = function (tags) {
@@ -140,7 +139,7 @@
             return str;
         }
     });
-    app.controller("mainController", function ($scope, PubService) {
+    app.controller("mainController", ["$scope", "PubService", "httpService", function ($scope, PubService, httpService) {
         var now = new Date().getFullYear();
         $scope.years = {
             activaCercaAny: false,
@@ -170,7 +169,7 @@
                 $scope.pubs = PubService.search(tags ? tags.split(",") : null, $scope.searchText);
             }
         }
-        $scope.listByTag(0);
+       
         $scope.search = function () {
             var tags = $scope.selectedTag.tagList;
             if($scope.years.activaCercaAny) {
@@ -196,5 +195,10 @@
                 $scope.pubs = PubService.search(tags ? tags.split(",") : null, $scope.searchText);
             }
         } 
-    });
+
+        httpService.loadSchema("publicacions").then(function(response){
+            pubJSON = response.data;
+            $scope.listByTag(0);
+        });
+    }]);
 </script>

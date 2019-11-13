@@ -57,14 +57,7 @@
     </div>
 </div>
 <script>
-    var chunker = function(arr, chunkSize) {
-            var R = [];
-            for (var i=0,len=arr.length; i<len; i+=chunkSize)
-                R.push(arr.slice(i,i+chunkSize));
-            return R;
-    };
-    var provesJSON = <%-JSON.stringify(proves)%>;
-    app.controller("mainController", ["$scope", "$filter", function ($scope, $filter) {
+    app.controller("mainController", ["$scope", "$filter", "httpService", function ($scope, $filter, httpService) {
         $scope.pubs = [];
         $scope.pubslength = 0;
 
@@ -76,7 +69,7 @@
             ];
         $scope.competencies = [
             {label: "Competència Llengua Anglesa", value: "CCLA"},
-            {label: "Comptència Llengua Castellana", value: "CCLE"},
+            {label: "Competència Llengua Castellana", value: "CCLE"},
             {label: "Competència Llengua Catalana", value: "CCLC"},
             {label: "Competència Matemàtica", value: "CMAT"},
             {label: "Competència Ciència i Tecnologia", value: "CCiT"}            
@@ -141,13 +134,18 @@
             $scope.pubslength = list.length;
             $scope.pubs = chunker(list, 2);
         };
- 
-        $scope.determinaAnys();
 
         $scope.keypress = function (keyEvent) {
             if (keyEvent.which === 13) {
                 $scope.search();
             }
         }; 
+        
+        httpService.loadSchema("proves").then(function(response){
+            window.provesJSON = response.data;
+            $scope.determinaAnys();
+        })
+        
+
     }]);
 </script>

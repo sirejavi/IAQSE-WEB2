@@ -31,15 +31,8 @@
 </div>
 </div>
 
-<script>
-    var chunker = function(arr, chunkSize) {
-            var R = [];
-            for (var i=0,len=arr.length; i<len; i+=chunkSize)
-                R.push(arr.slice(i,i+chunkSize));
-            return R;
-    };
-    var indicadorsJSON=<%-JSON.stringify(indicadors)%>; 
-    app.controller("mainController", function($scope){
+<script>     
+    app.controller("mainController", ["$scope", "httpService", function($scope, httpService){
         
         $scope.pubs = [];
         $scope.pubslength = 0;
@@ -75,6 +68,9 @@
             $scope.pubs = chunker(list, 2); 
         };
 
-        $scope.display();
-    });
+        httpService.loadSchema("indicadors").then(function(response){
+            indicadorsJSON = response.data;
+            $scope.display();
+        });
+    }]);
 </script>
