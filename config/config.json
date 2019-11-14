@@ -7,6 +7,7 @@
          "minify": true,
          "inputs": [
             "./assets/js/jquery-3.2.1.min.js",
+            "./assets/js/jqTree.js",
             "./assets/js/angular.min.js",
             "./assets/js/angular-route.min.js"
          ]
@@ -19,7 +20,7 @@
             "./assets/js/angular-animate.min.js",
             "./assets/js/popper.min.js",
             "./assets/js/bootstrap.min.js",
-            "./assets/js/scrolltotop.js"
+            "./assets/js/scrolltotop.js"           
          ]
       },
       {

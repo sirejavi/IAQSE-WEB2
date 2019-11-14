@@ -266,7 +266,82 @@
         </ol>
         </nav>
         <div class="row">
-    <div class="col-md-6">
+    <div class="col-xl-2 d-none d-xl-block">
+        <div class="alert alert-primary"><h5><i class="fa fa-compass"></i> Navegació</h5></div>
+
+        <ul id="tree1">
+                
+                    <li><a href="index.html">Inici</a>
+                        
+                    </li>
+                
+                    <li><a href="quisom.html">Qui som</a>
+                        
+                        <ul>
+                            
+                                <li><a href="quisom.html#!/index">Index</a>
+                                    
+                                </li>
+                            
+                                <li><a href="quisom.html#!/personal">Personal</a>
+                                    
+                                </li>
+                            
+                                <li><a href="quisom.html#!/funcions">Funcions</a>
+                                    
+                                </li>
+                            
+                                <li><a href="quisom.html#!/legislacio">Legislació</a>
+                                    
+                                </li>
+                              
+                        </ul>
+                        
+                    </li>
+                
+                    <li><a href="avaluacions.html">Avaluacions</a>
+                        
+                        <ul>
+                            
+                                <li><a href="avaluacions.html#!/index">Index</a>
+                                    
+                                        <ul>
+                                        
+                                            <li><a href="avaluacions.html#!/final_etapa">Avaluacions final d&#39;etapa</a>
+                                        
+                                            <li><a href="avaluacions.html#!/diagnostic">Avaluacions de diagnòstic</a>
+                                        
+                                            <li><a href="avaluacions.html#!/internacionals">Avaluacions internacionals</a>
+                                        
+                                            <li><a href="avaluacions.html#!/altres">Altres avaluacions</a>
+                                        
+                                        </ul>
+                                    
+                                </li>
+                              
+                        </ul>
+                        
+                    </li>
+                
+                    <li><a href="publicacions.html">Publicacions</a>
+                        
+                    </li>
+                
+                    <li><a href="indicadors.html">Indicadors</a>
+                        
+                    </li>
+                
+                    <li><a href="enllacos.html">Enllaços</a>
+                        
+                    </li>
+                
+                    <li><a href="proves.html">Proves</a>
+                        
+                    </li>
+                 
+            </ul>
+    </div> 
+    <div class="col-md-6 col-xl-6">
         <div id="carouselIndicators" class="carousel slide" data-ride="carousel">
             <ol class="carousel-indicators">
                 
@@ -375,19 +450,34 @@
                 <span class="sr-only">Següent</span>
             </a>
         </div>
+        <br>
+        <div class="alert alert-primary"><h5><i class="fa fa-address-card"></i> Presentació</h5></div>
+       
+<p>L'Institut d'Avaluació i Qualitat del Sistema Educatiu de les Illes Balears -IAQSE- és l'òrgan de coordinació,
+    de consulta i tècnic de la Conselleria d'Educació i Universitat, que actua sota la dependència directa de la
+    Direcció General de Planificació, Ordenació i Centres, amb l'objectiu de dur a terme tasques d'anàlisi i
+    avaluació externa del sistema educatiu de les Illes Balears.</p>
+    
+    <p>Aquest Institut és també l'òrgan encarregat de proporcionar informació rellevant sobre el grau de qualitat
+    del sistema educatiu de les Illes Balears a l'Administració educativa, als òrgans de participació institucional,
+    als diferents sectors de la comunitat educativa i a la societat en general.</p>
+    
     </div>
-    <div class="col-md-6">
-        <h4 style="margin-top: 5px;"><i class="fa fa-star btn-warning"></i>Destacats</h4>
-        <div class="list-group panel-destacats">
+    <div class="col-md-6 col-xl-4">
+        <div class="alert alert-primary"><h5 style="margin-top: 5px;"><i class="fa fa-star"></i> Destacats</h5></div>
+        <div class="list-group">
         <!--destacats definits per usuari-->
         
-            <div class="list-group-item-hover list-group-item clearfix btn-warning">
+            <div class="list-group-item-hover list-group-item clearfix">
+                <div class=" alert alert-warning">
                 <a href="https://apps.caib.es/gesavafront/" target="_blank">
                     
                     <img src="../img/gesava.png" class="float-left" style="height:50px;margin-right:10px"/>
                     
                     <p>GESAVA</p>
+                    <p style="font-size: 90%;">Programa de gestió de les avaluacions</p>
                 </a>
+            </div>
             </div>
         
         <!--Destacats generats automàticament-->
@@ -430,7 +520,13 @@
         
     </div>
     </div>
-</div></main>
+</div>
+
+<script>
+    $(function(){
+        $('#tree1').treed();
+    });
+</script></main>
 </div>
 <footer class="py-1" style="width:100%; margin:0">
 <div class="container-fluid">

@@ -1,5 +1,30 @@
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-xl-2 d-none d-xl-block">
+        <div class="alert alert-primary"><h5><i class="fa fa-compass"></i> Navegació</h5></div>
+
+        <ul id="tree1">
+                <% routes.pages.forEach( page => { %>
+                    <li><a href="<%=page.url%>.html"><%=page.title%></a>
+                        <% if(page.views && page.views.length) { %>
+                        <ul>
+                            <% page.views.forEach( view => { %>
+                                <li><a href="<%=page.url%>.html#!/<%=view.url%>"><%=view.title%></a>
+                                    <% if(view.views && view.views.length) { %>
+                                        <ul>
+                                        <% view.views.forEach( view2 => { %>
+                                            <li><a href="<%=page.url%>.html#!/<%=view2.url%>"><%=view2.title%></a>
+                                        <% }) %>
+                                        </ul>
+                                    <% } %>
+                                </li>
+                            <% }) %>  
+                        </ul>
+                        <% } %>
+                    </li>
+                <% }) %> 
+            </ul>
+    </div> 
+    <div class="col-md-6 col-xl-6">
         <div id="carouselIndicators" class="carousel slide" data-ride="carousel">
             <ol class="carousel-indicators">
                 <% inici.carousel.forEach( (item, idx) => { %>
@@ -39,19 +64,34 @@
                 <span class="sr-only">Següent</span>
             </a>
         </div>
+        <br>
+        <div class="alert alert-primary"><h5><i class="fa fa-address-card"></i> Presentació</h5></div>
+       
+<p>L'Institut d'Avaluació i Qualitat del Sistema Educatiu de les Illes Balears -IAQSE- és l'òrgan de coordinació,
+    de consulta i tècnic de la Conselleria d'Educació i Universitat, que actua sota la dependència directa de la
+    Direcció General de Planificació, Ordenació i Centres, amb l'objectiu de dur a terme tasques d'anàlisi i
+    avaluació externa del sistema educatiu de les Illes Balears.</p>
+    
+    <p>Aquest Institut és també l'òrgan encarregat de proporcionar informació rellevant sobre el grau de qualitat
+    del sistema educatiu de les Illes Balears a l'Administració educativa, als òrgans de participació institucional,
+    als diferents sectors de la comunitat educativa i a la societat en general.</p>
+    
     </div>
-    <div class="col-md-6">
-        <h4 style="margin-top: 5px;"><i class="fa fa-star btn-warning"></i>Destacats</h4>
-        <div class="list-group panel-destacats">
+    <div class="col-md-6 col-xl-4">
+        <div class="alert alert-primary"><h5 style="margin-top: 5px;"><i class="fa fa-star"></i> Destacats</h5></div>
+        <div class="list-group">
         <!--destacats definits per usuari-->
         <% inici.destacats.forEach( item => { %>
-            <div class="list-group-item-hover list-group-item clearfix btn-warning">
+            <div class="list-group-item-hover list-group-item clearfix">
+                <div class=" alert alert-warning">
                 <a href="<%=item.url%>" target="_blank">
                     <% if(item.img) { %>
                     <img src="../<%=item.img%>" class="float-left" style="height:50px;margin-right:10px"/>
                     <% } %>
                     <p><%=item.title%></p>
+                    <p style="font-size: 90%;"><%=item.description%></p>
                 </a>
+            </div>
             </div>
         <% }) %>
         <!--Destacats generats automàticament-->
@@ -68,3 +108,9 @@
     </div>
     </div>
 </div>
+
+<script>
+    $(function(){
+        $('#tree1').treed();
+    });
+</script>
