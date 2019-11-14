@@ -1,3 +1,36 @@
 {
-   "encoding": "latin1"
+   "encoding": "latin1",
+   "bundles": [
+      {
+         "type": "js",
+         "output": "iaqse_bundle1.min",
+         "minify": true,
+         "inputs": [
+            "./assets/js/jquery-3.2.1.min.js",
+            "./assets/js/angular.min.js",
+            "./assets/js/angular-route.min.js"
+         ]
+      },
+      {
+         "type": "js",
+         "output": "iaqse_bundle2.min",
+         "minify": true,
+         "inputs": [ 
+            "./assets/js/angular-animate.min.js",
+            "./assets/js/popper.min.js",
+            "./assets/js/bootstrap.min.js",
+            "./assets/js/scrolltotop.js"
+         ]
+      },
+      {
+         "type": "css",
+         "output": "iaqse_bundle.min",
+         "minify": true,
+         "inputs": [
+            "./assets/css/bootstrap.min.css",
+            "./assets/css/monserrat.css",
+            "./assets/css/layout.css"
+         ]
+      }
+   ]
 }

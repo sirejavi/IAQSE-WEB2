@@ -12,7 +12,10 @@ const fs = require("fs");
 const path = require("path");
 const utils = require("./utils");
 
-let dirPub = "./cat/publicacions/publicacions.html";
+let readFrom = "./cat";  // old files before changes
+//let readFrom = "./static/cat" // new files, new structure
+
+let dirPub = readFrom + "/publicacions/publicacions.html";
 let pubs = fs.readFileSync(path.resolve(dirPub), "latin1");
 let $ = cheerio.load(pubs);
 
@@ -69,7 +72,7 @@ let enllacos = [];
 
 let ubicacions = [];
 for(let i=1; i<=8; i++) {
-    ubicacions.push("./cat/enllacos/enllacos_"+i+".html");
+    ubicacions.push(readFrom + "/enllacos/enllacos_"+i+".html");
 }
 
 ubicacions.forEach( (dirPub) => {
@@ -108,7 +111,7 @@ fs.writeFileSync("./database/enllacos.json", JSON.stringify(enllacos, null, 4));
 
 //************************************************************************************************ */
 
-dirPub = "./cat/quisom/personal.html";
+dirPub =readFrom + "/quisom/personal.html";
 file = fs.readFileSync(path.resolve(dirPub), "latin1");
 $ = cheerio.load(file);
 const personal = [];
@@ -136,7 +139,7 @@ fs.writeFileSync("./database/personal.json", JSON.stringify(personal, null, 4));
 
 //************************************************************************************************ */
 
-dirPub = "./cat/quisom/normativa.html";
+dirPub = readFrom + "/quisom/normativa.html";
 file = fs.readFileSync(path.resolve(dirPub), "latin1");
 $ = cheerio.load(file);
 const normativa = [];
@@ -162,7 +165,7 @@ fs.writeFileSync("./database/normativa.json", JSON.stringify(normativa, null, 4)
 //************************************************************************************************ */
 
 const nivells = ["2nESO", "3rEP", "4tEP", "4tESO", "6eEP"];
-ubicacions = nivells.map(str => "./cat/proves/proves"+str+".html");
+ubicacions = nivells.map(str => readFrom + "/proves/proves"+str+".html");
 const proves = [];
 
 ubicacions.forEach( (dirPub, i) => {
@@ -272,31 +275,31 @@ function avaluacioProcessor(dirPub) {
 }
 
  
-dirPub = "./cat/avaluacions/finaletapa/ava_finaletapa.html";
+dirPub = readFrom + "/avaluacions/finaletapa/ava_finaletapa.html";
 var finaletapa_avaluacions = avaluacioProcessor(dirPub);
 fs.writeFileSync("./database/finaletapa_avaluacions.json", JSON.stringify(finaletapa_avaluacions, null, 4));
 
 //************************************************************************************************ */
  
-dirPub = "./cat/avaluacions/diagnostic/diagnostic.html";
+dirPub = readFrom + "/avaluacions/diagnostic/diagnostic.html";
 var diagnostic_avaluacions = avaluacioProcessor(dirPub);
 fs.writeFileSync("./database/diagnostic_avaluacions.json", JSON.stringify(diagnostic_avaluacions, null, 4));
 
 //************************************************************************************************ */
  
-dirPub = "./cat/avaluacions/altres/altres.html";
+dirPub = readFrom + "/avaluacions/altres/altres.html";
 var altres_avaluacions = avaluacioProcessor(dirPub);
 fs.writeFileSync("./database/altres_avaluacions.json", JSON.stringify(altres_avaluacions, null, 4));
 
 //************************************************************************************************ */
  
-dirPub = "./cat/avaluacions/pisa/pisa.html";
+dirPub = readFrom + "/avaluacions/pisa/pisa.html";
 var pisa_avaluacions = avaluacioProcessor(dirPub);
 fs.writeFileSync("./database/pisa_avaluacions.json", JSON.stringify(pisa_avaluacions, null, 4));
 
 //*************************************************************************************************/
 
-dirPub = "./cat/avaluacions/primaria/ava_primaria.html";
+dirPub = readFrom + "/avaluacions/primaria/ava_primaria.html";
 var primaria_avaluacions = avaluacioProcessor(dirPub);
 fs.writeFileSync("./database/primaria_avaluacions.json", JSON.stringify(primaria_avaluacions, null, 4));
 
@@ -304,7 +307,7 @@ fs.writeFileSync("./database/primaria_avaluacions.json", JSON.stringify(primaria
 
 //************************************************************************************************ INDICADORS */
 // COMBINAR INDICADORS AMB PUBLICACIONS DE TIPUS INDICADORS I EVITAR DUPLICATS
-dirPub = "./cat/indicadors/indicadors.html";
+dirPub = readFrom + "/indicadors/indicadors.html";
 file = fs.readFileSync(path.resolve(dirPub), "latin1");
 $ = cheerio.load(file);
 let indicadors = [];

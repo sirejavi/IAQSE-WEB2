@@ -240,10 +240,12 @@ a>.enllacos-title {
 [data-toggle="collapse"].collapsed .fa:before {
     content: "\f13a";
 }
-
 .dropdown-menu {
     max-height: 300px !important;
     overflow-y: auto !important;
+}
+.dropdown-item {
+    cursor: pointer;
 }
 .panel-destacats {
     max-height: 300px; 
@@ -264,12 +266,12 @@ a>.enllacos-title {
         width: 70px;
     }
     .logo-left {
-        margin-left:10px; 
-        max-height: 80px;
+        margin-left:5px; 
+        max-height: 70px;
     }
     .logo-right {
-         margin-right:10px; 
-         max-height: 80px;
+         margin-right:5px; 
+         max-height: 70px;
     }
     .panel-destacats {
         max-height: initial; 
