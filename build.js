@@ -85,7 +85,7 @@ database.chunk = function (arr, chunkSize) {
 // Treim les publicacions més noves (aquesta base no s'ha d'editar a ma, per això el JSON no està formatat)
 database.destacats = [];
 // Agafa les tres primeres publicacions (suposa que estan ordenades!)
-[0, 1, 2, 3].forEach((idx) => {
+[0, 1, 2, 3, 4].forEach((idx) => {
     const pub = database.publicacions[idx];
     database.destacats.push({
         title: pub.title,

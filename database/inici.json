@@ -1,18 +1,12 @@
 {
     "destacats": [
-        {
-            "title": "GESAVA",
-            "description": "Programa de gestió de les avaluacions",
-            "url": "https://apps.caib.es/gesavafront/",
-            "img": "img/gesava.png"
-        }
     ],
     "carousel": [
         {
             "img": "img/carousel/0.png",
             "url": "https://apps.caib.es/gesavafront/",
             "target": "_blank",
-            "title": "GESAVA",
+            "title": "Accés GESAVA",
             "description": "Programa de gestió de les avaluacions"
         },
         {
