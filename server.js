@@ -15,6 +15,8 @@ app.use((req, res, next) => { //change app.all to app.use here and remove '*', i
     res.set("Content-Type", "text/html; charset=iso-8859-1");
   } else if(req.originalUrl.endsWith(".svg")) {
     res.set("Content-Type", "text/xml; charset=iso-8859-1");
+  } else if(req.originalUrl.endsWith(".json")) {
+    res.set("Content-Type", "application/json; charset=iso-8859-1");
   }
   next();
 });

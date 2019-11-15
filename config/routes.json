@@ -63,7 +63,8 @@
                             "title": "Avaluacions internacionals",
                             "ejs": "avaluacions/avaluacions_internacionals",
                             "url": "internacionals" ,
-                            "controller": "internacionals"
+                            "controller": "internacionals",
+                            "img": "img/avaluacions/globe.png"
                         },
                         {
                             "title": "Altres avaluacions",
