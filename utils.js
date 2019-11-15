@@ -2,7 +2,7 @@
 const path = require("path");
 const fs = require("fs");
 const ejs = require("ejs");
-let utils = {};
+let utils = {}; 
 const encoding = require("./config/config.json").encoding || "utf8";
 
 utils.isObject = function(a) {

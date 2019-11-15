@@ -60,7 +60,7 @@ dbFiles.forEach(file => {
     // Ho escriu al directori static però en format comprimit per reduir la mida de l'ajax
     fs.writeFileSync(path.join("./static", baseUrl, "database/" + name + ".json"),
         JSON.stringify(database[name]),
-        { encoding: "utf-8" });
+        { encoding: encoding});
 
 
     let information = " ";
