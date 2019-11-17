@@ -5,7 +5,7 @@
 <li class="breadcrumb-item"><a href="#!index">Index</a></li>
 <li class="breadcrumb-item active">Avaluacions de diagnòstic</li>
 </ol>
-</nav><!--comboNivell-->
+</nav>
 <div class="btn-group" title="Nivell de la prova" style="margin-left:5px">
         <button class="btn btn-secondary dropdown-toggle" type="button" id="nivellCombo" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fa fa-tags"></i> <span ng-bind="selectedNivell.label"></span></button>
@@ -19,9 +19,9 @@
 <p ng-if="avaluacions.length>1">S'han trobat <span ng-bind="avaluacions.length"></span> avaluacions</p>
 <hr>
 
-<!--accordion avaluacions-->
+
 <div id="accordion"> 
-        <!--Desplegable amb els seus documents-->
+        
         <div class="card" ng-repeat="ava in avaluacions">
             <div class="card-header" id="heading{{$index}}">
                 <button class="btn-link collapsed" data-toggle="collapse" data-target="#collapseAva{{$index}}" style="text-decoration:none;border:none;cursor:pointer">
@@ -30,7 +30,7 @@
             </div>
 
             <div id="collapseAva{{$index}}" class="collapse" data-parent="#accordion" aria-labelledby="heading{{$index}}">
-                <!--list documents--> 
+                 
                 <div class="row" ng-repeat="chk in ava.chunks">
                     <div class="col-md-6 list-group-item list-group-item-hover" ng-repeat="doc in chk">
                         <a href="../{{doc.url}}" target="_blank">

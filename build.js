@@ -152,7 +152,7 @@ routes.pages.forEach((page) => {
     if (page.views && page.views.length > 0) {
         fileStr += `
     <script>
-            app.config(function ($routeProvider) {
+            app.config(["$routeProvider", function ($routeProvider) {
                         $routeProvider`;
 
         page.views.forEach(view => {
@@ -164,7 +164,7 @@ routes.pages.forEach((page) => {
                     redirectTo: '/${page.views[0].url}' 
                 });
                 
-            });
+            }]);
     </script>`;
     }
 
@@ -187,7 +187,7 @@ routes.pages.forEach((page) => {
     let rendered = ejs.render(pageTemplate, database, { filename: templateLocation, name: "layout" });
     console.log("\tWriting html page into ", htmlPath);
     if(config.minify_html) {
-        rendered = htmlMinifier(rendered, {minifyJS: true, minifyCSS: true});
+        rendered = htmlMinifier(rendered, {minifyJS: true, minifyCSS: true, removeComments: true});
     }
     fs.writeFileSync(htmlPath, rendered, { encoding: encoding });
 

@@ -112,7 +112,7 @@ utils.compileView = function(view, database) {
     const htmlPath = path.join("./static", database.routes.baseurl, "view_" + view.parent.url + "_" + view.url + ".html");
     console.log("\t\tWriting html view into ", htmlPath);
     if(config.minify_html) {
-        rendered = htmlMinifier(rendered, {minifyJS: true, minifyCSS: true});
+        rendered = htmlMinifier(rendered, {minifyJS: true, minifyCSS: true, removeComments: true});
     }
     fs.writeFileSync(htmlPath, rendered, {encoding: encoding});
 

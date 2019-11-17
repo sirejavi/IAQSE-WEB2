@@ -44,7 +44,7 @@
             };
             return service;            
   }]);
-  window.app.config(function($controllerProvider, $provide, $compileProvider) {
+  window.app.config(["$controllerProvider", "$provide", "$compileProvider", function($controllerProvider, $provide, $compileProvider) {
     // Since the "shorthand" methods for component
     // definitions are no longer valid, we can just
     // override them to use the providers for post-
@@ -79,5 +79,5 @@
       $compileProvider.directive(name, factory);
       return (this);
     };
-  });
+  }]);
 </script>
