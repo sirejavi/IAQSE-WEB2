@@ -64,7 +64,7 @@
             </a>
           </li>
           
-          <li class="nav-item active">
+          <li class="nav-item">
             <a class="nav-link" href="indicadors.html" title="">Indicadors
             </a>
           </li>
@@ -79,7 +79,7 @@
             </a>
           </li>
           
-          <li class="nav-item">
+          <li class="nav-item active">
             <a class="nav-link" href="edu.html" title="Racó educatiu IAQSE">Edu
             </a>
           </li>
@@ -285,44 +285,10 @@
 <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="index.html"><i class="fas fa-home"></i></a></li> 
-          <li class="breadcrumb-item active"> Indicadors </li>  
+          <li class="breadcrumb-item active"> Racó educatiu IAQSE </li>  
         </ol>
         </nav>
-        <div ng-controller="mainController">
-    <div class="btn-group" role="group" aria-label="Tipus d'indicador">
-        <button type="button" class="btn" ng-click="select(menuItem)" ng-class="menuItem.selected?'btn-primary':'btn-secondary'" ng-repeat="menuItem in menuItems">
-            <span ng-bind="menuItem.label"></span>
-        </button>
-    </div>
-
-    <hr>
-    <p ng-if="pubslength==0">No s'han trobat indicadors</p>
-    <p ng-if="pubslength==1">S'ha trobat un indicador</p>
-    <p ng-if="pubslength>1">S'han trobat <span ng-bind="pubslength"></span> indicadors</p>
-    <hr>
-
-    <div class="list-group">
-        <div class="row" ng-repeat="chunk in pubs">
-            <div class="col-md-6 list-group-item list-group-item-hover" ng-repeat="pub in chunk">
-                <div style="display:flex;align-items:center">
-                    <div style="width:150px;float:left">
-                        <i ng-if="pub.destacat" class="fa fa-star"></i>
-                        <a href="../{{pub.url}}" target="_blank">
-                            <img ng-src="../{{pub.img}}" class="publication-img">
-                        </a>
-                    </div>
-                    <div style="float:left">
-                        <p><a href="../{{pub.url}}" target="_blank" ng-bind="pub.title"></a></p>
-                        <p ng-bind="pub.description"></p>
-                        <p class="fa-pull-right publication-date" ng-bind="pub.pubdate"></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<script>app.controller("mainController",["$scope","httpService",function(u,e){u.pubs=[],u.pubslength=0,u.menuItems=[{label:"Sistema educatiu IB",value:"ISEIB",selected:!0},{label:"Resultats acadèmics",value:"RESULTATS",selected:!1}],u.select=function(e){for(var t=0,n=u.menuItems.length;t<n;t++)u.menuItems[t].selected=!1;e.selected=!0,u.display()},u.display=function(){for(var e=[],t=0,n=indicadorsJSON.length;t<n;t++){for(var s=indicadorsJSON[t],l=!0,a=0,c=u.menuItems.length;a<c;a++)u.menuItems[a].selected&&(l&=s.tag==u.menuItems[a].value);l&&e.push(s)}u.pubslength=e.length,u.pubs=chunker(e,2)},e.loadSchema("indicadors").then(function(e){indicadorsJSON=e.data,u.display()})}])</script></main>
+        </main>
                 </div>
             </div>
                 <footer class="py-1" style="width:100%;margin:0">

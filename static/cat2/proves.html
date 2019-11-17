@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html lang="ca">
-<head>
-      <meta charset="iso-8859-1">
+
+    <head>
+          <meta charset="iso-8859-1">
   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
   <meta name="description" content="Institut d'avaluació i qualitat del sistema educatiu">
   <meta name="author" content="iaqse@iaqse.caib.es">
-	<meta name="language" content="cat" />
+	<meta name="language" content="cat">
   
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
 	<meta name="robots" content="index,follow">
 	<meta name="document-classification" content="Education">
@@ -25,75 +26,17 @@
   <script src="iaqse_bundle1.min.js"></script> 
   
 
-<script>
-  window.chunker = function(arr, chunkSize) {
-      var R = [];
-      for (var i=0,len=arr.length; i<len; i+=chunkSize)
-           R.push(arr.slice(i,i+chunkSize));
-      return R;
-  }; 
-  window.app = angular.module("iaqse", ["ngRoute", "ngAnimate"]);
-  app.service("httpService", ["$http", function($http){            
-            var service  = {
-                loadSchema: function(tableSchema){
-                  var request = {
-                      method: 'get',
-                      url: 'database/' + tableSchema + '.json',
-                      dataType: 'json',
-                      contentType: "application/json; charset=iso-8859-1"
-                  };
-                  return $http(request);
-                }
-            };
-            return service;            
-  }]);
-  window.app.config(function($controllerProvider, $provide, $compileProvider) {
-    // Since the "shorthand" methods for component
-    // definitions are no longer valid, we can just
-    // override them to use the providers for post-
-    // bootstrap loading.
-    // Let's keep the older references.
-    app._controller = app.controller;
-    app._service = app.service;
-    app._factory = app.factory;
-    app._value = app.value;
-    app._directive = app.directive;
-    app.controller = function(name, constructor) {
-      $controllerProvider.register(name, constructor);
-      return (this);
-    };
-    // Provider-based service.
-    app.service = function(name, constructor) {
-      $provide.service(name, constructor);
-      return (this);
-    };
-    // Provider-based factory.
-    app.factory = function(name, factory) {
-      $provide.factory(name, factory);
-      return (this);
-    };
-    // Provider-based value.
-    app.value = function(name, value) {
-      $provide.value(name, value);
-      return (this);
-    };
-    // Provider-based directive.
-    app.directive = function(name, factory) {
-      $compileProvider.directive(name, factory);
-      return (this);
-    };
-  });
-</script>
-</head>
-<body>
+<script>window.chunker=function(e,t){for(var n=[],r=0,p=e.length;r<p;r+=t)n.push(e.slice(r,r+t));return n},window.app=angular.module("iaqse",["ngRoute","ngAnimate"]),app.service("httpService",["$http",function(t){return{loadSchema:function(e){return t({method:"get",url:"database/"+e+".json",dataType:"json",contentType:"application/json; charset=iso-8859-1"})}}}]),window.app.config(function(n,r,p){app._controller=app.controller,app._service=app.service,app._factory=app.factory,app._value=app.value,app._directive=app.directive,app.controller=function(e,t){return n.register(e,t),this},app.service=function(e,t){return r.service(e,t),this},app.factory=function(e,t){return r.factory(e,t),this},app.value=function(e,t){return r.value(e,t),this},app.directive=function(e,t){return p.directive(e,t),this}})</script>
+    </head>
 
-<header>
-      <nav class="navbar navbar-expand-md navbar-dark fixed-top gradient" style="background-color: #003366 !important;">
+    <body>
+        <div style="max-width:1500px;margin:auto">
+        <header>
+              <nav class="navbar navbar-expand-md navbar-dark fixed-top gradient" style="background-color:#036!important">
     <div class="container">
       <a class="navbar-brand" href="index.html">
-        <img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+CjxzdmcKICAgeG1sbnM6ZGM9Imh0dHA6Ly9wdXJsLm9yZy9kYy9lbGVtZW50cy8xLjEvIgogICB4bWxuczpjYz0iaHR0cDovL2NyZWF0aXZlY29tbW9ucy5vcmcvbnMjIgogICB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiCiAgIHhtbG5zOnN2Zz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciCiAgIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIKICAgdmVyc2lvbj0iMS4xIgogICBpZD0ic3ZnMiIKICAgdmlld0JveD0iMCAwIDEzMy45Njc1OCAxNDcuODk2NTEiCiAgIGhlaWdodD0iNDEuNzM5NjgxbW0iCiAgIHdpZHRoPSIzNy44MDg2MjhtbSI+CiAgPGRlZnMKICAgICBpZD0iZGVmczQiIC8+CiAgPG1ldGFkYXRhCiAgICAgaWQ9Im1ldGFkYXRhNyI+CiAgICA8cmRmOlJERj4KICAgICAgPGNjOldvcmsKICAgICAgICAgcmRmOmFib3V0PSIiPgogICAgICAgIDxkYzpmb3JtYXQ+aW1hZ2Uvc3ZnK3htbDwvZGM6Zm9ybWF0PgogICAgICAgIDxkYzp0eXBlCiAgICAgICAgICAgcmRmOnJlc291cmNlPSJodHRwOi8vcHVybC5vcmcvZGMvZGNtaXR5cGUvU3RpbGxJbWFnZSIgLz4KICAgICAgICA8ZGM6dGl0bGU+PC9kYzp0aXRsZT4KICAgICAgPC9jYzpXb3JrPgogICAgPC9yZGY6UkRGPgogIDwvbWV0YWRhdGE+CiAgPGcKICAgICB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtNS4zMjk1ODcxLC0yLjgwNjIyOSkiCiAgICAgaWQ9ImxheWVyMSI+CiAgICA8cGF0aAogICAgICAgc3R5bGU9ImZpbGw6IzQ1Njk4ZSIKICAgICAgIGQ9Im0gMTA1LjIxOTU5LDE0OS40MzUxMSBjIC00LjkxODU1LC0xLjc1ODE1IC0xMC4xMzg5MiwtNS45MDg5OSAtMTMuNDYxNjEsLTEwLjcwMzY0IGwgLTIuNzc5ODQsLTQuMDExMzIgLTMuMDg0MTcsMC43OTMwNCBjIC0xLjY5NjMsMC40MzYxNiAtOC4yNTkxOCwwLjc4NTcyIC0xNC41ODQxOCwwLjc3Njc4IEMgNjEuMTcyOTEsMTM2LjI3NTY3IDU5LjA2NTU1LDEzNS45NjIwOSA1My41MzEsMTMzLjY0NDU5IDM5LjE0MTY5LDEyNy42MTkzIDI3LjgwMTgsMTE4LjE5ODEyIDE2LjI0MjYzLDEwMi42NjU0MSA0LjU3Mzc1LDg2Ljk4NTI4NSAzLjE0NTYzLDgwLjQ5ODAxNSA3LjgxNTI5LDY0LjM4NDAxMyAxNC43MjE1MSw0MC41NTIwNzkgMjYuNTA0ODcsMjUuMjY1MTgyIDQzLjA2Njc3LDE4LjY1MTI1MSBjIDUuMDQzODksLTIuMDE0MjU5IDcuMzg2NDYsLTIuMjgzNTExIDE5LjI0MzAyLC0yLjIxMTc2OCA3LjQyNSwwLjA0NDkzIDE0LjgyNTkzLDAuNTA5MjY1IDE2LjQ0NjUyLDEuMDMxODYgbCAyLjk0NjUyLDAuOTUwMTc0IC0yMC44OTk0OSw4LjkyMzc0NCBjIC0yMi42Nzk1NCw5LjY4MzggLTI5LjkwNTMsMTMuNzk4NjQyIC0zNS44NTYyMiwyMC40MTg5NzYgLTUuNjA3NDEsNi4yMzgxNzkgLTcuOTEzOTMsMTIuMTQyMzkzIC04LjQyNzY2LDIxLjU3MzA1MiAtMC43NTM3MiwxMy44MzYyMDYgNC4wNzcxNCwyOC40MjQzNzYgMTIuMzgzODksMzcuMzk2NjUxIDExLjQzNzgxLDEyLjM1NDIgMzUuNTMzOTcsMjAuNTk2NzggNTEuMTA3LDE3LjQ4MjE4IGwgMi45NTA1NSwtMC41OTAxMSAtMS45MjA0NywtNS45MzAxNSAtMS45MjA0NywtNS45MzAxNCAtMy40Mzk4OCwzLjAyMDI2IGMgLTMuNDg5NTYsMy4wNjM4NyAtOC4wMjIzNSwzLjk2ODE5IC05Ljk5NjIzLDEuOTk0MyAtMS4xNDMzMywtMS4xNDMzMiAxNi4xMDg3MiwtMTkuNDExNzQ1IDE3LjUxMjQ3LC0xOC41NDQxODUgMC40MzkzNCwwLjI3MTUzIDMuNjI5MDYsNC43ODU4OTUgNy4wODgyNywxMC4wMzE5MTUgMy40NTkyLDUuMjQ2MDIgNi43OTg1MSw5LjUzODIyIDcuNDIwNjgsOS41MzgyMiAyLjM5ODQ3LDAgMTIuNDU1NDQsLTcuNjc5MDYgMjAuMTg3MTQsLTE1LjQxMzk5IEMgMTM4LjMwMzcsODEuOTcyMzc1IDEzNy4wODE2OSw2My4yMDk2NzggMTEzLjk0NjQzLDQxLjgwNjIyOSAxMDkuNDg3NjcsMzcuNjgxMjI5IDk5Ljc4OTU1LDI4LjM4ODExNyA5Mi4zOTUwNSwyMS4xNTQ4NyBMIDc4Ljk1MDUxLDguMDAzNTExIDgwLjY1MzIsNS40MDQ4NyBjIDAuOTM2NDgsLTEuNDI5MjUzIDIuNDUzNjUsLTIuNTk4NjQxIDMuMzcxNDgsLTIuNTk4NjQxIDIuMzI2MDgsMCAxMy45NzEzOSw3LjA2MjUzMSAyMS40OTQzNSwxMy4wMzU2OCAyMS45NjU4MSwxNy40NDA2MjMgMzQuNTk3MjUsNDQuNjc3NjEzIDMzLjYxMjQ1LDcyLjQ3ODA1NiAtMC4zMTE4Myw4LjgwMzA0IC0wLjY5MzE1LDEwLjU5MTIxIC0zLjE1MzksMTQuNzkwMTU1IC0zLjA1NTA4LDUuMjEzMSAtMTIuODUxNTUsMTMuNTI4NjMgLTI0LjQ0MTA3LDIwLjc0NjMgLTMuOTI5ODEsMi40NDc0IC03LjE2MzQ3LDQuOTIyMTIgLTcuMTg1OTEsNS40OTk0MiAtMC4wNjg4LDEuNzY5MjEgOS4yMjA0NCwxMi42NjY1MiAxMy43MjgxNywxNi4xMDQ2OSBsIDQuMjU0NjgsMy4yNDUxNiAtMy43NjE4MywxLjA0NDY5IGMgLTQuOTA2NzMsMS4zNjI2NCAtOC45MjMyOSwxLjI2NzggLTEzLjM1MjAzLC0wLjMxNTI3IHogTSA2MC44MDk3OSw4OC44NDAzNTUgYyAtNS4wMTc2MiwtMi40MTA4OSAtNy42NzEwMywtNC43MjM3NSAtMTAuOTMxNzYsLTkuNTI4NzEgLTYuMTk0MzMsLTkuMTI3ODUgLTAuNjg3ODYsLTE2LjY4NDI5MyAxOS4wNDc0NiwtMjYuMTM4NTI2IDUuMDEzNjQsLTIuNDAxNzg5IDkuNjQxMSwtNC4zNjY4OSAxMC4yODMyNSwtNC4zNjY4OSAyLjEyMjg0LDAgMTAuNjY0MTQsNC43ODk0NDMgMTMuODUyMDUsNy43NjczOTcgMy42NjQ1NSwzLjQyMzIwNSA0LjczNzc0LDYuODEzODg0IDMuNzc3MjEsMTEuOTMzOTI4IC0wLjUyMjMsMi43ODQxMTUgLTIuNDgxODcsNS40NzgxNDEgLTcuOTk0MTYsMTAuOTkwNDMxIC0xMC45NDk1NSwxMC45NDk1NSAtMTkuMDYyMzYsMTMuNjUzMTUgLTI4LjAzNDA1LDkuMzQyMzcgeiIKICAgICAgIGlkPSJwYXRoMzQ0OSIgLz4KICAgIDxwYXRoCiAgICAgICBzdHlsZT0iZmlsbDojY2IzMzAxIgogICAgICAgZD0ibSAxMDMuNzMyMDcsMTQ4LjM4Nzc5IGMgLTQuMDk1MTQsLTEuNzgzMTcgLTkuODUzNDgsLTYuOTI1MTcgLTEyLjQzNzU5LC0xMS4xMDYzNCBsIC0yLjA5MiwtMy4zODQ5MiAtMi42OTYzNCwxLjA4MTY1IGMgLTQuMDMwNzYsMS42MTY5NSAtMjEuODU2NjYsMS41NjQ3IC0yNy42OTYzNSwtMC4wODEyIEMgNDcuOTM3MjUsMTMxLjgzMjYzIDM1LjY3MzIxLDEyNC4xMDUxNSAyNi42NzY1MywxMTQuNjUwMDYgMjAuNTgxNDUsMTA4LjI0NDQgMTEuNDcyODYsOTYuMDQ2MTQ1IDguNTA4NDEsOTAuMzE5MjU1IDQuNjU1OCw4Mi44NzY1NzUgNC45NDg4Nyw3My41MjgwNzUgOS40NDkzLDYwLjMwNjE4OSAxNy40NTI1NywzNi43OTMyMDIgMjkuMjQ3NDMsMjMuMzY5NTk1IDQ2LjUyNTM3LDE4LjExMDI4NCBjIDUuNjY4NzYsLTEuNzI1NTQgMjQuMjcxODEsLTIuMDUzOTA1IDMwLjc1NTUyLC0wLjU0Mjg3IGwgMy40NzExLDAuODA4OTQ0IC0yMC45NTU3OCw4Ljk0NzcyMSBDIDMxLjUzOTQ1LDM5LjM4OTIyNSAyNC42MjA2Myw0NC4yMzEyODYgMTkuMjE5NzcsNTUuNzIxMTIgYyAtNC44NjY2OSwxMC4zNTM0MzQgLTQuNzgxOTUsMjEuMTI1Njg1IDAuMjc5NjQsMzUuNTQ5ODA1IDUuNTgwMTcsMTUuOTAxOTI1IDE2LjUzOTc0LDI1LjQyODQwNSAzNi4xNjU3MSwzMS40MzY2MzUgNy4wMDk0LDIuMTQ1ODIgMjMuNzM0MTIsMi45NjQxOSAyNi4zNjg5LDEuMjkwMjYgMC45NDg3MSwtMC42MDI3NCAwLjg0NjQ5LC0yLjAwNTg3IC0wLjQ1NDIxLC02LjIzNDY5IC0wLjkyMzEzLC0zLjAwMTI5IC0xLjc2OTY4LC01LjYwMjU1IC0xLjg4MTIxLC01Ljc4MDU2IC0wLjExMTUzLC0wLjE3ODAxIC0yLjExMjE1LDEuMDU5NDkgLTQuNDQ1ODMsMi43NSAtNC40MzI0NCwzLjIxMDg0IC03Ljc0NjgyLDMuODY5ODEgLTkuNjkwMDMsMS45MjY2IC0wLjg2MjcyLC0wLjg2MjczIC0wLjIwNjM5LC0xLjgyODQ1IDIuNjQ3OTIsLTMuODk2MDkgMi4wODcyMywtMS41MTE5OCA1LjU1MDksLTQuOTMzMzIgNy42OTcwNCwtNy42MDI5NSA0LjAxNSwtNC45OTQzNCA1LjM4NzcsLTYuMzEyMDQ1IDYuNjAzMjIsLTYuMzM4NTg1IDAuMzg1NjIsLTAuMDA4IDMuNzI4MzYsNC4zNzIxNzUgNy40MjgzMSw5LjczNDY3NSAzLjY5OTk1LDUuMzYyNTEgNi44NjY1NSw5LjkzMjExIDcuMDM2ODksMTAuMTU0NjkgMC41NDU3NiwwLjcxMzEzIDEzLjY1NDc0LC04LjQ1Mzk1IDE5LjA0NTkxLC0xMy4zMTg3NyA1Ljg0NTk4LC01LjI3NTIxIDEzLjM5NDU0LC0xNi4xMTU0MjUgMTUuMjYzNSwtMjEuOTE5MzQ1IDIuMDUxMDIsLTYuMzY5MjggMC45NjgwNCwtMTcuMjIwMDUgLTIuNDExOTgsLTI0LjE2NjU2NiBDIDEyNS43Mzc3OCw1Mi44NjE3MTMgMTE5Ljk5MjIxLDQ2Ljc4MDg4NyA5NC41NTI0NSwyMi45ODI1MDMgNzkuNjcyMTQsOS4wNjIyNzEgNzcuODQ5NzUsNi4xOTMxNyA4Mi4zNTYyOCwzLjc4MTM0NyBjIDEuNjg3MTcsLTAuOTAyOTQ3IDMuMTU2MywtMC40NzQ2MTQgOC4zNjczMSwyLjQzOTU1IDI2LjI0NzQyLDE0LjY3ODM5NSA0MS44NTU2NiwzNi42NDMxNzkgNDcuMDIwMzEsNjYuMTY5NjA5IDMuNDYwMjcsMTkuNzgyNDg5IDEuMzg5LDI4Ljc3NzA3NCAtOC43NDUyOCwzNy45NzY2NjQgLTYuMTYzNDksNS41OTUwMyAtMjIuOTc1ODMsMTcuNDM5MDYgLTI0Ljc1NDM2LDE3LjQzOTA2IC0wLjUxMzk2LDAgLTAuOTM0NDcsMC40MDU0MSAtMC45MzQ0NywwLjkwMDkyIDAsMS44ODMwOCA5LjExODE0LDEyLjkyMzU4IDEzLjQ3OTgyLDE2LjMyMTczIDMuNTIzMTUsMi43NDQ4NiA0LjE5MzM5LDMuNjg4NzcgMi45NTYzNCw0LjE2MzQ3IC0yLjgyMTA4LDEuMDgyNTUgLTEyLjgzNTUyLDAuNTc5NDIgLTE2LjAxMzg4LC0wLjgwNDU1IHogTSA2MC44MDk3OSw4OC44NDAzNTUgYyAtNS4wMTc2MiwtMi40MTA4OSAtNy42NzEwMywtNC43MjM3NSAtMTAuOTMxNzYsLTkuNTI4NzEgLTYuMTk0MzMsLTkuMTI3ODUgLTAuNjg3ODYsLTE2LjY4NDI5MyAxOS4wNDc0NiwtMjYuMTM4NTI2IDUuMDEzNjQsLTIuNDAxNzg5IDkuNjQxMSwtNC4zNjY4OSAxMC4yODMyNSwtNC4zNjY4OSAyLjEyMjg0LDAgMTAuNjY0MTQsNC43ODk0NDMgMTMuODUyMDUsNy43NjczOTcgMy42NjQ1NSwzLjQyMzIwNSA0LjczNzc0LDYuODEzODg0IDMuNzc3MjEsMTEuOTMzOTI4IC0wLjUyMjMsMi43ODQxMTUgLTIuNDgxODcsNS40NzgxNDEgLTcuOTk0MTYsMTAuOTkwNDMxIC0xMC45NDk1NSwxMC45NDk1NSAtMTkuMDYyMzYsMTMuNjUzMTUgLTI4LjAzNDA1LDkuMzQyMzcgeiIKICAgICAgIGlkPSJwYXRoMzQ0NyIgLz4KICAgIDxwYXRoCiAgICAgICBzdHlsZT0iZmlsbDojZmZmZmZmO3N0cm9rZTojMDAwMGZmIgogICAgICAgZD0ibSAxMDMuNzMyMDcsMTQ4LjM4Nzc5IGMgLTQuMDk1MTQsLTEuNzgzMTcgLTkuODUzNDgsLTYuOTI1MTcgLTEyLjQzNzU5LC0xMS4xMDYzNCBsIC0yLjA5MiwtMy4zODQ5MiAtMi42OTYzNCwxLjA4MTY1IGMgLTQuMDMwNzYsMS42MTY5NSAtMjEuODU2NjYsMS41NjQ3IC0yNy42OTYzNSwtMC4wODEyIEMgNDcuOTM3MjUsMTMxLjgzMjYzIDM1LjY3MzIxLDEyNC4xMDUxNSAyNi42NzY1MywxMTQuNjUwMDYgMjAuNTgxNDUsMTA4LjI0NDQgMTEuNDcyODYsOTYuMDQ2MTQ1IDguNTA4NDEsOTAuMzE5MjU1IDQuNjU1OCw4Mi44NzY1NzUgNC45NDg4Nyw3My41MjgwNzUgOS40NDkzLDYwLjMwNjE4OSAxNy40NTI1NywzNi43OTMyMDIgMjkuMjQ3NDMsMjMuMzY5NTk1IDQ2LjUyNTM3LDE4LjExMDI4NCBjIDUuNjY4NzYsLTEuNzI1NTQgMjQuMjcxODEsLTIuMDUzOTA1IDMwLjc1NTUyLC0wLjU0Mjg3IGwgMy40NzExLDAuODA4OTQ0IC0yMC45NTU3OCw4Ljk0NzcyMSBDIDMxLjUzOTQ1LDM5LjM4OTIyNSAyNC42MjA2Myw0NC4yMzEyODYgMTkuMjE5NzcsNTUuNzIxMTIgYyAtNC44NjY2OSwxMC4zNTM0MzQgLTQuNzgxOTUsMjEuMTI1Njg1IDAuMjc5NjQsMzUuNTQ5ODA1IDUuNTgwMTcsMTUuOTAxOTI1IDE2LjUzOTc0LDI1LjQyODQwNSAzNi4xNjU3MSwzMS40MzY2MzUgNy4wMDk0LDIuMTQ1ODIgMjMuNzM0MTIsMi45NjQxOSAyNi4zNjg5LDEuMjkwMjYgMC45NDg3MSwtMC42MDI3NCAwLjg0NjQ5LC0yLjAwNTg3IC0wLjQ1NDIxLC02LjIzNDY5IC0wLjkyMzEzLC0zLjAwMTI5IC0xLjc2OTY4LC01LjYwMjU1IC0xLjg4MTIxLC01Ljc4MDU2IC0wLjExMTUzLC0wLjE3ODAxIC0yLjExMjE1LDEuMDU5NDkgLTQuNDQ1ODMsMi43NSAtNC40MzI0NCwzLjIxMDg0IC03Ljc0NjgyLDMuODY5ODEgLTkuNjkwMDMsMS45MjY2IC0wLjg2MjcyLC0wLjg2MjczIC0wLjIwNjM5LC0xLjgyODQ1IDIuNjQ3OTIsLTMuODk2MDkgMi4wODcyMywtMS41MTE5OCA1LjU1MDksLTQuOTMzMzIgNy42OTcwNCwtNy42MDI5NSA0LjAxNSwtNC45OTQzNCA1LjM4NzcsLTYuMzEyMDQ1IDYuNjAzMjIsLTYuMzM4NTg1IDAuMzg1NjIsLTAuMDA4IDMuNzI4MzYsNC4zNzIxNzUgNy40MjgzMSw5LjczNDY3NSAzLjY5OTk1LDUuMzYyNTEgNi44NjY1NSw5LjkzMjExIDcuMDM2ODksMTAuMTU0NjkgMC41NDU3NiwwLjcxMzEzIDEzLjY1NDc0LC04LjQ1Mzk1IDE5LjA0NTkxLC0xMy4zMTg3NyA1Ljg0NTk4LC01LjI3NTIxIDEzLjM5NDU0LC0xNi4xMTU0MjUgMTUuMjYzNSwtMjEuOTE5MzQ1IDIuMDUxMDIsLTYuMzY5MjggMC45NjgwNCwtMTcuMjIwMDUgLTIuNDExOTgsLTI0LjE2NjU2NiBDIDEyNS43Mzc3OCw1Mi44NjE3MTMgMTE5Ljk5MjIxLDQ2Ljc4MDg4NyA5NC41NTI0NSwyMi45ODI1MDMgNzkuNjcyMTQsOS4wNjIyNzEgNzcuODQ5NzUsNi4xOTMxNyA4Mi4zNTYyOCwzLjc4MTM0NyBjIDEuNjg3MTcsLTAuOTAyOTQ3IDMuMTU2MywtMC40NzQ2MTQgOC4zNjczMSwyLjQzOTU1IDI2LjI0NzQyLDE0LjY3ODM5NSA0MS44NTU2NiwzNi42NDMxNzkgNDcuMDIwMzEsNjYuMTY5NjA5IDMuNDYwMjcsMTkuNzgyNDg5IDEuMzg5LDI4Ljc3NzA3NCAtOC43NDUyOCwzNy45NzY2NjQgLTYuMTYzNDksNS41OTUwMyAtMjIuOTc1ODMsMTcuNDM5MDYgLTI0Ljc1NDM2LDE3LjQzOTA2IC0wLjUxMzk2LDAgLTAuOTM0NDcsMC40MDU0MSAtMC45MzQ0NywwLjkwMDkyIDAsMS44ODMwOCA5LjExODE0LDEyLjkyMzU4IDEzLjQ3OTgyLDE2LjMyMTczIDMuNTIzMTUsMi43NDQ4NiA0LjE5MzM5LDMuNjg4NzcgMi45NTYzNCw0LjE2MzQ3IC0yLjgyMTA4LDEuMDgyNTUgLTEyLjgzNTUyLDAuNTc5NDIgLTE2LjAxMzg4LC0wLjgwNDU1IHoiCiAgICAgICBpZD0icGF0aDM0NDUiIC8+CiAgICA8Zmxvd1Jvb3QKICAgICAgIHN0eWxlPSJmb250LXN0eWxlOm5vcm1hbDtmb250LXdlaWdodDpub3JtYWw7Zm9udC1zaXplOjQwcHg7bGluZS1oZWlnaHQ6MTI1JTtmb250LWZhbWlseTpzYW5zLXNlcmlmO3RleHQtYWxpZ246ZW5kO2xldHRlci1zcGFjaW5nOjBweDt3b3JkLXNwYWNpbmc6MHB4O3RleHQtYW5jaG9yOmVuZDtmaWxsOiMwMDAwMDA7ZmlsbC1vcGFjaXR5OjE7c3Ryb2tlOm5vbmU7c3Ryb2tlLXdpZHRoOjFweDtzdHJva2UtbGluZWNhcDpidXR0O3N0cm9rZS1saW5lam9pbjptaXRlcjtzdHJva2Utb3BhY2l0eToxIgogICAgICAgaWQ9ImZsb3dSb290MzU1MCIKICAgICAgIHhtbDpzcGFjZT0icHJlc2VydmUiPjxmbG93UmVnaW9uCiAgICAgICAgIGlkPSJmbG93UmVnaW9uMzU1MiI+PHJlY3QKICAgICAgICAgICB5PSIxOTYuNTI4OSIKICAgICAgICAgICB4PSIxOTcuMTg1ODciCiAgICAgICAgICAgaGVpZ2h0PSIxNDAuMDEzNjMiCiAgICAgICAgICAgd2lkdGg9IjE1Mi4yNjQ4MiIKICAgICAgICAgICBpZD0icmVjdDM1NTQiIC8+PC9mbG93UmVnaW9uPjxmbG93UGFyYQogICAgICAgICBpZD0iZmxvd1BhcmEzNTU2Ij48L2Zsb3dQYXJhPjwvZmxvd1Jvb3Q+ICA8L2c+Cjwvc3ZnPgo="
-              style="height: 35px;" title="IAQSE"/>
-        <b class="d-md-none d-xl-inline" style="color:rgb(255,70,70); font-family: Arial, Helvetica, sans-serif;">IAQSE</b>
+        <img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+CjxzdmcKICAgeG1sbnM6ZGM9Imh0dHA6Ly9wdXJsLm9yZy9kYy9lbGVtZW50cy8xLjEvIgogICB4bWxuczpjYz0iaHR0cDovL2NyZWF0aXZlY29tbW9ucy5vcmcvbnMjIgogICB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiCiAgIHhtbG5zOnN2Zz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciCiAgIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIKICAgdmVyc2lvbj0iMS4xIgogICBpZD0ic3ZnMiIKICAgdmlld0JveD0iMCAwIDEzMy45Njc1OCAxNDcuODk2NTEiCiAgIGhlaWdodD0iNDEuNzM5NjgxbW0iCiAgIHdpZHRoPSIzNy44MDg2MjhtbSI+CiAgPGRlZnMKICAgICBpZD0iZGVmczQiIC8+CiAgPG1ldGFkYXRhCiAgICAgaWQ9Im1ldGFkYXRhNyI+CiAgICA8cmRmOlJERj4KICAgICAgPGNjOldvcmsKICAgICAgICAgcmRmOmFib3V0PSIiPgogICAgICAgIDxkYzpmb3JtYXQ+aW1hZ2Uvc3ZnK3htbDwvZGM6Zm9ybWF0PgogICAgICAgIDxkYzp0eXBlCiAgICAgICAgICAgcmRmOnJlc291cmNlPSJodHRwOi8vcHVybC5vcmcvZGMvZGNtaXR5cGUvU3RpbGxJbWFnZSIgLz4KICAgICAgICA8ZGM6dGl0bGU+PC9kYzp0aXRsZT4KICAgICAgPC9jYzpXb3JrPgogICAgPC9yZGY6UkRGPgogIDwvbWV0YWRhdGE+CiAgPGcKICAgICB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtNS4zMjk1ODcxLC0yLjgwNjIyOSkiCiAgICAgaWQ9ImxheWVyMSI+CiAgICA8cGF0aAogICAgICAgc3R5bGU9ImZpbGw6IzQ1Njk4ZSIKICAgICAgIGQ9Im0gMTA1LjIxOTU5LDE0OS40MzUxMSBjIC00LjkxODU1LC0xLjc1ODE1IC0xMC4xMzg5MiwtNS45MDg5OSAtMTMuNDYxNjEsLTEwLjcwMzY0IGwgLTIuNzc5ODQsLTQuMDExMzIgLTMuMDg0MTcsMC43OTMwNCBjIC0xLjY5NjMsMC40MzYxNiAtOC4yNTkxOCwwLjc4NTcyIC0xNC41ODQxOCwwLjc3Njc4IEMgNjEuMTcyOTEsMTM2LjI3NTY3IDU5LjA2NTU1LDEzNS45NjIwOSA1My41MzEsMTMzLjY0NDU5IDM5LjE0MTY5LDEyNy42MTkzIDI3LjgwMTgsMTE4LjE5ODEyIDE2LjI0MjYzLDEwMi42NjU0MSA0LjU3Mzc1LDg2Ljk4NTI4NSAzLjE0NTYzLDgwLjQ5ODAxNSA3LjgxNTI5LDY0LjM4NDAxMyAxNC43MjE1MSw0MC41NTIwNzkgMjYuNTA0ODcsMjUuMjY1MTgyIDQzLjA2Njc3LDE4LjY1MTI1MSBjIDUuMDQzODksLTIuMDE0MjU5IDcuMzg2NDYsLTIuMjgzNTExIDE5LjI0MzAyLC0yLjIxMTc2OCA3LjQyNSwwLjA0NDkzIDE0LjgyNTkzLDAuNTA5MjY1IDE2LjQ0NjUyLDEuMDMxODYgbCAyLjk0NjUyLDAuOTUwMTc0IC0yMC44OTk0OSw4LjkyMzc0NCBjIC0yMi42Nzk1NCw5LjY4MzggLTI5LjkwNTMsMTMuNzk4NjQyIC0zNS44NTYyMiwyMC40MTg5NzYgLTUuNjA3NDEsNi4yMzgxNzkgLTcuOTEzOTMsMTIuMTQyMzkzIC04LjQyNzY2LDIxLjU3MzA1MiAtMC43NTM3MiwxMy44MzYyMDYgNC4wNzcxNCwyOC40MjQzNzYgMTIuMzgzODksMzcuMzk2NjUxIDExLjQzNzgxLDEyLjM1NDIgMzUuNTMzOTcsMjAuNTk2NzggNTEuMTA3LDE3LjQ4MjE4IGwgMi45NTA1NSwtMC41OTAxMSAtMS45MjA0NywtNS45MzAxNSAtMS45MjA0NywtNS45MzAxNCAtMy40Mzk4OCwzLjAyMDI2IGMgLTMuNDg5NTYsMy4wNjM4NyAtOC4wMjIzNSwzLjk2ODE5IC05Ljk5NjIzLDEuOTk0MyAtMS4xNDMzMywtMS4xNDMzMiAxNi4xMDg3MiwtMTkuNDExNzQ1IDE3LjUxMjQ3LC0xOC41NDQxODUgMC40MzkzNCwwLjI3MTUzIDMuNjI5MDYsNC43ODU4OTUgNy4wODgyNywxMC4wMzE5MTUgMy40NTkyLDUuMjQ2MDIgNi43OTg1MSw5LjUzODIyIDcuNDIwNjgsOS41MzgyMiAyLjM5ODQ3LDAgMTIuNDU1NDQsLTcuNjc5MDYgMjAuMTg3MTQsLTE1LjQxMzk5IEMgMTM4LjMwMzcsODEuOTcyMzc1IDEzNy4wODE2OSw2My4yMDk2NzggMTEzLjk0NjQzLDQxLjgwNjIyOSAxMDkuNDg3NjcsMzcuNjgxMjI5IDk5Ljc4OTU1LDI4LjM4ODExNyA5Mi4zOTUwNSwyMS4xNTQ4NyBMIDc4Ljk1MDUxLDguMDAzNTExIDgwLjY1MzIsNS40MDQ4NyBjIDAuOTM2NDgsLTEuNDI5MjUzIDIuNDUzNjUsLTIuNTk4NjQxIDMuMzcxNDgsLTIuNTk4NjQxIDIuMzI2MDgsMCAxMy45NzEzOSw3LjA2MjUzMSAyMS40OTQzNSwxMy4wMzU2OCAyMS45NjU4MSwxNy40NDA2MjMgMzQuNTk3MjUsNDQuNjc3NjEzIDMzLjYxMjQ1LDcyLjQ3ODA1NiAtMC4zMTE4Myw4LjgwMzA0IC0wLjY5MzE1LDEwLjU5MTIxIC0zLjE1MzksMTQuNzkwMTU1IC0zLjA1NTA4LDUuMjEzMSAtMTIuODUxNTUsMTMuNTI4NjMgLTI0LjQ0MTA3LDIwLjc0NjMgLTMuOTI5ODEsMi40NDc0IC03LjE2MzQ3LDQuOTIyMTIgLTcuMTg1OTEsNS40OTk0MiAtMC4wNjg4LDEuNzY5MjEgOS4yMjA0NCwxMi42NjY1MiAxMy43MjgxNywxNi4xMDQ2OSBsIDQuMjU0NjgsMy4yNDUxNiAtMy43NjE4MywxLjA0NDY5IGMgLTQuOTA2NzMsMS4zNjI2NCAtOC45MjMyOSwxLjI2NzggLTEzLjM1MjAzLC0wLjMxNTI3IHogTSA2MC44MDk3OSw4OC44NDAzNTUgYyAtNS4wMTc2MiwtMi40MTA4OSAtNy42NzEwMywtNC43MjM3NSAtMTAuOTMxNzYsLTkuNTI4NzEgLTYuMTk0MzMsLTkuMTI3ODUgLTAuNjg3ODYsLTE2LjY4NDI5MyAxOS4wNDc0NiwtMjYuMTM4NTI2IDUuMDEzNjQsLTIuNDAxNzg5IDkuNjQxMSwtNC4zNjY4OSAxMC4yODMyNSwtNC4zNjY4OSAyLjEyMjg0LDAgMTAuNjY0MTQsNC43ODk0NDMgMTMuODUyMDUsNy43NjczOTcgMy42NjQ1NSwzLjQyMzIwNSA0LjczNzc0LDYuODEzODg0IDMuNzc3MjEsMTEuOTMzOTI4IC0wLjUyMjMsMi43ODQxMTUgLTIuNDgxODcsNS40NzgxNDEgLTcuOTk0MTYsMTAuOTkwNDMxIC0xMC45NDk1NSwxMC45NDk1NSAtMTkuMDYyMzYsMTMuNjUzMTUgLTI4LjAzNDA1LDkuMzQyMzcgeiIKICAgICAgIGlkPSJwYXRoMzQ0OSIgLz4KICAgIDxwYXRoCiAgICAgICBzdHlsZT0iZmlsbDojY2IzMzAxIgogICAgICAgZD0ibSAxMDMuNzMyMDcsMTQ4LjM4Nzc5IGMgLTQuMDk1MTQsLTEuNzgzMTcgLTkuODUzNDgsLTYuOTI1MTcgLTEyLjQzNzU5LC0xMS4xMDYzNCBsIC0yLjA5MiwtMy4zODQ5MiAtMi42OTYzNCwxLjA4MTY1IGMgLTQuMDMwNzYsMS42MTY5NSAtMjEuODU2NjYsMS41NjQ3IC0yNy42OTYzNSwtMC4wODEyIEMgNDcuOTM3MjUsMTMxLjgzMjYzIDM1LjY3MzIxLDEyNC4xMDUxNSAyNi42NzY1MywxMTQuNjUwMDYgMjAuNTgxNDUsMTA4LjI0NDQgMTEuNDcyODYsOTYuMDQ2MTQ1IDguNTA4NDEsOTAuMzE5MjU1IDQuNjU1OCw4Mi44NzY1NzUgNC45NDg4Nyw3My41MjgwNzUgOS40NDkzLDYwLjMwNjE4OSAxNy40NTI1NywzNi43OTMyMDIgMjkuMjQ3NDMsMjMuMzY5NTk1IDQ2LjUyNTM3LDE4LjExMDI4NCBjIDUuNjY4NzYsLTEuNzI1NTQgMjQuMjcxODEsLTIuMDUzOTA1IDMwLjc1NTUyLC0wLjU0Mjg3IGwgMy40NzExLDAuODA4OTQ0IC0yMC45NTU3OCw4Ljk0NzcyMSBDIDMxLjUzOTQ1LDM5LjM4OTIyNSAyNC42MjA2Myw0NC4yMzEyODYgMTkuMjE5NzcsNTUuNzIxMTIgYyAtNC44NjY2OSwxMC4zNTM0MzQgLTQuNzgxOTUsMjEuMTI1Njg1IDAuMjc5NjQsMzUuNTQ5ODA1IDUuNTgwMTcsMTUuOTAxOTI1IDE2LjUzOTc0LDI1LjQyODQwNSAzNi4xNjU3MSwzMS40MzY2MzUgNy4wMDk0LDIuMTQ1ODIgMjMuNzM0MTIsMi45NjQxOSAyNi4zNjg5LDEuMjkwMjYgMC45NDg3MSwtMC42MDI3NCAwLjg0NjQ5LC0yLjAwNTg3IC0wLjQ1NDIxLC02LjIzNDY5IC0wLjkyMzEzLC0zLjAwMTI5IC0xLjc2OTY4LC01LjYwMjU1IC0xLjg4MTIxLC01Ljc4MDU2IC0wLjExMTUzLC0wLjE3ODAxIC0yLjExMjE1LDEuMDU5NDkgLTQuNDQ1ODMsMi43NSAtNC40MzI0NCwzLjIxMDg0IC03Ljc0NjgyLDMuODY5ODEgLTkuNjkwMDMsMS45MjY2IC0wLjg2MjcyLC0wLjg2MjczIC0wLjIwNjM5LC0xLjgyODQ1IDIuNjQ3OTIsLTMuODk2MDkgMi4wODcyMywtMS41MTE5OCA1LjU1MDksLTQuOTMzMzIgNy42OTcwNCwtNy42MDI5NSA0LjAxNSwtNC45OTQzNCA1LjM4NzcsLTYuMzEyMDQ1IDYuNjAzMjIsLTYuMzM4NTg1IDAuMzg1NjIsLTAuMDA4IDMuNzI4MzYsNC4zNzIxNzUgNy40MjgzMSw5LjczNDY3NSAzLjY5OTk1LDUuMzYyNTEgNi44NjY1NSw5LjkzMjExIDcuMDM2ODksMTAuMTU0NjkgMC41NDU3NiwwLjcxMzEzIDEzLjY1NDc0LC04LjQ1Mzk1IDE5LjA0NTkxLC0xMy4zMTg3NyA1Ljg0NTk4LC01LjI3NTIxIDEzLjM5NDU0LC0xNi4xMTU0MjUgMTUuMjYzNSwtMjEuOTE5MzQ1IDIuMDUxMDIsLTYuMzY5MjggMC45NjgwNCwtMTcuMjIwMDUgLTIuNDExOTgsLTI0LjE2NjU2NiBDIDEyNS43Mzc3OCw1Mi44NjE3MTMgMTE5Ljk5MjIxLDQ2Ljc4MDg4NyA5NC41NTI0NSwyMi45ODI1MDMgNzkuNjcyMTQsOS4wNjIyNzEgNzcuODQ5NzUsNi4xOTMxNyA4Mi4zNTYyOCwzLjc4MTM0NyBjIDEuNjg3MTcsLTAuOTAyOTQ3IDMuMTU2MywtMC40NzQ2MTQgOC4zNjczMSwyLjQzOTU1IDI2LjI0NzQyLDE0LjY3ODM5NSA0MS44NTU2NiwzNi42NDMxNzkgNDcuMDIwMzEsNjYuMTY5NjA5IDMuNDYwMjcsMTkuNzgyNDg5IDEuMzg5LDI4Ljc3NzA3NCAtOC43NDUyOCwzNy45NzY2NjQgLTYuMTYzNDksNS41OTUwMyAtMjIuOTc1ODMsMTcuNDM5MDYgLTI0Ljc1NDM2LDE3LjQzOTA2IC0wLjUxMzk2LDAgLTAuOTM0NDcsMC40MDU0MSAtMC45MzQ0NywwLjkwMDkyIDAsMS44ODMwOCA5LjExODE0LDEyLjkyMzU4IDEzLjQ3OTgyLDE2LjMyMTczIDMuNTIzMTUsMi43NDQ4NiA0LjE5MzM5LDMuNjg4NzcgMi45NTYzNCw0LjE2MzQ3IC0yLjgyMTA4LDEuMDgyNTUgLTEyLjgzNTUyLDAuNTc5NDIgLTE2LjAxMzg4LC0wLjgwNDU1IHogTSA2MC44MDk3OSw4OC44NDAzNTUgYyAtNS4wMTc2MiwtMi40MTA4OSAtNy42NzEwMywtNC43MjM3NSAtMTAuOTMxNzYsLTkuNTI4NzEgLTYuMTk0MzMsLTkuMTI3ODUgLTAuNjg3ODYsLTE2LjY4NDI5MyAxOS4wNDc0NiwtMjYuMTM4NTI2IDUuMDEzNjQsLTIuNDAxNzg5IDkuNjQxMSwtNC4zNjY4OSAxMC4yODMyNSwtNC4zNjY4OSAyLjEyMjg0LDAgMTAuNjY0MTQsNC43ODk0NDMgMTMuODUyMDUsNy43NjczOTcgMy42NjQ1NSwzLjQyMzIwNSA0LjczNzc0LDYuODEzODg0IDMuNzc3MjEsMTEuOTMzOTI4IC0wLjUyMjMsMi43ODQxMTUgLTIuNDgxODcsNS40NzgxNDEgLTcuOTk0MTYsMTAuOTkwNDMxIC0xMC45NDk1NSwxMC45NDk1NSAtMTkuMDYyMzYsMTMuNjUzMTUgLTI4LjAzNDA1LDkuMzQyMzcgeiIKICAgICAgIGlkPSJwYXRoMzQ0NyIgLz4KICAgIDxwYXRoCiAgICAgICBzdHlsZT0iZmlsbDojZmZmZmZmO3N0cm9rZTojMDAwMGZmIgogICAgICAgZD0ibSAxMDMuNzMyMDcsMTQ4LjM4Nzc5IGMgLTQuMDk1MTQsLTEuNzgzMTcgLTkuODUzNDgsLTYuOTI1MTcgLTEyLjQzNzU5LC0xMS4xMDYzNCBsIC0yLjA5MiwtMy4zODQ5MiAtMi42OTYzNCwxLjA4MTY1IGMgLTQuMDMwNzYsMS42MTY5NSAtMjEuODU2NjYsMS41NjQ3IC0yNy42OTYzNSwtMC4wODEyIEMgNDcuOTM3MjUsMTMxLjgzMjYzIDM1LjY3MzIxLDEyNC4xMDUxNSAyNi42NzY1MywxMTQuNjUwMDYgMjAuNTgxNDUsMTA4LjI0NDQgMTEuNDcyODYsOTYuMDQ2MTQ1IDguNTA4NDEsOTAuMzE5MjU1IDQuNjU1OCw4Mi44NzY1NzUgNC45NDg4Nyw3My41MjgwNzUgOS40NDkzLDYwLjMwNjE4OSAxNy40NTI1NywzNi43OTMyMDIgMjkuMjQ3NDMsMjMuMzY5NTk1IDQ2LjUyNTM3LDE4LjExMDI4NCBjIDUuNjY4NzYsLTEuNzI1NTQgMjQuMjcxODEsLTIuMDUzOTA1IDMwLjc1NTUyLC0wLjU0Mjg3IGwgMy40NzExLDAuODA4OTQ0IC0yMC45NTU3OCw4Ljk0NzcyMSBDIDMxLjUzOTQ1LDM5LjM4OTIyNSAyNC42MjA2Myw0NC4yMzEyODYgMTkuMjE5NzcsNTUuNzIxMTIgYyAtNC44NjY2OSwxMC4zNTM0MzQgLTQuNzgxOTUsMjEuMTI1Njg1IDAuMjc5NjQsMzUuNTQ5ODA1IDUuNTgwMTcsMTUuOTAxOTI1IDE2LjUzOTc0LDI1LjQyODQwNSAzNi4xNjU3MSwzMS40MzY2MzUgNy4wMDk0LDIuMTQ1ODIgMjMuNzM0MTIsMi45NjQxOSAyNi4zNjg5LDEuMjkwMjYgMC45NDg3MSwtMC42MDI3NCAwLjg0NjQ5LC0yLjAwNTg3IC0wLjQ1NDIxLC02LjIzNDY5IC0wLjkyMzEzLC0zLjAwMTI5IC0xLjc2OTY4LC01LjYwMjU1IC0xLjg4MTIxLC01Ljc4MDU2IC0wLjExMTUzLC0wLjE3ODAxIC0yLjExMjE1LDEuMDU5NDkgLTQuNDQ1ODMsMi43NSAtNC40MzI0NCwzLjIxMDg0IC03Ljc0NjgyLDMuODY5ODEgLTkuNjkwMDMsMS45MjY2IC0wLjg2MjcyLC0wLjg2MjczIC0wLjIwNjM5LC0xLjgyODQ1IDIuNjQ3OTIsLTMuODk2MDkgMi4wODcyMywtMS41MTE5OCA1LjU1MDksLTQuOTMzMzIgNy42OTcwNCwtNy42MDI5NSA0LjAxNSwtNC45OTQzNCA1LjM4NzcsLTYuMzEyMDQ1IDYuNjAzMjIsLTYuMzM4NTg1IDAuMzg1NjIsLTAuMDA4IDMuNzI4MzYsNC4zNzIxNzUgNy40MjgzMSw5LjczNDY3NSAzLjY5OTk1LDUuMzYyNTEgNi44NjY1NSw5LjkzMjExIDcuMDM2ODksMTAuMTU0NjkgMC41NDU3NiwwLjcxMzEzIDEzLjY1NDc0LC04LjQ1Mzk1IDE5LjA0NTkxLC0xMy4zMTg3NyA1Ljg0NTk4LC01LjI3NTIxIDEzLjM5NDU0LC0xNi4xMTU0MjUgMTUuMjYzNSwtMjEuOTE5MzQ1IDIuMDUxMDIsLTYuMzY5MjggMC45NjgwNCwtMTcuMjIwMDUgLTIuNDExOTgsLTI0LjE2NjU2NiBDIDEyNS43Mzc3OCw1Mi44NjE3MTMgMTE5Ljk5MjIxLDQ2Ljc4MDg4NyA5NC41NTI0NSwyMi45ODI1MDMgNzkuNjcyMTQsOS4wNjIyNzEgNzcuODQ5NzUsNi4xOTMxNyA4Mi4zNTYyOCwzLjc4MTM0NyBjIDEuNjg3MTcsLTAuOTAyOTQ3IDMuMTU2MywtMC40NzQ2MTQgOC4zNjczMSwyLjQzOTU1IDI2LjI0NzQyLDE0LjY3ODM5NSA0MS44NTU2NiwzNi42NDMxNzkgNDcuMDIwMzEsNjYuMTY5NjA5IDMuNDYwMjcsMTkuNzgyNDg5IDEuMzg5LDI4Ljc3NzA3NCAtOC43NDUyOCwzNy45NzY2NjQgLTYuMTYzNDksNS41OTUwMyAtMjIuOTc1ODMsMTcuNDM5MDYgLTI0Ljc1NDM2LDE3LjQzOTA2IC0wLjUxMzk2LDAgLTAuOTM0NDcsMC40MDU0MSAtMC45MzQ0NywwLjkwMDkyIDAsMS44ODMwOCA5LjExODE0LDEyLjkyMzU4IDEzLjQ3OTgyLDE2LjMyMTczIDMuNTIzMTUsMi43NDQ4NiA0LjE5MzM5LDMuNjg4NzcgMi45NTYzNCw0LjE2MzQ3IC0yLjgyMTA4LDEuMDgyNTUgLTEyLjgzNTUyLDAuNTc5NDIgLTE2LjAxMzg4LC0wLjgwNDU1IHoiCiAgICAgICBpZD0icGF0aDM0NDUiIC8+CiAgICA8Zmxvd1Jvb3QKICAgICAgIHN0eWxlPSJmb250LXN0eWxlOm5vcm1hbDtmb250LXdlaWdodDpub3JtYWw7Zm9udC1zaXplOjQwcHg7bGluZS1oZWlnaHQ6MTI1JTtmb250LWZhbWlseTpzYW5zLXNlcmlmO3RleHQtYWxpZ246ZW5kO2xldHRlci1zcGFjaW5nOjBweDt3b3JkLXNwYWNpbmc6MHB4O3RleHQtYW5jaG9yOmVuZDtmaWxsOiMwMDAwMDA7ZmlsbC1vcGFjaXR5OjE7c3Ryb2tlOm5vbmU7c3Ryb2tlLXdpZHRoOjFweDtzdHJva2UtbGluZWNhcDpidXR0O3N0cm9rZS1saW5lam9pbjptaXRlcjtzdHJva2Utb3BhY2l0eToxIgogICAgICAgaWQ9ImZsb3dSb290MzU1MCIKICAgICAgIHhtbDpzcGFjZT0icHJlc2VydmUiPjxmbG93UmVnaW9uCiAgICAgICAgIGlkPSJmbG93UmVnaW9uMzU1MiI+PHJlY3QKICAgICAgICAgICB5PSIxOTYuNTI4OSIKICAgICAgICAgICB4PSIxOTcuMTg1ODciCiAgICAgICAgICAgaGVpZ2h0PSIxNDAuMDEzNjMiCiAgICAgICAgICAgd2lkdGg9IjE1Mi4yNjQ4MiIKICAgICAgICAgICBpZD0icmVjdDM1NTQiIC8+PC9mbG93UmVnaW9uPjxmbG93UGFyYQogICAgICAgICBpZD0iZmxvd1BhcmEzNTU2Ij48L2Zsb3dQYXJhPjwvZmxvd1Jvb3Q+ICA8L2c+Cjwvc3ZnPgo=" style="height:35px" title="IAQSE">
+        <b class="d-md-none d-xl-inline" style="color:#ff4646;font-family:Arial,Helvetica,sans-serif">IAQSE</b>
       </a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -101,38 +44,43 @@
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
           
-          <li class="nav-item ">
-            <a class="nav-link" href="index.html">Inici</span>
+          <li class="nav-item">
+            <a class="nav-link" href="index.html" title="">Inici
             </a>
           </li>
           
-          <li class="nav-item ">
-            <a class="nav-link" href="quisom.html">Qui som</span>
+          <li class="nav-item">
+            <a class="nav-link" href="quisom.html" title="">Qui som
             </a>
           </li>
           
-          <li class="nav-item ">
-            <a class="nav-link" href="avaluacions.html">Avaluacions</span>
+          <li class="nav-item">
+            <a class="nav-link" href="avaluacions.html" title="">Avaluacions
             </a>
           </li>
           
-          <li class="nav-item ">
-            <a class="nav-link" href="publicacions.html">Publicacions</span>
+          <li class="nav-item">
+            <a class="nav-link" href="publicacions.html" title="">Publicacions
             </a>
           </li>
           
-          <li class="nav-item ">
-            <a class="nav-link" href="indicadors.html">Indicadors</span>
+          <li class="nav-item">
+            <a class="nav-link" href="indicadors.html" title="">Indicadors
             </a>
           </li>
           
-          <li class="nav-item ">
-            <a class="nav-link" href="enllacos.html">Enllaços</span>
+          <li class="nav-item">
+            <a class="nav-link" href="enllacos.html" title="">Enllaços
             </a>
           </li>
           
-          <li class="nav-item  active ">
-            <a class="nav-link" href="proves.html">Proves</span>
+          <li class="nav-item active">
+            <a class="nav-link" href="proves.html" title="Proves alliberades">Proves
+            </a>
+          </li>
+          
+          <li class="nav-item">
+            <a class="nav-link" href="edu.html" title="Racó educatiu IAQSE">Edu
             </a>
           </li>
           
@@ -230,26 +178,110 @@
            LjA5NCAyLjQxOCwtMy4wMDYgbCAwLDQxLjY4NyBMIDAsMzMuNzQ0IDAsMCBaIgogICAgICAgICBzdHlsZT0iZmlsbDojYmIwMDM2O2ZpbGwtb3BhY2l0eToxO2ZpbGwtcnVsZTpub256ZXJvO3N0cm9rZTpub25lIgogICAgICAgICBpZD0icGF0aDYzNDMiCiAgICAgICAgIGlua3NjYXBlOmNvbm5lY3Rvci1jdXJ2YXR1cmU9IjAiIC8+CiAgICA8L2c+CiAgICA8ZwogICAgICAgaWQ9Imc2MzQ1IgogICAgICAgdHJhbnNmb3JtPSJtYXRyaXgoMS4yNSwwLDAsLTEuMjUsMzIuODc5NTIxLDE1LjM3MDk2KSI+CiAgICAgIDxwYXRoCiAgICAgICAgIGQ9Ik0gMCwwIC01LjQxNiwwIDAsLTUuNDE0IDAsMCBaIgogICAgICAgICBzdHlsZT0iZmlsbDojYmIwMDM2O2ZpbGwtb3BhY2l0eToxO2ZpbGwtcnVsZTpub256ZXJvO3N0cm9rZTpub25lIgogICAgICAgICBpZD0icGF0aDYzNDciCiAgICAgICAgIGlua3NjYXBlOmNvbm5lY3Rvci1jdXJ2YXR1cmU9IjAiIC8+CiAgICA8L2c+CiAgICA8ZwogICAgICAgaWQ9Imc2MzQ5IgogICAgICAgdHJhbnNmb3JtPSJtYXRyaXgoMS4yNSwwLDAsLTEuMjUsNDYuNjM0NDAxLDE1LjM2NjA5KSI+CiAgICAgIDxwYXRoCiAgICAgICAgIGQ9Im0gMCwwIC01LjUwNCwwIDAsLTEwLjkyIEwgMCwtMTYuNDIyIDAsMCBaIgogICAgICAgICBzdHlsZT0iZmlsbDojYmIwMDM2O2ZpbGwtb3BhY2l0eToxO2ZpbGwtcnVsZTpub256ZXJvO3N0cm9rZTpub25lIgogICAgICAgICBpZD0icGF0aDYzNTEiCiAgICA
            gICAgIGlua3NjYXBlOmNvbm5lY3Rvci1jdXJ2YXR1cmU9IjAiIC8+CiAgICA8L2c+CiAgICA8ZwogICAgICAgaWQ9Imc2MzUzIgogICAgICAgdHJhbnNmb3JtPSJtYXRyaXgoMS4yNSwwLDAsLTEuMjUsMzkuNzU0NTIxLDg1LjUyNzIxKSI+CiAgICAgIDxwYXRoCiAgICAgICAgIGQ9Im0gMCwwIGMgMS43MDksLTAuODI0IDMuNTY0LC0xLjM4MyA1LjUwNCwtMS42NjYgbCAwLDM2LjMwNSBMIDAsNDAuMTM5IDAsMCBaIgogICAgICAgICBzdHlsZT0iZmlsbDojYmIwMDM2O2ZpbGwtb3BhY2l0eToxO2ZpbGwtcnVsZTpub256ZXJvO3N0cm9rZTpub25lIgogICAgICAgICBpZD0icGF0aDYzNTUiCiAgICAgICAgIGlua3NjYXBlOmNvbm5lY3Rvci1jdXJ2YXR1cmU9IjAiIC8+CiAgICA8L2c+CiAgICA8ZwogICAgICAgaWQ9Imc2MzU3IgogICAgICAgdHJhbnNmb3JtPSJtYXRyaXgoMS4yNSwwLDAsLTEuMjUsNjAuMzk0MTUxLDE1LjM2NjA5KSI+CiAgICAgIDxwYXRoCiAgICAgICAgIGQ9Im0gMCwwIC01LjUwNiwwIDAsLTIxLjkyNCBMIDAsLTI3LjQzIDAsMCBaIgogICAgICAgICBzdHlsZT0iZmlsbDojYmIwMDM2O2ZpbGwtb3BhY2l0eToxO2ZpbGwtcnVsZTpub256ZXJvO3N0cm9rZTpub25lIgogICAgICAgICBpZD0icGF0aDYzNTkiCiAgICAgICAgIGlua3NjYXBlOmNvbm5lY3Rvci1jdXJ2YXR1cmU9IjAiIC8+CiAgICA8L2c+CiAgICA8ZwogICAgICAgaWQ9Imc2MzYxIgogICAgICAgdHJhbnNmb3JtPSJtYXRyaXgoMS4yNS
            wwLDAsLTEuMjUsNTMuNTExNzcxLDg3LjYwOTcxKSI+CiAgICAgIDxwYXRoCiAgICAgICAgIGQ9Im0gMCwwIGMgMS45NDcsMC4yODMgMy44MDMsMC44NDIgNS41MDYsMS42NiBsIDAsMjMuNjM3IEwgMCwzMC44MDUgMCwwIFoiCiAgICAgICAgIHN0eWxlPSJmaWxsOiNiYjAwMzY7ZmlsbC1vcGFjaXR5OjE7ZmlsbC1ydWxlOm5vbnplcm87c3Ryb2tlOm5vbmUiCiAgICAgICAgIGlkPSJwYXRoNjM2MyIKICAgICAgICAgaW5rc2NhcGU6Y29ubmVjdG9yLWN1cnZhdHVyZT0iMCIgLz4KICAgIDwvZz4KICAgIDxnCiAgICAgICBpZD0iZzYzNjUiCiAgICAgICB0cmFuc2Zvcm09Im1hdHJpeCgxLjI1LDAsMCwtMS4yNSw3NC4xNjEyNzEsMTUuMzY2MDkpIj4KICAgICAgPHBhdGgKICAgICAgICAgZD0ibSAwLDAgLTUuNTEyLDAgMCwtMzIuOTM2IEwgMCwtMzguNDM2IDAsMCBaIgogICAgICAgICBzdHlsZT0iZmlsbDojYmIwMDM2O2ZpbGwtb3BhY2l0eToxO2ZpbGwtcnVsZTpub256ZXJvO3N0cm9rZTpub25lIgogICAgICAgICBpZD0icGF0aDYzNjciCiAgICAgICAgIGlua3NjYXBlOmNvbm5lY3Rvci1jdXJ2YXR1cmU9IjAiIC8+CiAgICA8L2c+CiAgICA8ZwogICAgICAgaWQ9Imc2MzY5IgogICAgICAgdHJhbnNmb3JtPSJtYXRyaXgoMS4yNSwwLDAsLTEuMjUsNjcuMjcxNjUxLDgwLjYwNzcxKSI+CiAgICAgIDxwYXRoCiAgICAgICAgIGQ9Im0gMCwwIGMgMC45MDIsMC45MjYgMS43MjUsMS45MzQgMi40MjgsMy4wMjcgMS4yMDUsM
-           S44NiAyLjA0OSwzLjk1OSAyLjU1Niw2LjE4MiBMIDAsMTQuMTkzIDAsMCBaIgogICAgICAgICBzdHlsZT0iZmlsbDojYmIwMDM2O2ZpbGwtb3BhY2l0eToxO2ZpbGwtcnVsZTpub256ZXJvO3N0cm9rZTpub25lIgogICAgICAgICBpZD0icGF0aDYzNzEiCiAgICAgICAgIGlua3NjYXBlOmNvbm5lY3Rvci1jdXJ2YXR1cmU9IjAiIC8+CiAgICA8L2c+CiAgPC9nPgo8L3N2Zz4K" class="logo-left"/> 
+           S44NiAyLjA0OSwzLjk1OSAyLjU1Niw2LjE4MiBMIDAsMTQuMTkzIDAsMCBaIgogICAgICAgICBzdHlsZT0iZmlsbDojYmIwMDM2O2ZpbGwtb3BhY2l0eToxO2ZpbGwtcnVsZTpub256ZXJvO3N0cm9rZTpub25lIgogICAgICAgICBpZD0icGF0aDYzNzEiCiAgICAgICAgIGlua3NjYXBlOmNvbm5lY3Rvci1jdXJ2YXR1cmU9IjAiIC8+CiAgICA8L2c+CiAgPC9nPgo8L3N2Zz4K" class="logo-left"> 
         
            <div class="logo-right">
-             <center style="margin-top: 20px">
+             <center style="margin-top:30px">
                 <a href="https://apps.caib.es/gesavafront/" target="_blank" title="Programari de gestió d'avaluacions">
                  
                   <img src="../img/gesava.png" style="width:35px"><br>
-                    <span style="font-size: 90%">Accés GESAVA</span>
-                <a>
+                    <span style="font-size:90%">Accés GESAVA</span>
+                </a>
               </center>
           </div> 
       </div>
      
   </div>
   
-</header>
+        </header>
 
-<div id="main-wrap">
-    <main ng-app="iaqse">
-    
+        <div id="main-wrap" class="container-fluid">
+            <div class="row">
+                <div class="col-xl-2 d-none d-xl-block">
+                    <div class="alert alert-primary">
+                        <h6><i class="fa fa-compass"></i> Navegació</h6>
+                    </div>
+
+                    <ul id="tree1">
+                        
+                        <li><a href="index.html">Inici</a>
+                            
+                        </li>
+                        
+                        <li><a href="quisom.html">Qui som</a>
+                            
+                            <ul>
+                                
+                                <li><a href="quisom.html#!/index">Index</a>
+                                    
+                                </li>
+                                
+                                <li><a href="quisom.html#!/personal">Personal</a>
+                                    
+                                </li>
+                                
+                                <li><a href="quisom.html#!/funcions">Funcions</a>
+                                    
+                                </li>
+                                
+                                <li><a href="quisom.html#!/legislacio">Legislació</a>
+                                    
+                                </li>
+                                
+                            </ul>
+                            
+                        </li>
+                        
+                        <li><a href="avaluacions.html">Avaluacions</a>
+                            
+                            <ul>
+                                
+                                <li><a href="avaluacions.html#!/index">Index</a>
+                                    
+                                    <ul>
+                                        
+                                        <li><a href="avaluacions.html#!/final_etapa">Avaluacions final d&#39;etapa</a>
+                                            
+                                        </li><li><a href="avaluacions.html#!/diagnostic">Avaluacions de diagnòstic</a>
+                                            
+                                        </li><li><a href="avaluacions.html#!/internacionals">Avaluacions internacionals</a>
+                                            
+                                        </li><li><a href="avaluacions.html#!/altres">Altres avaluacions</a>
+                                            
+                                    </li></ul>
+                                    
+                                </li>
+                                
+                            </ul>
+                            
+                        </li>
+                        
+                        <li><a href="publicacions.html">Publicacions</a>
+                            
+                        </li>
+                        
+                        <li><a href="indicadors.html">Indicadors</a>
+                            
+                        </li>
+                        
+                        <li><a href="enllacos.html">Enllaços</a>
+                            
+                        </li>
+                        
+                        <li><a href="proves.html">Proves</a>
+                            
+                        </li>
+                        
+                        <li><a href="edu.html">Edu</a>
+                            
+                        </li>
+                        
+                    </ul>
+                </div>
+
+                <div class="col-xl-10 col-lg-12">
+                <main ng-app="iaqse">
+                
 <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="index.html"><i class="fas fa-home"></i></a></li> 
@@ -260,29 +292,26 @@
      
         <div class="clearfix">
         <!--combo nivells-->
-        <div class="btn-group float-left" title="Nivell de la prova" style="margin-left: 5px; margin-bottom: 5px;">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="nivellCombo" 
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <div class="btn-group float-left" title="Nivell de la prova" style="margin-left:5px;margin-bottom:5px">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="nivellCombo" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="fa fa-tags"></i> <span ng-bind="selections.nivell.label"></span></button>
             <div class="dropdown-menu" aria-labelledby="nivellCombo">
                 <a class="dropdown-item" ng-click="selectNivell($index)" ng-repeat="item in nivells"><span ng-bind="item.label"></span></a>
             </div>
         </div>
          <!--combo competència-->
-         <div class="btn-group float-left" title="Competència" style="margin-left: 5px; margin-bottom: 5px;">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="competenciaCombo" 
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+         <div class="btn-group float-left" title="Competència" style="margin-left:5px;margin-bottom:5px">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="competenciaCombo" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="fa fa-tags"></i> <span ng-bind="selections.competencia.label"></span></button>
                 <div class="dropdown-menu" aria-labelledby="competenciaCombo">
                     <a class="dropdown-item" ng-click="selectCompetencia($index)" ng-repeat="item in competencies"><span ng-bind="item.label"></span></a>
                 </div>
         </div>
          <!--combo anys -->
-         <div class="btn-group float-left" title="Any de la prova" style="margin-left: 5px; margin-bottom: 5px;">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="anyCombo" 
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+         <div class="btn-group float-left" title="Any de la prova" style="margin-left:5px;margin-bottom:5px">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="anyCombo" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="fa fa-tags"></i> <span ng-bind="selections.any.label"></span></button>
-                <div class="dropdown-menu" aria-labelledby="anyCombo" style="overflow: scroll; max-height: 300px;">
+                <div class="dropdown-menu" aria-labelledby="anyCombo" style="overflow:scroll;max-height:300px">
                     <a class="dropdown-item" ng-click="selectAny($index)" ng-repeat="item in anys"><span ng-bind="item.label"></span></a>
                 </div>
         </div>
@@ -290,11 +319,11 @@
     </div> 
 
 
-    <hr />
+    <hr>
     <p ng-if="pubslength==0">No s'han trobat proves</p>
     <p ng-if="pubslength==1">S'ha trobat una prova</p>
     <p ng-if="pubslength>1">S'han trobat <span ng-bind="pubslength"></span> proves</p>
-    <hr />
+    <hr>
 
     <div class="list-group">
         <div class="row" ng-repeat="chunk in pubs">
@@ -302,7 +331,7 @@
             <div class="fa-pull-left">
                 <i ng-if="pub.destacat" class="fa fa-star"></i>
                 <a href="../{{pub.url}}" target="_blank">
-                    <img ng-src="../{{pub.img}}" class="publication-img" />
+                    <img ng-src="../{{pub.img}}" class="publication-img">
                 </a>
             </div>
 
@@ -314,101 +343,10 @@
         </div>
     </div>
 </div>
-<script>
-    app.controller("mainController", ["$scope", "$filter", "httpService", function ($scope, $filter, httpService) {
-        $scope.pubs = [];
-        $scope.pubslength = 0;
-
-        $scope.nivells = [
-            {label:"3r EP", value: "3rEP"},
-            {label:"6è EP", value: "6eEP"},
-            {label:"2n ESO", value: "2nESO"},
-            {label:"4t ESO", value: "4tESO"} 
-            ];
-        $scope.competencies = [
-            {label: "Competència Llengua Anglesa", value: "CCLA"},
-            {label: "Competència Llengua Castellana", value: "CCLE"},
-            {label: "Competència Llengua Catalana", value: "CCLC"},
-            {label: "Competència Matemàtica", value: "CMAT"},
-            {label: "Competència Ciència i Tecnologia", value: "CCiT"}            
-        ];
-        // Els anys es determinen en funció del nivell i la competència seleccionades
-        $scope.determinaAnys = function() {
-            $scope.anys = [];
-            // Determina els anys
-            for(var i=0, len=provesJSON.length; i<len; i++) {
-                var item = provesJSON[i];           
-                if(item.any && item.nivell == $scope.selections.nivell.value &&
-                   item.tags.indexOf($scope.selections.competencia.value)>=0) {
-                    var found = false;
-                    var k = 0;
-                    var n = $scope.anys.length;
-                    while(!found && k < n) {
-                        found = $scope.anys[k].value == item.any; 
-                        k++;
-                    }
-                    if(!found) {
-                        $scope.anys.push({label: item.any, value: item.any});
-                    }
-                }
-            }
-            // ordena
-            $scope.anys = $filter("orderBy")($scope.anys, "+label", true);
-            $scope.anys.unshift({label: "Tots els anys", value: -1});
-            $scope.selectAny(0);
-        };
-
-        $scope.selections = {
-            nivell: $scope.nivells[0],
-            competencia: $scope.competencies[0] 
-        };
-       
-        $scope.selectNivell = function(index) {
-            $scope.selections.nivell = $scope.nivells[index];
-            $scope.determinaAnys() 
-            $scope.search();
-        };
-        $scope.selectCompetencia = function(index) {
-            $scope.selections.competencia = $scope.competencies[index];
-            $scope.determinaAnys();
-            $scope.search();                        
-        };
-        $scope.selectAny = function(index) {
-            $scope.selections.any = $scope.anys[index];
-            $scope.search();
-        };
-
-        $scope.search = function () {
-            var list = [];
-            for(var i=0, len = provesJSON.length; i<len; i++) {
-                var item = provesJSON[i];
-                if(item.nivell == $scope.selections.nivell.value &&
-                   item.tags.indexOf($scope.selections.competencia.value)>=0 &&
-                   ( $scope.selections.any.value==-1 || item.any==$scope.selections.any.value )) {
-                    list.push(item);
-                }
-
-            }
-            $scope.pubslength = list.length;
-            $scope.pubs = chunker(list, 2);
-        };
-
-        $scope.keypress = function (keyEvent) {
-            if (keyEvent.which === 13) {
-                $scope.search();
-            }
-        }; 
-        
-        httpService.loadSchema("proves").then(function(response){
-            window.provesJSON = response.data;
-            $scope.determinaAnys();
-        })
-        
-
-    }]);
-</script></main>
-</div>
-<footer class="py-1" style="width:100%; margin:0">
+<script>app.controller("mainController",["$scope","$filter","httpService",function(i,c,e){i.pubs=[],i.pubslength=0,i.nivells=[{label:"3r EP",value:"3rEP"},{label:"6è EP",value:"6eEP"},{label:"2n ESO",value:"2nESO"},{label:"4t ESO",value:"4tESO"}],i.competencies=[{label:"Competència Llengua Anglesa",value:"CCLA"},{label:"Competència Llengua Castellana",value:"CCLE"},{label:"Competència Llengua Catalana",value:"CCLC"},{label:"Competència Matemàtica",value:"CMAT"},{label:"Competència Ciència i Tecnologia",value:"CCiT"}],i.determinaAnys=function(){i.anys=[];for(var e=0,n=provesJSON.length;e<n;e++){var l=provesJSON[e];if(l.any&&l.nivell==i.selections.nivell.value&&0<=l.tags.indexOf(i.selections.competencia.value)){for(var a=!1,s=0,t=i.anys.length;!a&&s<t;)a=i.anys[s].value==l.any,s++;a||i.anys.push({label:l.any,value:l.any})}}i.anys=c("orderBy")(i.anys,"+label",!0),i.anys.unshift({label:"Tots els anys",value:-1}),i.selectAny(0)},i.selections={nivell:i.nivells[0],competencia:i.competencies[0]},i.selectNivell=function(e){i.selections.nivell=i.nivells[e],i.determinaAnys(),i.search()},i.selectCompetencia=function(e){i.selections.competencia=i.competencies[e],i.determinaAnys(),i.search()},i.selectAny=function(e){i.selections.any=i.anys[e],i.search()},i.search=function(){for(var e=[],n=0,l=provesJSON.length;n<l;n++){var a=provesJSON[n];a.nivell==i.selections.nivell.value&&0<=a.tags.indexOf(i.selections.competencia.value)&&(-1==i.selections.any.value||a.any==i.selections.any.value)&&e.push(a)}i.pubslength=e.length,i.pubs=chunker(e,2)},i.keypress=function(e){13===e.which&&i.search()},e.loadSchema("proves").then(function(e){window.provesJSON=e.data,i.determinaAnys()})}])</script></main>
+                </div>
+            </div>
+                <footer class="py-1" style="width:100%;margin:0">
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-6">
@@ -418,7 +356,7 @@
                 Fax. 971 17 69 02
             </p>
         </div> 
-        <div class="col-sm-6" style="padding-right: 95px;">
+        <div class="col-sm-6" style="padding-right:95px">
             <p style="text-align:right">
                 C. del Ter, 16 Edifici A<br>
                 07009 - Palma
@@ -432,14 +370,11 @@
 
 <script src="iaqse_bundle2.min.js"></script>
 
-<script>
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+<script>!function(e,a,t,n,c,g,o){e.GoogleAnalyticsObject=c,e.ga=e.ga||function(){(e.ga.q=e.ga.q||[]).push(arguments)},e.ga.l=1*new Date,g=a.createElement(t),o=a.getElementsByTagName(t)[0],g.async=1,g.src="//www.google-analytics.com/analytics.js",o.parentNode.insertBefore(g,o)}(window,document,"script",0,"ga"),ga("create","UA-40778701-3","auto"),ga("send","pageview"),$(function(){$("#tree1").treed()})</script>
+            </div>
+            
+        </div>
 
-    ga('create', 'UA-40778701-3', 'auto');
-    ga('send', 'pageview');
-</script>
 </body>
+
 </html>

@@ -21,13 +21,6 @@
         "date": "2017"
     },
     {
-        "tag": "RESULTATS",
-        "img": "img/indicadors/2015/Informe_indicadors_resultats_2015_2016.jpg",
-        "title": "Indicadors de Resultats Acadèmics de les Illes Balears (curs 2015-2016)",
-        "url": "documentos/indicadors/2015/Informe_indicadors_resultats_2015_2016.pdf",
-        "date": "2016"
-    },
-    {
         "tag": "ISEIB",
         "img": "img/publicacions/Indicadors_2016.jpg",
         "title": "Indicadors del sistema educatiu de les Illes Balears 2016",
@@ -36,16 +29,23 @@
     },
     {
         "tag": "RESULTATS",
-        "img": "img/publicacions/Estad_res_centres_2014_2015.jpg",
-        "title": "Estadístiques de resultats centres 2014-2015",
-        "url": "documentos/publicacions/Estad_res_centres_2014_2015.pdf",
-        "date": "2015"
+        "img": "img/indicadors/2015/Informe_indicadors_resultats_2015_2016.jpg",
+        "title": "Indicadors de Resultats Acadèmics de les Illes Balears (curs 2015-2016)",
+        "url": "documentos/indicadors/2015/Informe_indicadors_resultats_2015_2016.pdf",
+        "date": "2016"
     },
     {
         "tag": "ISEIB",
         "img": "img/publicacions/indicadors_2015.jpg",
         "title": "Indicadors del sistema educatiu de les Illes Balears 2015",
         "url": "documentos/indicadors/2015/indicadors_2015.pdf",
+        "date": "2015"
+    },
+    {
+        "tag": "RESULTATS",
+        "img": "img/publicacions/Estad_res_centres_2014_2015.jpg",
+        "title": "Estadístiques de resultats centres 2014-2015",
+        "url": "documentos/publicacions/Estad_res_centres_2014_2015.pdf",
         "date": "2015"
     },
     {
@@ -92,16 +92,16 @@
     },
     {
         "tag": "RESULTATS",
-        "img": "img/publicacions/resultatsLlengues.jpg",
-        "title": "Evolució del percentatge d'aprovats a les àrees lingüístiques entre els cursos 2008-2009 i 2014-2015",
-        "url": "documentos/publicacions/resultatsLlengues.pdf",
+        "img": "img/publicacions/resultatsLlengues2018.jpg",
+        "title": "Evolució del percentatge d'aprovats a les àrees lingüístiques entre els cursos 2010-2011 i 2017-2018",
+        "url": "documentos/publicacions/resultatsLlengues2018.pdf",
         "date": ""
     },
     {
         "tag": "RESULTATS",
-        "img": "img/publicacions/resultatsLlengues2018.jpg",
-        "title": "Evolució del percentatge d'aprovats a les àrees lingüístiques entre els cursos 2010-2011 i 2017-2018",
-        "url": "documentos/publicacions/resultatsLlengues2018.pdf",
+        "img": "img/publicacions/resultatsLlengues.jpg",
+        "title": "Evolució del percentatge d'aprovats a les àrees lingüístiques entre els cursos 2008-2009 i 2014-2015",
+        "url": "documentos/publicacions/resultatsLlengues.pdf",
         "date": ""
     },
     {

@@ -4,6 +4,9 @@ const fs = require("fs");
 const ejs = require("ejs");
 let utils = {}; 
 const encoding = require("./config/config.json").encoding || "utf8";
+const htmlMinifier = require('html-minifier').minify; 
+const config = require("./config/config.json");
+
 
 utils.isObject = function(a) {
     return (!!a) && (a.constructor === Object);
@@ -105,9 +108,12 @@ utils.compileView = function(view, database) {
     breadcrumb.unshift('<nav aria-label="breadcrumb">');
  
     viewStr = breadcrumb.join("\n") + viewStr;
-    const rendered = ejs.render(viewStr, database, {filename: ejsPath, name: "layout"});
+    let rendered = ejs.render(viewStr, database, {filename: ejsPath, name: "layout"});
     const htmlPath = path.join("./static", database.routes.baseurl, "view_" + view.parent.url + "_" + view.url + ".html");
     console.log("\t\tWriting html view into ", htmlPath);
+    if(config.minify_html) {
+        rendered = htmlMinifier(rendered, {minifyJS: true, minifyCSS: true});
+    }
     fs.writeFileSync(htmlPath, rendered, {encoding: encoding});
 
     if(view.views!=null) {
@@ -229,7 +235,7 @@ utils.toDate = function(str) {
 }
 
 utils.normalizeUrl=function(url){
-    url = url.replace("../../", "").replace("http://iaqse.caib.es/", "").trim();
+    url = url.replace("../../", "").replace("../../", "").replace("http://iaqse.caib.es/", "").trim();
     return url;
 }
 utils.normalizeText = function(txt) {

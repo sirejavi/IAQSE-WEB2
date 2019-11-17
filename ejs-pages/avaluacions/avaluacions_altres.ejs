@@ -56,12 +56,11 @@
                 i++;
             }
             return found;
-    };
-    var avaJSON =<%-JSON.stringify(altres_avaluacions)%>;
-    app.controller("altresController", function ($scope) {
+    }; 
+    app.controller("altresController", ["$scope", "httpService", function ($scope, httpService) {
         $scope.avaluacions = [];
         $scope.nivells = [  
-            { label: "Totes", values: "EP,ESO,DIAGNOSTIC" }, 
+            { label: "Totes", values: "" }, 
             { label: "Educació Primària", values: "EP" }, 
             { label: "Educació Secundària", values: "ESO" }
         ]; 
@@ -77,7 +76,8 @@
             var list = [];  
                 for (var i = 0, len = avaJSON.length; i < len; i++) {
                     var item = avaJSON[i];  
-                    if (!$scope.selectedNivell.values || hasTag(item.tag, $scope.selectedNivell.values.split(","))) {
+                    if (!$scope.selectedNivell.values || $scope.selectedNivell.values=='' ||
+                            hasTag(item.tag, $scope.selectedNivell.values.split(","))) {
                         item.chunks = chunker(item.documents, 2);
                         list.push(item);
                     }
@@ -86,7 +86,9 @@
             $scope.avaluacions = list;
         };
     
-        $scope.search();
-    
-    });
+        httpService.loadSchema("avaluacions_altres").then(function(response){
+            window.avaJSON = response.data;
+            $scope.search();
+        });    
+    }]);
     </script>

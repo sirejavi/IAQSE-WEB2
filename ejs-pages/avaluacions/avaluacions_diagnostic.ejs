@@ -48,12 +48,13 @@
                 R.push(arr.slice(i,i+chunkSize));
             return R;
         };
-    var avaJSON =<%-JSON.stringify(diagnostic_avaluacions)%>;
-    app.controller("diagnosticController", function ($scope) {
+    
+    app.controller("diagnosticController", ["$scope", "httpService", function ($scope, httpService) {
         $scope.avaluacions = [];
         $scope.nivells = [
             { label: "Tots els nivells", value: "" },
             { label: "3r EP", value: "3r EP" },
+            { label: "4t EP", value: "4t EP" },
             { label: "6è EP", value: "6e EP" },
             { label: "2n ESO", value: "2n ESO" },
             { label: "4t ESO", value: "4t ESO" }
@@ -80,7 +81,9 @@
             $scope.avaluacions = list;
         };
 
-        $scope.search();
- 
-    });
+        httpService.loadSchema("avaluacions_diagnostic").then(function(response){
+            window.avaJSON = response.data;
+            $scope.search();
+        });    
+    }]);
 </script>

@@ -2,19 +2,22 @@ body{
     margin-bottom: 5px; font-family: 'Montserrat', sans-serif;
     background: rgb(214, 239, 255);
     overflow-y: scroll;
-    font-size: 90%;
+    font-size: 95%;
 }
 #main-wrap {
     margin: 0px;
     width: 100%;
-    min-height: 500px;
     background: white;
     padding-top: 10px;
     padding-bottom: 30px;
 }
+#main-wrap > div {
+    min-height: 500px;
+}
 main {
-    margin: 20px 50px 0 50px;
+    margin: 0px 10px 0px 10px;
     background: white;
+    min-height: 500px;
 }
 a:hover {
     text-decoration: none;
@@ -36,7 +39,7 @@ a:hover {
 footer {
     margin-top: 50px!important;
     color: rgb(57, 57, 57);
-    background: rgb(214, 239, 255);
+    background: #d6efff;
 }
 .gradient{ 
     opacity: 1; 
@@ -49,7 +52,7 @@ footer {
 #logo-cab {
     margin-top:50px;
     padding:5px 0px 10px 0px;
-    background: rgb(214, 239, 255);
+    background: #d6efff;
 }
 #carouselIndicators{
     max-width: 500px !important;
@@ -168,15 +171,15 @@ a>.enllacos-title {
     width: 45%;
     min-width: 380px;
     margin-bottom: 10px;
-    border-radius: 1px;
-    background-color: #003366;
-    background: -moz-linear-gradient(0deg, rgba(0,51,96,1) 0%, rgba(11,63,116,1) 43%, rgba(74,119,163,1) 100%);
-    background: -webkit-linear-gradient(0deg, rgba(0,51,96,1) 0%, rgba(11,63,116,1) 43%, rgba(74,119,163,1) 100%);
-    background: linear-gradient(0deg, rgba(0,51,96,1) 0%, rgba(11,63,116,1) 43%, rgba(74,119,163,1) 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#003360",endColorstr="#4a77a3",GradientType=1);
-
+    border-radius: 2px;
+    border: 1px solid lightgray;
     height: 150px;
     vertical-align: middle;
+    background: rgb(214,239,255);
+    background: -moz-linear-gradient(0deg, rgba(214,239,255,1) 0%, rgba(255,255,255,1) 60%, rgba(255,255,255,1) 100%);
+    background: -webkit-linear-gradient(0deg, rgba(214,239,255,1) 0%, rgba(255,255,255,1) 60%, rgba(255,255,255,1) 100%);
+    background: linear-gradient(0deg, rgba(214,239,255,1) 0%, rgba(255,255,255,1) 60%, rgba(255,255,255,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#d6efff",endColorstr="#ffffff",GradientType=1);
 }
 .div_img_persona{
     display: inline-block;
@@ -190,13 +193,13 @@ a>.enllacos-title {
     border-radius: 10px;
     height: 80px;
     width: 80px; 
-    box-shadow: 2px 2px gray;
+    box-shadow: 2px 2px lightgray;
 }
 .div_bloque_persona_cont{
     display: inline-block;
     vertical-align: middle;
     width: 70%; 
-    color: white;
+    color: #004085;
     margin-top: 10px;
     margin-bottom: 0px;
     margin-right: auto;
@@ -213,6 +216,8 @@ a>.enllacos-title {
 .div_bloque_persona_nombre p{
     font-size: 110%;
     font-weight: bold;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: #004085;
     text-align: center;
 }
 .div_bloque_persona_cargo{
@@ -245,6 +250,7 @@ a>.enllacos-title {
     text-align: center;
 }
 .div_bloque_persona_correu p{
+    color: #004085;
 }
 .btn-tagpub {
     width: 220px;

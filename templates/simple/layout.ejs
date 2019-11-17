@@ -1,18 +1,56 @@
 <!DOCTYPE html>
 <html lang="ca">
-<head>
-    <% include head %>
-</head>
-<body>
 
-<header>
-    <% include header %>
-</header>
+    <head>
+        <% include head %>
+    </head>
 
-<div id="main-wrap">
-    <main ng-app="iaqse">
-    </main>
-</div>
-<% include footer %>
+    <body>
+        <div style="max-width: 1500px; margin: auto;">
+        <header>
+            <% include header %>
+        </header>
+
+        <div id="main-wrap" class="container-fluid">
+            <div class="row">
+                <div class="col-xl-2 d-none d-xl-block">
+                    <div class="alert alert-primary">
+                        <h6><i class="fa fa-compass"></i> Navegació</h6>
+                    </div>
+
+                    <ul id="tree1">
+                        <% routes.pages.forEach( page => { %>
+                        <li><a href="<%=page.url%>.html"><%=page.title%></a>
+                            <% if(page.views && page.views.length) { %>
+                            <ul>
+                                <% page.views.forEach( view => { %>
+                                <li><a href="<%=page.url%>.html#!/<%=view.url%>"><%=view.title%></a>
+                                    <% if(view.views && view.views.length) { %>
+                                    <ul>
+                                        <% view.views.forEach( view2 => { %>
+                                        <li><a href="<%=page.url%>.html#!/<%=view2.url%>"><%=view2.title%></a>
+                                            <% }) %>
+                                    </ul>
+                                    <% } %>
+                                </li>
+                                <% }) %>
+                            </ul>
+                            <% } %>
+                        </li>
+                        <% }) %>
+                    </ul>
+                </div>
+
+                <div class="col-xl-10 col-lg-12"">
+                <main ng-app="iaqse">
+                </main>
+                </div>
+            </div>
+                <% include footer %>
+            </div>
+            
+        </div>
+
 </body>
+
 </html>

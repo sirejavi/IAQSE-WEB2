@@ -12,8 +12,8 @@ const fs = require("fs");
 const path = require("path");
 const utils = require("./utils");
 
-//const readFrom = "./cat";  // old files before changes
-const readFrom = "./static/cat0" // new files, new structure
+let readFrom = "./cat";  // old files before changes
+//let readFrom = "./static/cat" // new files, new structure
 
 let dirPub = readFrom + "/publicacions/publicacions.html";
 let pubs = fs.readFileSync(path.resolve(dirPub), "latin1");
@@ -245,10 +245,6 @@ function avaluacioProcessor(dirPub) {
             tag += " DIAGNOSTIC";
         } else if(titleup.indexOf("FINAL")>=0){
             tag += " FINAL";
-        } else if(titleup.indexOf("PISA")>=0){
-            tag += " PISA";
-        } else if(titleup.indexOf("COMUNITATS")>=0){
-            tag += " COMUNITATS";
         } 
         let ava = {title: title0, tag: tag, documents: []};
     
@@ -273,8 +269,6 @@ function avaluacioProcessor(dirPub) {
             });
             
         });
-
-        // Per un cas no hi ha
     
         avaluacions.push(ava);
     });
@@ -284,37 +278,34 @@ function avaluacioProcessor(dirPub) {
  
 dirPub = readFrom + "/avaluacions/finaletapa/ava_finaletapa.html";
 var finaletapa_avaluacions = avaluacioProcessor(dirPub);
-fs.writeFileSync("./database/avaluacions_finaletapa.json", JSON.stringify(finaletapa_avaluacions, null, 4));
+fs.writeFileSync("./database/finaletapa_avaluacions.json", JSON.stringify(finaletapa_avaluacions, null, 4));
 
 //************************************************************************************************ */
  
 dirPub = readFrom + "/avaluacions/diagnostic/diagnostic.html";
 var diagnostic_avaluacions = avaluacioProcessor(dirPub);
-fs.writeFileSync("./database/avaluacions_diagnostic.json", JSON.stringify(diagnostic_avaluacions, null, 4));
-
-//************************************************************************************************ */ 
-dirPub = readFrom + "/avaluacions/internacionals/ava_internacionals.html";
-var pisa_avaluacions = avaluacioProcessor(dirPub);
-fs.writeFileSync("./database/avaluacions_internacionals.json", JSON.stringify(pisa_avaluacions, null, 4));
+fs.writeFileSync("./database/diagnostic_avaluacions.json", JSON.stringify(diagnostic_avaluacions, null, 4));
 
 //************************************************************************************************ */
-// ALTRES està format per primaria / secundària
-
-dirPub = readFrom + "/avaluacions/altres/primaria/ava_primaria.html";
-var altres_avaluacions_primaria = avaluacioProcessor(dirPub);
-
-dirPub = readFrom + "/avaluacions/altres/secundaria/ava_secundaria.html";
-var altres_avaluacions_secundaria = avaluacioProcessor(dirPub);
-
-// També altres comunitats
-dirPub = readFrom + "/avaluacions/altres/primaria/altres_comunitats.html";
-var altres_avaluacions_comunitats = avaluacioProcessor(dirPub);
-
-const altres_avaluacions = [...altres_avaluacions_primaria, ...altres_avaluacions_comunitats, ...altres_avaluacions_secundaria];
-
-fs.writeFileSync("./database/avaluacions_altres.json", JSON.stringify(altres_avaluacions, null, 4));
-
  
+dirPub = readFrom + "/avaluacions/altres/altres.html";
+var altres_avaluacions = avaluacioProcessor(dirPub);
+fs.writeFileSync("./database/altres_avaluacions.json", JSON.stringify(altres_avaluacions, null, 4));
+
+//************************************************************************************************ */
+ 
+dirPub = readFrom + "/avaluacions/pisa/pisa.html";
+var pisa_avaluacions = avaluacioProcessor(dirPub);
+fs.writeFileSync("./database/pisa_avaluacions.json", JSON.stringify(pisa_avaluacions, null, 4));
+
+//*************************************************************************************************/
+
+dirPub = readFrom + "/avaluacions/primaria/ava_primaria.html";
+var primaria_avaluacions = avaluacioProcessor(dirPub);
+fs.writeFileSync("./database/primaria_avaluacions.json", JSON.stringify(primaria_avaluacions, null, 4));
+
+
+
 //************************************************************************************************ INDICADORS */
 // COMBINAR INDICADORS AMB PUBLICACIONS DE TIPUS INDICADORS I EVITAR DUPLICATS
 dirPub = readFrom + "/indicadors/indicadors.html";

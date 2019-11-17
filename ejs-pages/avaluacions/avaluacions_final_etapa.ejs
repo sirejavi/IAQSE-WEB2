@@ -48,8 +48,8 @@ var chunker = function(arr, chunkSize) {
             R.push(arr.slice(i,i+chunkSize));
         return R;
     };
-var avaJSON =<%-JSON.stringify(finaletapa_avaluacions)%>;
-app.controller("finaletapaController", function ($scope) {
+ 
+app.controller("finaletapaController", ["$scope", "httpService", function ($scope, httpService) {
     $scope.avaluacions = [];
     $scope.nivells = [
         { label: "Tots els nivells", value: "" }, 
@@ -79,7 +79,10 @@ app.controller("finaletapaController", function ($scope) {
         $scope.avaluacions = list;
     };
 
-    $scope.search();
+    httpService.loadSchema("avaluacions_finaletapa").then(function(response){
+            window.avaJSON = response.data;
+            $scope.search();
+        });    
 
-});
+}]);
 </script>

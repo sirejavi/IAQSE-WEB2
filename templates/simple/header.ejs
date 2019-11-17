@@ -12,7 +12,7 @@
         <ul class="navbar-nav ml-auto">
           <% routes.pages.forEach( (page) => {%>
           <li class="nav-item <% if(currentPage == page.url) {%> active <% } %>">
-            <a class="nav-link" href="<%=page.url%>.html"><%=page.title%></span>
+            <a class="nav-link" href="<%=page.url%>.html" title="<%=page.title_long%>"><%=page.title%></span>
             </a>
           </li>
           <% }) %>
@@ -113,12 +113,12 @@
            S44NiAyLjA0OSwzLjk1OSAyLjU1Niw2LjE4MiBMIDAsMTQuMTkzIDAsMCBaIgogICAgICAgICBzdHlsZT0iZmlsbDojYmIwMDM2O2ZpbGwtb3BhY2l0eToxO2ZpbGwtcnVsZTpub256ZXJvO3N0cm9rZTpub25lIgogICAgICAgICBpZD0icGF0aDYzNzEiCiAgICAgICAgIGlua3NjYXBlOmNvbm5lY3Rvci1jdXJ2YXR1cmU9IjAiIC8+CiAgICA8L2c+CiAgPC9nPgo8L3N2Zz4K" class="logo-left"/> 
         
            <div class="logo-right">
-             <center style="margin-top: 20px">
+             <center style="margin-top: 30px">
                 <a href="https://apps.caib.es/gesavafront/" target="_blank" title="Programari de gestió d'avaluacions">
                  
                   <img src="../img/gesava.png" style="width:35px"><br>
                     <span style="font-size: 90%">Accés GESAVA</span>
-                <a>
+                </a>
               </center>
           </div> 
       </div>

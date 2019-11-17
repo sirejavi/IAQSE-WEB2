@@ -57,9 +57,8 @@
             }
             return found;
     };
-    var pisaJSON =<%-JSON.stringify(pisa_avaluacions)%>;
-    var altresJSON =<%-JSON.stringify(altres_avaluacions)%>;
-    app.controller("internacionalsController", function ($scope) {
+   
+    app.controller("internacionalsController", ["$scope", "httpService", function ($scope, httpService) {
         $scope.avaluacions = [];
         $scope.nivells = [    
             { label: "Totes", values: "PIRLS,PEOPAU,PISA,TALIS" }, 
@@ -78,15 +77,8 @@
 
         $scope.search = function () {
             var list = [];  
-                for (var i = 0, len = pisaJSON.length; i < len; i++) {
-                    var item = pisaJSON[i];  
-                    if (!$scope.selectedNivell.values || hasTag(item.tag, $scope.selectedNivell.values.split(","))) {
-                        item.chunks = chunker(item.documents, 2);
-                        list.push(item);
-                    }
-                }
-                for (var i = 0, len = altresJSON.length; i < len; i++) {
-                    var item = altresJSON[i];  
+                for (var i = 0, len = avaJSON.length; i < len; i++) {
+                    var item = avaJSON[i];  
                     if (!$scope.selectedNivell.values || hasTag(item.tag, $scope.selectedNivell.values.split(","))) {
                         item.chunks = chunker(item.documents, 2);
                         list.push(item);
@@ -96,7 +88,10 @@
             $scope.avaluacions = list;
         };
     
-        $scope.search();
-    
-    });
+        
+        httpService.loadSchema("avaluacions_internacionals").then(function(response){
+            window.avaJSON = response.data;
+            $scope.search();
+        });    
+    }]);
     </script>

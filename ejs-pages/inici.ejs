@@ -1,35 +1,12 @@
 <div class="row">
-    <div class="col-xl-2 d-none d-xl-block">
-        <div class="alert alert-primary"><h6><i class="fa fa-compass"></i> Navegació</h6></div>
 
-        <ul id="tree1">
-                <% routes.pages.forEach( page => { %>
-                    <li><a href="<%=page.url%>.html"><%=page.title%></a>
-                        <% if(page.views && page.views.length) { %>
-                        <ul>
-                            <% page.views.forEach( view => { %>
-                                <li><a href="<%=page.url%>.html#!/<%=view.url%>"><%=view.title%></a>
-                                    <% if(view.views && view.views.length) { %>
-                                        <ul>
-                                        <% view.views.forEach( view2 => { %>
-                                            <li><a href="<%=page.url%>.html#!/<%=view2.url%>"><%=view2.title%></a>
-                                        <% }) %>
-                                        </ul>
-                                    <% } %>
-                                </li>
-                            <% }) %>  
-                        </ul>
-                        <% } %>
-                    </li>
-                <% }) %> 
-            </ul>
-    </div> 
-    <div class="col-md-6 col-xl-6">
+    <div class="col-md-7">
         <div id="carouselIndicators" class="carousel slide" data-ride="carousel">
             <ol class="carousel-indicators">
                 <% inici.carousel.forEach( (item, idx) => { %>
-                <li data-target="#carouselIndicators" data-slide-to="<%=idx%>" <% if(idx==0) { %>class="active"<% } %> ></li>
-                <% }) %> 
+                <li data-target="#carouselIndicators" data-slide-to="<%=idx%>" <% if(idx==0) { %>class="active" <% } %>>
+                </li>
+                <% }) %>
             </ol>
             <div class="carousel-inner">
                 <% inici.carousel.forEach( (item, idx) => { %>
@@ -37,23 +14,23 @@
                     <img class="d-block w-100" src="../<%=item.img%>" alt="Imatge <%=idx+1%>">
                     <% if(item.title || item.description) { %>
                     <% if(item.url) {%>
-                        <a href="<%=item.url%>" target="<%=item.target?item.target:''%>">
-                    <% } %>
-                    <div class="carousel-caption" style="background: rgba(100,100,100,0.5);">
-                        <% if(item.title) { %>
-                        <h6 style="font-family: Arial, Helvetica, sans-serif;"><%=item.title%></h6>
+                    <a href="<%=item.url%>" target="<%=item.target?item.target:''%>">
                         <% } %>
-                        <% if(item.description) { %>
+                        <div class="carousel-caption" style="background: rgba(100,100,100,0.5);">
+                            <% if(item.title) { %>
+                            <h6 style="font-family: Arial, Helvetica, sans-serif;"><%=item.title%></h6>
+                            <% } %>
+                            <% if(item.description) { %>
                             <p style="text-align: center;"><%=item.description%></p>
-                        <% } %>
-                    </div>
-                    <% if(item.url) {%>
-                        </a>
+                            <% } %>
+                        </div>
+                        <% if(item.url) {%>
+                    </a>
                     <% } %>
 
                     <% } %>
-                </div> 
-            <% }) %> 
+                </div>
+                <% }) %>
             </div>
             <a class="carousel-control-prev" href="#carouselIndicators" role="button" data-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -65,12 +42,14 @@
             </a>
         </div>
         <br>
-        <div class="alert alert-primary"><h6><i class="fa fa-address-card"></i> Presentació</h6></div>
-   
+        <div class="alert alert-primary">
+            <h6><i class="fa fa-address-card"></i> Presentació</h6>
+        </div>
 
-<p>
-    
-        <img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+CjwhLS0gQ3JlYXRlZCB3aXRoIElua3NjYXBlIChodHRwOi8vd3d3Lmlua3NjYXBlLm9yZy8pIC0tPgoKPHN2ZwogICB4bWxuczpkYz0iaHR0cDovL3B1cmwub3JnL2RjL2VsZW1lbnRzLzEuMS8iCiAgIHhtbG5zOmNjPSJodHRwOi8vY3JlYXRpdmVjb21tb25zLm9yZy9ucyMiCiAgIHhtbG5zOnJkZj0iaHR0cDovL3d3dy53My5vcmcvMTk5OS8wMi8yMi1yZGYtc3ludGF4LW5zIyIKICAgeG1sbnM6c3ZnPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIKICAgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIgogICB4bWxuczpzb2RpcG9kaT0iaHR0cDovL3NvZGlwb2RpLnNvdXJjZWZvcmdlLm5ldC9EVEQvc29kaXBvZGktMC5kdGQiCiAgIHhtbG5zOmlua3NjYXBlPSJodHRwOi8vd3d3Lmlua3NjYXBlLm9yZy9uYW1lc3BhY2VzL2lua3NjYXBlIgogICB3aWR0aD0iNzIuNjM1MDk0bW0iCiAgIGhlaWdodD0iNDEuNzM5NjgxbW0iCiAgIHZpZXdCb3g9IjAgMCAyNTcuMzY4NDQgMTQ3Ljg5NjUxIgogICBpZD0ic3ZnMiIKICAgdmVyc2lvbj0iMS4xIgogICBpbmtzY2FwZTp2ZXJzaW9uPSIwLjkxIHIxMzcyNSIKICAgc29kaXBvZGk6ZG9jbmFtZT0ibG9nby1pYXFzZS5zdmciPgogIDxkZWZzCiAgICAgaWQ9ImRlZnM0IiAvPgogIDxzb2RpcG9kaTpuYW1lZHZpZXcKICAgICBpZD0iYmFzZSIKICAgICBwYWdlY29sb3I
+
+        <p>
+
+            <img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+CjwhLS0gQ3JlYXRlZCB3aXRoIElua3NjYXBlIChodHRwOi8vd3d3Lmlua3NjYXBlLm9yZy8pIC0tPgoKPHN2ZwogICB4bWxuczpkYz0iaHR0cDovL3B1cmwub3JnL2RjL2VsZW1lbnRzLzEuMS8iCiAgIHhtbG5zOmNjPSJodHRwOi8vY3JlYXRpdmVjb21tb25zLm9yZy9ucyMiCiAgIHhtbG5zOnJkZj0iaHR0cDovL3d3dy53My5vcmcvMTk5OS8wMi8yMi1yZGYtc3ludGF4LW5zIyIKICAgeG1sbnM6c3ZnPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIKICAgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIgogICB4bWxuczpzb2RpcG9kaT0iaHR0cDovL3NvZGlwb2RpLnNvdXJjZWZvcmdlLm5ldC9EVEQvc29kaXBvZGktMC5kdGQiCiAgIHhtbG5zOmlua3NjYXBlPSJodHRwOi8vd3d3Lmlua3NjYXBlLm9yZy9uYW1lc3BhY2VzL2lua3NjYXBlIgogICB3aWR0aD0iNzIuNjM1MDk0bW0iCiAgIGhlaWdodD0iNDEuNzM5NjgxbW0iCiAgIHZpZXdCb3g9IjAgMCAyNTcuMzY4NDQgMTQ3Ljg5NjUxIgogICBpZD0ic3ZnMiIKICAgdmVyc2lvbj0iMS4xIgogICBpbmtzY2FwZTp2ZXJzaW9uPSIwLjkxIHIxMzcyNSIKICAgc29kaXBvZGk6ZG9jbmFtZT0ibG9nby1pYXFzZS5zdmciPgogIDxkZWZzCiAgICAgaWQ9ImRlZnM0IiAvPgogIDxzb2RpcG9kaTpuYW1lZHZpZXcKICAgICBpZD0iYmFzZSIKICAgICBwYWdlY29sb3I
         9IiNmZmZmZmYiCiAgICAgYm9yZGVyY29sb3I9IiM2NjY2NjYiCiAgICAgYm9yZGVyb3BhY2l0eT0iMS4wIgogICAgIGlua3NjYXBlOnBhZ2VvcGFjaXR5PSIwLjAiCiAgICAgaW5rc2NhcGU6cGFnZXNoYWRvdz0iMiIKICAgICBpbmtzY2FwZTp6b29tPSIyLjQyNDEzMDEiCiAgICAgaW5rc2NhcGU6Y3g9IjQwMC4wNDQ5NCIKICAgICBpbmtzY2FwZTpjeT0iLTgxLjIwMjcyNyIKICAgICBpbmtzY2FwZTpkb2N1bWVudC11bml0cz0icHgiCiAgICAgaW5rc2NhcGU6Y3VycmVudC1sYXllcj0ibGF5ZXIxIgogICAgIHNob3dncmlkPSJmYWxzZSIKICAgICBmaXQtbWFyZ2luLXRvcD0iMCIKICAgICBmaXQtbWFyZ2luLWxlZnQ9IjAiCiAgICAgZml0LW1hcmdpbi1yaWdodD0iMCIKICAgICBmaXQtbWFyZ2luLWJvdHRvbT0iMCIKICAgICBpbmtzY2FwZTp3aW5kb3ctd2lkdGg9IjI1NjAiCiAgICAgaW5rc2NhcGU6d2luZG93LWhlaWdodD0iMTMwOSIKICAgICBpbmtzY2FwZTp3aW5kb3cteD0iNTEiCiAgICAgaW5rc2NhcGU6d2luZG93LXk9IjAiCiAgICAgaW5rc2NhcGU6d2luZG93LW1heGltaXplZD0iMCIgLz4KICA8bWV0YWRhdGEKICAgICBpZD0ibWV0YWRhdGE3Ij4KICAgIDxyZGY6UkRGPgogICAgICA8Y2M6V29yawogICAgICAgICByZGY6YWJvdXQ9IiI+CiAgICAgICAgPGRjOmZvcm1hdD5pbWFnZS9zdmcreG1sPC9kYzpmb3JtYXQ+CiAgICAgICAgPGRjOnR5cGUKICAgICAgICAgICByZGY6cmVzb3VyY2U9Imh0dHA6Ly
         9wdXJsLm9yZy9kYy9kY21pdHlwZS9TdGlsbEltYWdlIiAvPgogICAgICAgIDxkYzp0aXRsZT48L2RjOnRpdGxlPgogICAgICA8L2NjOldvcms+CiAgICA8L3JkZjpSREY+CiAgPC9tZXRhZGF0YT4KICA8ZwogICAgIGlua3NjYXBlOmxhYmVsPSJDYXBhIDEiCiAgICAgaW5rc2NhcGU6Z3JvdXBtb2RlPSJsYXllciIKICAgICBpZD0ibGF5ZXIxIgogICAgIHRyYW5zZm9ybT0idHJhbnNsYXRlKC01LjMyOTU4NzEsLTIuODA2MjI5KSI+CiAgICA8ZwogICAgICAgaWQ9ImczNDQzIgogICAgICAgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTM2My41NjYzNywtMjcuNTQ3MDI1KSI+CiAgICAgIDxwYXRoCiAgICAgICAgIHN0eWxlPSJmaWxsOiM0NTY5OGUiCiAgICAgICAgIGQ9Im0gNDY4Ljc4NTk2LDE3Ni45ODIxMyBjIC00LjkxODU1LC0xLjc1ODE1IC0xMC4xMzg5MiwtNS45MDg5OSAtMTMuNDYxNjEsLTEwLjcwMzY0IGwgLTIuNzc5ODQsLTQuMDExMzEgLTMuMDg0MTcsMC43OTMwNCBjIC0xLjY5NjMsMC40MzYxNiAtOC4yNTkxOCwwLjc4NTcyIC0xNC41ODQxOCwwLjc3Njc4IC0xMC4xMzY4OCwtMC4wMTQzIC0xMi4yNDQyNCwtMC4zMjc4OCAtMTcuNzc4NzksLTIuNjQ1MzggLTE0LjM4OTMxLC02LjAyNTI5IC0yNS43MjkyLC0xNS40NDY0NyAtMzcuMjg4MzcsLTMwLjk3OTE5IC0xMS42Njg4OCwtMTUuNjgwMTIgLTEzLjA5NywtMjIuMTY3MzkgLTguNDI3MzQsLTM4LjI4MTM5MiA2LjkwNjIyLC0yMy44MzE5MzQgMTguNjg5NTgsL
         TM5LjExODgzMSAzNS4yNTE0OCwtNDUuNzMyNzYyIDUuMDQzODksLTIuMDE0MjU5IDcuMzg2NDYsLTIuMjgzNTExIDE5LjI0MzAyLC0yLjIxMTc2OCA3LjQyNSwwLjA0NDkzIDE0LjgyNTkzLDAuNTA5MjY1IDE2LjQ0NjUyLDEuMDMxODYgbCAyLjk0NjUyLDAuOTUwMTc0IC0yMC44OTk0OSw4LjkyMzc0NCBjIC0yMi42Nzk1NCw5LjY4MzggLTI5LjkwNTMsMTMuNzk4NjQyIC0zNS44NTYyMiwyMC40MTg5NzYgLTUuNjA3NDEsNi4yMzgxNzkgLTcuOTEzOTMsMTIuMTQyMzkzIC04LjQyNzY2LDIxLjU3MzA1MiAtMC43NTM3MiwxMy44MzYyMDYgNC4wNzcxNCwyOC40MjQzNzYgMTIuMzgzODksMzcuMzk2NjQ2IDExLjQzNzgxLDEyLjM1NDIgMzUuNTMzOTcsMjAuNTk2NzggNTEuMTA3LDE3LjQ4MjE4IGwgMi45NTA1NSwtMC41OTAxMSAtMS45MjA0NywtNS45MzAxNSAtMS45MjA0NywtNS45MzAxNCAtMy40Mzk4OCwzLjAyMDI2IGMgLTMuNDg5NTYsMy4wNjM4NyAtOC4wMjIzNSwzLjk2ODE5IC05Ljk5NjIzLDEuOTk0MyAtMS4xNDMzMywtMS4xNDMzMiAxNi4xMDg3MiwtMTkuNDExNzQgMTcuNTEyNDcsLTE4LjU0NDE4IDAuNDM5MzQsMC4yNzE1MyAzLjYyOTA2LDQuNzg1ODkgNy4wODgyNywxMC4wMzE5MSAzLjQ1OTIsNS4yNDYwMiA2Ljc5ODUxLDkuNTM4MjIgNy40MjA2OCw5LjUzODIyIDIuMzk4NDcsMCAxMi40NTU0NCwtNy42NzkwNiAyMC4xODcxNCwtMTUuNDEzOTkgMjAuNDExMjksLTIwLjQxOTg2IDE5LjE4OTI4LC0zOS4x
@@ -87,53 +66,73 @@
         A0cHg7dGV4dC1hbmNob3I6c3RhcnQiCiAgICAgICAgIGlkPSJ0c3BhbjM2NDEiPjx0c3BhbgogICBzdHlsZT0iZm9udC1zdHlsZTpub3JtYWw7Zm9udC12YXJpYW50Om5vcm1hbDtmb250LXdlaWdodDpib2xkO2ZvbnQtc3RyZXRjaDpub3JtYWw7Zm9udC1zaXplOjIxLjI1cHg7bGluZS1oZWlnaHQ6MTM3Ljk5OTk5OTUyJTtmb250LWZhbWlseTpWZXJkYW5hOy1pbmtzY2FwZS1mb250LXNwZWNpZmljYXRpb246J1ZlcmRhbmEgQm9sZCc7bGV0dGVyLXNwYWNpbmc6MC4wNHB4O2ZpbGw6I2ZmMDAwMCIKICAgaWQ9InRzcGFuMzY0OSI+QTwvdHNwYW4+dmFsdWFjacOzPC90c3Bhbj48dHNwYW4KICAgICAgICAgc29kaXBvZGk6cm9sZT0ibGluZSIKICAgICAgICAgeD0iMTQ3Ljg0Nzk5IgogICAgICAgICB5PSI4NS4yMDE3NzUiCiAgICAgICAgIHN0eWxlPSJmb250LXN0eWxlOm5vcm1hbDtmb250LXZhcmlhbnQ6bm9ybWFsO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1zdHJldGNoOm5vcm1hbDtmb250LXNpemU6MjEuMjVweDtsaW5lLWhlaWdodDoxMzcuOTk5OTk5NTIlO2ZvbnQtZmFtaWx5OlZlcmRhbmE7LWlua3NjYXBlLWZvbnQtc3BlY2lmaWNhdGlvbjonVmVyZGFuYSBCb2xkJzt0ZXh0LWFsaWduOnN0YXJ0O2xldHRlci1zcGFjaW5nOjAuMDRweDt0ZXh0LWFuY2hvcjpzdGFydCIKICAgICAgICAgaWQ9InRzcGFuMzY0MyI+PHRzcGFuCiAgIHN0eWxlPSJmb250LXN0eWxlOm5vcm1hbDtmb250LXZhcmlhbnQ6bm9ybWFsO2Zvb
         nQtd2VpZ2h0OmJvbGQ7Zm9udC1zdHJldGNoOm5vcm1hbDtmb250LXNpemU6MjEuMjVweDtsaW5lLWhlaWdodDoxMzcuOTk5OTk5NTIlO2ZvbnQtZmFtaWx5OlZlcmRhbmE7LWlua3NjYXBlLWZvbnQtc3BlY2lmaWNhdGlvbjonVmVyZGFuYSBCb2xkJztsZXR0ZXItc3BhY2luZzowLjA0cHg7ZmlsbDojZmYwMDAwIgogICBpZD0idHNwYW4zNjUxIj5RPC90c3Bhbj51YWxpdGF0PC90c3Bhbj48dHNwYW4KICAgICAgICAgc29kaXBvZGk6cm9sZT0ibGluZSIKICAgICAgICAgeD0iMTQ3Ljg0Nzk5IgogICAgICAgICB5PSIxMTQuNTI2NzciCiAgICAgICAgIHN0eWxlPSJmb250LXN0eWxlOm5vcm1hbDtmb250LXZhcmlhbnQ6bm9ybWFsO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1zdHJldGNoOm5vcm1hbDtmb250LXNpemU6MjEuMjVweDtsaW5lLWhlaWdodDoxMzcuOTk5OTk5NTIlO2ZvbnQtZmFtaWx5OlZlcmRhbmE7LWlua3NjYXBlLWZvbnQtc3BlY2lmaWNhdGlvbjonVmVyZGFuYSBCb2xkJzt0ZXh0LWFsaWduOnN0YXJ0O2xldHRlci1zcGFjaW5nOjAuMDRweDt0ZXh0LWFuY2hvcjpzdGFydCIKICAgICAgICAgaWQ9InRzcGFuMzY0NSI+PHRzcGFuCiAgIHN0eWxlPSJmb250LXN0eWxlOm5vcm1hbDtmb250LXZhcmlhbnQ6bm9ybWFsO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1zdHJldGNoOm5vcm1hbDtmb250LXNpemU6MjEuMjVweDtsaW5lLWhlaWdodDoxMzcuOTk5OTk5NTIlO2ZvbnQtZmFtaWx5OlZlcmRhbmE7LWlua3NjYXBl
         LWZvbnQtc3BlY2lmaWNhdGlvbjonVmVyZGFuYSBCb2xkJztsZXR0ZXItc3BhY2luZzowLjA0cHg7ZmlsbDojZmYwMDAwIgogICBpZD0idHNwYW4zNjUzIj5TPC90c3Bhbj5pc3RlbWE8L3RzcGFuPjx0c3BhbgogICAgICAgICBzb2RpcG9kaTpyb2xlPSJsaW5lIgogICAgICAgICB4PSIxNDcuODQ3OTkiCiAgICAgICAgIHk9IjE0My44NTE3OCIKICAgICAgICAgc3R5bGU9ImZvbnQtc3R5bGU6bm9ybWFsO2ZvbnQtdmFyaWFudDpub3JtYWw7Zm9udC13ZWlnaHQ6Ym9sZDtmb250LXN0cmV0Y2g6bm9ybWFsO2ZvbnQtc2l6ZToyMS4yNXB4O2ZvbnQtZmFtaWx5OlZlcmRhbmE7LWlua3NjYXBlLWZvbnQtc3BlY2lmaWNhdGlvbjonVmVyZGFuYSBCb2xkJzt0ZXh0LWFsaWduOnN0YXJ0O2xldHRlci1zcGFjaW5nOjAuMDdweDt0ZXh0LWFuY2hvcjpzdGFydCIKICAgICAgICAgaWQ9InRzcGFuMzY0NyI+PHRzcGFuCiAgIHN0eWxlPSJmb250LXN0eWxlOm5vcm1hbDtmb250LXZhcmlhbnQ6bm9ybWFsO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1zdHJldGNoOm5vcm1hbDtmb250LXNpemU6MjEuMjVweDtsaW5lLWhlaWdodDoxMzcuOTk5OTk5NTIlO2ZvbnQtZmFtaWx5OlZlcmRhbmE7LWlua3NjYXBlLWZvbnQtc3BlY2lmaWNhdGlvbjonVmVyZGFuYSBCb2xkJztsZXR0ZXItc3BhY2luZzowLjA0cHg7ZmlsbDojZmYwMDAwIgogICBpZD0idHNwYW4zNjU1Ij5FPC90c3Bhbj48dHNwYW4KICAgc3R5bGU9ImxpbmUtaGVpZ2h0OjEzNy45OTk
-        5OTk1MiU7bGV0dGVyLXNwYWNpbmc6MC4wNHB4IgogICBpZD0idHNwYW4zNzAxIj5kdWM8L3RzcGFuPmF0aXU8L3RzcGFuPjwvdGV4dD4KICA8L2c+Cjwvc3ZnPgo=" class="iaqse-logo float-left"/>
+        5OTk1MiU7bGV0dGVyLXNwYWNpbmc6MC4wNHB4IgogICBpZD0idHNwYW4zNzAxIj5kdWM8L3RzcGFuPmF0aXU8L3RzcGFuPjwvdGV4dD4KICA8L2c+Cjwvc3ZnPgo="
+                class="iaqse-logo float-left" />
 
-        
-    L'Institut d'Avaluació i Qualitat del Sistema Educatiu de les Illes Balears -IAQSE- és l'òrgan de coordinació,
-    de consulta i tècnic de la Conselleria d'Educació i Universitat, que actua sota la dependència directa de la
-    Direcció General de Planificació, Ordenació i Centres, amb l'objectiu de dur a terme tasques d'anàlisi i
-    avaluació externa del sistema educatiu de les Illes Balears.</p>
-    
-    <p>Aquest Institut és també l'òrgan encarregat de proporcionar informació rellevant sobre el grau de qualitat
-    del sistema educatiu de les Illes Balears a l'Administració educativa, als òrgans de participació institucional,
-    als diferents sectors de la comunitat educativa i a la societat en general.</p>
-    
+
+            L'Institut d'Avaluació i Qualitat del Sistema Educatiu de les Illes Balears -IAQSE- és l'òrgan de
+            coordinació,
+            de consulta i tècnic de la Conselleria d'Educació i Universitat, que actua sota la dependència directa de la
+            Direcció General de Planificació, Ordenació i Centres, amb l'objectiu de dur a terme tasques d'anàlisi i
+            avaluació externa del sistema educatiu de les Illes Balears.</p>
+
+        <p>Aquest Institut és també l'òrgan encarregat de proporcionar informació rellevant sobre el grau de qualitat
+            del sistema educatiu de les Illes Balears a l'Administració educativa, als òrgans de participació
+            institucional,
+            als diferents sectors de la comunitat educativa i a la societat en general.</p>
+
     </div>
-    <div class="col-md-6 col-xl-4">
-        <div class="alert alert-primary"><h6 style="margin-top: 5px;"><i class="fa fa-star"></i> Destacats</h6></div>
+    <div class="col-md-5">
+        <div class="alert alert-primary">
+            <h6 style="margin-top: 5px;"><i class="fa fa-star"></i> Destacats</h6>
+        </div>
         <div class="list-group">
-        <!--destacats definits per usuari-->
-        <% inici.destacats.forEach( item => { %>
+            <!--destacats definits per usuari-->
+            <% inici.destacats.forEach( item => { %>
             <div class="list-group-item-hover list-group-item clearfix">
                 <div class=" alert alert-warning">
-                <a href="<%=item.url%>" target="_blank">
-                    <% if(item.img) { %>
-                    <img src="../<%=item.img%>" class="float-left" style="height:50px;margin-right:10px"/>
-                    <% } %>
-                    <p><%=item.title%></p>
-                    <p style="font-size: 90%;"><%=item.description%></p>
-                </a>
+
+                        <div style="display: flex; align-items: center;">
+                                <div style="float: left; width: 90px">
+                                    <a href="../<%=item.url%>" target="_blank">
+                                        <% if(item.img) { %>
+                                        <img src="../<%=item.img%>" style="width:55px;" />
+                                        <% } %>
+                                    </a>
+                                </div>
+                                <div style="float: left; margin-left:10px">
+                                        <p style="text-align: left;">
+                                    <a href="../<%=item.url%>" target="_blank">
+                                         <%=item.title%><br>
+                                         <%=item.description%>
+                                    </a>
+                                </p>
+                                </div>
+                        </div>
+                </div>
             </div>
+            <% }) %>
+            <!--Destacats generats automàticament-->
+            <% destacats.forEach( item => { %>
+            <div class="list-group-item-hover list-group-item">
+                <div style="display: flex; align-items: center;">
+                    <div style="float: left; width: 90px">
+                        <a href="../<%=item.url%>" target="_blank">
+                            <% if(item.img) { %>
+                            <img src="../<%=item.img%>" style="width:55px;" />
+                            <% } %>
+                        </a>
+                    </div>
+                    <div style="float: left; margin-left:10px">
+                            <p style="text-align: left;">
+                        <a href="../<%=item.url%>" target="_blank">
+                             <%=item.title%>
+                        </a>
+                    </p>
+                    </div>
+                </div>
             </div>
-        <% }) %>
-        <!--Destacats generats automàticament-->
-        <% destacats.forEach( item => { %>
-            <div class="list-group-item-hover list-group-item clearfix">
-                <a href="../<%=item.url%>" target="_blank">
-                    <% if(item.img) { %>
-                    <img src="../<%=item.img%>" class="float-left" style="height:50px;margin-right:10px"/>
-                    <% } %>
-                    <p style="text-align: left;"><%=item.title%></p>
-                </a>
-            </div>
-        <% }) %>
-    </div>
+            <% }) %>
+        </div>
     </div>
 </div>
-
-<script>
-    $(function(){
-        $('#tree1').treed();
-    });
-</script>

@@ -8,6 +8,7 @@ const ejs = require("ejs");
 const fs = require("fs");
 const path = require("path");
 const utils = require("./utils.js");
+const htmlMinifier = require('html-minifier').minify;
 //const { exec } = require('child_process');
  
 // Load configuration
@@ -183,8 +184,11 @@ routes.pages.forEach((page) => {
 
     //const compiledPage = ejs.compile(pageTemplate, {filename: templateLocation, name: "layout.ejs"});
     database.view = null;
-    const rendered = ejs.render(pageTemplate, database, { filename: templateLocation, name: "layout" });
+    let rendered = ejs.render(pageTemplate, database, { filename: templateLocation, name: "layout" });
     console.log("\tWriting html page into ", htmlPath);
+    if(config.minify_html) {
+        rendered = htmlMinifier(rendered, {minifyJS: true, minifyCSS: true});
+    }
     fs.writeFileSync(htmlPath, rendered, { encoding: encoding });
 
 });
