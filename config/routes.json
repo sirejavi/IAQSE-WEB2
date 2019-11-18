@@ -99,12 +99,6 @@
             "title_long": "Proves alliberades",
             "ejs": "proves",
             "url": "proves"
-        },
-        {
-            "title": "Edu",
-            "title_long": "Racó educatiu IAQSE",
-            "ejs": "edu",
-            "url": "edu"
-        }
+        } 
     ]
 }

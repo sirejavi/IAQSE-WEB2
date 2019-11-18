@@ -31,7 +31,8 @@
          "inputs": [
             "./assets/css/bootstrap.min.css",
             "./assets/css/monserrat.css",
-            "./assets/css/layout.css"
+            "./assets/css/layout.css",
+            "./assets/css/tree.css"
          ]
       }
    ]

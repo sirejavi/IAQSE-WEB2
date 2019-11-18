@@ -1,5 +1,12 @@
 {
     "destacats": [
+        {
+            "icon": "fa fa-print",
+            "url": "proves.html", 
+            "title": "Proves de diagnòstic",
+            "description": "Versions imprimibles per practicar",
+            "class": "alert-warning"
+        }
     ],
     "carousel": [
         {

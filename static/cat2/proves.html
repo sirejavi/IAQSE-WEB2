@@ -79,11 +79,6 @@
             </a>
           </li>
           
-          <li class="nav-item">
-            <a class="nav-link" href="edu.html" title="Racó educatiu IAQSE">Edu
-            </a>
-          </li>
-          
         </ul>
       </div>
     </div>
@@ -184,10 +179,6 @@
                             
                         </li>
                         
-                        <li><a href="edu.html">Edu</a>
-                            
-                        </li>
-                        
                     </ul>
                 </div>
 
@@ -255,7 +246,7 @@
         </div>
     </div>
 </div>
-<script>app.controller("mainController",["$scope","$filter","httpService",function(i,c,e){i.pubs=[],i.pubslength=0,i.nivells=[{label:"3r EP",value:"3rEP"},{label:"6è EP",value:"6eEP"},{label:"2n ESO",value:"2nESO"},{label:"4t ESO",value:"4tESO"}],i.competencies=[{label:"Competència Llengua Anglesa",value:"CCLA"},{label:"Competència Llengua Castellana",value:"CCLE"},{label:"Competència Llengua Catalana",value:"CCLC"},{label:"Competència Matemàtica",value:"CMAT"},{label:"Competència Ciència i Tecnologia",value:"CCiT"}],i.determinaAnys=function(){i.anys=[];for(var e=0,n=provesJSON.length;e<n;e++){var l=provesJSON[e];if(l.any&&l.nivell==i.selections.nivell.value&&0<=l.tags.indexOf(i.selections.competencia.value)){for(var a=!1,s=0,t=i.anys.length;!a&&s<t;)a=i.anys[s].value==l.any,s++;a||i.anys.push({label:l.any,value:l.any})}}i.anys=c("orderBy")(i.anys,"+label",!0),i.anys.unshift({label:"Tots els anys",value:-1}),i.selectAny(0)},i.selections={nivell:i.nivells[0],competencia:i.competencies[0]},i.selectNivell=function(e){i.selections.nivell=i.nivells[e],i.determinaAnys(),i.search()},i.selectCompetencia=function(e){i.selections.competencia=i.competencies[e],i.determinaAnys(),i.search()},i.selectAny=function(e){i.selections.any=i.anys[e],i.search()},i.search=function(){for(var e=[],n=0,l=provesJSON.length;n<l;n++){var a=provesJSON[n];a.nivell==i.selections.nivell.value&&0<=a.tags.indexOf(i.selections.competencia.value)&&(-1==i.selections.any.value||a.any==i.selections.any.value)&&e.push(a)}i.pubslength=e.length,i.pubs=chunker(e,2)},i.keypress=function(e){13===e.which&&i.search()},e.loadSchema("proves").then(function(e){window.provesJSON=e.data,i.determinaAnys()})}])</script></main>
+<script>app.controller("mainController",["$scope","$filter","httpService",function(o,v,e){o.pubs=[],o.pubslength=0,o.nivells=[{label:"Tots els nivells",value:""},{label:"3r EP",value:"3rEP"},{label:"6è EP",value:"6eEP"},{label:"2n ESO",value:"2nESO"},{label:"4t ESO",value:"4tESO"}],o.competencies=[{label:"Totes les competències",value:""},{label:"Competència Llengua Anglesa",value:"CCLA"},{label:"Competència Llengua Castellana",value:"CCLE"},{label:"Competència Llengua Catalana",value:"CCLC"},{label:"Competència Matemàtica",value:"CMAT"},{label:"Competència Ciència i Tecnologia",value:"CCiT"}],o.determinaAnys=function(){o.anys=[];for(var e=0,l=provesJSON.length;e<l;e++){var n=provesJSON[e],a=o.selections.nivell.value,s=o.selections.competencia.value;if(n.any&&(!a||n.nivell==a)&&(!s||0<=n.tags.indexOf(s))){for(var t=!1,i=0,c=o.anys.length;!t&&i<c;)t=o.anys[i].value==n.any,i++;t||o.anys.push({label:n.any,value:n.any})}}o.anys=v("orderBy")(o.anys,"+label",!0),o.anys.unshift({label:"Tots els anys",value:-1}),o.selectAny(0)},o.selections={nivell:o.nivells[0],competencia:o.competencies[0]},o.selectNivell=function(e){o.selections.nivell=o.nivells[e],o.determinaAnys(),o.search()},o.selectCompetencia=function(e){o.selections.competencia=o.competencies[e],o.determinaAnys(),o.search()},o.selectAny=function(e){o.selections.any=o.anys[e],o.search()},o.search=function(){for(var e=[],l=o.selections.nivell.value,n=o.selections.competencia.value,a=0,s=provesJSON.length;a<s;a++){var t=provesJSON[a];l&&t.nivell!=l||n&&!(0<=t.tags.indexOf(n))||-1!=o.selections.any.value&&t.any!=o.selections.any.value||e.push(t)}o.pubslength=e.length,o.pubs=chunker(e,2)},o.keypress=function(e){13===e.which&&o.search()},e.loadSchema("proves").then(function(e){window.provesJSON=e.data,o.determinaAnys(),o.search()})}])</script></main>
                 </div>
             </div>
                 <footer class="py-1" style="width:100%;margin:0">

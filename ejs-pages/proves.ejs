@@ -62,12 +62,14 @@
         $scope.pubslength = 0;
 
         $scope.nivells = [
+            {label:"Tots els nivells", value: ""},
             {label:"3r EP", value: "3rEP"},
             {label:"6è EP", value: "6eEP"},
             {label:"2n ESO", value: "2nESO"},
             {label:"4t ESO", value: "4tESO"} 
             ];
         $scope.competencies = [
+            {label: "Totes les competències", value: ""},
             {label: "Competència Llengua Anglesa", value: "CCLA"},
             {label: "Competència Llengua Castellana", value: "CCLE"},
             {label: "Competència Llengua Catalana", value: "CCLC"},
@@ -80,8 +82,10 @@
             // Determina els anys
             for(var i=0, len=provesJSON.length; i<len; i++) {
                 var item = provesJSON[i];           
-                if(item.any && item.nivell == $scope.selections.nivell.value &&
-                   item.tags.indexOf($scope.selections.competencia.value)>=0) {
+                var nivellSelected = $scope.selections.nivell.value;
+                var competenciaSelected = $scope.selections.competencia.value;
+                if(item.any && (!nivellSelected || item.nivell == nivellSelected) &&
+                   (!competenciaSelected || item.tags.indexOf(competenciaSelected)>=0)) {
                     var found = false;
                     var k = 0;
                     var n = $scope.anys.length;
@@ -99,12 +103,10 @@
             $scope.anys.unshift({label: "Tots els anys", value: -1});
             $scope.selectAny(0);
         };
-
         $scope.selections = {
             nivell: $scope.nivells[0],
             competencia: $scope.competencies[0] 
         };
-       
         $scope.selectNivell = function(index) {
             $scope.selections.nivell = $scope.nivells[index];
             $scope.determinaAnys() 
@@ -122,10 +124,12 @@
 
         $scope.search = function () {
             var list = [];
+            var nivellSelected = $scope.selections.nivell.value;
+            var competenciaSelected = $scope.selections.competencia.value;
             for(var i=0, len = provesJSON.length; i<len; i++) {
                 var item = provesJSON[i];
-                if(item.nivell == $scope.selections.nivell.value &&
-                   item.tags.indexOf($scope.selections.competencia.value)>=0 &&
+                if( (!nivellSelected || item.nivell == nivellSelected) &&
+                   (!competenciaSelected || item.tags.indexOf(competenciaSelected)>=0) &&
                    ( $scope.selections.any.value==-1 || item.any==$scope.selections.any.value )) {
                     list.push(item);
                 }
@@ -144,6 +148,7 @@
         httpService.loadSchema("proves").then(function(response){
             window.provesJSON = response.data;
             $scope.determinaAnys();
+            $scope.search();
         })
         
 
