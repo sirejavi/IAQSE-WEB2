@@ -11,11 +11,12 @@ app.use((req, res, next) => { //change app.all to app.use here and remove '*', i
   res.set("Access-Control-Allow-Origin", "*");
   res.set("Access-Control-Allow-Headers", "Content-Type,X-Requested-With");
   res.set("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");
-  if(req.originalUrl.endsWith(".html")) {
+  const url = req.originalUrl.split("?")[0].trim();
+  if(url.endsWith(".html")) {
     res.set("Content-Type", "text/html; charset=iso-8859-1");
-  } else if(req.originalUrl.endsWith(".svg")) {
+  } else if(url.endsWith(".svg")) {
     res.set("Content-Type", "text/xml; charset=iso-8859-1");
-  } else if(req.originalUrl.endsWith(".json")) {
+  } else if(url.endsWith(".json")) {
     res.set("Content-Type", "application/json; charset=iso-8859-1");
   }
   next();

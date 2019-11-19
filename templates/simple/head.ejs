@@ -29,6 +29,16 @@
            R.push(arr.slice(i,i+chunkSize));
       return R;
   }; 
+  window.getURLParameter = function( name ){
+        var regexS = "[\\?&]"+name+"=([^&#]*)", 
+    regex = new RegExp( regexS ),
+    results = regex.exec( window.location.search );
+    if( results == null ){
+        return "";
+    } else{
+        return decodeURIComponent(results[1].replace(/\+/g, " "));
+    }
+  };
   window.app = angular.module("iaqse", ["ngRoute", "ngAnimate"]);
   app.service("httpService", ["$http", function($http){            
             var service  = {

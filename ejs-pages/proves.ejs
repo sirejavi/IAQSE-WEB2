@@ -1,6 +1,7 @@
 <div ng-controller="mainController">
      
         <div class="clearfix">
+        <span class="filtrau">Filtrau per </span>
         <!--combo nivells-->
         <div class="btn-group float-left" title="Nivell de la prova" style="margin-left: 5px; margin-bottom: 5px;">
             <button class="btn btn-secondary dropdown-toggle" type="button" id="nivellCombo" 
@@ -44,7 +45,7 @@
             <div class="fa-pull-left">
                 <i ng-if="pub.destacat" class="fa fa-star"></i>
                 <a href="../{{pub.url}}" target="_blank">
-                    <img ng-src="../{{pub.img}}" class="publication-img" />
+                    <img ng-src="../{{pub.img}}" class="proves-img" />
                 </a>
             </div>
 

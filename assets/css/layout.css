@@ -179,8 +179,19 @@ p {
 .list-group-item-hover:hover{
     background: whitesmoke;
 }
+.filtrau {
+    float:left;
+    margin-top: 5px;
+    margin-right: 5px;
+}
 .publication-img {
     width: 100px;
+    margin: 15px;
+    border: 1px solid grey; 
+    box-shadow: 5px 5px grey;
+}
+.proves-img {
+    width: 70px;
     margin: 15px;
     border: 1px solid grey; 
     box-shadow: 5px 5px grey;

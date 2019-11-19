@@ -1,6 +1,7 @@
 <div ng-controller="mainController">
      
         <div class="clearfix">
+                <span class="filtrau">Filtrau per </span>
              <!--combo categories-->
         <div class="btn-group float-left" title="Cerca per categoria" style="margin-left: 10px; margin-bottom: 5px;">
             <button class="btn btn-secondary dropdown-toggle" type="button" id="tagsCombo" 
@@ -55,6 +56,7 @@
     </div>
 </div>
 <script> 
+
     app.service("PubService", function () {
         var service = {};
         service.findByTags = function (tags) {
@@ -198,7 +200,18 @@
 
         httpService.loadSchema("publicacions").then(function(response){
             pubJSON = response.data;
-            $scope.listByTag(0);
+            var goTo = 0;
+            var tag = getURLParameter("tag");
+            console.log(tag);
+            if(tag) {
+                try{
+                    goTo = parseInt(tag);
+                } catch(e){};
+            }
+            if(goTo>=$scope.searchTags.length) {
+               goTo = 0;
+            }
+            $scope.listByTag(goTo);
         });
     }]);
 </script>
