@@ -2,10 +2,11 @@
     "destacats": [
         {
             "icon": "fa fa-print",
-            "url": "proves.html", 
+            "url": "proves.html#!/imprimibles", 
             "title": "Proves de diagnòstic",
-            "description": "Versions imprimibles per practicar",
-            "class": "alert-warning"
+            "description": "Versions per imprimir",
+            "class": "alert-warning",
+            "target": ""
         }
     ],
     "carousel": [
@@ -30,9 +31,9 @@
         },
         {
             "img": "img/carousel/3.jpg",
-            "url": "proves.html",
+            "url": "proves.html#!/imprimibles",
             "title": "PROVES ALLIBERADES",
-            "description": "Proves per baixar i practicar"
+            "description": "Proves per baixar i imprimir"
         }
     ]
 }

@@ -49,7 +49,7 @@
 
         <p>
 
-            <img id="logo-iaqse" class="iaqse-logo float-left" />
+            <div id="logo-iaqse" class="iaqse-logo float-left" ></div>
 
 
             L'Institut d'Avaluació i Qualitat del Sistema Educatiu de les Illes Balears -IAQSE- és l'òrgan de
@@ -76,7 +76,7 @@
 
                         <div style="display: flex; align-items: center;padding:10px" <% if(item.class) { %>class="<%=item.class%>" <% } %>> 
                                 <div style="float: left; width: 90px">
-                                    <a href="<%=item.url%>" target="_blank">
+                                    <a href="<%=item.url%>" <% if(item.target){ %> target="<%=item.target%>" <% } %> >
                                         <% if(item.img) { %>
                                         <img src="../<%=item.img%>" style="width:55px;" />
                                         <% } %>
@@ -87,7 +87,7 @@
                                 </div>
                                 <div style="float: left; margin-left:10px">
                                         <p style="text-align: left; font-size: 90%;">
-                                    <a href="<%=item.url%>" target="_blank">
+                                    <a href="<%=item.url%>" <% if(item.target){ %> target="<%=item.target%>" <% } %>>
                                          <span shorten-text="<%=item.title%>" shorten-length="60"></span><br>
                                          <span shorten-text="<%=item.description%>" shorten-length="60" style="font-size: 90%;"></span>
                                     </a>

@@ -26,17 +26,17 @@
   <script src="iaqse_bundle1.min.js"></script> 
   
 
-<script>window.chunker=function(e,r){for(var n=[],t=0,o=e.length;t<o;t+=r)n.push(e.slice(t,t+r));return n},window.getURLParameter=function(e){var r=new RegExp("[\\?&]"+e+"=([^&#]*)").exec(window.location.search);return null==r?"":decodeURIComponent(r[1].replace(/\+/g," "))},window.app=angular.module("iaqse",["ngRoute","ngAnimate"]),app.service("httpService",["$http",function(r){return{loadSchema:function(e){return r({method:"get",url:"database/"+e+".json",dataType:"json",contentType:"application/json; charset=iso-8859-1"})}}}]),window.app.config(["$controllerProvider","$provide","$compileProvider",function(n,t,o){app._controller=app.controller,app._service=app.service,app._factory=app.factory,app._value=app.value,app._directive=app.directive,app.controller=function(e,r){return n.register(e,r),this},app.service=function(e,r){return t.service(e,r),this},app.factory=function(e,r){return t.factory(e,r),this},app.value=function(e,r){return t.value(e,r),this},app.directive=function(e,r){return o.directive(e,r),this}}])</script>
+<script>window.chunker=function(e,r){for(var n=[],t=0,i=e.length;t<i;t+=r)n.push(e.slice(t,t+r));return n},window.getURLParameter=function(e){var r=new RegExp("[\\?&]"+e+"=([^&#]*)").exec(window.location.search);return null==r?"":decodeURIComponent(r[1].replace(/\+/g," "))},window.app=angular.module("iaqse",["ngRoute","ngAnimate"]),app.service("httpService",["$http",function(r){return{loadSchema:function(e){return r({method:"get",url:"database/"+e+".json",dataType:"json",contentType:"application/json; charset=iso-8859-1"})}}}]),window.app.filter("fileName",function(){return function(e){var r=e.lastIndexOf("/");return e.substring(r+1)}}),window.app.filter("icona",function(){return function(e){var r=e.substring(e.lastIndexOf(".")+1).trim().toLowerCase();return"word"==r?"fa-file-word":"zip"==r||"rar"==r?"fa-file-archive":"pdf"==r?"fa-file-pdf":"mp4"==r||"avi"==r||"mov"==r||"qt"==r?"fa-file-video":"mp3"==r||"ogg"==r?"fa-file-audio":"fa-file"}}),window.app.config(["$controllerProvider","$provide","$compileProvider",function(n,t,i){app._controller=app.controller,app._service=app.service,app._factory=app.factory,app._value=app.value,app._directive=app.directive,app.controller=function(e,r){return n.register(e,r),this},app.service=function(e,r){return t.service(e,r),this},app.factory=function(e,r){return t.factory(e,r),this},app.value=function(e,r){return t.value(e,r),this},app.directive=function(e,r){return i.directive(e,r),this}}])</script>
     </head>
 
     <body>
         <div style="max-width:1500px;margin:auto">
         <header>
-              <nav class="navbar navbar-expand-md navbar-dark fixed-top gradient" style="background-color:#036!important">
+              <nav class="navbar navbar-expand-md navbar-dark fixed-top gradient" style="background-color:#036!important;height:65px">
     <div class="container">
       <a class="navbar-brand" href="index.html">
-        <img id="svg-brand">
-        <b class="d-md-none d-xl-inline" style="color:#ff4646;font-family:Arial,Helvetica,sans-serif">IAQSE</b>
+        <div id="svg-brand"></div>
+        <span id="iaqse-brand" style="display:none"><b class="d-md-none d-xl-inline" style="color:#ff4646;font-family:Arial,Helvetica,sans-serif;vertical-align:top">IAQSE</b></span>
       </a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -86,7 +86,7 @@
 
   <div id="logo-cab" class="container-fluid">
     <div class="clearfix">
-          <img id="svg-logo-cab" class="logo-left"> 
+          <div id="svg-logo-cab" class="logo-left"></div> 
            <div class="logo-right">
              <center>
                 <a href="https://apps.caib.es/gesavafront/" target="_blank" title="Programari de gestió d'avaluacions">
@@ -147,7 +147,7 @@
                                     
                                     <ul>
                                         
-                                        <li><a href="avaluacions.html#!/final_etapa">Avaluacions final d&#39;etapa</a>
+                                        <li><a href="avaluacions.html#!/final_etapa">Avaluacions de final d&#39;etapa</a>
                                             
                                         </li><li><a href="avaluacions.html#!/diagnostic">Avaluacions de diagnòstic</a>
                                             
@@ -176,6 +176,22 @@
                         </li>
                         
                         <li><a href="proves.html">Proves</a>
+                            
+                            <ul>
+                                
+                                <li><a href="proves.html#!/index">Originals</a>
+                                    
+                                </li>
+                                
+                                <li><a href="proves.html#!/imprimibles">Per imprimir</a>
+                                    
+                                </li>
+                                
+                                <li><a href="proves.html#!/interactives">Interactives</a>
+                                    
+                                </li>
+                                
+                            </ul>
                             
                         </li>
                         
@@ -244,7 +260,7 @@
         </div>
     </div>
 </div>
-<script>app.service("PubService",function(){var o={findByTags:function(e){if(!e||0==e.length)return pubJSON;for(var a=[],t=0;t<pubJSON.length;t++){for(var r=pubJSON[t],s=!1,n=0;!s&&n<e.length;){for(var i=0;!s&&i<r.tags.length;)r.tags[i].toLowerCase()==e[n].toLowerCase()&&(s=!0),i++;n++}s&&a.push(r)}return a},search:function(e,a,t){var r=o.findByTags(e),s=a.toLowerCase().trim();if(s||t)for(var n=[],i=0;i<r.length;i++){var c=r[i],l=s&&(0<=c.title.toLowerCase().indexOf(s)||0<=c.description.toLowerCase().indexOf(s)||0<=c.pubdate.toLowerCase().indexOf(s))||!s,u=t&&0<=c.pubdate.toLowerCase().indexOf(t+"")||!t;l&&u&&n.push(c)}else n=r;return n}};return o});var MONTHS=["gener","febrer","març","abril","maig","juny","juliol","agost","setembre","octubre","novembre","desembre"];app.filter("pubDate",function(){return function(e){if(!e)return"";var a="",t=e.split("/");if(3===t.length){var r=parseInt(t[1])-1,s=MONTHS[r];a="Publicat dia "+t[0]+" ",s.startsWith("a")||s.startsWith("o")?a+="d'"+s:a+="de "+s,a+=" de "+t[2]}else if(2===t.length){r=parseInt(t[0])-1;a="Publicat el mes ",(s=MONTHS[r]).startsWith("a")||s.startsWith("o")?a+="d'"+s:a+="de "+s,a+=" de "+t[1]}else 1===t.length&&(a="Publicat l'any "+t[0]);return a}}),app.controller("mainController",["$scope","PubService","httpService",function(r,t,e){var a=(new Date).getFullYear();r.years={activaCercaAny:!1,thisYear:a+1,selectedYear:a},r.pubs=[],r.searchTags=[{name:"Totes",tagList:null},{name:"Diagnòstic",tagList:"AD"},{name:"Primària",tagList:"1rEP,3rEP,4tEP,5eEP,6eEP,rubriques"},{name:"Secundària",tagList:"2nESO,4tESO"},{name:"Informes de resultats",tagList:"resultats"},{name:"Indicadors SEIB",tagList:"indicadors"},{name:"Anuaris",tagList:"anuari"},{name:"Documents d'avaluació",tagList:"documents"}],r.selectedTag=r.searchTags[0],r.searchText="",r.listByTag=function(e){r.selectedTag=r.searchTags[e],r.searchText="";var a=r.selectedTag.tagList;r.years.activaCercaAny?r.pubs=t.search(a?a.split(","):null,r.searchText,r.years.selectedYear):r.pubs=t.search(a?a.split(","):null,r.searchText)},r.search=function(){var e=r.selectedTag.tagList;r.years.activaCercaAny?r.pubs=t.search(e?e.split(","):null,r.searchText,r.years.selectedYear):r.pubs=t.search(e?e.split(","):null,r.searchText)},r.keypress=function(e){13===e.which&&r.search()},r.onYearChange=function(e){r.years.activaCercaAny&&e&&(this.searchText="",this.selectedTag=this.searchTags[0]);var a=r.selectedTag.tagList;r.years.activaCercaAny?r.pubs=t.search(a?a.split(","):null,r.searchText,r.years.selectedYear):r.pubs=t.search(a?a.split(","):null,r.searchText)},e.loadSchema("publicacions").then(function(e){pubJSON=e.data;var a=0,t=getURLParameter("tag");if(console.log(t),t)try{a=parseInt(t)}catch(e){}if(a>=r.searchTags.length)return 0;r.listByTag(a)})}])</script></main>
+<script>app.service("PubService",function(){var o={findByTags:function(e){if(!e||0==e.length)return pubJSON;for(var a=[],t=0;t<pubJSON.length;t++){for(var r=pubJSON[t],s=!1,n=0;!s&&n<e.length;){for(var i=0;!s&&i<r.tags.length;)r.tags[i].toLowerCase()==e[n].toLowerCase()&&(s=!0),i++;n++}s&&a.push(r)}return a},search:function(e,a,t){var r=o.findByTags(e),s=a.toLowerCase().trim();if(s||t)for(var n=[],i=0;i<r.length;i++){var c=r[i],l=s&&(0<=c.title.toLowerCase().indexOf(s)||0<=c.description.toLowerCase().indexOf(s)||0<=c.pubdate.toLowerCase().indexOf(s))||!s,u=t&&0<=c.pubdate.toLowerCase().indexOf(t+"")||!t;l&&u&&n.push(c)}else n=r;return n}};return o});var MONTHS=["gener","febrer","març","abril","maig","juny","juliol","agost","setembre","octubre","novembre","desembre"];app.filter("pubDate",function(){return function(e){if(!e)return"";var a="",t=e.split("/");if(3===t.length){var r=parseInt(t[1])-1,s=MONTHS[r];a="Publicat dia "+t[0]+" ",s.startsWith("a")||s.startsWith("o")?a+="d'"+s:a+="de "+s,a+=" de "+t[2]}else if(2===t.length){r=parseInt(t[0])-1;a="Publicat el mes ",(s=MONTHS[r]).startsWith("a")||s.startsWith("o")?a+="d'"+s:a+="de "+s,a+=" de "+t[1]}else 1===t.length&&(a="Publicat l'any "+t[0]);return a}}),app.controller("mainController",["$scope","PubService","httpService",function(r,t,e){var a=(new Date).getFullYear();r.years={activaCercaAny:!1,thisYear:a+1,selectedYear:a},r.pubs=[],r.searchTags=[{name:"Totes",tagList:null},{name:"Diagnòstic",tagList:"AD"},{name:"Primària",tagList:"1rEP,3rEP,4tEP,5eEP,6eEP,rubriques"},{name:"Secundària",tagList:"2nESO,4tESO"},{name:"Informes de resultats",tagList:"resultats"},{name:"Indicadors SEIB",tagList:"indicadors"},{name:"Anuaris",tagList:"anuari"},{name:"Documents d'avaluació",tagList:"documents"}],r.selectedTag=r.searchTags[0],r.searchText="",r.listByTag=function(e){r.selectedTag=r.searchTags[e],r.searchText="";var a=r.selectedTag.tagList;r.years.activaCercaAny?r.pubs=t.search(a?a.split(","):null,r.searchText,r.years.selectedYear):r.pubs=t.search(a?a.split(","):null,r.searchText)},r.search=function(){var e=r.selectedTag.tagList;r.years.activaCercaAny?r.pubs=t.search(e?e.split(","):null,r.searchText,r.years.selectedYear):r.pubs=t.search(e?e.split(","):null,r.searchText)},r.keypress=function(e){13===e.which&&r.search()},r.onYearChange=function(e){r.years.activaCercaAny&&e&&(this.searchText="",this.selectedTag=this.searchTags[0]);var a=r.selectedTag.tagList;r.years.activaCercaAny?r.pubs=t.search(a?a.split(","):null,r.searchText,r.years.selectedYear):r.pubs=t.search(a?a.split(","):null,r.searchText)},e.loadSchema("publicacions").then(function(e){pubJSON=e.data;var a=0,t=getURLParameter("tag");if(console.log(t),t)try{a=parseInt(t)}catch(e){}a>=r.searchTags.length&&(a=0),r.listByTag(a)})}])</script></main>
                 </div>
             </div>
                 <footer class="py-1" style="width:100%;margin:0">
@@ -271,7 +287,7 @@
 
 <script src="iaqse_bundle2.min.js"></script>
 
-<script>var replaceImgSvg=function(e,a){var g=$(e);g.length&&$.ajax({type:"GET",url:a,contentType:"image/svg+xml;charset=ISO-8859-1",success:function(e){var a=$(e.documentElement);a.addClass(g.attr("class")),g.replaceWith(a)}})};$(function(){$("#tree1").treed(),replaceImgSvg("#svg-brand","../img/svg/qiaqse2.svg"),replaceImgSvg("#svg-logo-cab","../img/svg/iaqse-caib-w.svg"),replaceImgSvg("#logo-iaqse","../img/svg/logo-iaqse.svg")}),function(e,a,g,s,t,c,n){e.GoogleAnalyticsObject=t,e.ga=e.ga||function(){(e.ga.q=e.ga.q||[]).push(arguments)},e.ga.l=1*new Date,c=a.createElement(g),n=a.getElementsByTagName(g)[0],c.async=1,c.src="//www.google-analytics.com/analytics.js",n.parentNode.insertBefore(c,n)}(window,document,"script",0,"ga"),ga("create","UA-40778701-3","auto"),ga("send","pageview")</script>
+<script>var replaceImgSvg=function(e,a){var g=$(e);g.length&&$.ajax({type:"GET",url:a,contentType:"image/svg+xml;charset=ISO-8859-1",success:function(e){var a=$(e.documentElement);a.addClass(g.attr("class")),g.replaceWith(a)}})};$(function(){$("#tree1").treed(),replaceImgSvg("#svg-brand","../img/svg/qiaqse2.svg"),$("#iaqse-brand").css("display",""),replaceImgSvg("#svg-logo-cab","../img/svg/iaqse-caib-w.svg"),replaceImgSvg("#logo-iaqse","../img/svg/logo-iaqse.svg")}),function(e,a,g,s,t,c,n){e.GoogleAnalyticsObject=t,e.ga=e.ga||function(){(e.ga.q=e.ga.q||[]).push(arguments)},e.ga.l=1*new Date,c=a.createElement(g),n=a.getElementsByTagName(g)[0],c.async=1,c.src="//www.google-analytics.com/analytics.js",n.parentNode.insertBefore(c,n)}(window,document,"script",0,"ga"),ga("create","UA-40778701-3","auto"),ga("send","pageview")</script>
             </div>
             
         </div>

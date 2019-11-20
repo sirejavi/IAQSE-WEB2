@@ -61,7 +61,17 @@ a:hover {
       -o-animation: fadein 2s; /* Opera < 12.1 */
          animation: fadein 2s;
 }
-
+#iaqse-brand { 
+    -webkit-animation: fadein 1s; /* Safari, Chrome and Opera > 12.1 */
+    animation-delay: 1s;
+    -moz-animation-delay: 1s;
+    -ms-animation-delay: 1s;
+    -o-animation-delay: 1s;
+    -moz-animation: fadein 1s; /* Firefox < 16 */
+     -ms-animation: fadein 1s; /* Internet Explorer */
+      -o-animation: fadein 1s; /* Opera < 12.1 */
+         animation: fadein 1s;
+}
 @keyframes fadein {
     from { opacity: 0; }
     to   { opacity: 1; }
@@ -176,8 +186,21 @@ p {
     vertical-align: middle;
     font-weight: bold;
 }
+.card-header > button {
+    text-align: left!important;
+}
 .list-group-item-hover:hover{
     background: whitesmoke;
+}
+.nav-item > .nav-link {
+    color: rgb(255, 255, 255, 0.8) !important; 
+}
+.nav-item.active > .nav-link {
+    color: lightyellow !important;
+    font-weight: 900 !important;
+}
+nav .nav-link:hover {
+    color: rgb(255, 255, 255) !important;
 }
 .filtrau {
     float:left;

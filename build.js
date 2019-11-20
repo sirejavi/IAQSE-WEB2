@@ -58,6 +58,25 @@ dbFiles.forEach(file => {
         database[name] = utils.parseCsv(csvContents);
     }
 
+    if(file == "proves.json") {
+                
+        // De la base de dades de proves...
+        // Els items que contenen un dir="...", carregar els tots els documents dins documents []
+
+        database.proves.forEach( prova => {
+            if(prova.walkdir) {
+                prova.documents = prova.documents || [];
+                const dir2 = path.join("static", prova.walkdir);
+                
+                fs.readdirSync(dir2).forEach( file => {
+                    prova.documents.push(dir2.replace("static", "")+file);
+                }); 
+                
+            }
+        });
+
+    }
+
     // Ho escriu al directori static però en format comprimit per reduir la mida de l'ajax
     fs.writeFileSync(path.join("./static", baseUrl, "database/" + name + ".json"),
         JSON.stringify(database[name]),

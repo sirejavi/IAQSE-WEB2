@@ -26,17 +26,17 @@
   <script src="iaqse_bundle1.min.js"></script> 
   
 
-<script>window.chunker=function(e,r){for(var n=[],t=0,o=e.length;t<o;t+=r)n.push(e.slice(t,t+r));return n},window.getURLParameter=function(e){var r=new RegExp("[\\?&]"+e+"=([^&#]*)").exec(window.location.search);return null==r?"":decodeURIComponent(r[1].replace(/\+/g," "))},window.app=angular.module("iaqse",["ngRoute","ngAnimate"]),app.service("httpService",["$http",function(r){return{loadSchema:function(e){return r({method:"get",url:"database/"+e+".json",dataType:"json",contentType:"application/json; charset=iso-8859-1"})}}}]),window.app.config(["$controllerProvider","$provide","$compileProvider",function(n,t,o){app._controller=app.controller,app._service=app.service,app._factory=app.factory,app._value=app.value,app._directive=app.directive,app.controller=function(e,r){return n.register(e,r),this},app.service=function(e,r){return t.service(e,r),this},app.factory=function(e,r){return t.factory(e,r),this},app.value=function(e,r){return t.value(e,r),this},app.directive=function(e,r){return o.directive(e,r),this}}])</script>
+<script>window.chunker=function(e,r){for(var n=[],t=0,i=e.length;t<i;t+=r)n.push(e.slice(t,t+r));return n},window.getURLParameter=function(e){var r=new RegExp("[\\?&]"+e+"=([^&#]*)").exec(window.location.search);return null==r?"":decodeURIComponent(r[1].replace(/\+/g," "))},window.app=angular.module("iaqse",["ngRoute","ngAnimate"]),app.service("httpService",["$http",function(r){return{loadSchema:function(e){return r({method:"get",url:"database/"+e+".json",dataType:"json",contentType:"application/json; charset=iso-8859-1"})}}}]),window.app.filter("fileName",function(){return function(e){var r=e.lastIndexOf("/");return e.substring(r+1)}}),window.app.filter("icona",function(){return function(e){var r=e.substring(e.lastIndexOf(".")+1).trim().toLowerCase();return"word"==r?"fa-file-word":"zip"==r||"rar"==r?"fa-file-archive":"pdf"==r?"fa-file-pdf":"mp4"==r||"avi"==r||"mov"==r||"qt"==r?"fa-file-video":"mp3"==r||"ogg"==r?"fa-file-audio":"fa-file"}}),window.app.config(["$controllerProvider","$provide","$compileProvider",function(n,t,i){app._controller=app.controller,app._service=app.service,app._factory=app.factory,app._value=app.value,app._directive=app.directive,app.controller=function(e,r){return n.register(e,r),this},app.service=function(e,r){return t.service(e,r),this},app.factory=function(e,r){return t.factory(e,r),this},app.value=function(e,r){return t.value(e,r),this},app.directive=function(e,r){return i.directive(e,r),this}}])</script>
     </head>
 
     <body>
         <div style="max-width:1500px;margin:auto">
         <header>
-              <nav class="navbar navbar-expand-md navbar-dark fixed-top gradient" style="background-color:#036!important">
+              <nav class="navbar navbar-expand-md navbar-dark fixed-top gradient" style="background-color:#036!important;height:65px">
     <div class="container">
       <a class="navbar-brand" href="index.html">
-        <img id="svg-brand">
-        <b class="d-md-none d-xl-inline" style="color:#ff4646;font-family:Arial,Helvetica,sans-serif">IAQSE</b>
+        <div id="svg-brand"></div>
+        <span id="iaqse-brand" style="display:none"><b class="d-md-none d-xl-inline" style="color:#ff4646;font-family:Arial,Helvetica,sans-serif;vertical-align:top">IAQSE</b></span>
       </a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -86,7 +86,7 @@
 
   <div id="logo-cab" class="container-fluid">
     <div class="clearfix">
-          <img id="svg-logo-cab" class="logo-left"> 
+          <div id="svg-logo-cab" class="logo-left"></div> 
            <div class="logo-right">
              <center>
                 <a href="https://apps.caib.es/gesavafront/" target="_blank" title="Programari de gestió d'avaluacions">
@@ -147,7 +147,7 @@
                                     
                                     <ul>
                                         
-                                        <li><a href="avaluacions.html#!/final_etapa">Avaluacions final d&#39;etapa</a>
+                                        <li><a href="avaluacions.html#!/final_etapa">Avaluacions de final d&#39;etapa</a>
                                             
                                         </li><li><a href="avaluacions.html#!/diagnostic">Avaluacions de diagnòstic</a>
                                             
@@ -177,6 +177,22 @@
                         
                         <li><a href="proves.html">Proves</a>
                             
+                            <ul>
+                                
+                                <li><a href="proves.html#!/index">Originals</a>
+                                    
+                                </li>
+                                
+                                <li><a href="proves.html#!/imprimibles">Per imprimir</a>
+                                    
+                                </li>
+                                
+                                <li><a href="proves.html#!/interactives">Interactives</a>
+                                    
+                                </li>
+                                
+                            </ul>
+                            
                         </li>
                         
                     </ul>
@@ -185,69 +201,11 @@
                 <div class="col-xl-10 col-lg-12">
                 <main ng-app="iaqse">
                 
-<nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="index.html"><i class="fas fa-home"></i></a></li> 
-          <li class="breadcrumb-item active"> Proves alliberades </li>  
-        </ol>
-        </nav>
-        <div ng-controller="mainController">
-     
-        <div class="clearfix">
-        <span class="filtrau">Filtrau per </span>
-        
-        <div class="btn-group float-left" title="Nivell de la prova" style="margin-left:5px;margin-bottom:5px">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="nivellCombo" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="fa fa-tags"></i> <span ng-bind="selections.nivell.label"></span></button>
-            <div class="dropdown-menu" aria-labelledby="nivellCombo">
-                <a class="dropdown-item" ng-click="selectNivell($index)" ng-repeat="item in nivells"><span ng-bind="item.label"></span></a>
-            </div>
-        </div>
-         
-         <div class="btn-group float-left" title="Competència" style="margin-left:5px;margin-bottom:5px">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="competenciaCombo" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fa fa-tags"></i> <span ng-bind="selections.competencia.label"></span></button>
-                <div class="dropdown-menu" aria-labelledby="competenciaCombo">
-                    <a class="dropdown-item" ng-click="selectCompetencia($index)" ng-repeat="item in competencies"><span ng-bind="item.label"></span></a>
-                </div>
-        </div>
-         
-         <div class="btn-group float-left" title="Any de la prova" style="margin-left:5px;margin-bottom:5px">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="anyCombo" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fa fa-tags"></i> <span ng-bind="selections.any.label"></span></button>
-                <div class="dropdown-menu" aria-labelledby="anyCombo" style="overflow:scroll;max-height:300px">
-                    <a class="dropdown-item" ng-click="selectAny($index)" ng-repeat="item in anys"><span ng-bind="item.label"></span></a>
-                </div>
-        </div>
-        
-    </div> 
 
+<div ng-view id="routedContent"></div>
 
-    <hr>
-    <p ng-if="pubslength==0">No s'han trobat proves</p>
-    <p ng-if="pubslength==1">S'ha trobat una prova</p>
-    <p ng-if="pubslength>1">S'han trobat <span ng-bind="pubslength"></span> proves</p>
-    <hr>
-
-    <div class="list-group">
-        <div class="row" ng-repeat="chunk in pubs">
-        <div class="col-md-6 list-group-item list-group-item-hover" ng-repeat="pub in chunk">
-            <div class="fa-pull-left">
-                <i ng-if="pub.destacat" class="fa fa-star"></i>
-                <a href="../{{pub.url}}" target="_blank">
-                    <img ng-src="../{{pub.img}}" class="proves-img">
-                </a>
-            </div>
-
-            <p class="publication-title"><a href="../{{pub.url}}" target="_blank" title="{{pub.url_title}}"><span ng-bind="pub.title"></span></a></p>
-            <p ng-bind="pub.description"></p>
-            <p class="fa-pull-right publication-date" ng-bind="pub.pubdate"></p>
-
-        </div>
-        </div>
-    </div>
-</div>
-<script>app.controller("mainController",["$scope","$filter","httpService",function(o,v,e){o.pubs=[],o.pubslength=0,o.nivells=[{label:"Tots els nivells",value:""},{label:"3r EP",value:"3rEP"},{label:"6è EP",value:"6eEP"},{label:"2n ESO",value:"2nESO"},{label:"4t ESO",value:"4tESO"}],o.competencies=[{label:"Totes les competències",value:""},{label:"Competència Llengua Anglesa",value:"CCLA"},{label:"Competència Llengua Castellana",value:"CCLE"},{label:"Competència Llengua Catalana",value:"CCLC"},{label:"Competència Matemàtica",value:"CMAT"},{label:"Competència Ciència i Tecnologia",value:"CCiT"}],o.determinaAnys=function(){o.anys=[];for(var e=0,l=provesJSON.length;e<l;e++){var n=provesJSON[e],a=o.selections.nivell.value,s=o.selections.competencia.value;if(n.any&&(!a||n.nivell==a)&&(!s||0<=n.tags.indexOf(s))){for(var t=!1,i=0,c=o.anys.length;!t&&i<c;)t=o.anys[i].value==n.any,i++;t||o.anys.push({label:n.any,value:n.any})}}o.anys=v("orderBy")(o.anys,"+label",!0),o.anys.unshift({label:"Tots els anys",value:-1}),o.selectAny(0)},o.selections={nivell:o.nivells[0],competencia:o.competencies[0]},o.selectNivell=function(e){o.selections.nivell=o.nivells[e],o.determinaAnys(),o.search()},o.selectCompetencia=function(e){o.selections.competencia=o.competencies[e],o.determinaAnys(),o.search()},o.selectAny=function(e){o.selections.any=o.anys[e],o.search()},o.search=function(){for(var e=[],l=o.selections.nivell.value,n=o.selections.competencia.value,a=0,s=provesJSON.length;a<s;a++){var t=provesJSON[a];l&&t.nivell!=l||n&&!(0<=t.tags.indexOf(n))||-1!=o.selections.any.value&&t.any!=o.selections.any.value||e.push(t)}o.pubslength=e.length,o.pubs=chunker(e,2)},o.keypress=function(e){13===e.which&&o.search()},e.loadSchema("proves").then(function(e){window.provesJSON=e.data,o.determinaAnys(),o.search()})}])</script></main>
+<script>app.controller("mainController",["$scope",function(o){}])</script>
+    <script>app.config(["$routeProvider",function(e){e.when("/index",{templateUrl:"view_proves_index.html",controller:"indexController"}).when("/imprimibles",{templateUrl:"view_proves_imprimibles.html",controller:"imprimiblesController"}).when("/interactives",{templateUrl:"view_proves_interactives.html",controller:"interactivesController"}).otherwise({redirectTo:"/index"})}])</script></main>
                 </div>
             </div>
                 <footer class="py-1" style="width:100%;margin:0">
@@ -274,7 +232,7 @@
 
 <script src="iaqse_bundle2.min.js"></script>
 
-<script>var replaceImgSvg=function(e,a){var g=$(e);g.length&&$.ajax({type:"GET",url:a,contentType:"image/svg+xml;charset=ISO-8859-1",success:function(e){var a=$(e.documentElement);a.addClass(g.attr("class")),g.replaceWith(a)}})};$(function(){$("#tree1").treed(),replaceImgSvg("#svg-brand","../img/svg/qiaqse2.svg"),replaceImgSvg("#svg-logo-cab","../img/svg/iaqse-caib-w.svg"),replaceImgSvg("#logo-iaqse","../img/svg/logo-iaqse.svg")}),function(e,a,g,s,t,c,n){e.GoogleAnalyticsObject=t,e.ga=e.ga||function(){(e.ga.q=e.ga.q||[]).push(arguments)},e.ga.l=1*new Date,c=a.createElement(g),n=a.getElementsByTagName(g)[0],c.async=1,c.src="//www.google-analytics.com/analytics.js",n.parentNode.insertBefore(c,n)}(window,document,"script",0,"ga"),ga("create","UA-40778701-3","auto"),ga("send","pageview")</script>
+<script>var replaceImgSvg=function(e,a){var g=$(e);g.length&&$.ajax({type:"GET",url:a,contentType:"image/svg+xml;charset=ISO-8859-1",success:function(e){var a=$(e.documentElement);a.addClass(g.attr("class")),g.replaceWith(a)}})};$(function(){$("#tree1").treed(),replaceImgSvg("#svg-brand","../img/svg/qiaqse2.svg"),$("#iaqse-brand").css("display",""),replaceImgSvg("#svg-logo-cab","../img/svg/iaqse-caib-w.svg"),replaceImgSvg("#logo-iaqse","../img/svg/logo-iaqse.svg")}),function(e,a,g,s,t,c,n){e.GoogleAnalyticsObject=t,e.ga=e.ga||function(){(e.ga.q=e.ga.q||[]).push(arguments)},e.ga.l=1*new Date,c=a.createElement(g),n=a.getElementsByTagName(g)[0],c.async=1,c.src="//www.google-analytics.com/analytics.js",n.parentNode.insertBefore(c,n)}(window,document,"script",0,"ga"),ga("create","UA-40778701-3","auto"),ga("send","pageview")</script>
             </div>
             
         </div>

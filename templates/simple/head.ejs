@@ -54,6 +54,30 @@
             };
             return service;            
   }]);
+  window.app.filter("fileName", function(){
+        return function(fullPath) {
+            var i = fullPath.lastIndexOf("/");
+            return fullPath.substring(i+1);
+        }
+  });
+  window.app.filter("icona", function(){
+    return function(filename) {
+            var extension = filename.substring(filename.lastIndexOf(".")+1).trim().toLowerCase();
+            if(extension == "word") {
+                return "fa-file-word";
+            } else if(extension == "zip" || extension == "rar" ) {
+                return "fa-file-archive";
+            } else if(extension == "pdf") {
+                return "fa-file-pdf";
+            } else if(extension == "mp4" || extension == "avi" || extension == "mov" || extension == "qt") {
+                return "fa-file-video";
+            } else if(extension == "mp3" || extension == "ogg") {
+                return "fa-file-audio";
+            }
+
+            return "fa-file";
+        }
+  });
   window.app.config(["$controllerProvider", "$provide", "$compileProvider", function($controllerProvider, $provide, $compileProvider) {
     // Since the "shorthand" methods for component
     // definitions are no longer valid, we can just

@@ -1,4 +1,22 @@
 [
+       
+    {
+            "hidden": true,
+            "imprimible": true,
+            "aval": "2n ESO",
+            "nivell": "2nESO",
+            "tags": [
+                "2nESO",
+                "CCLA"
+            ],
+            "url": "documentos/avaluacions/diagnostic/ad_2n_eso_2014_2015/ad_2n_eso_ang_2014_2015.zip",
+            "url_title": "Competència en comunicació lingüística en llengua anglesa (models de proves, audio, fulls respostes, claus i guia)",
+            "img": "img/general/zip_img.png",
+            "title": "Prova competència en comunicació lingüística en llengua anglesa avaluació diagnòstic 2n d'ESO curs 2014-2015.",
+            "any": "2014-2015",
+            "documents": [],
+            "walkdir": "documentos/avaluacions/diagnostic/ad_2n_eso_2014_2015/"
+    },    
     {
         "aval": "2n ESO",
         "nivell": "2nESO",

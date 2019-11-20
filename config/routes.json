@@ -48,7 +48,7 @@
                     "url": "index",
                     "views": [
                         {
-                            "title": "Avaluacions final d'etapa",
+                            "title": "Avaluacions de final d'etapa",
                             "ejs": "avaluacions/avaluacions_final_etapa",
                             "url": "final_etapa",
                             "controller": "finaletapa",
@@ -98,7 +98,27 @@
             "title": "Proves",
             "title_long": "Proves alliberades",
             "ejs": "proves",
-            "url": "proves"
+            "url": "proves",
+            "views": [
+                {
+                    "title": "Originals",
+                    "ejs": "proves/index",
+                    "url": "index",
+                    "controller": "index"
+                },
+                {
+                    "title": "Per imprimir",
+                    "ejs": "proves/imprimibles",
+                    "url": "imprimibles",
+                    "controller": "imprimibles"
+                },
+                {
+                    "title": "Interactives",
+                    "ejs": "proves/interactives",
+                    "url": "interactives",
+                    "controller": "interactives"
+                }
+            ]
         } 
     ]
 }

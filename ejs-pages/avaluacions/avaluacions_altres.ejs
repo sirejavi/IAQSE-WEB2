@@ -1,4 +1,5 @@
 <!--comboNivell-->
+<span class="filtrau">Filtrau per </span>
 <div class="btn-group" title="Nivell de la prova" style="margin-left: 5px;">
         <button class="btn btn-secondary dropdown-toggle" type="button" id="nivellCombo" 
                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -60,7 +61,7 @@
     app.controller("altresController", ["$scope", "httpService", function ($scope, httpService) {
         $scope.avaluacions = [];
         $scope.nivells = [  
-            { label: "Totes", values: "" }, 
+            { label: "Tots els nivells", values: "" }, 
             { label: "Educació Primària", values: "EP" }, 
             { label: "Educació Secundària", values: "ESO" }
         ]; 
