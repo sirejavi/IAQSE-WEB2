@@ -4,12 +4,12 @@
     <head>
           <meta charset="iso-8859-1">
   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-  <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="Institut d'avaluació i qualitat del sistema educatiu">
   <meta name="author" content="iaqse@iaqse.caib.es">
-	<meta name="language" content="cat">
+	<meta name="language" content="cat" />
   
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
 	<meta name="robots" content="index,follow">
 	<meta name="document-classification" content="Education">
@@ -26,17 +26,125 @@
   <script src="iaqse_bundle1.min.js"></script> 
   
 
-<script>window.chunker=function(e,r){for(var n=[],t=0,i=e.length;t<i;t+=r)n.push(e.slice(t,t+r));return n},window.getURLParameter=function(e){var r=new RegExp("[\\?&]"+e+"=([^&#]*)").exec(window.location.search);return null==r?"":decodeURIComponent(r[1].replace(/\+/g," "))},window.app=angular.module("iaqse",["ngRoute","ngAnimate"]),app.service("httpService",["$http",function(r){return{loadSchema:function(e){return r({method:"get",url:"database/"+e+".json",dataType:"json",contentType:"application/json; charset=iso-8859-1"})}}}]),window.app.filter("fileName",function(){return function(e){var r=e.lastIndexOf("/");return e.substring(r+1)}}),window.app.filter("icona",function(){return function(e){var r=e.substring(e.lastIndexOf(".")+1).trim().toLowerCase();return"word"==r?"fa-file-word":"zip"==r||"rar"==r?"fa-file-archive":"pdf"==r?"fa-file-pdf":"mp4"==r||"avi"==r||"mov"==r||"qt"==r?"fa-file-video":"mp3"==r||"ogg"==r?"fa-file-audio":"fa-file"}}),window.app.config(["$controllerProvider","$provide","$compileProvider",function(n,t,i){app._controller=app.controller,app._service=app.service,app._factory=app.factory,app._value=app.value,app._directive=app.directive,app.controller=function(e,r){return n.register(e,r),this},app.service=function(e,r){return t.service(e,r),this},app.factory=function(e,r){return t.factory(e,r),this},app.value=function(e,r){return t.value(e,r),this},app.directive=function(e,r){return i.directive(e,r),this}}])</script>
+<script>
+  window.chunker = function(arr, chunkSize) {
+      var R = [];
+      for (var i=0,len=arr.length; i<len; i+=chunkSize)
+           R.push(arr.slice(i,i+chunkSize));
+      return R;
+  }; 
+  window.getURLParameter = function( name ){
+        var regexS = "[\\?&]"+name+"=([^&#]*)", 
+    regex = new RegExp( regexS ),
+    results = regex.exec( window.location.search );
+    if( results == null ){
+        return "";
+    } else{
+        return decodeURIComponent(results[1].replace(/\+/g, " "));
+    }
+  };
+  window.app = angular.module("iaqse", ["ngRoute", "ngSanitize", "ngAnimate"]);
+  app.config(['$sceProvider',function($sceProvider){
+    $sceProvider.enabled(false);
+  }]);
+  app.service("httpService", ["$http", function($http){            
+            var service  = {
+                loadSchema: function(tableSchema){
+                  var request = {
+                      method: 'get',
+                      url: 'database/' + tableSchema + '.json',
+                      dataType: 'json',
+                      contentType: "application/json; charset=iso-8859-1"
+                  };
+                  return $http(request);
+                }
+            };
+            return service;            
+  }]);
+  window.app.filter("fileName", function(){
+        return function(fullPath) {
+            var i = fullPath.lastIndexOf("/");
+            return fullPath.substring(i+1);
+        }
+  });
+  window.app.filter("icona", function(){
+    return function(filename) {
+            var extension = filename.substring(filename.lastIndexOf(".")+1).trim().toLowerCase();
+            if(extension == "word") {
+                return "fa-file-word";
+            } else if(extension == "zip" || extension == "rar" ) {
+                return "fa-file-archive";
+            } else if(extension == "pdf") {
+                return "fa-file-pdf";
+            } else if(extension == "mp4" || extension == "avi" || extension == "mov" || extension == "qt") {
+                return "fa-file-video";
+            } else if(extension == "mp3" || extension == "ogg") {
+                return "fa-file-audio";
+            }
+
+            return "fa-file";
+        }
+  });
+  window.app.config(["$controllerProvider", "$provide", "$compileProvider", "$filterProvider",
+       function($controllerProvider, $provide, $compileProvider, $filterProvider) {
+    // Since the "shorthand" methods for component
+    // definitions are no longer valid, we can just
+    // override them to use the providers for post-
+    // bootstrap loading.
+    // Let's keep the older references.
+    app._controller = app.controller;
+    app._service = app.service;
+    app._filter = app.filter;
+    app._component = app.component;
+    app._factory = app.factory;
+    app._value = app.value;
+    app._directive = app.directive;
+    app.controller = function(name, constructor) {
+      $controllerProvider.register(name, constructor);
+      return (this);
+    };
+    // Provider-based service.
+    app.service = function(name, constructor) {
+      $provide.service(name, constructor);
+      return (this);
+    };
+    // Provider-based factory.
+    app.factory = function(name, factory) {
+      $provide.factory(name, factory);
+      return (this);
+    };
+    // Provider-based value.
+    app.value = function(name, value) {
+      $provide.value(name, value);
+      return (this);
+    };
+    // Provider-based filter.
+    app.filter = function(name, filter) {
+      $filterProvider.register(name, filter);
+      return (this);
+    };
+    // Provider-based component.
+    app.component = function(name, component) {
+      $compileProvider.component(name, component);
+      return (this);
+    };
+    // Provider-based directive.
+    app.directive = function(name, factory) {
+      $compileProvider.directive(name, factory);
+      return (this);
+    };
+  }]);
+</script>
     </head>
 
     <body>
-        <div style="max-width:1500px;margin:auto">
+        <div style="max-width: 1500px; margin: auto;">
         <header>
-              <nav class="navbar navbar-expand-md navbar-dark fixed-top gradient" style="background-color:#036!important;height:65px">
+              <nav class="navbar navbar-expand-md navbar-dark fixed-top gradient" style="background-color: #003366 !important; height: 65px;">
     <div class="container">
       <a class="navbar-brand" href="index.html">
         <div id="svg-brand"></div>
-        <span id="iaqse-brand" style="display:none"><b class="d-md-none d-xl-inline" style="color:#ff4646;font-family:Arial,Helvetica,sans-serif;vertical-align:top">IAQSE</b></span>
+        <span id="iaqse-brand" style="display:none"><b class="d-md-none d-xl-inline" style="color:rgb(255,70,70); font-family: Arial, Helvetica, sans-serif;vertical-align: top;">IAQSE</b></span>
       </a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -44,38 +152,38 @@
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
           
-          <li class="nav-item active">
-            <a class="nav-link" href="index.html" title="">Inici
+          <li class="nav-item  active ">
+            <a class="nav-link" href="index.html" title="">Inici</span>
             </a>
           </li>
           
-          <li class="nav-item">
-            <a class="nav-link" href="quisom.html" title="">Qui som
+          <li class="nav-item ">
+            <a class="nav-link" href="quisom.html" title="">Qui som</span>
             </a>
           </li>
           
-          <li class="nav-item">
-            <a class="nav-link" href="avaluacions.html" title="">Avaluacions
+          <li class="nav-item ">
+            <a class="nav-link" href="avaluacions.html" title="">Avaluacions</span>
             </a>
           </li>
           
-          <li class="nav-item">
-            <a class="nav-link" href="publicacions.html" title="">Publicacions
+          <li class="nav-item ">
+            <a class="nav-link" href="publicacions.html" title="">Publicacions</span>
             </a>
           </li>
           
-          <li class="nav-item">
-            <a class="nav-link" href="indicadors.html" title="">Indicadors
+          <li class="nav-item ">
+            <a class="nav-link" href="indicadors.html" title="">Indicadors</span>
             </a>
           </li>
           
-          <li class="nav-item">
-            <a class="nav-link" href="enllacos.html" title="">Enllaços
+          <li class="nav-item ">
+            <a class="nav-link" href="enllacos.html" title="">Enllaços</span>
             </a>
           </li>
           
-          <li class="nav-item">
-            <a class="nav-link" href="proves.html" title="Proves alliberades">Proves
+          <li class="nav-item ">
+            <a class="nav-link" href="proves.html" title="Proves alliberades">Proves</span>
             </a>
           </li>
           
@@ -92,7 +200,7 @@
                 <a href="https://apps.caib.es/gesavafront/" target="_blank" title="Programari de gestió d'avaluacions">
                  
                     <img src="../img/gesava.png" style="width:35px"><br>
-                    <span style="font-size:90%">Accés GESAVA</span>
+                    <span style="font-size: 90%">Accés GESAVA</span>
                 </a>
               </center>
           </div> 
@@ -149,13 +257,13 @@
                                         
                                         <li><a href="avaluacions.html#!/final_etapa">Avaluacions de final d&#39;etapa</a>
                                             
-                                        </li><li><a href="avaluacions.html#!/diagnostic">Avaluacions de diagnòstic</a>
+                                        <li><a href="avaluacions.html#!/diagnostic">Avaluacions de diagnòstic</a>
                                             
-                                        </li><li><a href="avaluacions.html#!/internacionals">Avaluacions internacionals</a>
+                                        <li><a href="avaluacions.html#!/internacionals">Avaluacions internacionals</a>
                                             
-                                        </li><li><a href="avaluacions.html#!/altres">Altres avaluacions</a>
+                                        <li><a href="avaluacions.html#!/altres">Altres avaluacions</a>
                                             
-                                    </li></ul>
+                                    </ul>
                                     
                                 </li>
                                 
@@ -198,7 +306,7 @@
                     </ul>
                 </div>
 
-                <div class="col-xl-10 col-lg-12">
+                <div class="col-xl-10 col-lg-12"">
                 <main ng-app="iaqse">
                 
 <nav aria-label="breadcrumb">
@@ -213,16 +321,16 @@
         <div id="carouselIndicators" class="carousel slide" data-ride="carousel">
             <ol class="carousel-indicators">
                 
-                <li data-target="#carouselIndicators" data-slide-to="0" class="active">
+                <li data-target="#carouselIndicators" data-slide-to="0" class="active" >
                 </li>
                 
-                <li data-target="#carouselIndicators" data-slide-to="1">
+                <li data-target="#carouselIndicators" data-slide-to="1" >
                 </li>
                 
-                <li data-target="#carouselIndicators" data-slide-to="2">
+                <li data-target="#carouselIndicators" data-slide-to="2" >
                 </li>
                 
-                <li data-target="#carouselIndicators" data-slide-to="3">
+                <li data-target="#carouselIndicators" data-slide-to="3" >
                 </li>
                 
             </ol>
@@ -234,12 +342,12 @@
                     
                     <a href="https://apps.caib.es/gesavafront/" target="_blank">
                         
-                        <div class="carousel-caption" style="background:rgba(100,100,100,.5)">
+                        <div class="carousel-caption" style="background: rgba(100,100,100,0.5);">
                             
-                            <h6 style="font-family:Arial,Helvetica,sans-serif">Accés GESAVA</h6>
+                            <h6 style="font-family: Arial, Helvetica, sans-serif;">Accés GESAVA</h6>
                             
                             
-                            <p style="text-align:center">Programa de gestió de les avaluacions</p>
+                            <p style="text-align: center;">Programa de gestió de les avaluacions</p>
                             
                         </div>
                         
@@ -249,18 +357,18 @@
                     
                 </div>
                 
-                <div class="carousel-item">
+                <div class="carousel-item ">
                     <img class="d-block w-100" src="../img/carousel/1.jpg" alt="Imatge 2">
                     
                     
                     <a href="quisom.html" target="">
                         
-                        <div class="carousel-caption" style="background:rgba(100,100,100,.5)">
+                        <div class="carousel-caption" style="background: rgba(100,100,100,0.5);">
                             
-                            <h6 style="font-family:Arial,Helvetica,sans-serif">QUI SOM?</h6>
+                            <h6 style="font-family: Arial, Helvetica, sans-serif;">QUI SOM?</h6>
                             
                             
-                            <p style="text-align:center">Funcions de l&#39;IAQSE</p>
+                            <p style="text-align: center;">Funcions de l&#39;IAQSE</p>
                             
                         </div>
                         
@@ -270,18 +378,18 @@
                     
                 </div>
                 
-                <div class="carousel-item">
+                <div class="carousel-item ">
                     <img class="d-block w-100" src="../img/carousel/2.jpg" alt="Imatge 3">
                     
                     
                     <a href="avaluacions.html" target="">
                         
-                        <div class="carousel-caption" style="background:rgba(100,100,100,.5)">
+                        <div class="carousel-caption" style="background: rgba(100,100,100,0.5);">
                             
-                            <h6 style="font-family:Arial,Helvetica,sans-serif">AVALUACIONS</h6>
+                            <h6 style="font-family: Arial, Helvetica, sans-serif;">AVALUACIONS</h6>
                             
                             
-                            <p style="text-align:center">Base de dades d&#39;avaluacions</p>
+                            <p style="text-align: center;">Base de dades d&#39;avaluacions</p>
                             
                         </div>
                         
@@ -291,18 +399,18 @@
                     
                 </div>
                 
-                <div class="carousel-item">
+                <div class="carousel-item ">
                     <img class="d-block w-100" src="../img/carousel/3.jpg" alt="Imatge 4">
                     
                     
                     <a href="proves.html#!/imprimibles" target="">
                         
-                        <div class="carousel-caption" style="background:rgba(100,100,100,.5)">
+                        <div class="carousel-caption" style="background: rgba(100,100,100,0.5);">
                             
-                            <h6 style="font-family:Arial,Helvetica,sans-serif">PROVES ALLIBERADES</h6>
+                            <h6 style="font-family: Arial, Helvetica, sans-serif;">PROVES ALLIBERADES</h6>
                             
                             
-                            <p style="text-align:center">Proves per baixar i imprimir</p>
+                            <p style="text-align: center;">Proves per baixar i imprimir</p>
                             
                         </div>
                         
@@ -330,14 +438,14 @@
 
         <p>
 
-            </p><div id="logo-iaqse" class="iaqse-logo float-left"></div>
+            <div id="logo-iaqse" class="iaqse-logo float-left" ></div>
 
 
             L'Institut d'Avaluació i Qualitat del Sistema Educatiu de les Illes Balears -IAQSE- és l'òrgan de
             coordinació,
             de consulta i tècnic de la Conselleria d'Educació i Universitat, que actua sota la dependència directa de la
             Direcció General de Planificació, Ordenació i Centres, amb l'objectiu de dur a terme tasques d'anàlisi i
-            avaluació externa del sistema educatiu de les Illes Balears.<p></p>
+            avaluació externa del sistema educatiu de les Illes Balears.</p>
 
         <p>Aquest Institut és també l'òrgan encarregat de proporcionar informació rellevant sobre el grau de qualitat
             del sistema educatiu de les Illes Balears a l'Administració educativa, als òrgans de participació
@@ -347,28 +455,28 @@
     </div>
     <div class="col-md-5">
         <div class="alert alert-primary">
-            <h6 style="margin-top:5px"><i class="fa fa-star"></i> Destacats</h6>
+            <h6 style="margin-top: 5px;"><i class="fa fa-star"></i> Destacats</h6>
         </div>
         <div class="list-group">
+            <!--destacats definits per usuari-->
             
-            
-            <div class="list-group-item-hover list-group-item clearfix" style="padding:5px">
+            <div class="list-group-item-hover list-group-item clearfix" style="padding: 5px;">
                 <div class="">
 
-                        <div style="display:flex;align-items:center;padding:10px" class="alert-warning"> 
-                                <div style="float:left;width:90px">
-                                    <a href="proves.html#!/imprimibles">
+                        <div style="display: flex; align-items: center;padding:10px" class="alert-warning" > 
+                                <div style="float: left; width: 90px">
+                                    <a href="proves.html#!/imprimibles"  >
                                         
                                         
-                                            <i style="width:55px;font-size:150%" class="fa fa-print"></i>
+                                            <i style="width:55px; font-size: 150%;" class="fa fa-print"></i>
                                         
                                     </a>
                                 </div>
-                                <div style="float:left;margin-left:10px">
-                                        <p style="text-align:left;font-size:90%">
-                                    <a href="proves.html#!/imprimibles">
+                                <div style="float: left; margin-left:10px">
+                                        <p style="text-align: left; font-size: 90%;">
+                                    <a href="proves.html#!/imprimibles" >
                                          <span shorten-text="Proves de diagnòstic" shorten-length="60"></span><br>
-                                         <span shorten-text="Versions per imprimir" shorten-length="60" style="font-size:90%"></span>
+                                         <span shorten-text="Versions per imprimir" shorten-length="60" style="font-size: 90%;"></span>
                                     </a>
                                 </p>
                                 </div>
@@ -376,22 +484,22 @@
                 </div>
             </div>
             
-            
+            <!--Destacats generats automàticament-->
             
             <div class="list-group-item-hover list-group-item">
-                <div style="display:flex;align-items:center">
-                    <div style="float:left;width:90px">
+                <div style="display: flex; align-items: center;">
+                    <div style="float: left; width: 90px">
                         <a href="../documentos/documents/document_20.pdf" target="_blank">
                             
-                            <img src="../img/documents/document_20.jpg" style="width:55px">
+                            <img src="../img/documents/document_20.jpg" style="width:55px;" />
                             
                             
                         </a>
                     </div>
-                    <div style="float:left;margin-left:10px">
-                            <p style="text-align:left;font-size:90%">
+                    <div style="float: left; margin-left:10px">
+                            <p style="text-align: left; font-size: 90%;">
                         <a href="../documentos/documents/document_20.pdf" target="_blank">
-                            <span shorten-text="Document d&#39;avaluació 20 - Avaluació de l&#39;impacte de diferents metodologies d&#39;ensenyament i aprenentatge sobre la competència matemàtica dels alumnes en el primer cicle d&#39;EP." shorten-length="70" style="font-size:90%"></span><br> 
+                            <span shorten-text="Document d&#39;avaluació 20 - Avaluació de l&#39;impacte de diferents metodologies d&#39;ensenyament i aprenentatge sobre la competència matemàtica dels alumnes en el primer cicle d&#39;EP." shorten-length="70"  style="font-size: 90%;"></span><br> 
                         </a>
                     </p>
                     </div>
@@ -399,19 +507,19 @@
             </div>
             
             <div class="list-group-item-hover list-group-item">
-                <div style="display:flex;align-items:center">
-                    <div style="float:left;width:90px">
+                <div style="display: flex; align-items: center;">
+                    <div style="float: left; width: 90px">
                         <a href="../documentos/publicacions/Informe_Executiu_6EP_2017_2018.pdf" target="_blank">
                             
-                            <img src="../img/publicacions/Informe_Executiu_6EP_2017_2018.jpg" style="width:55px">
+                            <img src="../img/publicacions/Informe_Executiu_6EP_2017_2018.jpg" style="width:55px;" />
                             
                             
                         </a>
                     </div>
-                    <div style="float:left;margin-left:10px">
-                            <p style="text-align:left;font-size:90%">
+                    <div style="float: left; margin-left:10px">
+                            <p style="text-align: left; font-size: 90%;">
                         <a href="../documentos/publicacions/Informe_Executiu_6EP_2017_2018.pdf" target="_blank">
-                            <span shorten-text="Informe Executiu Avaluació 6EP 2017-2018" shorten-length="70" style="font-size:90%"></span><br> 
+                            <span shorten-text="Informe Executiu Avaluació 6EP 2017-2018" shorten-length="70"  style="font-size: 90%;"></span><br> 
                         </a>
                     </p>
                     </div>
@@ -419,19 +527,19 @@
             </div>
             
             <div class="list-group-item-hover list-group-item">
-                <div style="display:flex;align-items:center">
-                    <div style="float:left;width:90px">
+                <div style="display: flex; align-items: center;">
+                    <div style="float: left; width: 90px">
                         <a href="../documentos/indicadors/2017/Indicadors_2017.pdf" target="_blank">
                             
-                            <img src="../img/publicacions/Indicadors_2017.jpg" style="width:55px">
+                            <img src="../img/publicacions/Indicadors_2017.jpg" style="width:55px;" />
                             
                             
                         </a>
                     </div>
-                    <div style="float:left;margin-left:10px">
-                            <p style="text-align:left;font-size:90%">
+                    <div style="float: left; margin-left:10px">
+                            <p style="text-align: left; font-size: 90%;">
                         <a href="../documentos/indicadors/2017/Indicadors_2017.pdf" target="_blank">
-                            <span shorten-text="Indicadors del sistema educatiu de les Illes Balears 2017" shorten-length="70" style="font-size:90%"></span><br> 
+                            <span shorten-text="Indicadors del sistema educatiu de les Illes Balears 2017" shorten-length="70"  style="font-size: 90%;"></span><br> 
                         </a>
                     </p>
                     </div>
@@ -439,19 +547,19 @@
             </div>
             
             <div class="list-group-item-hover list-group-item">
-                <div style="display:flex;align-items:center">
-                    <div style="float:left;width:90px">
+                <div style="display: flex; align-items: center;">
+                    <div style="float: left; width: 90px">
                         <a href="../documentos/documents/document_19.pdf" target="_blank">
                             
-                            <img src="../img/documents/document_19.jpg" style="width:55px">
+                            <img src="../img/documents/document_19.jpg" style="width:55px;" />
                             
                             
                         </a>
                     </div>
-                    <div style="float:left;margin-left:10px">
-                            <p style="text-align:left;font-size:90%">
+                    <div style="float: left; margin-left:10px">
+                            <p style="text-align: left; font-size: 90%;">
                         <a href="../documentos/documents/document_19.pdf" target="_blank">
-                            <span shorten-text="Document d&#39;avaluació 19 - Evolució dels indicadors d&#39;escolarització i de rendiment acadèmic a l&#39;ensenyament obligatori. Illes Balears (2010-2018)" shorten-length="70" style="font-size:90%"></span><br> 
+                            <span shorten-text="Document d&#39;avaluació 19 - Evolució dels indicadors d&#39;escolarització i de rendiment acadèmic a l&#39;ensenyament obligatori. Illes Balears (2010-2018)" shorten-length="70"  style="font-size: 90%;"></span><br> 
                         </a>
                     </p>
                     </div>
@@ -459,19 +567,19 @@
             </div>
             
             <div class="list-group-item-hover list-group-item">
-                <div style="display:flex;align-items:center">
-                    <div style="float:left;width:90px">
+                <div style="display: flex; align-items: center;">
+                    <div style="float: left; width: 90px">
                         <a href="../documentos/documents/document_18.pdf" target="_blank">
                             
-                            <img src="../img/documents/document_18.jpg" style="width:55px">
+                            <img src="../img/documents/document_18.jpg" style="width:55px;" />
                             
                             
                         </a>
                     </div>
-                    <div style="float:left;margin-left:10px">
-                            <p style="text-align:left;font-size:90%">
+                    <div style="float: left; margin-left:10px">
+                            <p style="text-align: left; font-size: 90%;">
                         <a href="../documentos/documents/document_18.pdf" target="_blank">
-                            <span shorten-text="Document d&#39;avaluació 18 - Programa de Reforç de l&#39;Aprenentatge al Quart curs d&#39;educació secundària obligatòria (PRAQ): Seguiment de la implantació" shorten-length="70" style="font-size:90%"></span><br> 
+                            <span shorten-text="Document d&#39;avaluació 18 - Programa de Reforç de l&#39;Aprenentatge al Quart curs d&#39;educació secundària obligatòria (PRAQ): Seguiment de la implantació" shorten-length="70"  style="font-size: 90%;"></span><br> 
                         </a>
                     </p>
                     </div>
@@ -482,10 +590,43 @@
     </div>
 </div>
 
-<script>app.directive("shortenText",function(){return{restrict:"A",scope:{shortenText:"@",shortenLength:"="},template:'<span ng-bind="displayText" ng-mouseover="displayAll()" ng-mouseleave="displayShort()"></span>',controller:["$scope",function(t){var n=t.shortenLength||100;t.displayAll=function(){t.displayText=t.shortenText},t.displayShort=function(){if(t.shortenText&&t.shortenText.length>n){var e=t.shortenText.substring(n).indexOf(" ");t.displayText=t.shortenText.substring(0,n+e+1)+" ..."}else t.displayText=t.shortenText},t.displayShort()}]}}),app.controller("mainController",["$scope","$filter",function(e,t){}])</script></main>
+<script>
+    app.directive("shortenText", function(){
+        return {
+            restrict: 'A', 
+            scope: {
+                shortenText: "@",
+                shortenLength: "="
+            },
+            template: '<span ng-bind="displayText" ng-mouseover="displayAll()" ng-mouseleave="displayShort()"></span>', 
+            controller: ["$scope", function(scope){
+
+                var shortenLength = scope.shortenLength || 100;
+                
+                scope.displayAll = function(){
+                    scope.displayText = scope.shortenText;
+                };
+
+                scope.displayShort = function() {
+                    if(scope.shortenText && scope.shortenText.length > shortenLength) {
+                        // smart cut; check for the next space from shortenLength - 1
+                        var indx = scope.shortenText.substring(shortenLength).indexOf(" ");
+                        scope.displayText = scope.shortenText.substring(0, shortenLength+indx+1) + " ...";
+                    } else {
+                        scope.displayText = scope.shortenText;
+                    }
+                }
+
+                scope.displayShort();
+            }]
+        };
+    })
+    app.controller("mainController", ["$scope", "$filter",  function ($scope, $filter) {
+    }]);
+</script></main>
                 </div>
             </div>
-                <footer class="py-1" style="width:100%;margin:0">
+                <footer class="py-1" style="width:100%; margin:0">
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-6">
@@ -495,7 +636,7 @@
                 Fax. 971 17 69 02
             </p>
         </div> 
-        <div class="col-sm-6" style="padding-right:95px">
+        <div class="col-sm-6" style="padding-right: 95px;">
             <p style="text-align:right">
                 C. del Ter, 16 Edifici A<br>
                 07009 - Palma
@@ -509,7 +650,46 @@
 
 <script src="iaqse_bundle2.min.js"></script>
 
-<script>var replaceImgSvg=function(e,a){var g=$(e);g.length&&$.ajax({type:"GET",url:a,contentType:"image/svg+xml;charset=ISO-8859-1",success:function(e){var a=$(e.documentElement);a.addClass(g.attr("class")),g.replaceWith(a)}})};$(function(){$("#tree1").treed(),replaceImgSvg("#svg-brand","../img/svg/qiaqse2.svg"),$("#iaqse-brand").css("display",""),replaceImgSvg("#svg-logo-cab","../img/svg/iaqse-caib-w.svg"),replaceImgSvg("#logo-iaqse","../img/svg/logo-iaqse.svg")}),function(e,a,g,s,t,c,n){e.GoogleAnalyticsObject=t,e.ga=e.ga||function(){(e.ga.q=e.ga.q||[]).push(arguments)},e.ga.l=1*new Date,c=a.createElement(g),n=a.getElementsByTagName(g)[0],c.async=1,c.src="//www.google-analytics.com/analytics.js",n.parentNode.insertBefore(c,n)}(window,document,"script",0,"ga"),ga("create","UA-40778701-3","auto"),ga("send","pageview")</script>
+<script>
+  
+    // El nostre servidor no permet carregar svg perquè l'apache no està ben configurat
+    // Hack: les carregam per jquery   
+    var replaceImgSvg = function(imgID, svgFile) {
+        var $img = $(imgID);
+        if($img.length) {
+            $.ajax({
+                type: "GET",
+                url: svgFile, 
+                contentType: "image/svg+xml;charset=ISO-8859-1", 
+                success: function(data){
+                    // Replace image with new SVG
+                    var $svg = $(data.documentElement);
+                    $svg.addClass($img.attr("class"));
+                    $img.replaceWith($svg);
+                }
+        });
+ 
+        }
+    };
+
+    $(function(){
+        $('#tree1').treed();
+        replaceImgSvg('#svg-brand', '../img/svg/qiaqse2.svg');
+        $("#iaqse-brand").css("display", "");
+        replaceImgSvg('#svg-logo-cab', '../img/svg/iaqse-caib-w.svg');
+        replaceImgSvg('#logo-iaqse', '../img/svg/logo-iaqse.svg');
+    });
+    
+   
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-40778701-3', 'auto');
+    ga('send', 'pageview');
+
+</script>
             </div>
             
         </div>

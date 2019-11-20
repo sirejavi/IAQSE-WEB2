@@ -39,7 +39,10 @@
         return decodeURIComponent(results[1].replace(/\+/g, " "));
     }
   };
-  window.app = angular.module("iaqse", ["ngRoute", "ngAnimate"]);
+  window.app = angular.module("iaqse", ["ngRoute", "ngSanitize", "ngAnimate"]);
+  app.config(['$sceProvider',function($sceProvider){
+    $sceProvider.enabled(false);
+  }]);
   app.service("httpService", ["$http", function($http){            
             var service  = {
                 loadSchema: function(tableSchema){
@@ -78,7 +81,8 @@
             return "fa-file";
         }
   });
-  window.app.config(["$controllerProvider", "$provide", "$compileProvider", function($controllerProvider, $provide, $compileProvider) {
+  window.app.config(["$controllerProvider", "$provide", "$compileProvider", "$filterProvider",
+       function($controllerProvider, $provide, $compileProvider, $filterProvider) {
     // Since the "shorthand" methods for component
     // definitions are no longer valid, we can just
     // override them to use the providers for post-
@@ -86,6 +90,8 @@
     // Let's keep the older references.
     app._controller = app.controller;
     app._service = app.service;
+    app._filter = app.filter;
+    app._component = app.component;
     app._factory = app.factory;
     app._value = app.value;
     app._directive = app.directive;
@@ -106,6 +112,16 @@
     // Provider-based value.
     app.value = function(name, value) {
       $provide.value(name, value);
+      return (this);
+    };
+    // Provider-based filter.
+    app.filter = function(name, filter) {
+      $filterProvider.register(name, filter);
+      return (this);
+    };
+    // Provider-based component.
+    app.component = function(name, component) {
+      $compileProvider.component(name, component);
       return (this);
     };
     // Provider-based directive.

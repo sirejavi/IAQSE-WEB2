@@ -7,5 +7,126 @@
 </nav><h4>Proves interactives</h4>
 <p>Pròximament. Espai en construcció ...</p>
 
+<!--passam la prova al component-->
+<iaqse-prova prova="prova" ng-if="prova!=null"></iaqse-prova>
 
-<script>app.controller("interactivesController",["$scope",function(o){}])</script>
+
+<script>
+        app.component("iaqseProva", {
+                templateUrl: "iaqse-prova.html",
+                bindings: {
+                        prova: "<"
+                },
+                controller: function () {
+                        var ctrl = this;
+                        this.$onChanges = function (changes) {
+                                var prova = this.prova;
+                                var indexEstimul = 0;
+                                if (prova) {
+                                        indexEstimul = 0;
+                                        ctrl.estimulSelected = prova.estimuls[indexEstimul];
+                                        ctrl.back = function () {
+                                                if (indexEstimul > 0) {
+                                                        indexEstimul--;
+                                                }
+                                                ctrl.estimulSelected = prova.estimuls[indexEstimul];
+                                        };
+                                        ctrl.next = function () {
+                                                if (indexEstimul < prova.estimuls.length - 1) {
+                                                        indexEstimul++;
+                                                }
+                                                ctrl.estimulSelected = prova.estimuls[indexEstimul];
+                                        };
+                                }
+                        }
+                }
+        });
+        app.component("iaqseEstimul", {
+                templateUrl: "iaqse-estimul.html",
+                bindings: {
+                        estimul: "<"
+                },
+                controller: function () {
+                        var ctrl = this;
+                        var indexPregunta = 0;
+                        this.$onChanges = function (changes) {
+                                var estimul = this.estimul;
+                                var indexPregunta = 0;
+                                if (estimul) {
+                                        indexPregunta  = 0;
+                                        ctrl.preguntaSelected = estimul.preguntes[indexPregunta];
+                                        ctrl.back = function () {
+                                                if (indexPregunta > 0) {
+                                                        indexPregunta--;
+                                                }
+                                                ctrl.preguntaSelected = estimul.preguntes[indexPregunta];
+                                        };
+                                        ctrl.next = function () {
+                                                if (indexPregunta < estimul.preguntes.length - 1) {
+                                                        indexPregunta++;
+                                                }
+                                                ctrl.preguntaSelected = estimul.preguntes[indexPregunta];
+                                        };
+                                }
+                        }
+                        this.check = function() {
+                                if(ctrl.preguntaSelected && ctrl.preguntaSelected.ordre == ctrl.preguntaSelected.answer) {
+                                        alert("Molt bé!");
+                                } else {
+                                        alert("Ho sento:");
+                                }
+                        }
+                }
+        });
+        app.component("iaqsePregunta", {
+                templateUrl: "iaqse-pregunta.html",
+                bindings: {
+                        pregunta: "<"
+                },
+                controller: function () {
+                        var ctrl = this;
+                }
+        });
+        app.controller("interactivesController", ["$scope", "httpService", function ($scope, httpService) {
+                // Exemple que s'ha de carrega d'una base de dades json...
+                $scope.prova = null;
+                httpService.loadSchema("proves_interactives").then(function (response) {
+                        proves = response.data;
+                        $scope.prova = proves[0];
+                });
+
+        }]);
+        app.filter("toLetter", function(){
+                return function(index){
+                        return String.fromCharCode(65+index)+") ";
+                };
+        });
+</script>
+
+<script type="text/ng-template" id="iaqse-prova.html">
+        <h3 ng-bind-html="$ctrl.prova.title"></h3>
+        <button ng-click="$ctrl.back()">Enrrera</button>
+        <button ng-click="$ctrl.next()">Endavant</button>
+        <iaqse-estimul estimul="$ctrl.estimulSelected"></iaqse-estimul>
+        <!--botonera-->
+       
+</script>
+
+<script type="text/ng-template" id="iaqse-estimul.html">
+        <div style="background: gray">
+                <p ng-bind-html="$ctrl.estimul.estimul"></p>
+        </div>
+        <iaqse-pregunta pregunta="$ctrl.preguntaSelected"></iaqse-pregunta>
+        <button ng-click="$ctrl.check()">Comprova</button>
+        <button ng-click="$ctrl.back()">Enrrera</button>
+        <button ng-click="$ctrl.next()">Endavant</button>
+</script>
+
+<script type="text/ng-template" id="iaqse-pregunta.html">
+        <h3 ng-bind-html="$ctrl.pregunta.enunciat"></h3>
+        <div ng-repeat="opt in $ctrl.pregunta.opcions">
+            <input type="radio" ng-model="$ctrl.pregunta.answer" ng-value="$index"/>  
+            {{$index | toLetter}}
+            <div ng-bind-html="opt" style="display: inline-block"></div>      
+        </div>                                               
+</script>
