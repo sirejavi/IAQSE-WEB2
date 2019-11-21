@@ -3,10 +3,7 @@ body {
     background:whitesmoke;
     overflow-y: scroll;
     font-size: 95%;
-}
-navbar {
-    height: 60px!important;
-}
+} 
 #main-wrap {
     margin: 0px;
     width: 100%;
@@ -24,6 +21,9 @@ main {
 }
 a:hover {
     text-decoration: none;
+}
+.btn.btn-secondary.dropdown-toggle {
+    font-size: 95%;
 }
 #svg-brand {
     width: 30px;
@@ -388,6 +388,9 @@ a>.enllacos-title {
     .panel-destacats {
         max-height: initial; 
         overflow: initial;
+    }
+    .btn.btn-secondary.dropdown-toggle {
+        font-size: 90%;
     }
 }
 /* Medium devices (tablets, 768px and up) */

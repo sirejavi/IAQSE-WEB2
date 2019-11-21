@@ -111,12 +111,6 @@
                     "ejs": "proves/imprimibles",
                     "url": "imprimibles",
                     "controller": "imprimibles"
-                },
-                {
-                    "title": "Interactives",
-                    "ejs": "proves/interactives",
-                    "url": "interactives",
-                    "controller": "interactives"
                 }
             ]
         } 
