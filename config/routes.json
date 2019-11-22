@@ -16,7 +16,7 @@
             "url": "quisom",
             "views": [
                 {
-                    "title": "Index",
+                    "title": "Índex",
                     "ejs": "quisom/quisom_index",
                     "url": "index"
                 },
@@ -43,7 +43,7 @@
             "url": "avaluacions",
             "views": [
                 {
-                    "title": "Index",
+                    "title": "Índex",
                     "ejs": "avaluacions/avaluacions_index",
                     "url": "index",
                     "views": [
