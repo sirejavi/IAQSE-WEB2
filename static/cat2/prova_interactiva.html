@@ -263,9 +263,13 @@
                                                         var preg = estimul.preguntes[j];
                                                         preg.numero = numero;
                                                         numero++;
-                                                        var respostaCorrecta = preg.opcions[preg.ordre];
-                                                        preg.opcions = shuffleArray(preg.opcions);
-                                                        preg.ordre = preg.opcions.indexOf(respostaCorrecta);
+                                                        
+                                                        if(preg.opcions) {
+                                                                var respostaCorrecta = preg.opcions[preg.ordre-1];
+                                                                preg.opcions = shuffleArray(preg.opcions);
+                                                                preg.ordre = preg.opcions.indexOf(respostaCorrecta);
+                                                        }
+                                                        
                                                 }
                                         }
                                         ctrl.numPreguntes = numero-1;
@@ -355,7 +359,21 @@
                                         for(var j=0, len2=estimul.preguntes.length; j<len2; j++) {
                                                 var pregunta = estimul.preguntes[j];
                                                 if(pregunta.answer!=null) {
-                                                        pregunta.esCorrecta = (pregunta.ordre == pregunta.answer);
+                                                        if(pregunta.opcions!=null) {
+                                                                pregunta.esCorrecta = (pregunta.ordre == pregunta.answer);
+                                                        } else {
+                                                                if(pregunta.tolerance!=null) {
+                                                                        // Convertim la resposta a float
+                                                                        try {
+                                                                                var floatAnswer = parseFloat(pregunta.answer.replace(",","."));
+                                                                                pregunta.esCorrecta = Math.abs(floatAnswer - pregunta.ordre)<= pregunta.tolerance;
+                                                                        } catch(ex) {
+                                                                                pregunta.esCorrecta = false;
+                                                                        }
+                                                                } else {
+                                                                        pregunta.esCorrecta = (pregunta.ordre == pregunta.answer);
+                                                                }
+                                                        }
                                                 }
                                         }
                                 }
@@ -405,9 +423,8 @@
                 $scope.prova = null;
                 // Determina la id de la prova interactiva de la query
                 var id = getURLParameter("id");
-                $scope.id = id;
-                console.log(id)
-
+                var lang = getURLParameter("lang");
+                $scope.id = id;  
                 if (id) {
                         httpService.loadSchema("proves_interactives").then(function (response) {
                                 proves = response.data;
@@ -421,11 +438,51 @@
 
                                 if (prova == null) {
                                         $scope.mostraError = true;
-                                } else if(prova.contingut) {
+                                } else if(prova.contingut) {                        
+                                                // prova.contingut pot ésser un objecte segons idioma
+                                                var nomJSON = "";
+                                                if(typeof(prova.contingut)=="string") {
+                                                        nomJSON = prova.contingut;
+                                                } else if(Array.isArray(prova.contingut) && lang) {
+                                                        for(var i=0, len=prova.contingut.length; i<len; i++) {
+                                                                var item = prova.contingut[i];
+                                                                if(item.lang == lang) {
+                                                                        nomJSON = item.file;
+                                                                        break;
+                                                                }
+                                                        }
+                                                } else {
+                                                        $scope.mostraError = true;
+                                                }
+
+                                                var rutaImatges = "src=\"../proves_interactives/" + nomJSON + "/";
                                                 // Carrega ara el contingut de la prova que es troba en un altre json
-                                                httpService.loadSchema(prova.contingut).then(function (response) {
-                                                        prova.estimuls = response.data;
+                                                console.log("Carregant "+nomJSON);
+                                                httpService.loadSchema(nomJSON).then(function (response2) {
+                                                        prova.estimuls = response2.data;
+                                                        // Atenció cal reemplaçar totes les rutes a src=" per la ruta adient
+                                                        // Atenció cal reemplaçar arrays per .join()
+                                                        console.log("S'ha carregat: " + prova);
+                                                        for(var i=0, len=prova.estimuls.length; i<len; i++){
+                                                                var estimul = prova.estimuls[i];
+                                                                if(Array.isArray(estimul.estimul_body)) {
+                                                                        estimul.estimul_body = estimul.estimul_body.join(" ");
+                                                                }
+                                                                estimul.estimul_body = estimul.estimul_body.replace(/src=\"/ig, rutaImatges);
+                                                                for(var j=0, len2=estimul.preguntes.length; j<len2; j++){
+                                                                        var preg = estimul.preguntes[j];
+                                                                        if(Array.isArray(preg.enunciat)) {
+                                                                                preg.enunciat = preg.enunciat.join(" ");
+                                                                        }
+                                                                        preg.enunciat = preg.enunciat.replace(/src=\"/ig, rutaImatges);
+                                                                }
+                                                        }
+
+                                                        console.log(prova)
                                                         $scope.prova = prova;
+                                                }, function(err){
+                                                        console.log("Hi ha hagut un problema carregant la definició de la prova. Prova corrupta!: "+ err);
+                                                        $scope.mostraError = true;
                                                 });                                        
                                 }
                         });
@@ -496,8 +553,11 @@
 </script>
 
 <script type="text/ng-template" id="iaqse-estimul.html">
-        <div style="background: lightgray; border: 1px solid gray; min-height: 200px; width: 100%">
-                <p ng-bind-html="$ctrl.estimul.estimul"></p>
+        <div style="background: #f2dbda; border: 1px solid gray; min-height: 200px; width: 100%">
+                <center>
+                <h4 style="background: brown; font-weight:800; color:white; border-radius: 5px" ng-bind-html="$ctrl.estimul.estimul"></h4>
+                <div ng-bind-html="$ctrl.estimul.estimul_body"></div>
+                </center>
         </div>      
         <br>
         <iaqse-pregunta pregunta="$ctrl.preguntaSelected"></iaqse-pregunta>
@@ -505,17 +565,24 @@
 </script>
 
 <script type="text/ng-template" id="iaqse-pregunta.html">
-        <h3><b> Pregunta
-        <span ng-bind="$ctrl.pregunta.numero"></span>.</b>
+        <h5><span style="font-weight:800;"> Pregunta
+        <span ng-bind="$ctrl.pregunta.numero"></span>.
         <span ng-if="$ctrl.pregunta.esCorrecta!=null">
                 <span style="color:green" ng-if="$ctrl.pregunta.esCorrecta"><i class="fa fa-check"></i></span>
                 <span style="color:red" ng-if="!$ctrl.pregunta.esCorrecta"><i class="fa fa-times"></i></span>
         </span>
-        <span ng-bind-html="$ctrl.pregunta.enunciat"></span></h3>
-        <div ng-repeat="opt in $ctrl.pregunta.opcions">
-            <input type="radio" ng-model="$ctrl.pregunta.answer" ng-value="$index"/>  
-            {{$index | toLetter}}
-            <div ng-bind-html="opt" style="display: inline-block"></div>      
+        </span>
+        <span ng-bind-html="$ctrl.pregunta.enunciat"></span></h5>
+        <div class="form-check" ng-repeat="opt in $ctrl.pregunta.opcions" ng-if="$ctrl.pregunta.opcions!=null">
+            <input class="form-check-input" type="radio" ng-model="$ctrl.pregunta.answer" ng-value="$index"/>  
+            <label class="form-check-label">
+            <h5>{{$index | toLetter}}
+            <span ng-bind-html="opt"></span> 
+            </h5>     
+            </label>
+        </div>     
+        <div ng-if="$ctrl.pregunta.opcions==null">
+                <input class="form-control" type="text" ng-model="$ctrl.pregunta.answer"/>                  
         </div>                                               
 </script></main>    
                 

@@ -3,7 +3,9 @@
         "any": 2014,
         "nivell": "2n ESO",
         "competencia": "Competència Matemàtica",
-        "title": "Prova diagnòstica Matemàtiques 2n ESO 2014",
-        "contingut": "pi_cmat_2eso_2014"
+        "title": "Prova diagnòstica competència matemàtica 2n ESO 2014-2015",
+        "contingut": [
+            { "lang": "ca", "file":"ad_2eso_cmat_2014_ca" }
+        ]
     }
 ]

@@ -100,13 +100,7 @@ app.controller("interactivesController", ["$scope", "httpService", function($sco
                             ($scope.selected.competencia==$scope.competencies[0] || $scope.selected.competencia==item.competencia) &&
                             ($scope.selected.any==$scope.anys[0] || $scope.selected.any==item.any) 
                         ) {
-                        proves.push({
-                                any: item.any,
-                                nivell: item.nivell,
-                                competencia: item.competencia,
-                                title: item.title,
-                                id: item.id
-                        });
+                                 proves.push(item);
                         }
                 }
 
@@ -120,7 +114,7 @@ app.controller("interactivesController", ["$scope", "httpService", function($sco
         }
 
         $scope.gotoExamen = function(prova) {
-                location.href = "prova_interactiva.html?id=" + prova.id;
+                location.href = "prova_interactiva.html?id=" + prova.id+"&lang=ca";
         };
  
        
