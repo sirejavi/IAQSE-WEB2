@@ -45,37 +45,35 @@
                 {
                     "title": "Índex",
                     "ejs": "avaluacions/avaluacions_index",
-                    "url": "index",
-                    "views": [
-                        {
-                            "title": "Avaluacions de final d'etapa",
-                            "ejs": "avaluacions/avaluacions_final_etapa",
-                            "url": "final_etapa",
-                            "controller": "finaletapa",
-                            "img": "img/avaluacions/finish.png"
-                        },
-                        {
-                            "title": "Avaluacions de diagnòstic",
-                            "ejs": "avaluacions/avaluacions_diagnostic",
-                            "url": "diagnostic",
-                            "controller": "diagnostic",
-                            "img": "img/avaluacions/diagnostic.png"
-                        },
-                        {
-                            "title": "Avaluacions internacionals",
-                            "ejs": "avaluacions/avaluacions_internacionals",
-                            "url": "internacionals" ,
-                            "controller": "internacionals",
-                            "img": "img/avaluacions/globe.png"
-                        },
-                        {
-                            "title": "Altres avaluacions",
-                            "ejs": "avaluacions/avaluacions_altres",
-                            "url": "altres",
-                            "controller": "altres",
-                            "img": "img/avaluacions/more.png"
-                        }
-                    ]
+                    "url": "index"
+                },
+                {
+                    "title": "Avaluacions de final d'etapa",
+                    "ejs": "avaluacions/avaluacions_final_etapa",
+                    "url": "final_etapa",
+                    "controller": "finaletapa",
+                    "img": "img/avaluacions/finish.png"
+                },
+                {
+                    "title": "Avaluacions de diagnòstic",
+                    "ejs": "avaluacions/avaluacions_diagnostic",
+                    "url": "diagnostic",
+                    "controller": "diagnostic",
+                    "img": "img/avaluacions/diagnostic.png"
+                },
+                {
+                    "title": "Avaluacions internacionals",
+                    "ejs": "avaluacions/avaluacions_internacionals",
+                    "url": "internacionals",
+                    "controller": "internacionals",
+                    "img": "img/avaluacions/globe.png"
+                },
+                {
+                    "title": "Altres avaluacions",
+                    "ejs": "avaluacions/avaluacions_altres",
+                    "url": "altres",
+                    "controller": "altres",
+                    "img": "img/avaluacions/more.png"
                 }
             ]
         },
@@ -111,8 +109,24 @@
                     "ejs": "proves/imprimibles",
                     "url": "imprimibles",
                     "controller": "imprimibles"
+                },
+                {
+                    "title": "Interactives",
+                    "ejs": "proves/interactives",
+                    "url": "interactives",
+                    "controller": "interactives"
                 }
             ]
-        } 
+        },
+        {
+            "title": "Prova",
+            "title_long": "Prova interactiva",
+            "ejs": "prova_interactiva",
+            "url": "prova_interactiva", 
+            "comment": "La url necessita de query params",
+            "template": "examen",
+            "hide": true
+        }
+
     ]
 }

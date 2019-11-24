@@ -1,0 +1,42 @@
+[
+    {
+        "estimul": "En Miquel ha anat a l'hort ...",
+        "preguntes": [
+            {
+                "enunciat": "<p>1+1?</p><br><img src=\"http://boaga.es/media/images/NjgweC0tMS0wLXVwbG9hZHMvOS9uZXdzL3dpZG8tcGVsdWNoZXNfMi5qcGc=.jpg\"/>",
+                "opcions": [
+                    "pot ser <b>11</b>",
+                    "són 2",
+                    "com a <em>molt</em> 12",
+                    "són 22"
+                ],
+                "ordre": 1
+            },
+            {
+                "enunciat": "<p>2+2?</p><br><img src=\"https://www.google.com/url?sa=i&source=images&cd=&cad=rja&uact=8&ved=2ahUKEwi23Nehr_nlAhVB1xoKHUy6Bh4QjRx6BAgBEAQ&url=%2Furl%3Fsa%3Di%26source%3Dimages%26cd%3D%26ved%3D%26url%3Dhttp%253A%252F%252Fboaga.es%252Fmodule-1-11%252Fpara-o-nadal-merca-os-peluches-da-galina-de-mos-e-da-ovella-galega%252F%26psig%3DAOvVaw1T8YWjl2Io6GEkpvDjQIXj%26ust%3D1574359214084763&psig=AOvVaw1T8YWjl2Io6GEkpvDjQIXj&ust=1574359214084763\"/>",
+                "opcions": [
+                    "pot ser <b>11</b>",
+                    "són 2",
+                    "com a <em>molt</em> 12",
+                    "són 22"
+                ],
+                "ordre": 3
+            }
+        ]
+    },
+    {
+        "estimul": "Na Maria ha comprat una ovella ...",
+        "preguntes": [
+            {
+                "enunciat": "<p>Cal que na Maria camini ...</p>",
+                "opcions": [
+                    "1 m",
+                    "2 m",
+                    "3 m",
+                    "4 m"
+                ],
+                "ordre": 0
+            }
+        ]
+    }
+]

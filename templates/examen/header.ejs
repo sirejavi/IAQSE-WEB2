@@ -9,7 +9,7 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
-          <% routes.pages.forEach( (page) => { if(!page.hide){ %>
+          <% routes.pages.forEach( (page) => {if(!page.hide){ %>
           <li class="nav-item <% if(currentPage == page.url) {%> active <% } %>">
             <a class="nav-link" href="<%=page.url%>.html" title="<%=page.title_long%>"><%=page.title%></span>
             </a>
@@ -19,20 +19,4 @@
       </div>
     </div>
   </nav>
-
-  <div id="logo-cab" class="container-fluid">
-    <div class="clearfix">
-          <div id="svg-logo-cab" class="logo-left"></div> 
-           <div class="logo-right">
-             <center>
-                <a href="https://apps.caib.es/gesavafront/" target="_blank" title="Programari de gestió d'avaluacions">
-                 
-                    <img src="../img/gesava.png" style="width:35px"><br>
-                    <span style="font-size: 90%">Accés GESAVA</span>
-                </a>
-              </center>
-          </div> 
-      </div>
-     
-  </div>
   

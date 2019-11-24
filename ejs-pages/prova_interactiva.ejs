@@ -1,0 +1,316 @@
+<!--s'obre en una pantalla separada empra el template prova-->
+<!--passam la prova al component-->
+<a href="proves.html#!/interactives" style="float: right;" class="btn btn-sm btn-warning">Tornau a proves</a>
+<div ng-controller="mainController">
+        <iaqse-prova prova="prova" ng-if="prova!=null"></iaqse-prova>
+
+        <div ng-if="mostraError" class="alert alert-danger">
+                <h5>:-( S'ha produït un error</h5>
+                <p>No s'ha trobat la prova amb identificador id={{id}}</p>
+                <a href="proves.html#!/interactives" class="btn btn-sm btn-warning">Tornau a proves</a>
+        </div>
+</div>
+<script>
+        /**
+        * Shuffles array in place.
+        * @param {Array} a items An array containing the items.
+        */
+        function shuffleArray(a) {
+        var j, x, i;
+        for (i = a.length - 1; i > 0; i--) {
+                j = Math.floor(Math.random() * (i + 1));
+                x = a[i];
+                a[i] = a[j];
+                a[j] = x;
+        }
+        return a;
+        }
+
+        app.component("iaqseProva", {
+                templateUrl: "iaqse-prova.html",
+                bindings: {
+                        prova: "<"
+                },
+                controller: function () {
+                        var ctrl = this;
+                        // Aquest listener escolta canvis de "prova" (només s'en produirà un. Quan es carregui la prova per http)
+                        ctrl.indexEstimul = 0;
+                        ctrl.indexPregunta = 0;
+                        ctrl.numEstimuls = 0;
+                        ctrl.numPreguntes = 0;
+                        ctrl.$onChanges = function (changes) {
+                                console.log("iaqseProva-changes", changes);
+                                var prova = this.prova;
+                                if (prova) {
+                                        ctrl.numEstimuls = prova.estimuls.length;
+                                        // Quan es carrega una prova, estableix el primer estimul
+                                        ctrl.indexEstimul = 0;
+                                        ctrl.indexPregunta = 0;
+                                        ctrl.estimulSelected = prova.estimuls[ctrl.indexEstimul];
+                                        ctrl.preguntaSelected = ctrl.estimulSelected.preguntes[ctrl.indexPregunta];
+                                 
+                                        // Cal afegir a cada pregunta el seu numero
+                                        // Comptar quantes preguntes hi ha en total  ctrl.numPreguntes
+                                        // I fer un shuffle en les opcions de resposta
+                                        var numero = 1;
+                                        for (var i = 0, len = prova.estimuls.length; i < len; i++) {
+                                                var estimul = prova.estimuls[i];
+                                                for (var j = 0, len2 = estimul.preguntes.length; j < len2; j++) {
+                                                        var preg = estimul.preguntes[j];
+                                                        preg.numero = numero;
+                                                        numero++;
+                                                        var respostaCorrecta = preg.opcions[preg.ordre];
+                                                        preg.opcions = shuffleArray(preg.opcions);
+                                                        preg.ordre = preg.opcions.indexOf(respostaCorrecta);
+                                                }
+                                        }
+                                        ctrl.numPreguntes = numero-1;
+                                
+                                }
+                        };
+                        // Mou a l'estimul anterior o següent
+                        ctrl.backEstimul = function () {
+                                if (ctrl.indexEstimul > 0) {
+                                        ctrl.indexEstimul--;                                        
+                                        ctrl.estimulSelected = ctrl.prova.estimuls[ctrl.indexEstimul]; 
+                                        // Per defecte, quan canviam d'estimul, anam a la pregunta 0  de l'estimul
+                                        ctrl.indexPregunta = 0;
+                                        ctrl.preguntaSelected = ctrl.estimulSelected.preguntes[ctrl.indexPregunta];
+                                        return true;                                                                   
+                                }                   
+                                return false;             
+                        };
+                        ctrl.nextEstimul = function() {
+                                if (ctrl.indexEstimul < ctrl.prova.estimuls.length - 1) {
+                                        ctrl.indexEstimul++; 
+                                        ctrl.estimulSelected = ctrl.prova.estimuls[ctrl.indexEstimul];
+                                        // Per defecte, quan canviam d'estimul, anam a la pregunta 0 de l'estimul
+                                        ctrl.indexPregunta = 0;
+                                        ctrl.preguntaSelected = ctrl.estimulSelected.preguntes[ctrl.indexPregunta];
+                                        return true;
+                                }                   
+                                return false;             
+                        };
+                        // Mou a la pregunta anterior o posterior, pot suposar un canvi d'estimul
+                        ctrl.backPregunta = function () {
+                                if (ctrl.indexPregunta > 0) {
+                                        // Ens mantenim en el mateix estimul, només canviam la pregunta
+                                        ctrl.indexPregunta--;                                        
+                                        ctrl.preguntaSelected = ctrl.estimulSelected.preguntes[ctrl.indexPregunta];
+                                } else {
+                                     // Intenta anar a l'estimul anterior
+                                     if(ctrl.backEstimul()) {
+                                        // Hem anat a l'estimul anterior, però cal posar-se a la darrera pregunta
+                                        ctrl.indexPregunta = ctrl.estimulSelected.preguntes.length - 1;
+                                        ctrl.preguntaSelected = ctrl.estimulSelected.preguntes[ctrl.indexPregunta];
+                                     }                                        
+                                }                                
+                        };
+                        ctrl.nextPregunta = function () {
+                                if (ctrl.indexPregunta < ctrl.estimulSelected.preguntes.length - 1) {
+                                        // Ens mantenim en el mateix estimul
+                                        ctrl.indexPregunta++;
+                                        ctrl.preguntaSelected = ctrl.estimulSelected.preguntes[ctrl.indexPregunta];
+                                } else {
+                                     // Intenta anar a l'estimul següent
+                                     ctrl.nextEstimul(0); 
+                                } 
+                        };
+
+                        ctrl.gotoPregunta = function(indexEstimul, indexPregunta) {
+                                // Ha de canviar els indexos
+                                ctrl.indexEstimul = indexEstimul;
+                                ctrl.indexPregunta = indexPregunta;
+                                ctrl.estimulSelected = ctrl.prova.estimuls[indexEstimul];
+                                ctrl.preguntaSelected = ctrl.estimulSelected.preguntes[indexPregunta];
+                        };
+
+                        ctrl.styleClassPregunta = function(pregunta) {
+                                // no contestada gray
+                                // contestada blue (pendent de correccio)
+                                // contestada/correcte green
+                                // contestada/incorrecte red
+ 
+                                var styleClazz = "btn-secondary";
+                                if(pregunta.answer!=null) {
+                                        styleClazz = "btn-primary";
+                                        if(pregunta.esCorrecta!=null) {
+                                                if(pregunta.esCorrecta) {
+                                                        styleClazz = "btn-success";
+                                                } else {
+                                                        styleClazz = "btn-danger";
+                                                }
+                                        }
+                                }
+                                return styleClazz;
+                        };
+
+                        ctrl.corregirProva = function() {
+                                for(var i=0, len=ctrl.prova.estimuls.length; i<len; i++) {
+                                        var estimul = ctrl.prova.estimuls[i];
+                                        for(var j=0, len2=estimul.preguntes.length; j<len2; j++) {
+                                                var pregunta = estimul.preguntes[j];
+                                                if(pregunta.answer!=null) {
+                                                        pregunta.esCorrecta = (pregunta.ordre == pregunta.answer);
+                                                }
+                                        }
+                                }
+                        };
+                }
+        });
+        app.component("iaqseEstimul", {
+                templateUrl: "iaqse-estimul.html",
+                bindings: {
+                        estimul: "<",
+                        question: "<"
+                },
+                require: {
+                        provaCtrl: "^^iaqseProva"    // Li pasam el controlador pare
+                },
+                controller: function () {
+                        var ctrl = this; 
+
+                        // Aquest listener escolta a canvis en l'atribut estimul o en l'index de la pregunta que es produiran freqüentment
+                        this.$onChanges = function (changes) {
+                                console.log("iaqseEstimul-changes", changes); 
+                                ctrl.preguntaSelected = this.question;
+                        };
+                        
+                        this.check = function () {
+                               ctrl.provaCtrl.corregirProva();
+                        }
+                }
+        });
+        app.component("iaqsePregunta", {
+                templateUrl: "iaqse-pregunta.html",
+                bindings: {
+                        pregunta: "<"
+                },
+                require: {
+                        estimulCtrl: "^^iaqseEstimul"    // Li pasam el controlador pare
+                },
+                controller: function () {                        
+                        var ctrl = this;
+                        ctrl.$onChanges = function(changes){
+                                console.log("iaqsePregunta-changes", changes);
+                        }
+                }
+        });
+        app.controller("mainController", ["$scope", "httpService", function ($scope, httpService) {
+                // Exemple que s'ha de carrega d'una base de dades json...
+                $scope.prova = null;
+                // Determina la id de la prova interactiva de la query
+                var id = getURLParameter("id");
+                $scope.id = id;
+                console.log(id)
+
+                if (id) {
+                        httpService.loadSchema("proves_interactives").then(function (response) {
+                                proves = response.data;
+                                var prova = null;
+                                try {
+                                        id = parseInt(id);
+                                } catch (e) { }
+                                if (id > 0 && id <= proves.length) {
+                                        prova = proves[id - 1];
+                                }
+
+                                if (prova == null) {
+                                        $scope.mostraError = true;
+                                } else if(prova.contingut) {
+                                                // Carrega ara el contingut de la prova que es troba en un altre json
+                                                httpService.loadSchema(prova.contingut).then(function (response) {
+                                                        prova.estimuls = response.data;
+                                                        $scope.prova = prova;
+                                                });                                        
+                                }
+                        });
+                } else {
+                        $scope.mostraError = true;
+                }
+
+
+        }]);
+        app.filter("toLetter", function () {
+                return function (index) {
+                        return String.fromCharCode(65 + index) + ") ";
+                };
+        });
+</script>
+
+<script type="text/ng-template" id="iaqse-prova.html">
+
+        <h3 ng-bind-html="$ctrl.prova.title"></h3>
+       
+        <div style=" border: 1px solid gray;  width: 100%">
+                        <button style="float:left" class="btn btn-success" ng-click="$ctrl.corregirProva()"><i class="fa fa-check"></i> Corregeix la prova</button>    
+                        <div class="progress">
+                                <div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" 
+                                aria-valuemin="0" aria-valuemax="100">0%</div>
+                        </div>
+                        <div class="progress">
+                                <div class="progress-bar bg-success" role="progressbar" style="width: 0%;" aria-valuenow="0" 
+                                aria-valuemin="0" aria-valuemax="100">0%</div>
+                        </div>            
+        </div>
+        <br>
+        <div style="border: 1px solid grey; margin-bottom: 10px; text-align: center; margin: auto">
+                <button style="float:left" class="btn btn-sm btn-secondary" ng-click="$ctrl.backEstimul()"
+                ng-disabled="$ctrl.indexEstimul < 1"><i class="fa fa-backward"></i> Anterior</button>
+                <span style="font-size: 120%"><b>Situació <span ng-bind="$ctrl.indexEstimul+1"></span></b></span>
+                <button style="float:right" class="btn btn-sm btn-secondary" ng-click="$ctrl.nextEstimul()"
+                ng-disabled="$ctrl.indexEstimul > $ctrl.numEstimuls -1"> Següent <i class="fa fa-forward"></i></button>
+        </div>
+        <!--quan carreguis l'estimul, mostra la pregunta question d'aquest estimul -->
+        <iaqse-estimul estimul="$ctrl.estimulSelected" question="$ctrl.preguntaSelected"></iaqse-estimul>
+        
+        <br><br>
+        <!--botonera-->
+        <button class="btn btn-secondary" ng-click="$ctrl.backPregunta()"
+        ng-disabled="$ctrl.preguntaSelected.numero<=1"><i class="fa fa-chevron-left"></i> Pregunta anterior</button>
+        <button class="btn btn-secondary" ng-click="$ctrl.nextPregunta()"
+        ng-disabled="$ctrl.preguntaSelected.numero>$ctrl.numPreguntes-1">Pregunta següent <i class="fa fa-chevron-right"></i></button>
+       
+        <!--nav-bar-->
+        <br><br>
+        <div>
+                <div ng-repeat="estimul in $ctrl.prova.estimuls" style="display: inline-block">
+                        <div ng-repeat="pregunta in estimul.preguntes" style="display: inline-block; vertical-align: top">
+                                <div>
+                                <button class="btn btn-sm" ng-class="$ctrl.styleClassPregunta(pregunta)"
+                                ng-click="$ctrl.gotoPregunta($parent.$index, $index)">
+                                        <span ng-bind="pregunta.numero"></span>        
+                                </button>
+                                <br>
+                                <span ng-if="pregunta.numero == $ctrl.preguntaSelected.numero"><i class="fa fa-arrow-up"></i></span>
+                                <span ng-if="pregunta.numero != $ctrl.preguntaSelected.numero"> </span>
+                                </div>
+                        </div>
+                </div>
+        </div>
+
+</script>
+
+<script type="text/ng-template" id="iaqse-estimul.html">
+        <div style="background: lightgray; border: 1px solid gray; min-height: 200px; width: 100%">
+                <p ng-bind-html="$ctrl.estimul.estimul"></p>
+        </div>      
+        <br>
+        <iaqse-pregunta pregunta="$ctrl.preguntaSelected"></iaqse-pregunta>
+     
+</script>
+
+<script type="text/ng-template" id="iaqse-pregunta.html">
+        <h3><b> Pregunta
+        <span ng-bind="$ctrl.pregunta.numero"></span>.</b>
+        <span ng-if="$ctrl.pregunta.esCorrecta!=null">
+                <span style="color:green" ng-if="$ctrl.pregunta.esCorrecta"><i class="fa fa-check"></i></span>
+                <span style="color:red" ng-if="!$ctrl.pregunta.esCorrecta"><i class="fa fa-times"></i></span>
+        </span>
+        <span ng-bind-html="$ctrl.pregunta.enunciat"></span></h3>
+        <div ng-repeat="opt in $ctrl.pregunta.opcions">
+            <input type="radio" ng-model="$ctrl.pregunta.answer" ng-value="$index"/>  
+            {{$index | toLetter}}
+            <div ng-bind-html="opt" style="display: inline-block"></div>      
+        </div>                                               
+</script>

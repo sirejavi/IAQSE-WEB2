@@ -1,0 +1,101 @@
+<nav aria-label="breadcrumb">
+<ol class="breadcrumb">
+<li class="breadcrumb-item"><a href="index.html"><i class="fas fa-home"></i></a></li>
+<li class="breadcrumb-item"><a href="#">Avaluacions</a></li>
+<li class="breadcrumb-item active">Altres avaluacions</li>
+</ol>
+</nav><!--comboNivell-->
+<span class="filtrau">Filtrau per </span>
+<div class="btn-group" title="Nivell de la prova" style="margin-left: 5px;">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="nivellCombo" 
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fa fa-tags"></i> <span ng-bind="selectedNivell.label"></span></button>
+        <div class="dropdown-menu" aria-labelledby="nivellCombo">
+            <a class="dropdown-item" ng-click="chooseNivell($index)" ng-repeat="item in nivells"><span ng-bind="item.label"></span></a>
+        </div>
+    </div>
+    <hr />
+    <p ng-if="avaluacions.length==0">No s'han trobat avaluacions</p>
+    <p ng-if="avaluacions.length==1">S'ha trobat una avaluació</p>
+    <p ng-if="avaluacions.length>1">S'han trobat <span ng-bind="avaluacions.length"></span> avaluacions</p>
+    <hr />
+    
+    <!--accordion avaluacions-->
+    <div id="accordion"> 
+        <!--Desplegable amb els seus documents-->
+        <div class="card" ng-repeat="ava in avaluacions">
+            <div class="card-header" id="heading{{$index}}">
+                <button class="btn-link collapsed" data-toggle="collapse" data-target="#collapseAva{{$index}}"
+                    style="text-decoration: none; border: none; cursor: pointer;">
+                    <i class="fa"></i> <b style="font-size: 90%;"><span ng-bind="ava.title"></span></b>
+                </button>
+            </div>
+    
+            <div id="collapseAva{{$index}}" class="collapse" data-parent="#accordion"
+                aria-labelledby="heading{{$index}}">
+                <!--list documents--> 
+                <div class="row" ng-repeat="chk in ava.chunks">
+                    <div class="col-md-6 list-group-item list-group-item-hover" ng-repeat="doc in chk">
+                        <a href="../{{doc.url}}" target="_blank">
+                            <img ng-src="../{{doc.img}}" width="60px" class="fa-pull-left"
+                                style="margin-right:10px; box-shadow: 3px 3px gray;" />
+                            <p style="vertical-align: middle;font-size: 90%;" ng-bind="doc.title"></p>
+                        </a>
+                    </div>                   
+                </div> 
+            </div>
+        </div>
+    
+    </div>
+    
+    <script>
+    var chunker = function(arr, chunkSize) {
+            var R = [];
+            for (var i=0,len=arr.length; i<len; i+=chunkSize)
+                R.push(arr.slice(i,i+chunkSize));
+            return R;
+    };
+    var hasTag = function(txt, list) {
+            var found = false;
+            var i=0;
+            while(!found && i<list.length) {
+                found = txt.indexOf(list[i].trim()) >= 0;
+                i++;
+            }
+            return found;
+    }; 
+    app.controller("altresController", ["$scope", "httpService", function ($scope, httpService) {
+        $scope.avaluacions = [];
+        $scope.nivells = [  
+            { label: "Tots els nivells", values: "" }, 
+            { label: "Educació Primària", values: "EP" }, 
+            { label: "Educació Secundària", values: "ESO" }
+        ]; 
+
+        $scope.selectedNivell = $scope.nivells[0];
+    
+        $scope.chooseNivell = function(index){ 
+            $scope.selectedNivell = $scope.nivells[index];            
+            $scope.search();
+        };
+
+        $scope.search = function () {
+            var list = [];  
+                for (var i = 0, len = avaJSON.length; i < len; i++) {
+                    var item = avaJSON[i];  
+                    if (!$scope.selectedNivell.values || $scope.selectedNivell.values=='' ||
+                            hasTag(item.tag, $scope.selectedNivell.values.split(","))) {
+                        item.chunks = chunker(item.documents, 2);
+                        list.push(item);
+                    }
+                }
+                 
+            $scope.avaluacions = list;
+        };
+    
+        httpService.loadSchema("avaluacions_altres").then(function(response){
+            window.avaJSON = response.data;
+            $scope.search();
+        });    
+    }]);
+    </script>

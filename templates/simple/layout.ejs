@@ -19,9 +19,9 @@
                     </div>
 
                     <ul id="tree1">
-                        <% routes.pages.forEach( page => { %>
+                        <% routes.pages.forEach( page => { if(!page.hide){ %>
                         <li><a href="<%=page.url%>.html"><%=page.title%></a>
-                            <% if(page.views && page.views.length) { %>
+                            <% if(page.views && page.views.length) {  %>
                             <ul>
                                 <% page.views.forEach( view => { %>
                                 <li><a href="<%=page.url%>.html#!/<%=view.url%>"><%=view.title%></a>
@@ -33,15 +33,15 @@
                                     </ul>
                                     <% } %>
                                 </li>
-                                <% }) %>
+                                <%   }) %>
                             </ul>
                             <% } %>
                         </li>
-                        <% }) %>
+                        <% } }) %>
                     </ul>
                 </div>
 
-                <div class="col-xl-10 col-lg-12"">
+                <div class="col-xl-10 col-lg-12">
                 <main ng-app="iaqse">
                 </main>
                 </div>

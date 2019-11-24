@@ -1,126 +1,122 @@
-<h4>Proves interactives</h4>
-<p>Pròximament. Espai en construcció ...</p>
+<h4>Proves interactives</h4> 
+<!--triam quina prova volem fer de les disponibles-->
+<div class="clearfix">
+                <div style="float:right">
+                        <a href="#!index" class="btn btn-warning" style="font-size: 90%; ">Tornau a proves</a>
+                </div>  
+        
+                 <span class="filtrau">Filtrau per </span>
+                <!--combo nivells-->
+                <div class="btn-group float-left" title="Nivell de la prova" style="margin-left: 5px; margin-bottom: 5px;">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="nivellCombo" 
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fa fa-tags"></i> <span ng-bind="selected.nivell"></span></button>
+                    <div class="dropdown-menu" aria-labelledby="nivellCombo">
+                        <a class="dropdown-item" ng-click="set('nivell', item)" ng-repeat="item in nivells"><span ng-bind="item"></span></a>
+                    </div>
+                </div>
+                 <!--combo competència-->
+                 <div class="btn-group float-left" title="Competència de la prova" style="margin-left: 5px; margin-bottom: 5px;">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="competenciaCombo" 
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="fa fa-tags"></i> <span ng-bind="selected.competencia"></span></button>
+                                <div class="dropdown-menu" aria-labelledby="competenciaCombo">
+                                    <a class="dropdown-item" ng-click="set('competencia', item)" ng-repeat="item in competencies"><span ng-bind="item"></span></a>
+                                </div>
+                </div>
+                 <!--combo anys -->
+                 <div class="btn-group float-left" title="Nivell de la prova" style="margin-left: 5px; margin-bottom: 5px;">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="nivellAnys" 
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="fa fa-tags"></i> <span ng-bind="selected.any"></span></button>
+                                <div class="dropdown-menu" aria-labelledby="nivellAnys">
+                                    <a class="dropdown-item" ng-click="set('any', item)" ng-repeat="item in anys"><span ng-bind="item"></span></a>
+                                </div>
+                </div>
+            </div> 
+         
+             <table class="table table-striped table-hover table-bordered">
+                     <tbody>
+                             <tr ng-repeat="prova in proves_filtrades">
+                                     <td><span ng-bind="prova.title"></span></td>
+                                     <td><button class="btn btn-sm btn-primary" ng-click="gotoExamen(prova)">Accedir a la prova</button></td>
+                             </tr>
 
-<!--passam la prova al component-->
-<iaqse-prova prova="prova" ng-if="prova!=null"></iaqse-prova>
+                     </tbody>
+             </table>
+
+                
 
 
 <script>
-        app.component("iaqseProva", {
-                templateUrl: "iaqse-prova.html",
-                bindings: {
-                        prova: "<"
-                },
-                controller: function () {
-                        var ctrl = this;
-                        this.$onChanges = function (changes) {
-                                var prova = this.prova;
-                                var indexEstimul = 0;
-                                if (prova) {
-                                        indexEstimul = 0;
-                                        ctrl.estimulSelected = prova.estimuls[indexEstimul];
-                                        ctrl.back = function () {
-                                                if (indexEstimul > 0) {
-                                                        indexEstimul--;
-                                                }
-                                                ctrl.estimulSelected = prova.estimuls[indexEstimul];
-                                        };
-                                        ctrl.next = function () {
-                                                if (indexEstimul < prova.estimuls.length - 1) {
-                                                        indexEstimul++;
-                                                }
-                                                ctrl.estimulSelected = prova.estimuls[indexEstimul];
-                                        };
-                                }
-                        }
-                }
-        });
-        app.component("iaqseEstimul", {
-                templateUrl: "iaqse-estimul.html",
-                bindings: {
-                        estimul: "<"
-                },
-                controller: function () {
-                        var ctrl = this;
-                        var indexPregunta = 0;
-                        this.$onChanges = function (changes) {
-                                var estimul = this.estimul;
-                                var indexPregunta = 0;
-                                if (estimul) {
-                                        indexPregunta  = 0;
-                                        ctrl.preguntaSelected = estimul.preguntes[indexPregunta];
-                                        ctrl.back = function () {
-                                                if (indexPregunta > 0) {
-                                                        indexPregunta--;
-                                                }
-                                                ctrl.preguntaSelected = estimul.preguntes[indexPregunta];
-                                        };
-                                        ctrl.next = function () {
-                                                if (indexPregunta < estimul.preguntes.length - 1) {
-                                                        indexPregunta++;
-                                                }
-                                                ctrl.preguntaSelected = estimul.preguntes[indexPregunta];
-                                        };
-                                }
-                        }
-                        this.check = function() {
-                                if(ctrl.preguntaSelected && ctrl.preguntaSelected.ordre == ctrl.preguntaSelected.answer) {
-                                        alert("Molt bé!");
-                                } else {
-                                        alert("Ho sento:");
-                                }
-                        }
-                }
-        });
-        app.component("iaqsePregunta", {
-                templateUrl: "iaqse-pregunta.html",
-                bindings: {
-                        pregunta: "<"
-                },
-                controller: function () {
-                        var ctrl = this;
-                }
-        });
-        app.controller("interactivesController", ["$scope", "httpService", function ($scope, httpService) {
-                // Exemple que s'ha de carrega d'una base de dades json...
-                $scope.prova = null;
-                httpService.loadSchema("proves_interactives").then(function (response) {
-                        proves = response.data;
-                        $scope.prova = proves[0];
-                });
+app.controller("interactivesController", ["$scope", "httpService", function($scope, httpService) { 
 
-        }]);
-        app.filter("toLetter", function(){
-                return function(index){
-                        return String.fromCharCode(65+index)+") ";
-                };
-        });
-</script>
+        // carrega tots els examens interactius disponibles
+        $scope.nivells = ["Tots els nivells"];
+        $scope.competencies = ["Totes les competències"];
+        $scope.anys = ["Tots els anys"];
 
-<script type="text/ng-template" id="iaqse-prova.html">
-        <h3 ng-bind-html="$ctrl.prova.title"></h3>
-        <button ng-click="$ctrl.back()">Enrrera</button>
-        <button ng-click="$ctrl.next()">Endavant</button>
-        <iaqse-estimul estimul="$ctrl.estimulSelected"></iaqse-estimul>
-        <!--botonera-->
+        $scope.selected = {
+                nivell: $scope.nivells[0],
+                competencia: $scope.competencies[0],
+                any: $scope.anys[0]
+        };
+
+        $scope.proves_filtrades = [];
+
+        httpService.loadSchema("proves_interactives").then( function(response){
+                var data = response.data;
+                for(var i=0, len=data.length; i<len; i++) {
+                        var item = data[i];
+                        item.id = i+1;
+                        if($scope.nivells.indexOf(item.nivell)<0) {
+                                $scope.nivells.push(item.nivell);
+                        }
+                        if($scope.competencies.indexOf(item.competencia)<0) {
+                                $scope.competencies.push(item.competencia);
+                        }
+                        if($scope.anys.indexOf(item.any)<0) {
+                                $scope.anys.push(item.any);
+                        }
+
+                }
+                window.provesJSON = data;
+                $scope.filtra();
+        });
+
+
+        $scope.filtra = function() {
+                var proves = [];
+
+                for(var i=0, len=window.provesJSON.length; i<len; i++) {
+                        var item = window.provesJSON[i];
+                        if( ($scope.selected.nivell==$scope.nivells[0] || $scope.selected.nivell==item.nivell) &&
+                            ($scope.selected.competencia==$scope.competencies[0] || $scope.selected.competencia==item.competencia) &&
+                            ($scope.selected.any==$scope.anys[0] || $scope.selected.any==item.any) 
+                        ) {
+                        proves.push({
+                                any: item.any,
+                                nivell: item.nivell,
+                                competencia: item.competencia,
+                                title: item.title,
+                                id: item.id
+                        });
+                        }
+                }
+
+                $scope.proves_filtrades = proves;
+
+        };
+
+        $scope.set = function(prop, value) {
+                $scope.selected[prop] = value;
+                $scope.filtra();
+        }
+
+        $scope.gotoExamen = function(prova) {
+                location.href = "prova_interactiva.html?id=" + prova.id;
+        };
+ 
        
-</script>
-
-<script type="text/ng-template" id="iaqse-estimul.html">
-        <div style="background: gray">
-                <p ng-bind-html="$ctrl.estimul.estimul"></p>
-        </div>
-        <iaqse-pregunta pregunta="$ctrl.preguntaSelected"></iaqse-pregunta>
-        <button ng-click="$ctrl.check()">Comprova</button>
-        <button ng-click="$ctrl.back()">Enrrera</button>
-        <button ng-click="$ctrl.next()">Endavant</button>
-</script>
-
-<script type="text/ng-template" id="iaqse-pregunta.html">
-        <h3 ng-bind-html="$ctrl.pregunta.enunciat"></h3>
-        <div ng-repeat="opt in $ctrl.pregunta.opcions">
-            <input type="radio" ng-model="$ctrl.pregunta.answer" ng-value="$index"/>  
-            {{$index | toLetter}}
-            <div ng-bind-html="opt" style="display: inline-block"></div>      
-        </div>                                               
+}]);
 </script>
