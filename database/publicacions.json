@@ -1,6 +1,33 @@
+
 [
     {
         "destacado": true,
+        "tags": [
+            "destacado",
+            "6eep"
+        ],
+        "img": "img/publicacions/Informe_Executiu_6EP_2018_2019.png",
+        "title": "Informe Avaluació final etapa 6EP 2018-2019",
+        "description": "Informe executiu (28 pàg.) que descriu tot el procés d'aplicació de l'avaluació de diagnòstic a 6è d'EP. Les competències avaluades són: la de comunicació lingüística (en anglès, en castellà i en català) i la matemàtica. S'hi presenten: el marc legal; les poblacions implicades; els instruments de l'avaluació; les fases del procés; l'anàlisi dels resultats per part dels centres; els resultats; l'anàlisi de les variables de context i la seva relació amb aquests; una evolució del grau d'assoliment de les competències; les conclusions i un annex amb els textos legals.",
+        "url": "documentos/publicacions/Informe_Executiu_6EP_2018_2019.pdf",
+        "date": "2019",
+        "pubdate": "11/2019"
+    },
+    {
+        "destacado": true,
+        "tags": [
+            "destacado",
+            "4teso"
+        ],
+        "img": "img/publicacions/Informe_Executiu_4ESO_2018_2019.png",
+        "title": "Informe Avaluació final etapa 4ESO 2018-2019",
+        "description": "Informe executiu (20 pàg.) que descriu tot el procés d'aplicació de l'avaluació de diagnòstic a 4t d'ESO. Les competències avaluades són: la de comunicació lingüística (en anglès, en castellà i en català) i la matemàtica. S'hi presenten: el marc legal; les poblacions implicades; els instruments de l'avaluació; les fases del procés; l'anàlisi dels resultats per part dels centres; els resultats; l'anàlisi de les variables de context i la seva relació amb aquests; una evolució del grau d'assoliment de les competències; les conclusions i un annex amb els textos legals.",
+        "url": "documentos/publicacions/Informe_Executiu_4ESO_2018_2019.pdf",
+        "date": "2019",
+        "pubdate": "11/2019"
+    },
+    {
+        "destacado": false,
         "tags": [
             "destacado",
             "documents"
@@ -16,10 +43,11 @@
         "destacado": false,
         "tags": [
             "6eep",
-            "destacado"
+            "destacado",
+            "ad"
         ],
         "img": "img/publicacions/Informe_Executiu_6EP_2017_2018.jpg",
-        "title": "Informe Executiu Avaluació 6EP 2017-2018",
+        "title": "Informe avaluació diagnòstica 2017-2018, Illes Balears, 6è d'EP",
         "description": "Informe executiu (194 pàg.) que descriu tot el procés d'aplicació de l'avaluació de diagnòstic a 6è d'EP. Les competències avaluades són: la de comunicació lingüística (en anglès, en castellà i en català) i la matemàtica. S'hi presenten: el marc legal; les poblacions implicades; els instruments de l'avaluació; les fases del procés; l'anàlisi dels resultats per part dels centres; els resultats; l'anàlisi de les variables de context i la seva relació amb aquests; una evolució del grau d'assoliment de les competències; les conclusions i un annex amb els textos legals.",
         "url": "documentos/publicacions/Informe_Executiu_6EP_2017_2018.pdf",
         "date": "2018",
@@ -254,7 +282,7 @@
             "ad"
         ],
         "img": "img/publicacions/Informe_ExecutiuAD_2nESO_curs_2016_2017.jpg",
-        "title": "Informe executiu AD 2n ESO curs 2016-2017",
+        "title": "Avaluació de diagnòstic 2016-2017, Illes Balears, 2n d'ESO",
         "description": "Informe executiu (204 pàg.) que descriu tot el procés d'aplicació de l'avaluació de diagnòstic a 2n d'ESO. Les competències avaluades són: la de comunicació lingüística (en anglès, en castellà i en català) i la matemàtica. S'hi presenten: el marc legal; les poblacions implicades; els instruments de l'avaluació; les fases del procés; l'anàlisi dels resultats per part dels centres; els resultats; l'anàlisi de les variables de context i la seva relació amb aquests; una evolució del grau d'assoliment de les competències; les conclusions i un annex amb els textos legals.",
         "url": "documentos/avaluacions/diagnostic/ad_2n_eso_2016_2017/Informe_ExecutiuAD_2nESO_curs_2016_2017.pdf",
         "date": "2017",
@@ -493,7 +521,7 @@
         "title": "Informe sobre el grau d'assoliment de les competències i els objectius de l'etapa d'educació primària resultats 6è d'EP, curs 2015-2016",
         "description": "Informe (8 pàg.) que l'IQASE va presentar a la comissió de valoració referent a l'anàlisi de resultats realitzada amb els informes finals d'educació primària (6è EP) curs 2015-2016.",
         "url": "documentos/avaluacions/primaria/6_ep_2015_2016/informe_6EP.pdf",
-        "date": "206ep",
+        "date": "2016",
         "pubdate": "9/2016"
     },
     {

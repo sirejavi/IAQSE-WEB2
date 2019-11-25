@@ -1,11 +1,11 @@
 {
    "encoding": "latin1",
-   "minify_html": false,
+   "minify_html": true,
    "bundles": [
       {
          "type": "js",
          "output": "iaqse_bundle1.min",
-         "minify": false,
+         "minify": true,
          "inputs": [
             "./assets/js/jquery-3.2.1.min.js",
             "./assets/js/jqTree.js",
@@ -17,7 +17,7 @@
       {
          "type": "js",
          "output": "iaqse_bundle2.min",
-         "minify": false,
+         "minify": true,
          "inputs": [ 
             "./assets/js/angular-animate.min.js",
             "./assets/js/popper.min.js",

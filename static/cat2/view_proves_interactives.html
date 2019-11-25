@@ -5,35 +5,32 @@
 <li class="breadcrumb-item active">Interactives</li>
 </ol>
 </nav><h4>Proves interactives</h4> 
-<!--triam quina prova volem fer de les disponibles-->
+
 <div class="clearfix">
                 <div style="float:right">
-                        <a href="#!index" class="btn btn-warning" style="font-size: 90%; ">Tornau a proves</a>
+                        <a href="#!index" class="btn btn-warning" style="font-size:90%">Tornau a proves</a>
                 </div>  
         
                  <span class="filtrau">Filtrau per </span>
-                <!--combo nivells-->
-                <div class="btn-group float-left" title="Nivell de la prova" style="margin-left: 5px; margin-bottom: 5px;">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="nivellCombo" 
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                
+                <div class="btn-group float-left" title="Nivell de la prova" style="margin-left:5px;margin-bottom:5px">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="nivellCombo" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fa fa-tags"></i> <span ng-bind="selected.nivell"></span></button>
                     <div class="dropdown-menu" aria-labelledby="nivellCombo">
                         <a class="dropdown-item" ng-click="set('nivell', item)" ng-repeat="item in nivells"><span ng-bind="item"></span></a>
                     </div>
                 </div>
-                 <!--combo competència-->
-                 <div class="btn-group float-left" title="Competència de la prova" style="margin-left: 5px; margin-bottom: 5px;">
-                                <button class="btn btn-secondary dropdown-toggle" type="button" id="competenciaCombo" 
-                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                 
+                 <div class="btn-group float-left" title="Competència de la prova" style="margin-left:5px;margin-bottom:5px">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="competenciaCombo" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <i class="fa fa-tags"></i> <span ng-bind="selected.competencia"></span></button>
                                 <div class="dropdown-menu" aria-labelledby="competenciaCombo">
                                     <a class="dropdown-item" ng-click="set('competencia', item)" ng-repeat="item in competencies"><span ng-bind="item"></span></a>
                                 </div>
                 </div>
-                 <!--combo anys -->
-                 <div class="btn-group float-left" title="Nivell de la prova" style="margin-left: 5px; margin-bottom: 5px;">
-                                <button class="btn btn-secondary dropdown-toggle" type="button" id="nivellAnys" 
-                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                 
+                 <div class="btn-group float-left" title="Nivell de la prova" style="margin-left:5px;margin-bottom:5px">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="nivellAnys" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <i class="fa fa-tags"></i> <span ng-bind="selected.any"></span></button>
                                 <div class="dropdown-menu" aria-labelledby="nivellAnys">
                                     <a class="dropdown-item" ng-click="set('any', item)" ng-repeat="item in anys"><span ng-bind="item"></span></a>
@@ -54,69 +51,4 @@
                 
 
 
-<script>
-app.controller("interactivesController", ["$scope", "httpService", function($scope, httpService) { 
-
-        // carrega tots els examens interactius disponibles
-        $scope.nivells = ["Tots els nivells"];
-        $scope.competencies = ["Totes les competències"];
-        $scope.anys = ["Tots els anys"];
-
-        $scope.selected = {
-                nivell: $scope.nivells[0],
-                competencia: $scope.competencies[0],
-                any: $scope.anys[0]
-        };
-
-        $scope.proves_filtrades = [];
-
-        httpService.loadSchema("proves_interactives").then( function(response){
-                var data = response.data;
-                for(var i=0, len=data.length; i<len; i++) {
-                        var item = data[i];
-                        item.id = i+1;
-                        if($scope.nivells.indexOf(item.nivell)<0) {
-                                $scope.nivells.push(item.nivell);
-                        }
-                        if($scope.competencies.indexOf(item.competencia)<0) {
-                                $scope.competencies.push(item.competencia);
-                        }
-                        if($scope.anys.indexOf(item.any)<0) {
-                                $scope.anys.push(item.any);
-                        }
-
-                }
-                window.provesJSON = data;
-                $scope.filtra();
-        });
-
-
-        $scope.filtra = function() {
-                var proves = [];
-
-                for(var i=0, len=window.provesJSON.length; i<len; i++) {
-                        var item = window.provesJSON[i];
-                        if( ($scope.selected.nivell==$scope.nivells[0] || $scope.selected.nivell==item.nivell) &&
-                            ($scope.selected.competencia==$scope.competencies[0] || $scope.selected.competencia==item.competencia) &&
-                            ($scope.selected.any==$scope.anys[0] || $scope.selected.any==item.any) 
-                        ) {
-                                 proves.push(item);
-                        }
-                }
-
-                $scope.proves_filtrades = proves;
-
-        };
-
-        $scope.set = function(prop, value) {
-                $scope.selected[prop] = value;
-                $scope.filtra();
-        }
-
-        $scope.gotoExamen = function(prova) {
-                location.href = "prova_interactiva.html?id=" + prova.id+"&lang=ca";
-        };
- 
-       
-}]);
-</script>
+<script>app.controller("interactivesController",["$scope","httpService",function(s,e){s.nivells=["Tots els nivells"],s.competencies=["Totes les competències"],s.anys=["Tots els anys"],s.selected={nivell:s.nivells[0],competencia:s.competencies[0],any:s.anys[0]},s.proves_filtrades=[],e.loadSchema("proves_interactives").then(function(e){for(var n=e.data,i=0,t=n.length;i<t;i++){var l=n[i];l.id=i+1,s.nivells.indexOf(l.nivell)<0&&s.nivells.push(l.nivell),s.competencies.indexOf(l.competencia)<0&&s.competencies.push(l.competencia),s.anys.indexOf(l.any)<0&&s.anys.push(l.any)}window.provesJSON=n,s.filtra()}),s.filtra=function(){for(var e=[],n=0,i=window.provesJSON.length;n<i;n++){var t=window.provesJSON[n];s.selected.nivell!=s.nivells[0]&&s.selected.nivell!=t.nivell||s.selected.competencia!=s.competencies[0]&&s.selected.competencia!=t.competencia||s.selected.any!=s.anys[0]&&s.selected.any!=t.any||e.push(t)}s.proves_filtrades=e},s.set=function(e,n){s.selected[e]=n,s.filtra()},s.gotoExamen=function(e){location.href="prova_interactiva.html?id="+e.id+"&lang=ca"}}])</script>

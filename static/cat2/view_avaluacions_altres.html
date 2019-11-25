@@ -4,42 +4,38 @@
 <li class="breadcrumb-item"><a href="#">Avaluacions</a></li>
 <li class="breadcrumb-item active">Altres avaluacions</li>
 </ol>
-</nav><!--comboNivell-->
+</nav>
 <span class="filtrau">Filtrau per </span>
-<div class="btn-group" title="Nivell de la prova" style="margin-left: 5px;">
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="nivellCombo" 
-                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+<div class="btn-group" title="Nivell de la prova" style="margin-left:5px">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="nivellCombo" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fa fa-tags"></i> <span ng-bind="selectedNivell.label"></span></button>
         <div class="dropdown-menu" aria-labelledby="nivellCombo">
             <a class="dropdown-item" ng-click="chooseNivell($index)" ng-repeat="item in nivells"><span ng-bind="item.label"></span></a>
         </div>
     </div>
-    <hr />
+    <hr>
     <p ng-if="avaluacions.length==0">No s'han trobat avaluacions</p>
     <p ng-if="avaluacions.length==1">S'ha trobat una avaluació</p>
     <p ng-if="avaluacions.length>1">S'han trobat <span ng-bind="avaluacions.length"></span> avaluacions</p>
-    <hr />
+    <hr>
     
-    <!--accordion avaluacions-->
+    
     <div id="accordion"> 
-        <!--Desplegable amb els seus documents-->
+        
         <div class="card" ng-repeat="ava in avaluacions">
             <div class="card-header" id="heading{{$index}}">
-                <button class="btn-link collapsed" data-toggle="collapse" data-target="#collapseAva{{$index}}"
-                    style="text-decoration: none; border: none; cursor: pointer;">
-                    <i class="fa"></i> <b style="font-size: 90%;"><span ng-bind="ava.title"></span></b>
+                <button class="btn-link collapsed" data-toggle="collapse" data-target="#collapseAva{{$index}}" style="text-decoration:none;border:none;cursor:pointer">
+                    <i class="fa"></i> <b style="font-size:90%"><span ng-bind="ava.title"></span></b>
                 </button>
             </div>
     
-            <div id="collapseAva{{$index}}" class="collapse" data-parent="#accordion"
-                aria-labelledby="heading{{$index}}">
-                <!--list documents--> 
+            <div id="collapseAva{{$index}}" class="collapse" data-parent="#accordion" aria-labelledby="heading{{$index}}">
+                 
                 <div class="row" ng-repeat="chk in ava.chunks">
                     <div class="col-md-6 list-group-item list-group-item-hover" ng-repeat="doc in chk">
                         <a href="../{{doc.url}}" target="_blank">
-                            <img ng-src="../{{doc.img}}" width="60px" class="fa-pull-left"
-                                style="margin-right:10px; box-shadow: 3px 3px gray;" />
-                            <p style="vertical-align: middle;font-size: 90%;" ng-bind="doc.title"></p>
+                            <img ng-src="../{{doc.img}}" width="60px" class="fa-pull-left" style="margin-right:10px;box-shadow:3px 3px gray">
+                            <p style="vertical-align:middle;font-size:90%" ng-bind="doc.title"></p>
                         </a>
                     </div>                   
                 </div> 
@@ -48,54 +44,4 @@
     
     </div>
     
-    <script>
-    var chunker = function(arr, chunkSize) {
-            var R = [];
-            for (var i=0,len=arr.length; i<len; i+=chunkSize)
-                R.push(arr.slice(i,i+chunkSize));
-            return R;
-    };
-    var hasTag = function(txt, list) {
-            var found = false;
-            var i=0;
-            while(!found && i<list.length) {
-                found = txt.indexOf(list[i].trim()) >= 0;
-                i++;
-            }
-            return found;
-    }; 
-    app.controller("altresController", ["$scope", "httpService", function ($scope, httpService) {
-        $scope.avaluacions = [];
-        $scope.nivells = [  
-            { label: "Tots els nivells", values: "" }, 
-            { label: "Educació Primària", values: "EP" }, 
-            { label: "Educació Secundària", values: "ESO" }
-        ]; 
-
-        $scope.selectedNivell = $scope.nivells[0];
-    
-        $scope.chooseNivell = function(index){ 
-            $scope.selectedNivell = $scope.nivells[index];            
-            $scope.search();
-        };
-
-        $scope.search = function () {
-            var list = [];  
-                for (var i = 0, len = avaJSON.length; i < len; i++) {
-                    var item = avaJSON[i];  
-                    if (!$scope.selectedNivell.values || $scope.selectedNivell.values=='' ||
-                            hasTag(item.tag, $scope.selectedNivell.values.split(","))) {
-                        item.chunks = chunker(item.documents, 2);
-                        list.push(item);
-                    }
-                }
-                 
-            $scope.avaluacions = list;
-        };
-    
-        httpService.loadSchema("avaluacions_altres").then(function(response){
-            window.avaJSON = response.data;
-            $scope.search();
-        });    
-    }]);
-    </script>
+    <script>var chunker=function(e,l){for(var a=[],s=0,n=e.length;s<n;s+=l)a.push(e.slice(s,s+l));return a},hasTag=function(e,l){for(var a=!1,s=0;!a&&s<l.length;)a=0<=e.indexOf(l[s].trim()),s++;return a};app.controller("altresController",["$scope","httpService",function(n,e){n.avaluacions=[],n.nivells=[{label:"Tots els nivells",values:""},{label:"Educació Primària",values:"EP"},{label:"Educació Secundària",values:"ESO"}],n.selectedNivell=n.nivells[0],n.chooseNivell=function(e){n.selectedNivell=n.nivells[e],n.search()},n.search=function(){for(var e=[],l=0,a=avaJSON.length;l<a;l++){var s=avaJSON[l];n.selectedNivell.values&&""!=n.selectedNivell.values&&!hasTag(s.tag,n.selectedNivell.values.split(","))||(s.chunks=chunker(s.documents,2),e.push(s))}n.avaluacions=e},e.loadSchema("avaluacions_altres").then(function(e){window.avaJSON=e.data,n.search()})}])</script>

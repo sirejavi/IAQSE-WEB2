@@ -4,12 +4,12 @@
     <head>
           <meta charset="iso-8859-1">
   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
   <meta name="description" content="Institut d'avaluació i qualitat del sistema educatiu">
   <meta name="author" content="iaqse@iaqse.caib.es">
-	<meta name="language" content="cat" />
+	<meta name="language" content="cat">
   
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
 	<meta name="robots" content="index,follow">
 	<meta name="document-classification" content="Education">
@@ -26,124 +26,16 @@
   <script src="iaqse_bundle1.min.js"></script> 
   
 
-<script>
-  window.chunker = function(arr, chunkSize) {
-      var R = [];
-      for (var i=0,len=arr.length; i<len; i+=chunkSize)
-           R.push(arr.slice(i,i+chunkSize));
-      return R;
-  }; 
-  window.getURLParameter = function( name ){
-        var regexS = "[\\?&]"+name+"=([^&#]*)", 
-    regex = new RegExp( regexS ),
-    results = regex.exec( window.location.search );
-    if( results == null ){
-        return "";
-    } else{
-        return decodeURIComponent(results[1].replace(/\+/g, " "));
-    }
-  };
-  window.app = angular.module("iaqse", ["ngRoute", "ngSanitize", "ngAnimate"]);
-  app.config(['$sceProvider',function($sceProvider){
-    $sceProvider.enabled(false);
-  }]);
-  app.service("httpService", ["$http", function($http){            
-            var service  = {
-                loadSchema: function(tableSchema){
-                  var request = {
-                      method: 'get',
-                      url: 'database/' + tableSchema + '.json',
-                      dataType: 'json',
-                      contentType: "application/json; charset=iso-8859-1"
-                  };
-                  return $http(request);
-                }
-            };
-            return service;            
-  }]);
-  window.app.filter("fileName", function(){
-        return function(fullPath) {
-            var i = fullPath.lastIndexOf("/");
-            return fullPath.substring(i+1);
-        }
-  });
-  window.app.filter("icona", function(){
-    return function(filename) {
-            var extension = filename.substring(filename.lastIndexOf(".")+1).trim().toLowerCase();
-            if(extension == "word") {
-                return "fa-file-word";
-            } else if(extension == "zip" || extension == "rar" ) {
-                return "fa-file-archive";
-            } else if(extension == "pdf") {
-                return "fa-file-pdf";
-            } else if(extension == "mp4" || extension == "avi" || extension == "mov" || extension == "qt") {
-                return "fa-file-video";
-            } else if(extension == "mp3" || extension == "ogg") {
-                return "fa-file-audio";
-            }
-
-            return "fa-file";
-        }
-  });
-  window.app.config(["$controllerProvider", "$provide", "$compileProvider", "$filterProvider",
-       function($controllerProvider, $provide, $compileProvider, $filterProvider) {
-    // Since the "shorthand" methods for component
-    // definitions are no longer valid, we can just
-    // override them to use the providers for post-
-    // bootstrap loading.
-    // Let's keep the older references.
-    app._controller = app.controller;
-    app._service = app.service;
-    app._filter = app.filter;
-    app._component = app.component;
-    app._factory = app.factory;
-    app._value = app.value;
-    app._directive = app.directive;
-    app.controller = function(name, constructor) {
-      $controllerProvider.register(name, constructor);
-      return (this);
-    };
-    // Provider-based service.
-    app.service = function(name, constructor) {
-      $provide.service(name, constructor);
-      return (this);
-    };
-    // Provider-based factory.
-    app.factory = function(name, factory) {
-      $provide.factory(name, factory);
-      return (this);
-    };
-    // Provider-based value.
-    app.value = function(name, value) {
-      $provide.value(name, value);
-      return (this);
-    };
-    // Provider-based filter.
-    app.filter = function(name, filter) {
-      $filterProvider.register(name, filter);
-      return (this);
-    };
-    // Provider-based component.
-    app.component = function(name, component) {
-      $compileProvider.component(name, component);
-      return (this);
-    };
-    // Provider-based directive.
-    app.directive = function(name, factory) {
-      $compileProvider.directive(name, factory);
-      return (this);
-    };
-  }]);
-</script>
+<script>window.chunker=function(e,n){for(var r=[],t=0,i=e.length;t<i;t+=n)r.push(e.slice(t,t+n));return r},window.getURLParameter=function(e){var n=new RegExp("[\\?&]"+e+"=([^&#]*)").exec(window.location.search);return null==n?"":decodeURIComponent(n[1].replace(/\+/g," "))},window.app=angular.module("iaqse",["ngRoute","ngSanitize","ngAnimate"]),app.config(["$sceProvider",function(e){e.enabled(!1)}]),app.service("httpService",["$http",function(n){return{loadSchema:function(e){return n({method:"get",url:"database/"+e+".json",dataType:"json",contentType:"application/json; charset=iso-8859-1"})}}}]),window.app.filter("fileName",function(){return function(e){var n=e.lastIndexOf("/");return e.substring(n+1)}}),window.app.filter("icona",function(){return function(e){var n=e.substring(e.lastIndexOf(".")+1).trim().toLowerCase();return"word"==n?"fa-file-word":"zip"==n||"rar"==n?"fa-file-archive":"pdf"==n?"fa-file-pdf":"mp4"==n||"avi"==n||"mov"==n||"qt"==n?"fa-file-video":"mp3"==n||"ogg"==n?"fa-file-audio":"fa-file"}}),window.app.config(["$controllerProvider","$provide","$compileProvider","$filterProvider",function(r,t,i,o){app._controller=app.controller,app._service=app.service,app._filter=app.filter,app._component=app.component,app._factory=app.factory,app._value=app.value,app._directive=app.directive,app.controller=function(e,n){return r.register(e,n),this},app.service=function(e,n){return t.service(e,n),this},app.factory=function(e,n){return t.factory(e,n),this},app.value=function(e,n){return t.value(e,n),this},app.filter=function(e,n){return o.register(e,n),this},app.component=function(e,n){return i.component(e,n),this},app.directive=function(e,n){return i.directive(e,n),this}}])</script>
     </head>
 
     <body> 
         <header>
-              <nav class="navbar navbar-expand-md navbar-dark fixed-top gradient" style="background-color: #003366 !important;">
+              <nav class="navbar navbar-expand-md navbar-dark fixed-top gradient" style="background-color:#036!important">
     <div class="container">
       <a class="navbar-brand" href="index.html">
-        <div id="svg-brand"></div>
-        <span id="iaqse-brand" style="display:none"><b class="d-md-none d-xl-inline" style="color:rgb(255,70,70); font-family: Arial, Helvetica, sans-serif;vertical-align: top;">IAQSE</b></span>
+        <img src="../img/svg/qiaqse2.png" style="height:25px">
+        <span><b class="d-md-none d-xl-inline" style="color:#ff4646;font-family:Arial,Helvetica,sans-serif;vertical-align:top">IAQSE</b></span>
       </a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -151,38 +43,38 @@
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
           
-          <li class="nav-item ">
-            <a class="nav-link" href="index.html" title="">Inici</span>
+          <li class="nav-item">
+            <a class="nav-link" href="index.html" title="">Inici
             </a>
           </li>
           
-          <li class="nav-item ">
-            <a class="nav-link" href="quisom.html" title="">Qui som</span>
+          <li class="nav-item">
+            <a class="nav-link" href="quisom.html" title="">Qui som
             </a>
           </li>
           
-          <li class="nav-item ">
-            <a class="nav-link" href="avaluacions.html" title="">Avaluacions</span>
+          <li class="nav-item">
+            <a class="nav-link" href="avaluacions.html" title="">Avaluacions
             </a>
           </li>
           
-          <li class="nav-item ">
-            <a class="nav-link" href="publicacions.html" title="">Publicacions</span>
+          <li class="nav-item">
+            <a class="nav-link" href="publicacions.html" title="">Publicacions
             </a>
           </li>
           
-          <li class="nav-item ">
-            <a class="nav-link" href="indicadors.html" title="">Indicadors</span>
+          <li class="nav-item">
+            <a class="nav-link" href="indicadors.html" title="">Indicadors
             </a>
           </li>
           
-          <li class="nav-item ">
-            <a class="nav-link" href="enllacos.html" title="">Enllaços</span>
+          <li class="nav-item">
+            <a class="nav-link" href="enllacos.html" title="">Enllaços
             </a>
           </li>
           
-          <li class="nav-item ">
-            <a class="nav-link" href="proves.html" title="Proves alliberades">Proves</span>
+          <li class="nav-item">
+            <a class="nav-link" href="proves.html" title="Proves alliberades">Proves
             </a>
           </li>
           
@@ -202,9 +94,9 @@
           <li class="breadcrumb-item active"> Prova interactiva </li>  
         </ol>
         </nav>
-        <!--s'obre en una pantalla separada empra el template prova-->
-<!--passam la prova al component-->
-<a href="proves.html#!/interactives" style="float: right;" class="btn btn-sm btn-warning">Tornau a proves</a>
+        
+
+<a href="proves.html#!/interactives" style="float:right" class="btn btn-sm btn-warning">Tornau a proves</a>
 <div ng-controller="mainController">
         <iaqse-prova prova="prova" ng-if="prova!=null"></iaqse-prova>
 
@@ -214,290 +106,7 @@
                 <a href="proves.html#!/interactives" class="btn btn-sm btn-warning">Tornau a proves</a>
         </div>
 </div>
-<script>
-        /**
-        * Shuffles array in place.
-        * @param {Array} a items An array containing the items.
-        */
-        function shuffleArray(a) {
-        var j, x, i;
-        for (i = a.length - 1; i > 0; i--) {
-                j = Math.floor(Math.random() * (i + 1));
-                x = a[i];
-                a[i] = a[j];
-                a[j] = x;
-        }
-        return a;
-        }
-
-        app.component("iaqseProva", {
-                templateUrl: "iaqse-prova.html",
-                bindings: {
-                        prova: "<"
-                },
-                controller: function () {
-                        var ctrl = this;
-                        // Aquest listener escolta canvis de "prova" (només s'en produirà un. Quan es carregui la prova per http)
-                        ctrl.indexEstimul = 0;
-                        ctrl.indexPregunta = 0;
-                        ctrl.numEstimuls = 0;
-                        ctrl.numPreguntes = 0;
-                        ctrl.$onChanges = function (changes) {
-                                console.log("iaqseProva-changes", changes);
-                                var prova = this.prova;
-                                if (prova) {
-                                        ctrl.numEstimuls = prova.estimuls.length;
-                                        // Quan es carrega una prova, estableix el primer estimul
-                                        ctrl.indexEstimul = 0;
-                                        ctrl.indexPregunta = 0;
-                                        ctrl.estimulSelected = prova.estimuls[ctrl.indexEstimul];
-                                        ctrl.preguntaSelected = ctrl.estimulSelected.preguntes[ctrl.indexPregunta];
-                                 
-                                        // Cal afegir a cada pregunta el seu numero
-                                        // Comptar quantes preguntes hi ha en total  ctrl.numPreguntes
-                                        // I fer un shuffle en les opcions de resposta
-                                        var numero = 1;
-                                        for (var i = 0, len = prova.estimuls.length; i < len; i++) {
-                                                var estimul = prova.estimuls[i];
-                                                for (var j = 0, len2 = estimul.preguntes.length; j < len2; j++) {
-                                                        var preg = estimul.preguntes[j];
-                                                        preg.numero = numero;
-                                                        numero++;
-                                                        
-                                                        if(preg.opcions) {
-                                                                var respostaCorrecta = preg.opcions[preg.ordre-1];
-                                                                preg.opcions = shuffleArray(preg.opcions);
-                                                                preg.ordre = preg.opcions.indexOf(respostaCorrecta);
-                                                        }
-                                                        
-                                                }
-                                        }
-                                        ctrl.numPreguntes = numero-1;
-                                
-                                }
-                        };
-                        // Mou a l'estimul anterior o següent
-                        ctrl.backEstimul = function () {
-                                if (ctrl.indexEstimul > 0) {
-                                        ctrl.indexEstimul--;                                        
-                                        ctrl.estimulSelected = ctrl.prova.estimuls[ctrl.indexEstimul]; 
-                                        // Per defecte, quan canviam d'estimul, anam a la pregunta 0  de l'estimul
-                                        ctrl.indexPregunta = 0;
-                                        ctrl.preguntaSelected = ctrl.estimulSelected.preguntes[ctrl.indexPregunta];
-                                        return true;                                                                   
-                                }                   
-                                return false;             
-                        };
-                        ctrl.nextEstimul = function() {
-                                if (ctrl.indexEstimul < ctrl.prova.estimuls.length - 1) {
-                                        ctrl.indexEstimul++; 
-                                        ctrl.estimulSelected = ctrl.prova.estimuls[ctrl.indexEstimul];
-                                        // Per defecte, quan canviam d'estimul, anam a la pregunta 0 de l'estimul
-                                        ctrl.indexPregunta = 0;
-                                        ctrl.preguntaSelected = ctrl.estimulSelected.preguntes[ctrl.indexPregunta];
-                                        return true;
-                                }                   
-                                return false;             
-                        };
-                        // Mou a la pregunta anterior o posterior, pot suposar un canvi d'estimul
-                        ctrl.backPregunta = function () {
-                                if (ctrl.indexPregunta > 0) {
-                                        // Ens mantenim en el mateix estimul, només canviam la pregunta
-                                        ctrl.indexPregunta--;                                        
-                                        ctrl.preguntaSelected = ctrl.estimulSelected.preguntes[ctrl.indexPregunta];
-                                } else {
-                                     // Intenta anar a l'estimul anterior
-                                     if(ctrl.backEstimul()) {
-                                        // Hem anat a l'estimul anterior, però cal posar-se a la darrera pregunta
-                                        ctrl.indexPregunta = ctrl.estimulSelected.preguntes.length - 1;
-                                        ctrl.preguntaSelected = ctrl.estimulSelected.preguntes[ctrl.indexPregunta];
-                                     }                                        
-                                }                                
-                        };
-                        ctrl.nextPregunta = function () {
-                                if (ctrl.indexPregunta < ctrl.estimulSelected.preguntes.length - 1) {
-                                        // Ens mantenim en el mateix estimul
-                                        ctrl.indexPregunta++;
-                                        ctrl.preguntaSelected = ctrl.estimulSelected.preguntes[ctrl.indexPregunta];
-                                } else {
-                                     // Intenta anar a l'estimul següent
-                                     ctrl.nextEstimul(0); 
-                                } 
-                        };
-
-                        ctrl.gotoPregunta = function(indexEstimul, indexPregunta) {
-                                // Ha de canviar els indexos
-                                ctrl.indexEstimul = indexEstimul;
-                                ctrl.indexPregunta = indexPregunta;
-                                ctrl.estimulSelected = ctrl.prova.estimuls[indexEstimul];
-                                ctrl.preguntaSelected = ctrl.estimulSelected.preguntes[indexPregunta];
-                        };
-
-                        ctrl.styleClassPregunta = function(pregunta) {
-                                // no contestada gray
-                                // contestada blue (pendent de correccio)
-                                // contestada/correcte green
-                                // contestada/incorrecte red
- 
-                                var styleClazz = "btn-secondary";
-                                if(pregunta.answer!=null) {
-                                        styleClazz = "btn-primary";
-                                        if(pregunta.esCorrecta!=null) {
-                                                if(pregunta.esCorrecta) {
-                                                        styleClazz = "btn-success";
-                                                } else {
-                                                        styleClazz = "btn-danger";
-                                                }
-                                        }
-                                }
-                                return styleClazz;
-                        };
-
-                        ctrl.corregirProva = function() {
-                                for(var i=0, len=ctrl.prova.estimuls.length; i<len; i++) {
-                                        var estimul = ctrl.prova.estimuls[i];
-                                        for(var j=0, len2=estimul.preguntes.length; j<len2; j++) {
-                                                var pregunta = estimul.preguntes[j];
-                                                if(pregunta.answer!=null) {
-                                                        if(pregunta.opcions!=null) {
-                                                                pregunta.esCorrecta = (pregunta.ordre == pregunta.answer);
-                                                        } else {
-                                                                if(pregunta.tolerance!=null) {
-                                                                        // Convertim la resposta a float
-                                                                        try {
-                                                                                var floatAnswer = parseFloat(pregunta.answer.replace(",","."));
-                                                                                pregunta.esCorrecta = Math.abs(floatAnswer - pregunta.ordre)<= pregunta.tolerance;
-                                                                        } catch(ex) {
-                                                                                pregunta.esCorrecta = false;
-                                                                        }
-                                                                } else {
-                                                                        pregunta.esCorrecta = (pregunta.ordre == pregunta.answer);
-                                                                }
-                                                        }
-                                                }
-                                        }
-                                }
-                        };
-                }
-        });
-        app.component("iaqseEstimul", {
-                templateUrl: "iaqse-estimul.html",
-                bindings: {
-                        estimul: "<",
-                        question: "<"
-                },
-                require: {
-                        provaCtrl: "^^iaqseProva"    // Li pasam el controlador pare
-                },
-                controller: function () {
-                        var ctrl = this; 
-
-                        // Aquest listener escolta a canvis en l'atribut estimul o en l'index de la pregunta que es produiran freqüentment
-                        this.$onChanges = function (changes) {
-                                console.log("iaqseEstimul-changes", changes); 
-                                ctrl.preguntaSelected = this.question;
-                        };
-                        
-                        this.check = function () {
-                               ctrl.provaCtrl.corregirProva();
-                        }
-                }
-        });
-        app.component("iaqsePregunta", {
-                templateUrl: "iaqse-pregunta.html",
-                bindings: {
-                        pregunta: "<"
-                },
-                require: {
-                        estimulCtrl: "^^iaqseEstimul"    // Li pasam el controlador pare
-                },
-                controller: function () {                        
-                        var ctrl = this;
-                        ctrl.$onChanges = function(changes){
-                                console.log("iaqsePregunta-changes", changes);
-                        }
-                }
-        });
-        app.controller("mainController", ["$scope", "httpService", function ($scope, httpService) {
-                // Exemple que s'ha de carrega d'una base de dades json...
-                $scope.prova = null;
-                // Determina la id de la prova interactiva de la query
-                var id = getURLParameter("id");
-                var lang = getURLParameter("lang");
-                $scope.id = id;  
-                if (id) {
-                        httpService.loadSchema("proves_interactives").then(function (response) {
-                                proves = response.data;
-                                var prova = null;
-                                try {
-                                        id = parseInt(id);
-                                } catch (e) { }
-                                if (id > 0 && id <= proves.length) {
-                                        prova = proves[id - 1];
-                                }
-
-                                if (prova == null) {
-                                        $scope.mostraError = true;
-                                } else if(prova.contingut) {                        
-                                                // prova.contingut pot ésser un objecte segons idioma
-                                                var nomJSON = "";
-                                                if(typeof(prova.contingut)=="string") {
-                                                        nomJSON = prova.contingut;
-                                                } else if(Array.isArray(prova.contingut) && lang) {
-                                                        for(var i=0, len=prova.contingut.length; i<len; i++) {
-                                                                var item = prova.contingut[i];
-                                                                if(item.lang == lang) {
-                                                                        nomJSON = item.file;
-                                                                        break;
-                                                                }
-                                                        }
-                                                } else {
-                                                        $scope.mostraError = true;
-                                                }
-
-                                                var rutaImatges = "src=\"../proves_interactives/" + nomJSON + "/";
-                                                // Carrega ara el contingut de la prova que es troba en un altre json
-                                                console.log("Carregant "+nomJSON);
-                                                httpService.loadSchema(nomJSON).then(function (response2) {
-                                                        prova.estimuls = response2.data;
-                                                        // Atenció cal reemplaçar totes les rutes a src=" per la ruta adient
-                                                        // Atenció cal reemplaçar arrays per .join()
-                                                        console.log("S'ha carregat: " + prova);
-                                                        for(var i=0, len=prova.estimuls.length; i<len; i++){
-                                                                var estimul = prova.estimuls[i];
-                                                                if(Array.isArray(estimul.estimul_body)) {
-                                                                        estimul.estimul_body = estimul.estimul_body.join(" ");
-                                                                }
-                                                                estimul.estimul_body = estimul.estimul_body.replace(/src=\"/ig, rutaImatges);
-                                                                for(var j=0, len2=estimul.preguntes.length; j<len2; j++){
-                                                                        var preg = estimul.preguntes[j];
-                                                                        if(Array.isArray(preg.enunciat)) {
-                                                                                preg.enunciat = preg.enunciat.join(" ");
-                                                                        }
-                                                                        preg.enunciat = preg.enunciat.replace(/src=\"/ig, rutaImatges);
-                                                                }
-                                                        }
-
-                                                        console.log(prova)
-                                                        $scope.prova = prova;
-                                                }, function(err){
-                                                        console.log("Hi ha hagut un problema carregant la definició de la prova. Prova corrupta!: "+ err);
-                                                        $scope.mostraError = true;
-                                                });                                        
-                                }
-                        });
-                } else {
-                        $scope.mostraError = true;
-                }
-
-
-        }]);
-        app.filter("toLetter", function () {
-                return function (index) {
-                        return String.fromCharCode(65 + index) + ") ";
-                };
-        });
-</script>
+<script>function shuffleArray(e){var t,n,r;for(r=e.length-1;0<r;r--)t=Math.floor(Math.random()*(r+1)),n=e[r],e[r]=e[t],e[t]=n;return e}app.component("iaqseProva",{templateUrl:"iaqse-prova.html",bindings:{prova:"<"},controller:function(){var c=this;c.indexEstimul=0,c.indexPregunta=0,c.numEstimuls=0,c.numPreguntes=0,c.$onChanges=function(e){console.log("iaqseProva-changes",e);var t=this.prova;if(t){c.numEstimuls=t.estimuls.length,c.indexEstimul=0,c.indexPregunta=0,c.estimulSelected=t.estimuls[c.indexEstimul],c.preguntaSelected=c.estimulSelected.preguntes[c.indexPregunta];for(var n=1,r=0,a=t.estimuls.length;r<a;r++)for(var i=t.estimuls[r],s=0,l=i.preguntes.length;s<l;s++){var u=i.preguntes[s];if(u.numero=n,n++,u.opcions){var o=u.opcions[u.ordre-1];u.opcions=shuffleArray(u.opcions),u.ordre=u.opcions.indexOf(o)}}c.numPreguntes=n-1}},c.backEstimul=function(){return 0<c.indexEstimul&&(c.indexEstimul--,c.estimulSelected=c.prova.estimuls[c.indexEstimul],c.indexPregunta=0,c.preguntaSelected=c.estimulSelected.preguntes[c.indexPregunta],!0)},c.nextEstimul=function(){return c.indexEstimul<c.prova.estimuls.length-1&&(c.indexEstimul++,c.estimulSelected=c.prova.estimuls[c.indexEstimul],c.indexPregunta=0,c.preguntaSelected=c.estimulSelected.preguntes[c.indexPregunta],!0)},c.backPregunta=function(){0<c.indexPregunta?(c.indexPregunta--,c.preguntaSelected=c.estimulSelected.preguntes[c.indexPregunta]):c.backEstimul()&&(c.indexPregunta=c.estimulSelected.preguntes.length-1,c.preguntaSelected=c.estimulSelected.preguntes[c.indexPregunta])},c.nextPregunta=function(){c.indexPregunta<c.estimulSelected.preguntes.length-1?(c.indexPregunta++,c.preguntaSelected=c.estimulSelected.preguntes[c.indexPregunta]):c.nextEstimul(0)},c.gotoPregunta=function(e,t){c.indexEstimul=e,c.indexPregunta=t,c.estimulSelected=c.prova.estimuls[e],c.preguntaSelected=c.estimulSelected.preguntes[t]},c.styleClassPregunta=function(e){var t="btn-secondary";return null!=e.answer&&(t="btn-primary",null!=e.esCorrecta&&(t=e.esCorrecta?"btn-success":"btn-danger")),t},c.corregirProva=function(){for(var e=0,t=c.prova.estimuls.length;e<t;e++)for(var n=c.prova.estimuls[e],r=0,a=n.preguntes.length;r<a;r++){var i=n.preguntes[r];if(null!=i.answer)if(null!=i.opcions)i.esCorrecta=i.ordre==i.answer;else if(null!=i.tolerance)try{var s=parseFloat(i.answer.replace(",","."));i.esCorrecta=Math.abs(s-i.ordre)<=i.tolerance}catch(e){i.esCorrecta=!1}else i.esCorrecta=i.ordre==i.answer}}}}),app.component("iaqseEstimul",{templateUrl:"iaqse-estimul.html",bindings:{estimul:"<",question:"<"},require:{provaCtrl:"^^iaqseProva"},controller:function(){var t=this;this.$onChanges=function(e){console.log("iaqseEstimul-changes",e),t.preguntaSelected=this.question},this.check=function(){t.provaCtrl.corregirProva()}}}),app.component("iaqsePregunta",{templateUrl:"iaqse-pregunta.html",bindings:{pregunta:"<"},require:{estimulCtrl:"^^iaqseEstimul"},controller:function(){this.$onChanges=function(e){console.log("iaqsePregunta-changes",e)}}}),app.controller("mainController",["$scope","httpService",function(o,i){o.prova=null;var s=getURLParameter("id"),c=getURLParameter("lang");(o.id=s)?i.loadSchema("proves_interactives").then(function(e){proves=e.data;var l=null;try{s=parseInt(s)}catch(e){}if(0<s&&s<=proves.length&&(l=proves[s-1]),null==l)o.mostraError=!0;else if(l.contingut){var t="";if("string"==typeof l.contingut)t=l.contingut;else if(Array.isArray(l.contingut)&&c)for(var n=0,r=l.contingut.length;n<r;n++){var a=l.contingut[n];if(a.lang==c){t=a.file;break}}else o.mostraError=!0;var u='src="../proves_interactives/'+t+"/";console.log("Carregant "+t),i.loadSchema(t).then(function(e){l.estimuls=e.data,console.log("S'ha carregat: "+l);for(var t=0,n=l.estimuls.length;t<n;t++){var r=l.estimuls[t];Array.isArray(r.estimul_body)&&(r.estimul_body=r.estimul_body.join(" ")),r.estimul_body=r.estimul_body.replace(/src=\"/gi,u);for(var a=0,i=r.preguntes.length;a<i;a++){var s=r.preguntes[a];Array.isArray(s.enunciat)&&(s.enunciat=s.enunciat.join(" ")),s.enunciat=s.enunciat.replace(/src=\"/gi,u)}}console.log(l),o.prova=l},function(e){console.log("Hi ha hagut un problema carregant la definició de la prova. Prova corrupta!: "+e),o.mostraError=!0})}}):o.mostraError=!0}]),app.filter("toLetter",function(){return function(e){return String.fromCharCode(65+e)+") "}})</script>
 
 <script type="text/ng-template" id="iaqse-prova.html">
 
@@ -590,46 +199,7 @@
 
 <script src="iaqse_bundle2.min.js"></script>
 
-<script>
-  
-    // El nostre servidor no permet carregar svg perquè l'apache no està ben configurat
-    // Hack: les carregam per jquery   
-    var replaceImgSvg = function(imgID, svgFile) {
-        var $img = $(imgID);
-        if($img.length) {
-            $.ajax({
-                type: "GET",
-                url: svgFile, 
-                contentType: "image/svg+xml;charset=ISO-8859-1", 
-                success: function(data){
-                    // Replace image with new SVG
-                    var $svg = $(data.documentElement);
-                    $svg.addClass($img.attr("class"));
-                    $img.replaceWith($svg);
-                }
-        });
- 
-        }
-    };
-
-    $(function(){
-        $('#tree1').treed();
-        replaceImgSvg('#svg-brand', '../img/svg/qiaqse2.svg');
-        $("#iaqse-brand").css("display", "");
-        replaceImgSvg('#svg-logo-cab', '../img/svg/iaqse-caib-w.svg');
-        replaceImgSvg('#logo-iaqse', '../img/svg/logo-iaqse.svg');
-    });
-    
-   
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-    ga('create', 'UA-40778701-3', 'auto');
-    ga('send', 'pageview');
-
-</script>
+<script>var replaceImgSvg=function(e,a){var g=$(e);g.length&&$.ajax({type:"GET",url:a,contentType:"image/svg+xml;charset=ISO-8859-1",success:function(e){var a=$(e.documentElement);a.addClass(g.attr("class")),g.replaceWith(a)}})};$(function(){$("#tree1").treed(),replaceImgSvg("#svg-brand","../img/svg/qiaqse2.svg"),$("#iaqse-brand").css("display",""),replaceImgSvg("#svg-logo-cab","../img/svg/iaqse-caib-w.svg"),replaceImgSvg("#logo-iaqse","../img/svg/logo-iaqse.svg")}),function(e,a,g,s,t,c,n){e.GoogleAnalyticsObject=t,e.ga=e.ga||function(){(e.ga.q=e.ga.q||[]).push(arguments)},e.ga.l=1*new Date,c=a.createElement(g),n=a.getElementsByTagName(g)[0],c.async=1,c.src="//www.google-analytics.com/analytics.js",n.parentNode.insertBefore(c,n)}(window,document,"script",0,"ga"),ga("create","UA-40778701-3","auto"),ga("send","pageview")</script>
         </div> 
 
 </body>
