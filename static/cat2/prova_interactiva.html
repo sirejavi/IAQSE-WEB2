@@ -96,7 +96,7 @@
         </nav>
         
 
-<a href="proves.html#!/interactives" style="float:right" class="btn btn-sm btn-warning">Tornau a proves</a>
+<a href="proves.html#!/interactives" style="float:right" class="btn btn-sm btn-warning">Tancau la prova</a>
 <div ng-controller="mainController">
         <iaqse-prova prova="prova" ng-if="prova!=null"></iaqse-prova>
 
@@ -106,30 +106,44 @@
                 <a href="proves.html#!/interactives" class="btn btn-sm btn-warning">Tornau a proves</a>
         </div>
 </div>
-<script>function shuffleArray(e){var t,n,r;for(r=e.length-1;0<r;r--)t=Math.floor(Math.random()*(r+1)),n=e[r],e[r]=e[t],e[t]=n;return e}app.component("iaqseProva",{templateUrl:"iaqse-prova.html",bindings:{prova:"<"},controller:function(){var c=this;c.indexEstimul=0,c.indexPregunta=0,c.numEstimuls=0,c.numPreguntes=0,c.$onChanges=function(e){console.log("iaqseProva-changes",e);var t=this.prova;if(t){c.numEstimuls=t.estimuls.length,c.indexEstimul=0,c.indexPregunta=0,c.estimulSelected=t.estimuls[c.indexEstimul],c.preguntaSelected=c.estimulSelected.preguntes[c.indexPregunta];for(var n=1,r=0,a=t.estimuls.length;r<a;r++)for(var i=t.estimuls[r],s=0,l=i.preguntes.length;s<l;s++){var u=i.preguntes[s];if(u.numero=n,n++,u.opcions){var o=u.opcions[u.ordre-1];u.opcions=shuffleArray(u.opcions),u.ordre=u.opcions.indexOf(o)}}c.numPreguntes=n-1}},c.backEstimul=function(){return 0<c.indexEstimul&&(c.indexEstimul--,c.estimulSelected=c.prova.estimuls[c.indexEstimul],c.indexPregunta=0,c.preguntaSelected=c.estimulSelected.preguntes[c.indexPregunta],!0)},c.nextEstimul=function(){return c.indexEstimul<c.prova.estimuls.length-1&&(c.indexEstimul++,c.estimulSelected=c.prova.estimuls[c.indexEstimul],c.indexPregunta=0,c.preguntaSelected=c.estimulSelected.preguntes[c.indexPregunta],!0)},c.backPregunta=function(){0<c.indexPregunta?(c.indexPregunta--,c.preguntaSelected=c.estimulSelected.preguntes[c.indexPregunta]):c.backEstimul()&&(c.indexPregunta=c.estimulSelected.preguntes.length-1,c.preguntaSelected=c.estimulSelected.preguntes[c.indexPregunta])},c.nextPregunta=function(){c.indexPregunta<c.estimulSelected.preguntes.length-1?(c.indexPregunta++,c.preguntaSelected=c.estimulSelected.preguntes[c.indexPregunta]):c.nextEstimul(0)},c.gotoPregunta=function(e,t){c.indexEstimul=e,c.indexPregunta=t,c.estimulSelected=c.prova.estimuls[e],c.preguntaSelected=c.estimulSelected.preguntes[t]},c.styleClassPregunta=function(e){var t="btn-secondary";return null!=e.answer&&(t="btn-primary",null!=e.esCorrecta&&(t=e.esCorrecta?"btn-success":"btn-danger")),t},c.corregirProva=function(){for(var e=0,t=c.prova.estimuls.length;e<t;e++)for(var n=c.prova.estimuls[e],r=0,a=n.preguntes.length;r<a;r++){var i=n.preguntes[r];if(null!=i.answer)if(null!=i.opcions)i.esCorrecta=i.ordre==i.answer;else if(null!=i.tolerance)try{var s=parseFloat(i.answer.replace(",","."));i.esCorrecta=Math.abs(s-i.ordre)<=i.tolerance}catch(e){i.esCorrecta=!1}else i.esCorrecta=i.ordre==i.answer}}}}),app.component("iaqseEstimul",{templateUrl:"iaqse-estimul.html",bindings:{estimul:"<",question:"<"},require:{provaCtrl:"^^iaqseProva"},controller:function(){var t=this;this.$onChanges=function(e){console.log("iaqseEstimul-changes",e),t.preguntaSelected=this.question},this.check=function(){t.provaCtrl.corregirProva()}}}),app.component("iaqsePregunta",{templateUrl:"iaqse-pregunta.html",bindings:{pregunta:"<"},require:{estimulCtrl:"^^iaqseEstimul"},controller:function(){this.$onChanges=function(e){console.log("iaqsePregunta-changes",e)}}}),app.controller("mainController",["$scope","httpService",function(o,i){o.prova=null;var s=getURLParameter("id"),c=getURLParameter("lang");(o.id=s)?i.loadSchema("proves_interactives").then(function(e){proves=e.data;var l=null;try{s=parseInt(s)}catch(e){}if(0<s&&s<=proves.length&&(l=proves[s-1]),null==l)o.mostraError=!0;else if(l.contingut){var t="";if("string"==typeof l.contingut)t=l.contingut;else if(Array.isArray(l.contingut)&&c)for(var n=0,r=l.contingut.length;n<r;n++){var a=l.contingut[n];if(a.lang==c){t=a.file;break}}else o.mostraError=!0;var u='src="../proves_interactives/'+t+"/";console.log("Carregant "+t),i.loadSchema(t).then(function(e){l.estimuls=e.data,console.log("S'ha carregat: "+l);for(var t=0,n=l.estimuls.length;t<n;t++){var r=l.estimuls[t];Array.isArray(r.estimul_body)&&(r.estimul_body=r.estimul_body.join(" ")),r.estimul_body=r.estimul_body.replace(/src=\"/gi,u);for(var a=0,i=r.preguntes.length;a<i;a++){var s=r.preguntes[a];Array.isArray(s.enunciat)&&(s.enunciat=s.enunciat.join(" ")),s.enunciat=s.enunciat.replace(/src=\"/gi,u)}}console.log(l),o.prova=l},function(e){console.log("Hi ha hagut un problema carregant la definició de la prova. Prova corrupta!: "+e),o.mostraError=!0})}}):o.mostraError=!0}]),app.filter("toLetter",function(){return function(e){return String.fromCharCode(65+e)+") "}})</script>
+<script>var shuffleArray=function(e){var t,r,n;for(n=e.length-1;0<n;n--)t=Math.floor(Math.random()*(n+1)),r=e[n],e[n]=e[t],e[t]=r;return e};app.component("iaqseProva",{templateUrl:"iaqse-prova.html",bindings:{prova:"<"},controller:function(){var l=this;l.indexEstimul=0,l.indexPregunta=0,l.numEstimuls=0,l.numPreguntes=0,l.$onChanges=function(e){console.log("iaqseProva-changes",e),l.reset()},l.backEstimul=function(){return 0<l.indexEstimul&&(l.indexEstimul--,l.estimulSelected=l.prova.estimuls[l.indexEstimul],l.indexPregunta=0,l.preguntaSelected=l.estimulSelected.preguntes[l.indexPregunta],!0)},l.nextEstimul=function(){return l.indexEstimul<l.prova.estimuls.length-1&&(l.indexEstimul++,l.estimulSelected=l.prova.estimuls[l.indexEstimul],l.indexPregunta=0,l.preguntaSelected=l.estimulSelected.preguntes[l.indexPregunta],!0)},l.backPregunta=function(){0<l.indexPregunta?(l.indexPregunta--,l.preguntaSelected=l.estimulSelected.preguntes[l.indexPregunta]):l.backEstimul()&&(l.indexPregunta=l.estimulSelected.preguntes.length-1,l.preguntaSelected=l.estimulSelected.preguntes[l.indexPregunta])},l.nextPregunta=function(){l.indexPregunta<l.estimulSelected.preguntes.length-1?(l.indexPregunta++,l.preguntaSelected=l.estimulSelected.preguntes[l.indexPregunta]):l.nextEstimul(0)},l.gotoPregunta=function(e,t){l.indexEstimul=e,l.indexPregunta=t,l.estimulSelected=l.prova.estimuls[e],l.preguntaSelected=l.estimulSelected.preguntes[t]},l.gotoPreguntaReview=function(e,t){l.estimulReview=l.prova.estimuls[e],l.preguntaReview=l.estimulReview.preguntes[t]},l.styleClassPregunta=function(e){var t="btn-secondary";return null!=e.answer&&(t="btn-primary",null!=e.esCorrecta&&(t=e.esCorrecta?"btn-success":"btn-danger")),t},l.reset=function(){var e=l.prova;if(l.estatProva=0,l.progressPercent=0,e){l.numEstimuls=e.estimuls.length,l.indexEstimul=0,l.indexPregunta=0,l.estimulSelected=e.estimuls[l.indexEstimul],l.preguntaSelected=l.estimulSelected.preguntes[l.indexPregunta];for(var t=1,r=0,n=e.estimuls.length;r<n;r++)for(var s=e.estimuls[r],a=0,u=s.preguntes.length;a<u;a++){var i=s.preguntes[a];if(i.numero=t,t++,i.answer=null,i.esCorrecta=null,i.opcions){var o=i.opcions[i.ordre-1];i.opcions=shuffleArray(i.opcions),i.ordre=i.opcions.indexOf(o)}}l.numPreguntes=t-1}},l.updateProgress=function(){for(var e=0,t=0,r=l.prova.estimuls.length;t<r;t++)for(var n=l.prova.estimuls[t],s=0,a=n.preguntes.length;s<a;s++){var u=n.preguntes[s];null!=u.answer&&("number"==typeof u.answer||"string"==typeof u.answer&&0<u.answer.trim().length)&&e++}l.progressPercent=0===e?0:(100*e/l.numPreguntes).toFixed(0)},l.corregirProva=function(){for(var e=0,t=0,r=l.prova.estimuls.length;t<r;t++)for(var n=l.prova.estimuls[t],s=0,a=n.preguntes.length;s<a;s++){var u=n.preguntes[s];if(null!=u.answer){if(null!=u.opcions)u.esCorrecta=u.ordre==u.answer;else if(null!=u.tolerance)try{var i=parseFloat(u.answer.replace(",","."));u.esCorrecta=Math.abs(i-u.ordre)<=u.tolerance}catch(e){u.esCorrecta=!1}else u.esCorrecta=u.ordre==u.answer;u.esCorrecta&&e++}}l.estatProva=2,l.estimulReview=null,l.preguntaReview=null,l.puntuacio=(100*e/l.numPreguntes).toFixed(0)}}}),app.component("iaqseEstimul",{templateUrl:"iaqse-estimul.html",bindings:{estimul:"<",question:"<"},require:{provaCtrl:"^^iaqseProva"},controller:function(){var t=this;this.$onChanges=function(e){t.preguntaSelected=this.question,t.numPreguntes=t.provaCtrl.numPreguntes,t.estatProva=t.provaCtrl.estatProva,console.log("iaqseEstimul-changes",e,t.numPreguntes)},this.check=function(){t.provaCtrl.corregirProva()},t.updateProgress=function(){t.provaCtrl.updateProgress()}}}),app.component("iaqsePregunta",{templateUrl:"iaqse-pregunta.html",bindings:{pregunta:"<"},require:{estimulCtrl:"^^iaqseEstimul"},controller:function(){var t=this;t.$onChanges=function(e){t.numPreguntes=t.estimulCtrl.numPreguntes,t.estatProva=t.estimulCtrl.estatProva,console.log("iaqsePregunta-changes",e,t.numPreguntes)},t.updateProgress=function(){t.estimulCtrl.updateProgress()}}}),app.controller("mainController",["$scope","httpService",function(l,a){l.prova=null;var u=getURLParameter("id"),g=getURLParameter("lang");(l.id=u)?a.loadSchema("proves_interactives").then(function(e){proves=e.data;var i=null;try{u=parseInt(u)}catch(e){}if(0<u&&u<=proves.length&&(i=proves[u-1]),null==i)l.mostraError=!0;else if(i.contingut){var t="";if("string"==typeof i.contingut)t=i.contingut;else if(Array.isArray(i.contingut)&&g)for(var r=0,n=i.contingut.length;r<n;r++){var s=i.contingut[r];if(s.lang==g){t=s.file;break}}else l.mostraError=!0;var o='src="../proves_interactives/'+t+"/";console.log("Carregant "+t),a.loadSchema(t).then(function(e){i.estimuls=e.data,console.log("S'ha carregat: "+i);for(var t=0,r=i.estimuls.length;t<r;t++){var n=i.estimuls[t];Array.isArray(n.estimul_body)&&(n.estimul_body=n.estimul_body.join(" ")),n.estimul_body=n.estimul_body.replace(/src=\"/gi,o);for(var s=0,a=n.preguntes.length;s<a;s++){var u=n.preguntes[s];Array.isArray(u.enunciat)&&(u.enunciat=u.enunciat.join(" ")),u.enunciat=u.enunciat.replace(/src=\"/gi,o)}}console.log(i),l.prova=i},function(e){console.log("Hi ha hagut un problema carregant la definició de la prova. Prova corrupta!: "+e),l.mostraError=!0})}}):l.mostraError=!0}]),app.filter("toLetter",function(){return function(e){return String.fromCharCode(65+e)+") "}})</script>
 
 <script type="text/ng-template" id="iaqse-prova.html">
 
-        <h3 ng-bind-html="$ctrl.prova.title"></h3>
-       
-        <div style=" border: 1px solid gray;  width: 100%">
-                        <button style="float:left" class="btn btn-success" ng-click="$ctrl.corregirProva()"><i class="fa fa-check"></i> Corregeix la prova</button>    
-                        <div class="progress">
-                                <div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" 
-                                aria-valuemin="0" aria-valuemax="100">0%</div>
-                        </div>
-                        <div class="progress">
-                                <div class="progress-bar bg-success" role="progressbar" style="width: 0%;" aria-valuenow="0" 
-                                aria-valuemin="0" aria-valuemax="100">0%</div>
-                        </div>            
+        <h4 ng-bind-html="$ctrl.prova.title"></h4>
+
+        <!--mostra les instruccions-->
+        <div ng-if="$ctrl.estatProva==0">
+                <center><h5 style="font-weight:800; color:white; background: brown;">Instruccions</h5></center>
+                <div style="margin:20px; border:1px solid gray; background:#f2dbda; padding: 10px;">
+                <p ng-bind="$ctrl.prova.instruccions"></p>
+                </div>
+                <div style="margin:auto; text-align:center;">
+                <button class="btn btn-primary" ng-click="$ctrl.estatProva=1;">Començar la prova</button>
+                </div>
         </div>
-        <br>
+        
+
+        <div ng-if="$ctrl.estatProva==1 || $ctrl.estatProva==3">
+        <div style=" border: 1px solid gray;  width: 100%">
+                        <!--
+                        <button style="float:left" class="btn btn-success" ng-click="$ctrl.corregirProva()"><i class="fa fa-check"></i> Corregeix la prova</button>    
+                        -->        
+                        <div class="progress">
+                                <div class="progress-bar" role="progressbar" style="width: {{$ctrl.progressPercent}}%;" aria-valuenow="0" 
+                                aria-valuemin="0" aria-valuemax="100">{{$ctrl.progressPercent}}%</div>
+                        </div>
+        </div> 
         <div style="border: 1px solid grey; margin-bottom: 10px; text-align: center; margin: auto">
+                <!--
                 <button style="float:left" class="btn btn-sm btn-secondary" ng-click="$ctrl.backEstimul()"
                 ng-disabled="$ctrl.indexEstimul < 1"><i class="fa fa-backward"></i> Anterior</button>
+                -->
                 <span style="font-size: 120%"><b>Situació <span ng-bind="$ctrl.indexEstimul+1"></span></b></span>
+                <!--
                 <button style="float:right" class="btn btn-sm btn-secondary" ng-click="$ctrl.nextEstimul()"
                 ng-disabled="$ctrl.indexEstimul > $ctrl.numEstimuls -1"> Següent <i class="fa fa-forward"></i></button>
+                -->
         </div>
         <!--quan carreguis l'estimul, mostra la pregunta question d'aquest estimul -->
         <iaqse-estimul estimul="$ctrl.estimulSelected" question="$ctrl.preguntaSelected"></iaqse-estimul>
@@ -140,13 +154,16 @@
         ng-disabled="$ctrl.preguntaSelected.numero<=1"><i class="fa fa-chevron-left"></i> Pregunta anterior</button>
         <button class="btn btn-secondary" ng-click="$ctrl.nextPregunta()"
         ng-disabled="$ctrl.preguntaSelected.numero>$ctrl.numPreguntes-1">Pregunta següent <i class="fa fa-chevron-right"></i></button>
+        <button class="btn btn-success" ng-click="$ctrl.corregirProva()"
+        ng-if="$ctrl.preguntaSelected.numero==$ctrl.numPreguntes && $ctrl.estatProva==1"
+        ng-disabled="$ctrl.progressPercent==0"><i class="fa fa-check"></i> Acabar i corregir</button>
        
         <!--nav-bar-->
         <br><br>
         <div>
                 <div ng-repeat="estimul in $ctrl.prova.estimuls" style="display: inline-block">
                         <div ng-repeat="pregunta in estimul.preguntes" style="display: inline-block; vertical-align: top">
-                                <div>
+                                <div style="text-align: center">
                                 <button class="btn btn-sm" ng-class="$ctrl.styleClassPregunta(pregunta)"
                                 ng-click="$ctrl.gotoPregunta($parent.$index, $index)">
                                         <span ng-bind="pregunta.numero"></span>        
@@ -158,7 +175,34 @@
                         </div>
                 </div>
         </div>
+        </div>  
 
+        <!--Prova acabada-->
+        <div ng-if="$ctrl.estatProva==2">
+                <h5>Prova acabada - Puntuació <span ng-bind="$ctrl.puntuacio"></span>%</h5>
+                <div>
+                        <div ng-repeat="estimul in $ctrl.prova.estimuls" style="display: inline-block">
+                                        <div ng-repeat="pregunta in estimul.preguntes" style="display: inline-block; vertical-align: top">
+                                                <div style="margin:auto; text-align: center;">
+                                                <button class="btn" ng-class="$ctrl.styleClassPregunta(pregunta)" style="width: 36px"
+                                                ng-click="$ctrl.gotoPreguntaReview($parent.$index, $index)">
+                                                        <span ng-bind="pregunta.numero"></span>        
+                                                </button>
+                                                <br>
+                                                <span ng-if="pregunta.numero == $ctrl.preguntaSelected.numero"><i class="fa fa-arrow-up"></i></span>
+                                                <span ng-if="pregunta.numero != $ctrl.preguntaSelected.numero"> </span>
+                                                </div>
+                                        </div>
+                        </div>
+                        <button ng-if="$ctrl.estimulReview!=null && $ctrl.preguntaReview!=null" style="float: right; margin-top: 60px"
+                        class="btn btn-sm btn-danger" title="Tancau la previsualització" ng-click="$ctrl.estimulReview=null;"><i class="fa fa-times"></i></button> 
+                        <div ng-if="$ctrl.estimulReview!=null && $ctrl.preguntaReview!=null">
+                                <iaqse-estimul estimul="$ctrl.estimulReview" question="$ctrl.preguntaReview"></iaqse-estimul>
+                        </div>
+                </div>
+                
+                <button class="btn btn-primary" ng-click="$ctrl.reset()"><i class="fa fa-redo"></i> Tornau a començar</button> 
+        </div>
 </script>
 
 <script type="text/ng-template" id="iaqse-estimul.html">
@@ -175,7 +219,7 @@
 
 <script type="text/ng-template" id="iaqse-pregunta.html">
         <h5><span style="font-weight:800;"> Pregunta
-        <span ng-bind="$ctrl.pregunta.numero"></span>.
+        <span ng-bind="$ctrl.pregunta.numero"></span> / <span ng-bind="$ctrl.numPreguntes"></span>.
         <span ng-if="$ctrl.pregunta.esCorrecta!=null">
                 <span style="color:green" ng-if="$ctrl.pregunta.esCorrecta"><i class="fa fa-check"></i></span>
                 <span style="color:red" ng-if="!$ctrl.pregunta.esCorrecta"><i class="fa fa-times"></i></span>
@@ -183,7 +227,8 @@
         </span>
         <span ng-bind-html="$ctrl.pregunta.enunciat"></span></h5>
         <div class="form-check" ng-repeat="opt in $ctrl.pregunta.opcions" ng-if="$ctrl.pregunta.opcions!=null">
-            <input class="form-check-input" type="radio" ng-model="$ctrl.pregunta.answer" ng-value="$index"/>  
+            <input class="form-check-input" type="radio" ng-model="$ctrl.pregunta.answer" ng-value="$index" ng-change="$ctrl.updateProgress()"
+            ng-disabled="$ctrl.estatProva!=1"/>  
             <label class="form-check-label">
             <h5>{{$index | toLetter}}
             <span ng-bind-html="opt"></span> 
@@ -191,7 +236,8 @@
             </label>
         </div>     
         <div ng-if="$ctrl.pregunta.opcions==null">
-                <input class="form-control" type="text" ng-model="$ctrl.pregunta.answer"/>                  
+                <input class="form-control" type="text" ng-model="$ctrl.pregunta.answer" ng-blur="$ctrl.updateProgress()"
+                ng-disabled="$ctrl.estatProva!=1"/>                  
         </div>                                               
 </script></main>    
                 

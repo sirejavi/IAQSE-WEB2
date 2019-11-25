@@ -6,6 +6,7 @@
         "title": "Prova diagnòstica competència matemàtica 2n ESO 2014-2015",
         "contingut": [
             { "lang": "ca", "file":"ad_2eso_cmat_2014_ca" }
-        ]
+        ],
+        "instruccions": "Instruccions per a realitzar el model de prova"
     }
 ]
