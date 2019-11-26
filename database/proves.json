@@ -1,7 +1,7 @@
 [
        
-    {
-             "imprimible": true,
+    {       "hidden": true,
+            "imprimible": true,
             "aval": "2n ESO",
             "nivell": "2nESO",
             "tags": [
