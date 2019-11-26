@@ -1,5 +1,23 @@
 [
     {
+        "title": "Avaluació de diagnòstic 2n ESO 2019-2020",
+        "tag": "EP",
+        "documents": [
+           {
+                "title": "Resolució per la qual es regula la realització de l'avaluació de diagnòstic del curs 2019-2020 de 2n d'ESO.",
+                "url": "../documentos/avaluacions/diagnostic/ad_2n_eso_2019_2020/11776CatBoib.pdf",
+                "img": "../img/avaluacions/diagnostic/ad_2n_eso_2019_2020/11776CatBoib.png",
+                "description": "Resolució del conseller d'Educació i Universitat de 21 de novembre de 2019, per la qual es regula la realització de l'avaluació de diagnòstic del curs 2019-2020 als alumnes de segon curs d'educació secundària i el procediment d'aplicació als centres docents no universitaris de les Illes Balears en els quals s'imparteixen aquests ensenyaments"
+            },
+            {
+                "title": "Resolución por la cual se regula la realización de la evaluación de diagnóstico del curso 2019-2020 de 2º de ESO.",
+                "url": "../documentos/avaluacions/diagnostic/ad_2n_eso_2019_2020/11776CasBoib.pdf",
+                "img": "../img/avaluacions/diagnostic/ad_2n_eso_2019_2020/11776CasBoib.png",
+                "description": "Resolución del consejero de Educación y Universidad de 21 de noviembre de 2019, por la cual se regula la realización de la evaluación de diagnóstico del curso 2019-2020 a los alumnos de segundo curso de educación secundaria y el procedimiento de aplicación a los centros docentes no universitarios de las Illes Balears en los cuales se imparten estas enseñanzas"
+            }
+	]
+    },
+    {
         "title": "Avaluació de diagnòstic 6e EP 2017-2018",
         "tag": "EP",
         "documents": [

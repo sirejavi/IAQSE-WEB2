@@ -164,7 +164,7 @@
                 <div ng-repeat="estimul in $ctrl.prova.estimuls" style="display: inline-block">
                         <div ng-repeat="pregunta in estimul.preguntes" style="display: inline-block; vertical-align: top">
                                 <div style="text-align: center">
-                                <button class="btn btn-sm" ng-class="$ctrl.styleClassPregunta(pregunta)"
+                                <button class="btn btn-sm" ng-class="$ctrl.styleClassPregunta(pregunta)" style="width: 36px"
                                 ng-click="$ctrl.gotoPregunta($parent.$index, $index)">
                                         <span ng-bind="pregunta.numero"></span>        
                                 </button>
