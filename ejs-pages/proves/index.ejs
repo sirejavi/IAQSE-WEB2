@@ -29,13 +29,26 @@
                     <a class="dropdown-item" ng-click="selectAny($index)" ng-repeat="item in anys"><span ng-bind="item.label"></span></a>
                 </div>
         </div>
-        
-        <div style="float:right">
-            <a href="#!imprimibles" class="btn btn-warning" style="font-size: 90%; ">Versions per imprimir</a>
-        </div>
+       
 
-    </div> 
-
+        <!--altres-->
+        <div class="btn-group float-left" title="Any de la prova" style="margin-left: 5px; margin-bottom: 5px;">
+            <button class="btn btn-info dropdown-toggle" type="button" id="versions" 
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fa fa-star"></i> <span>Altres formats</span></button>
+            <div class="dropdown-menu" aria-labelledby="versions" style="overflow: scroll; max-height: 300px;">
+                <a class="dropdown-item" ng-click="selections.printable=true; search();">
+                        <i class="fa fa-print"></i>  <span>Proves per imprimir</span></a>
+                <a class="dropdown-item" href="#!interactives">
+                        <i class="fa fa-gamepad"></i>  <span>Proves interactives</span></a>
+            </div>
+    </div>
+ 
+</div> 
+     <!--optimitzat impressió-->
+     <div   style="margin-left: 5px; margin-bottom: 5px;"></div>
+     <input type="checkbox" ng-change="search()" ng-model="selections.printable"/> <span>Optimitzades per impressió</span>
+    
 
     <hr />
     <p ng-if="pubslength==0">No s'han trobat proves</p>
@@ -118,7 +131,8 @@
         };
         $scope.selections = {
             nivell: $scope.nivells[0],
-            competencia: $scope.competencies[0] 
+            competencia: $scope.competencies[0],
+            printable: false
         };
         $scope.selectNivell = function(index) {
             $scope.selections.nivell = $scope.nivells[index];
@@ -136,6 +150,7 @@
         };
 
         $scope.search = function () {
+            console.log($scope.selections);
             var list = [];
             var nivellSelected = $scope.selections.nivell.value;
             var competenciaSelected = $scope.selections.competencia.value;
@@ -143,13 +158,13 @@
                 var item = provesJSON[i];
                 if( (!nivellSelected || item.nivell == nivellSelected) &&
                    (!competenciaSelected || item.tags.indexOf(competenciaSelected)>=0) &&
-                   ( $scope.selections.any.value==-1 || item.any==$scope.selections.any.value )) {
+                   ( $scope.selections.any.value==-1 || item.any==$scope.selections.any.value ) &&
+                   ( !$scope.selections.printable || ($scope.selections.printable && item.imprimible))) {
                     list.push(item);
                 }
-
-            }
+            } 
             $scope.pubslength = list.length;
-            $scope.pubs = chunker(list, 2);
+            $scope.pubs = chunker(list, 2); 
         };
 
         $scope.keypress = function (keyEvent) {
@@ -164,7 +179,7 @@
             for(var i=0, len=response.data.length; i<len; i++)
             {
                 var item = response.data[i];
-                if(!item.imprimible && !item.hidden) {
+                if(!item.hidden) {
                     window.provesJSON.push(item);
                 }
             }

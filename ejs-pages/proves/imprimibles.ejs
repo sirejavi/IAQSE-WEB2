@@ -1,13 +1,7 @@
-<h4><b>Proves per imprimir</b></h4>
-<p>En aquesta secció trobareu algunes proves de diagnòstic optimitzades per a la impressió.</p>
-
-<div class="clearfix">
-      
-        <div style="float:right">
-                <a href="#!index" class="btn btn-warning" style="font-size: 90%; ">Tornau a proves</a>
-            </div>  
-
-         <span class="filtrau">Filtrau per </span>
+<div ng-controller="imprimiblesController">
+     
+        <div class="clearfix">
+        <span class="filtrau">Filtrau per </span>
         <!--combo nivells-->
         <div class="btn-group float-left" title="Nivell de la prova" style="margin-left: 5px; margin-bottom: 5px;">
             <button class="btn btn-secondary dropdown-toggle" type="button" id="nivellCombo" 
@@ -35,15 +29,31 @@
                     <a class="dropdown-item" ng-click="selectAny($index)" ng-repeat="item in anys"><span ng-bind="item.label"></span></a>
                 </div>
         </div>
-      
+       
 
-    </div> 
-
+        <!--altres-->
+        <div class="btn-group float-left" title="Any de la prova" style="margin-left: 5px; margin-bottom: 5px;">
+            <button class="btn btn-info dropdown-toggle" type="button" id="versions" 
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fa fa-star"></i> <span>Altres formats</span></button>
+            <div class="dropdown-menu" aria-labelledby="versions" style="overflow: scroll; max-height: 300px;">
+                <a class="dropdown-item" href="#!index">
+                        <i class="fa fa-print"></i>  <span>Totes les proves</span></a>
+                <a class="dropdown-item" href="#!interactives">
+                        <i class="fa fa-gamepad"></i>  <span>Proves interactives</span></a>
+            </div>
+    </div>
+ 
+</div>
+     <!--optimitzat impressió-->
+     <div   style="margin-left: 5px; margin-bottom: 5px;"></div>
+     <input type="checkbox" ng-change="search()" ng-model="selections.printable"/> <span>Optimitzades per impressió</span>
+   
 
     <hr />
-    <p ng-if="pubslength==0">No s'han trobat proves per imprimir</p>
-    <p ng-if="pubslength==1">S'ha trobat una prova per imprimir</p>
-    <p ng-if="pubslength>1">S'han trobat <span ng-bind="pubslength"></span> proves per imprimir</p>
+    <p ng-if="pubslength==0">No s'han trobat proves</p>
+    <p ng-if="pubslength==1">S'ha trobat una prova</p>
+    <p ng-if="pubslength>1">S'han trobat <span ng-bind="pubslength"></span> proves</p>
     <hr />
 
     <div class="list-group">
@@ -60,14 +70,14 @@
             <p ng-bind="pub.description"></p>
             <p class="fa-pull-right publication-date" ng-bind="pub.pubdate"></p>
 
-            <div ng-if="pub.documents" style="overflow: auto; height: 60px; margin-top:-5px">
-                <div  ng-repeat="doc in pub.documents">
-                    <a ng-href="../{{doc}}" target="_blank">
-                        <i class="fa" ng-class="doc | icona"></i> 
-                        <span style="font-size: 90%;" ng-bind="doc | fileName"></span></a>
-                </div>
-            </div>
 
+            <div ng-if="pub.documents" style="overflow: auto; height: 60px; margin-top:-5px">
+                    <div  ng-repeat="doc in pub.documents">
+                        <a ng-href="../{{doc}}" target="_blank">
+                            <i class="fa" ng-class="doc | icona"></i> 
+                            <span style="font-size: 90%;" ng-bind="doc | fileName"></span></a>
+                    </div>
+            </div>
         </div>
         </div>
     </div>
@@ -121,7 +131,8 @@
         };
         $scope.selections = {
             nivell: $scope.nivells[0],
-            competencia: $scope.competencies[0] 
+            competencia: $scope.competencies[0],
+            printable: true
         };
         $scope.selectNivell = function(index) {
             $scope.selections.nivell = $scope.nivells[index];
@@ -146,7 +157,8 @@
                 var item = provesJSON[i];
                 if( (!nivellSelected || item.nivell == nivellSelected) &&
                    (!competenciaSelected || item.tags.indexOf(competenciaSelected)>=0) &&
-                   ( $scope.selections.any.value==-1 || item.any==$scope.selections.any.value )) {
+                   ( $scope.selections.any.value==-1 || item.any==$scope.selections.any.value ) &&
+                   (!$scope.selections.printable || ($scope.selections.printable && item.imprimible))) {
                     list.push(item);
                 }
 
@@ -167,7 +179,7 @@
             for(var i=0, len=response.data.length; i<len; i++)
             {
                 var item = response.data[i];
-                if(item.imprimible && !item.hidden) {
+                if(!item.hidden) {
                     window.provesJSON.push(item);
                 }
             }
@@ -175,6 +187,6 @@
             $scope.search();
         })
         
-       
+   
     }]);
 </script>

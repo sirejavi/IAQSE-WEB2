@@ -19,13 +19,13 @@
         <!--Desplegable amb els seus documents-->
         <div class="card" ng-repeat="ava in avaluacions">
             <div class="card-header" id="heading{{$index}}">
-                <button class="btn-link collapsed" data-toggle="collapse" data-target="#collapseAva{{$index}}"
+                <button class="btn-link collapsed" data-toggle="collapse" data-target="#{{ava.id}}"
                     style="text-decoration: none; border: none; cursor: pointer;">
                     <i class="fa"></i> <b style="font-size: 90%;"><span ng-bind="ava.title"></span></b>
                 </button>
             </div>
     
-            <div id="collapseAva{{$index}}" class="collapse" data-parent="#accordion"
+            <div id="{{ava.id}}" class="collapse" data-parent="#accordion"
                 aria-labelledby="heading{{$index}}">
                 <!--list documents--> 
                 <div class="row" ng-repeat="chk in ava.chunks">
@@ -91,7 +91,22 @@
         
         httpService.loadSchema("avaluacions_internacionals").then(function(response){
             window.avaJSON = response.data;
+            for (var i = 0, len = avaJSON.length; i < len; i++) {
+                var item = avaJSON[i];
+                if(!item.id) {
+                    item.id = "internacional"+i;
+                }
+            }
             $scope.search();
+            var id = getURLParameter("id"); 
+            if(id) {
+                // Search and display this item
+                $(function(){
+                    var $elem = $("#"+id);
+                    $elem.addClass("show"); 
+                    $('html, body').animate({ scrollTop: $elem.offset().top-120}, 1000);
+                });
+            }
         });    
     }]);
     </script>

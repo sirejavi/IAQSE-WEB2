@@ -98,7 +98,7 @@
             </div>
             <% }) %>
             <!--Destacats generats automàticament-->
-            <% destacats.forEach( item => { %>
+            <% destacats.forEach( (item, i) => { if(i < 6 - inici.destacats.length){  %>
             <div class="list-group-item-hover list-group-item">
                 <div style="display: flex; align-items: center;">
                     <div style="float: left; width: 90px">
@@ -120,7 +120,7 @@
                     </div>
                 </div>
             </div>
-            <% }) %>
+            <% }  }) %>
         </div>
     </div>
 </div>

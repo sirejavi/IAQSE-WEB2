@@ -4,8 +4,15 @@
             "icon": "fa fa-print",
             "url": "proves.html#!/imprimibles", 
             "title": "Proves de diagnòstic",
-            "description": "Versions per imprimir",
+            "description": "Versions per imprimir i interactives",
             "class": "alert-warning",
+            "target": ""
+        },
+        {
+            "icon": "fa fa-chart-bar",
+            "url": "avaluacions.html#!/diagnostic?id=ad2neso1920", 
+            "title": "Avaluació de diagnòstic 2n ESO 2019-2020",
+            "description": "Normativa BOIB",            
             "target": ""
         }
     ],

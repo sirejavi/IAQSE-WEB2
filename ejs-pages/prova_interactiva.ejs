@@ -1,6 +1,6 @@
 <!--s'obre en una pantalla separada empra el template prova-->
 <!--passam la prova al component-->
-<a href="proves.html#!/interactives" style="float: right;" class="btn btn-sm btn-warning">Tancau la prova</a>
+<a href="proves.html#!/interactives" style="float: right;" class="btn btn-sm btn-warning"><i class="fa fa-times"></i> Tancau la prova</a>
 <div ng-controller="mainController">
         <iaqse-prova prova="prova" ng-if="prova!=null"></iaqse-prova>
 
@@ -356,11 +356,12 @@
         <!--mostra les instruccions-->
         <div ng-if="$ctrl.estatProva==0">
                 <center><h5 style="font-weight:800; color:white; background: brown;">Instruccions</h5></center>
-                <div style="margin:20px; border:1px solid gray; background:#f2dbda; padding: 10px;">
-                <p ng-bind="$ctrl.prova.instruccions"></p>
+                <div style="margin:20px; border:1px solid gray; background:#f2dbda;padding:20px;font-size:110%">
+                        <div ng-bind-html="$ctrl.prova.instruccions"></div>
                 </div>
+ 
                 <div style="margin:auto; text-align:center;">
-                <button class="btn btn-primary" ng-click="$ctrl.estatProva=1;">Començar la prova</button>
+                <button class="btn btn-primary" ng-click="$ctrl.estatProva=1;"><i class="fa fa-arrow-circle-right"></i> Començar la prova</button>
                 </div>
         </div>
         
@@ -400,6 +401,7 @@
         ng-disabled="$ctrl.progressPercent==0"><i class="fa fa-check"></i> Acabar i corregir</button>
        
         <!--nav-bar-->
+        <!--
         <br><br>
         <div>
                 <div ng-repeat="estimul in $ctrl.prova.estimuls" style="display: inline-block">
@@ -416,6 +418,7 @@
                         </div>
                 </div>
         </div>
+        -->
         </div>  
 
         <!--Prova acabada-->
@@ -447,33 +450,38 @@
 </script>
 
 <script type="text/ng-template" id="iaqse-estimul.html">
-        <div style="background: #f2dbda; border: 1px solid gray; min-height: 200px; width: 100%">
-                <center>
-                <h4 style="background: brown; font-weight:800; color:white; border-radius: 5px" ng-bind-html="$ctrl.estimul.estimul"></h4>
-                <div ng-bind-html="$ctrl.estimul.estimul_body"></div>
-                </center>
-        </div>      
-        <br>
-        <iaqse-pregunta pregunta="$ctrl.preguntaSelected"></iaqse-pregunta>
-     
+        <div class="row">
+                <div class="col-md-6">
+                        <div style="background: #f2dbda; margin:20px; border:1px solid gray; padding:20px;font-size:110%">
+                                <center>
+                                <h4 style="background: brown; font-weight:800; color:white; border-radius: 5px" ng-bind-html="$ctrl.estimul.estimul"></h4>
+                                <div ng-bind-html="$ctrl.estimul.estimul_body"></div>
+                                </center>
+                        </div>      
+                </div>
+                <div class="col-md-6">
+                        <br>
+                        <iaqse-pregunta pregunta="$ctrl.preguntaSelected"></iaqse-pregunta>
+                </div>
+        </div>
 </script>
 
 <script type="text/ng-template" id="iaqse-pregunta.html">
-        <h5><span style="font-weight:800;"> Pregunta
-        <span ng-bind="$ctrl.pregunta.numero"></span> / <span ng-bind="$ctrl.numPreguntes"></span>.
-        <span ng-if="$ctrl.pregunta.esCorrecta!=null">
-                <span style="color:green" ng-if="$ctrl.pregunta.esCorrecta"><i class="fa fa-check"></i></span>
-                <span style="color:red" ng-if="!$ctrl.pregunta.esCorrecta"><i class="fa fa-times"></i></span>
-        </span>
-        </span>
-        <span ng-bind-html="$ctrl.pregunta.enunciat"></span></h5>
+        <h5>
+                <span ng-if="$ctrl.pregunta.esCorrecta!=null">
+                                        <span style="color:green" ng-if="$ctrl.pregunta.esCorrecta"><i class="fa fa-check"></i></span>
+                                        <span style="color:red" ng-if="!$ctrl.pregunta.esCorrecta"><i class="fa fa-times"></i></span>
+                </span>
+                <span style="font-weight:800;"> Pregunta
+        <span ng-bind="$ctrl.pregunta.numero"></span> / <span ng-bind="$ctrl.numPreguntes"></span>.</h5>
+        <span style="font-size: 110%" ng-bind-html="$ctrl.pregunta.enunciat"></span> 
         <div class="form-check" ng-repeat="opt in $ctrl.pregunta.opcions" ng-if="$ctrl.pregunta.opcions!=null">
             <input class="form-check-input" type="radio" ng-model="$ctrl.pregunta.answer" ng-value="$index" ng-change="$ctrl.updateProgress()"
             ng-disabled="$ctrl.estatProva!=1"/>  
             <label class="form-check-label">
-            <h5>{{$index | toLetter}}
+            <span style="font-size:110%">{{$index | toLetter}}
             <span ng-bind-html="opt"></span> 
-            </h5>     
+            </span>     
             </label>
         </div>     
         <div ng-if="$ctrl.pregunta.opcions==null">

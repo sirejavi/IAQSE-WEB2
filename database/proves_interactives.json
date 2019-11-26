@@ -7,6 +7,6 @@
         "contingut": [
             { "lang": "ca", "file":"ad_2eso_cmat_2014_ca" }
         ],
-        "instruccions": "Instruccions per a realitzar el model de prova"
+        "instruccions": "<p>Llegiu atentament les situacions i els enunciats de les preguntes.</p><p>En el cas de preguntes tancades, trieu una d'entre les quatre opcions. Per les preguntes obertes, escriviu la resposta en el quadreu de text seguint les instruccions de format que s'expliqui en cada pregunta.</p><p>Teniu una hora per fer la prova. Bona sort!</p>"
     }
 ]

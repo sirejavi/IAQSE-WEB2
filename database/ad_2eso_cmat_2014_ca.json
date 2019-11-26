@@ -1,7 +1,7 @@
 [
     {
         "estimul": "Notes segona avaluació",
-        "estimul_body": "<img src=\"model1_estimul1.png\" style=\"width: 800px\">",
+        "estimul_body": "<center><p>Aquesta taula de freqüències conté les notes de matemàtiques obtingudes en la segona avaluació per tots els alumnes de 2n d'ESO del centre.</p><img src=\"model1_estimul1.png\" style=\"width: 200px\"></center>",
         "preguntes": [
             {
                 "enunciat": "Quants d'alumnes en total cursen 2n d'ESO al centre?",
@@ -17,7 +17,7 @@
     },
     {
         "estimul": "Llauna de tonyina",
-        "estimul_body": "<img src=\"model1_estimul2.png\" style=\"width: 800px\">",
+        "estimul_body": "<center><p>Tenim una llauna de tonyina com la de la imatge</p><img src=\"model1_estimul2.png\" style=\"width: 150px\"></center>",
         "preguntes": [
             {
                 "enunciat": "La llauna que tenim té forma de...",
@@ -33,7 +33,7 @@
     },
     {
         "estimul": "Festa fi de curs",
-        "estimul_body": "<img src=\"model1_estimul3.png\" style=\"width: 800px\">",
+        "estimul_body": "<p>El centre ja està organitzant les diferents activitats per fer la festa de fi de curs</p><p>Per tenir una previsió de la utilització dels espais, s'ha fet una enquesta demanant a quina activitat assistirà com a públic cada alumne. El resultat de l'enquesta es mostra en aquest gràfic:</p><center><img src=\"model1_estimul3.png\" style=\"width: 250px\"></center>",
         "preguntes": [
             {
                 "enunciat": "La gimcana i l'activitat de música es faran al pati, i l'obra de teatre i l'activitat de ball a l'interior de l'edifici. Quin percentatge d'alumnes assistiran a activitats a l'exterior?",
@@ -98,7 +98,7 @@
     },
     {
         "estimul": "El manescal boig",
-        "estimul_body": "<img src=\"model1_estimul4.png\" style=\"width: 800px\">",
+        "estimul_body": "<div style=\"clear:both\"><img style=\"float:right;margin:10px;width:150px\" src=\"model1_estimul4.png\"><p>Al poble d'en Lluís hi ha un manescal amb una forma molt peculiar de curar els animals. Diuen que es una mescla de científic i de bruixot.</p><div>",
         "preguntes": [
             {
                 "enunciat": "El manescal boig ha donat al ca d'en Lluís un xarop que conté 3/5 parts d'orina de granot. Quin percentatge del xarop és orina de granot?",
@@ -137,7 +137,7 @@
     },
     {
         "estimul": "Pavelló",
-        "estimul_body": "<img src=\"model1_estimul5.png\" style=\"width: 800px\">",
+        "estimul_body": "<p>Per al proper curs el centre gaudirà d'un nou pavelló on es podran realitzar diferents activitats esportives. El recinte tindrà la forma i les dimensions que es mostren a la imatge següent</p><center><img src=\"model1_estimul5.png\" style=\"width: 400px\"></center>",
         "preguntes": [
             {
                 "enunciat": "Es volen posar faroles a la paret del pavelló per tot el seu voltant, de manera que hi hagi una farola a cada cantonada, que la separació entre totes les faroles sigui sempre la mateixa i que el nombre de faroles sigui el menor possible. Quantes faroles hauran de posar?",
@@ -168,7 +168,7 @@
     },
     {
         "estimul": "Videojoc",
-        "estimul_body": "<img src=\"model1_estimul6.png\" style=\"width: 800px\">",
+        "estimul_body": "<p>Quatre amics decideixen comprar un videojoc</p><center><img src=\"model1_estimul6.png\" style=\"width: 300px\"></center>",
         "preguntes": [
             {
                 "enunciat": "El videojoc valia 120 euros però han pagat 96 &#8364;. Quin percentatge de descompte els han fet? <em>Escriu només el nombre sense el símbol %</em>",
@@ -179,7 +179,7 @@
     },
     {
         "estimul": "Suc de taronja",
-        "estimul_body": "<img src=\"model1_estimul7.png\" style=\"width: 800px\">",
+        "estimul_body": "<p>Aquest estiu, tres companys de classe es dediquen a la venda de suc de taronja.</p><center><img src=\"model1_estimul7.png\" style=\"width: 250px\"></center>",
         "preguntes": [
             {
                 "enunciat": "Primer han hagut de comprar les taronges. Unes les han pagat a 0,40 &#8364; el kg i les altres a 0,45 &#8364; el kg. Si en total han comprat 500 kg de taronges i els ha costat 214 &#8364;, escriu l'equació d'una incògnita que haurien de plantejar per calcular quants quilograms han comprat de cada classe. Indica què representa la incògnita utilitzada.",

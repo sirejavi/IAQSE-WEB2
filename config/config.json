@@ -1,6 +1,6 @@
 {
    "encoding": "latin1",
-   "minify_html": true,
+   "minify_html": false,
    "bundles": [
       {
          "type": "js",

@@ -30,9 +30,12 @@
       return R;
   }; 
   window.getURLParameter = function( name ){
-        var regexS = "[\\?&]"+name+"=([^&#]*)", 
+      var regexS = "[\\?&]"+name+"=([^&#]*)", 
     regex = new RegExp( regexS ),
     results = regex.exec( window.location.search );
+    if(results == null) {
+      results = regex.exec( window.location.href);  
+    }
     if( results == null ){
         return "";
     } else{
