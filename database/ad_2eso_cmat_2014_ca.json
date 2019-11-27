@@ -101,7 +101,7 @@
         "estimul_body": "<div style=\"clear:both\"><img style=\"float:right;margin:10px;width:150px\" src=\"model1_estimul4.png\"><p>Al poble d'en Lluís hi ha un manescal amb una forma molt peculiar de curar els animals. Diuen que es una mescla de científic i de bruixot.</p><div>",
         "preguntes": [
             {
-                "enunciat": "El manescal boig ha donat al ca d'en Lluís un xarop que conté 3/5 parts d'orina de granot. Quin percentatge del xarop és orina de granot?",
+                "enunciat": "El manescal boig ha donat al ca d'en Lluís un xarop que conté $\\frac{3}{5}$ parts d'orina de granot. Quin percentatge del xarop és orina de granot?",
                 "opcions": [
                     "45 %",
                     "50 %",
@@ -184,10 +184,10 @@
             {
                 "enunciat": "Primer han hagut de comprar les taronges. Unes les han pagat a 0,40 &#8364; el kg i les altres a 0,45 &#8364; el kg. Si en total han comprat 500 kg de taronges i els ha costat 214 &#8364;, escriu l'equació d'una incògnita que haurien de plantejar per calcular quants quilograms han comprat de cada classe. Indica què representa la incògnita utilitzada.",
                 "opcions": [
-                    "0,40·x + 0,45·y=500",
-                    "0,40·x + 0,45·(x-500)=214",
-                    "0,40·x + 0,45·(500-x)=214",
-                    "500·x + 214·(x-0,40)=0,45"
+                    "$0,40\\cdot x + 0,45\\cdot y=500$",
+                    "$0,40\\cdot x + 0,45\\cdot (x-500)=214$",
+                    "$0,40\\cdot x + 0,45\\cdot (500-x)=214$",
+                    "$500\\cdot x + 214\\cdot (x-0,40)=0,45$"
                 ],
                 "ordre": 3
             },

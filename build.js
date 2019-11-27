@@ -99,6 +99,9 @@ database.chunk = function (arr, chunkSize) {
         R.push(arr.slice(i, i + chunkSize));
     return R;
 }; 
+database.webmaster = "Josep Mulet Pol";
+const date = new Date();
+database.version =  date.getDate() + "-" + (date.getMonth()+1) + "-" + date.getFullYear();
 
 
 //************************************************ Determina automàticament destacats */
