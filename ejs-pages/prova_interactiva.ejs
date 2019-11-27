@@ -342,14 +342,15 @@
                         }
                         $(function(){ 
                                 var $element = $("#mainController")[0];
-                                $rootScope.$on("katex-update", function () {
-                                        renderMathInElement($element, {
+                                var options = {
                                                 delimiters: [
                                                         { left: "$", right: "$", display: false },
                                                         { left: "\\(", right: "\\)", display: false },
                                                         { left: "\\[", right: "\\]", display: true }
                                                 ]
-                                        });
+                                        };
+                                $rootScope.$on("katex-update", function () {
+                                        renderMathInElement($element, options);
                                 });
                         });
 
