@@ -5,7 +5,7 @@
         <% include head %>
     </head>
 
-    <body> 
+    <body style="background: white;"> 
         <header>
             <% include header %>
         </header>
@@ -16,7 +16,9 @@
                 
             <%include footer %>
         </div> 
-
+        <div style="font-size: small; background: whitesmoke; color: gray; position: fixed; bottom:0; padding: 5px; left:0; width:100%; height: 25px; text-align: right;">
+            Webmaster: <%=webmaster%> - Version: <%=version%>
+        </div>
 </body>
 
 </html>

@@ -141,7 +141,7 @@
 </script>
     </head>
 
-    <body> 
+    <body style="background: white;"> 
         <header>
               <nav class="navbar navbar-expand-md navbar-dark fixed-top gradient" style="background-color: #003366 !important;">
     <div class="container">
@@ -550,14 +550,15 @@
                         }
                         $(function(){ 
                                 var $element = $("#mainController")[0];
-                                $rootScope.$on("katex-update", function () {
-                                        renderMathInElement($element, {
+                                var options = {
                                                 delimiters: [
                                                         { left: "$", right: "$", display: false },
                                                         { left: "\\(", right: "\\)", display: false },
                                                         { left: "\\[", right: "\\]", display: true }
                                                 ]
-                                        });
+                                        };
+                                $rootScope.$on("katex-update", function () {
+                                        renderMathInElement($element, options);
                                 });
                         });
 
@@ -711,7 +712,6 @@
 </script></main>    
                 
             <a href="#" id="back-to-top" class="btn btn-primary btn-lg" role="button"><i class="fa fa-chevron-circle-up" aria-hidden="true"></i></a>
-
 <script src="iaqse_bundle2.min.js"></script>
 <script src="../css/assets/katex/katex.min.js"></script>
 <script src="../css/assets/katex/contrib/auto-render.min.js"></script>
@@ -756,7 +756,9 @@
 
 </script>
         </div> 
-
+        <div style="font-size: small; background: whitesmoke; color: gray; position: fixed; bottom:0; padding: 5px; left:0; width:100%; height: 25px; text-align: right;">
+            Webmaster: Josep Mulet Pol - Version: 27-11-2019
+        </div>
 </body>
 
 </html>
