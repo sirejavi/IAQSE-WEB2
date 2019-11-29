@@ -65,9 +65,10 @@ dbFiles.forEach(file => {
 
         database.proves.forEach( prova => {
             if(prova.walkdir) {
+               
                 prova.documents = prova.documents || [];
-                const dir2 = path.join("static", prova.walkdir);
-                
+                const dir2 = path.join("./static", prova.walkdir);
+                console.log("Walk ", dir2) 
                 fs.readdirSync(dir2).forEach( file => {
                     prova.documents.push(dir2.replace("static", "")+file);
                 }); 
@@ -99,7 +100,7 @@ database.chunk = function (arr, chunkSize) {
         R.push(arr.slice(i, i + chunkSize));
     return R;
 }; 
-database.webmaster = "Josep Mulet Pol";
+database.webmaster = config.webmaster;
 const date = new Date();
 database.version =  date.getDate() + "-" + (date.getMonth()+1) + "-" + date.getFullYear();
 

@@ -1,20 +1,67 @@
 [
-       
-    {       "hidden": true,
-            "imprimible": true,
+    {       
+        "imprimible": true,
+            "aval": "2n ESO",
+            "nivell": "2nESO",
+            "tags": [
+                "2nESO",
+                "CMAT"
+            ],
+            "url": "documentos/proves/ad_2neso_mat_2017_imprimible/ad_2neso_mat_2017_imprimible.zip",
+            "url_title": "",
+            "img": "img/general/zip_img.png",
+            "title": "Prova de competència matemàtica de l'avaluació diagnòstic 2n d'ESO curs 2016-2017.",
+            "any": "2016-2017",
+            "documents": [],
+            "walkdir": "documentos/proves/ad_2neso_mat_2017_imprimible/contents/"
+    },
+    {       
+        "imprimible": true,
+            "aval": "2n ESO",
+            "nivell": "2nESO",
+            "tags": [
+                "2nESO",
+                "CCLC"
+            ],
+            "url": "documentos/proves/ad_2neso_cat_2017_imprimible/ad_2neso_cat_2017_imprimible.zip",
+            "url_title": "",
+            "img": "img/general/zip_img.png",
+            "title": "Prova competència en comunicació lingüística en llengua catalana avaluació diagnòstic 2n d'ESO curs 2016-2017.",
+            "any": "2016-2017",
+            "documents": [],
+            "walkdir": "documentos/proves/ad_2neso_cat_2017_imprimible/contents/"
+    },
+    {       
+        "imprimible": true,
+            "aval": "2n ESO",
+            "nivell": "2nESO",
+            "tags": [
+                "2nESO",
+                "CCLE"
+            ],
+            "url": "documentos/proves/ad_2neso_cast_2017_imprimible/ad_2neso_cast_2017_imprimible.zip",
+            "url_title": "",
+            "img": "img/general/zip_img.png",
+            "title": "Prova competència en comunicació lingüística en llengua castellana avaluació diagnòstic 2n d'ESO curs 2016-2017.",
+            "any": "2016-2017",
+            "documents": [],
+            "walkdir": "documentos/proves/ad_2neso_cast_2017_imprimible/contents/"
+    },       
+    {       
+        "imprimible": true,
             "aval": "2n ESO",
             "nivell": "2nESO",
             "tags": [
                 "2nESO",
                 "CCLA"
             ],
-            "url": "documentos/avaluacions/diagnostic/ad_2n_eso_2014_2015/ad_2n_eso_ang_2014_2015.zip",
-            "url_title": "Competència en comunicació lingüística en llengua anglesa (models de proves, audio, fulls respostes, claus i guia)",
+            "url": "documentos/proves/ad_2neso_ang_2017_imprimible/ad_2neso_ang_2017_imprimible.zip",
+            "url_title": "",
             "img": "img/general/zip_img.png",
-            "title": "Prova competència en comunicació lingüística en llengua anglesa avaluació diagnòstic 2n d'ESO curs 2014-2015.",
-            "any": "2014-2015",
+            "title": "Prova competència en comunicació lingüística en llengua anglesa avaluació diagnòstic 2n d'ESO curs 2016-2017.",
+            "any": "2016-2017",
             "documents": [],
-            "walkdir": "documentos/avaluacions/diagnostic/ad_2n_eso_2014_2015/"
+            "walkdir": "documentos/proves/ad_2neso_ang_2017_imprimible/contents/"
     },    
     {
         "aval": "2n ESO",

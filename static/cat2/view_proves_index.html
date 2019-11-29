@@ -53,7 +53,7 @@
 </div> 
      <!--optimitzat impressió-->
      <div   style="margin-left: 5px; margin-bottom: 5px;"></div>
-     <input type="checkbox" ng-change="search()" ng-model="selections.printable"/> <span>Optimitzades per impressió</span>
+     <input type="checkbox" ng-change="search()" ng-model="selections.printable"/>  <i class="fa fa-print" title="Optimitzades per impressió"></i> <span>Optimitzades per impressió</span>
     
 
     <hr />
@@ -72,7 +72,9 @@
                 </a>
             </div>
 
-            <p class="publication-title"><a href="../{{pub.url}}" target="_blank" title="{{pub.url_title}}"><span ng-bind="pub.title"></span></a></p>
+            <p class="publication-title">
+                <i class="fa fa-print" title="Optimitzada per impressió" ng-if="pub.imprimible"></i>
+                <a href="../{{pub.url}}" target="_blank" title="{{pub.url_title}}"><span ng-bind="pub.title"></span></a></p>
             <p ng-bind="pub.description"></p>
             <p class="fa-pull-right publication-date" ng-bind="pub.pubdate"></p>
 

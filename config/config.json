@@ -1,4 +1,5 @@
 {
+   "webmaster": "Josep Mulet",
    "encoding": "latin1",
    "minify_html": false,
    "bundles": [
