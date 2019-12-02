@@ -1,5 +1,4 @@
-<div ng-controller="imprimiblesController">
-     
+<div ng-controller="imprimiblesController"> 
         <div class="clearfix">
         <span class="filtrau">Filtrau per </span>
         <!--combo nivells-->
@@ -73,9 +72,9 @@
 
             <div ng-if="pub.documents" style="overflow: auto; height: 60px; margin-top:-5px">
                     <div  ng-repeat="doc in pub.documents">
-                        <a ng-href="../{{doc}}" target="_blank">
+                        <a ng-href="../{{encodeURI(doc)}}" target="_blank">
                             <i class="fa" ng-class="doc | icona"></i> 
-                            <span style="font-size: 90%;" ng-bind="doc | fileName"></span></a>
+                            <span style="font-size: 90%;" ng-bind="doc | fileName"></span></a> 
                     </div>
             </div>
         </div>
@@ -185,8 +184,11 @@
             }
             $scope.determinaAnys();
             $scope.search();
-        })
-        
+        });
+
+        $scope.encodeURI = function(url) { 
+            return encodeURI(url);
+        };
    
     }]);
 </script>

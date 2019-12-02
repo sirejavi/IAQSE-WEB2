@@ -70,7 +70,7 @@ dbFiles.forEach(file => {
                 const dir2 = path.join("./static", prova.walkdir);
                 console.log("Walk ", dir2) 
                 fs.readdirSync(dir2).forEach( file => {
-                    prova.documents.push(dir2.replace("static", "")+file);
+                    prova.documents.push(dir2.replace("static/", "")+file);
                 }); 
                 
             }
