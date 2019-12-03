@@ -359,6 +359,30 @@
             <div class="list-group-item-hover list-group-item clearfix" style="padding:5px">
                 <div class="">
 
+                        <div style="display:flex;align-items:center;padding:10px"> 
+                                <div style="float:left;width:90px">
+                                    <a href="documentos/avaluacions/pisa/pisa_2018/pisa2018-espanya.pdf" target="_blank">
+                                        
+                                        <img src="../img/avaluacions/pisa/pisa_2018/informe_pisa2018.png" style="width:55px">
+                                        
+                                        
+                                    </a>
+                                </div>
+                                <div style="float:left;margin-left:10px">
+                                        <p style="text-align:left;font-size:90%">
+                                    <a href="documentos/avaluacions/pisa/pisa_2018/pisa2018-espanya.pdf" target="_blank">
+                                         <span shorten-text="PISA 2018. Informe español" shorten-length="60"></span><br>
+                                         <span shorten-text="(Versión preliminar)" shorten-length="60" style="font-size:90%"></span>
+                                    </a>
+                                </p>
+                                </div>
+                        </div>
+                </div>
+            </div>
+            
+            <div class="list-group-item-hover list-group-item clearfix" style="padding:5px">
+                <div class="">
+
                         <div style="display:flex;align-items:center;padding:10px" class="alert-warning"> 
                                 <div style="float:left;width:90px">
                                     <a href="proves.html#!/imprimibles">
@@ -466,26 +490,6 @@
                 </div>
             </div>
             
-            <div class="list-group-item-hover list-group-item">
-                <div style="display:flex;align-items:center">
-                    <div style="float:left;width:90px">
-                        <a href="../documentos/publicacions/Informe_Executiu_6EP_2017_2018.pdf" target="_blank">
-                            
-                            <img src="../img/publicacions/Informe_Executiu_6EP_2017_2018.jpg" style="width:55px">
-                            
-                            
-                        </a>
-                    </div>
-                    <div style="float:left;margin-left:10px">
-                            <p style="text-align:left;font-size:90%">
-                        <a href="../documentos/publicacions/Informe_Executiu_6EP_2017_2018.pdf" target="_blank">
-                            <span shorten-text="Informe avaluació diagnòstica 2017-2018, Illes Balears, 6è d&#39;EP" shorten-length="70" style="font-size:90%"></span><br> 
-                        </a>
-                    </p>
-                    </div>
-                </div>
-            </div>
-            
         </div>
     </div>
 </div>
@@ -493,7 +497,7 @@
 <script>app.directive("shortenText",function(){return{restrict:"A",scope:{shortenText:"@",shortenLength:"="},template:'<span ng-bind="displayText" ng-mouseover="displayAll()" ng-mouseleave="displayShort()"></span>',controller:["$scope",function(t){var n=t.shortenLength||100;t.displayAll=function(){t.displayText=t.shortenText},t.displayShort=function(){if(t.shortenText&&t.shortenText.length>n){var e=t.shortenText.substring(n).indexOf(" ");t.displayText=t.shortenText.substring(0,n+e+1)+" ..."}else t.displayText=t.shortenText},t.displayShort()}]}}),app.controller("mainController",["$scope","$filter",function(e,t){}])</script></main>
                 </div>
             </div>
-                <footer class="py-1" style="width:100%;margin:0" title="Webmaster: Josep Mulet - Version: 2-12-2019">
+                <footer class="py-1" style="width:100%;margin:0" title="Webmaster: Josep Mulet - Version: 3-12-2019">
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-6">

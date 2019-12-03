@@ -288,7 +288,7 @@
     <script>app.controller("mainController",["$scope","httpService",function(o,l){o.chooseType=function(l){o.selectedType=window.enllacosJSON[l]},l.loadSchema("enllacos").then(function(l){enllacosJSON=l.data;for(var e=0,n=enllacosJSON.length;e<n;e++)enllacosJSON[e].length=enllacosJSON[e].list.length,enllacosJSON[e].list=chunker(enllacosJSON[e].list,2);o.chooseType(0)})}])</script></main>
                 </div>
             </div>
-                <footer class="py-1" style="width:100%;margin:0" title="Webmaster: Josep Mulet - Version: 2-12-2019">
+                <footer class="py-1" style="width:100%;margin:0" title="Webmaster: Josep Mulet - Version: 3-12-2019">
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-6">

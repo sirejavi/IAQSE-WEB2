@@ -249,7 +249,7 @@
 <script>app.controller("mainController",["$scope","httpService",function(u,e){u.pubs=[],u.pubslength=0,u.menuItems=[{label:"Sistema educatiu IB",value:"ISEIB",selected:!0},{label:"Resultats acadèmics",value:"RESULTATS",selected:!1}],u.select=function(e){for(var t=0,n=u.menuItems.length;t<n;t++)u.menuItems[t].selected=!1;e.selected=!0,u.display()},u.display=function(){for(var e=[],t=0,n=indicadorsJSON.length;t<n;t++){for(var s=indicadorsJSON[t],l=!0,a=0,c=u.menuItems.length;a<c;a++)u.menuItems[a].selected&&(l&=s.tag==u.menuItems[a].value);l&&e.push(s)}u.pubslength=e.length,u.pubs=chunker(e,2)},e.loadSchema("indicadors").then(function(e){indicadorsJSON=e.data,u.display()})}])</script></main>
                 </div>
             </div>
-                <footer class="py-1" style="width:100%;margin:0" title="Webmaster: Josep Mulet - Version: 2-12-2019">
+                <footer class="py-1" style="width:100%;margin:0" title="Webmaster: Josep Mulet - Version: 3-12-2019">
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-6">

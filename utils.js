@@ -241,4 +241,11 @@ utils.normalizeUrl=function(url){
 utils.normalizeText = function(txt) {
     return txt.replace(/\n/g, " ").replace(/\t/g, " ").replace(/  +/g, " ").trim();
 }
+// Baixa un nivell
+utils.normalitzaURL = function(url) { 
+    if(url!= null && !url.trim().startsWith("http")) {
+        return "../" + url;
+    }
+    return url;
+}
 module.exports = utils;

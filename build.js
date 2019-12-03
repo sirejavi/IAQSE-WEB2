@@ -58,7 +58,7 @@ dbFiles.forEach(file => {
         database[name] = utils.parseCsv(csvContents);
     }
 
-    if(file == "proves.json") {
+    if(name == "proves") {
                 
         // De la base de dades de proves...
         // Els items que contenen un dir="...", carregar els tots els documents dins documents []
@@ -76,6 +76,23 @@ dbFiles.forEach(file => {
             }
         });
 
+    }
+
+    // En la base de dades d'avaluacions convertir les url a les url reals
+    if(name.startsWith("avaluacions_")) {
+        console.log("Normalitzant url per a taula "+ name);
+        database[name].forEach( ava => {
+            if(ava.documents != null){
+                ava.documents.forEach((doc) => {
+                    if(doc.url!=null) {
+                        doc.url = utils.normalitzaURL(doc.url);
+                    }
+                    if(doc.img!=null) {
+                        doc.img = utils.normalitzaURL(doc.img);
+                    }
+                });
+            }
+        });
     }
 
     // Ho escriu al directori static però en format comprimit per reduir la mida de l'ajax

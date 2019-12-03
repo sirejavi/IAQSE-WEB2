@@ -1,6 +1,13 @@
 {
     "destacats": [
         {
+            "img": "img/avaluacions/pisa/pisa_2018/informe_pisa2018.png",
+            "url": "documentos/avaluacions/pisa/pisa_2018/pisa2018-espanya.pdf", 
+            "title": "PISA 2018. Informe español",
+            "description": "(Versión preliminar)",
+            "target": "_blank"
+        },
+        {
             "icon": "fa fa-print",
             "url": "proves.html#!/imprimibles", 
             "title": "Proves de diagnòstic",
