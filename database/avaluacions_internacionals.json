@@ -124,6 +124,34 @@
         "tag": " PISA",
         "documents": [
             {
+                "img": "img/avaluacions/pisa/pisa_2018/informe_pisa2018.png",
+                "url": "documentos/avaluacions/pisa/pisa_2018/pisa2018-espanya.pdf", 
+                "title": "PISA 2018. Informe español",
+                "description": "(Versión preliminar)",
+                "target": "_blank"
+            },
+            {
+                "img": "img/avaluacions/pisa/pisa_2018/oecd_pisa2018.png",
+                "url": "documentos/avaluacions/pisa/pisa_2018/pisa2018-oecd-vol1-en.pdf", 
+                "title": "PISA 2018. Informe OCDE - Volum 1",
+                "description": "PISA 2018. Informe OCDE - Volumn 1",
+                "target": "_blank"
+            },
+            {
+                "img": "img/avaluacions/pisa/pisa_2018/oecd_pisa2018.png",
+                "url": "documentos/avaluacions/pisa/pisa_2018/pisa2018-oecd-vol2-en.pdf", 
+                "title": "PISA 2018. Informe OCDE - Volum 2",
+                "description": "PISA 2018. Informe OCDE - Volum 2",
+                "target": "_blank"
+            },
+            {
+                "img": "img/avaluacions/pisa/pisa_2018/oecd_pisa2018.png",
+                "url": "documentos/avaluacions/pisa/pisa_2018/pisa2018-oecd-vol3-en.pdf", 
+                "title": "PISA 2018. Informe OCDE - Volum 3",
+                "description": "PISA 2018. Informe OCDE - Volum 3",
+                "target": "_blank"
+            },
+            {
                 "title": "Tríptics informatius per a les famílies (Castellà)",
                 "url": "documentos/avaluacions/pisa/pisa_2018/triptic_pisa_2018_cas.pdf",
                 "img": "img/avaluacions/pisa/pisa_2018/triptic_pisa_2018_cas.jpg",

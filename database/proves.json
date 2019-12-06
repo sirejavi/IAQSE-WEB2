@@ -1,4 +1,82 @@
-[
+    [
+        {
+            "aval": "6è EP",
+            "nivell": "6eEP",
+            "tags": [
+                "6eEP",
+                "CMAT"
+            ],
+            "url": "documentos/avaluacions/diagnostic/ad_6e_ep_2017_2018/ad_6e_ep_mat_2017_2018.zip",
+            "url_title": "Inclou instruccions, models i claus de resposta",
+            "img": "img/general/zip_img.png",
+            "title": "Prova competència en matemàtica avaluació diagnòstic 6è d'EP curs 2017-2018.",
+            "any": "2017-2018" 
+        },
+    {
+        "aval": "6è EP",
+        "nivell": "6eEP",
+        "tags": [
+            "6eEP",
+            "CCiT"
+        ],
+        "url": "documentos/avaluacions/diagnostic/ad_6e_ep_2017_2018/ad_6e_ep_cit_2017_2018.zip",
+        "url_title": "Inclou instruccions, models, claus de resposta i fitxers multimèdia",
+        "img": "img/general/zip_img.png",
+        "title": "Prova competència en ciència i tecnologia avaluació diagnòstic 6è d'EP curs 2017-2018.",
+        "any": "2017-2018" 
+    },
+    {
+        "aval": "6è EP",
+        "nivell": "6eEP",
+        "tags": [
+            "6eEP",
+            "CCLC"
+        ],
+        "url": "documentos/avaluacions/diagnostic/ad_6e_ep_2017_2018/ad_6e_ep_cat_2017_2018.zip",
+        "url_title": "Inclou instruccions, models, claus de resposta i fitxers multimèdia",
+        "img": "img/general/zip_img.png",
+        "title": "Prova competència en comunicació lingüística en llengua catalana avaluació diagnòstic 6è d'EP curs 2017-2018.",
+        "any": "2017-2018" 
+    }, 
+    {
+        "aval": "6è EP",
+        "nivell": "6eEP",
+        "tags": [
+            "6eEP",
+            "CCLC"
+        ],
+        "url": "documentos/avaluacions/diagnostic/ad_6e_ep_2017_2018/ad_6e_ep_oral_cat_2017_2018.zip",
+        "url_title": "Inclou instruccions, models, claus de resposta i fitxers multimèdia",
+        "img": "img/general/zip_img.png",
+        "title": "Prova competència en expressió oral en llengua catalana avaluació diagnòstic 6è d'EP curs 2017-2018.",
+        "any": "2017-2018" 
+    },
+    {
+        "aval": "6è EP",
+        "nivell": "6eEP",
+        "tags": [
+            "6eEP",
+            "CCLE"
+        ],
+        "url": "documentos/avaluacions/diagnostic/ad_6e_ep_2017_2018/ad_6e_ep_cast_2017_2018.zip",
+        "url_title": "Inclou instruccions, models, claus de resposta i fitxers multimèdia",
+        "img": "img/general/zip_img.png",
+        "title": "Prova competència en comunicació lingüística en llengua castellana avaluació diagnòstic 6è d'EP curs 2017-2018.",
+        "any": "2017-2018" 
+    },
+    {
+        "aval": "6è EP",
+        "nivell": "6eEP",
+        "tags": [
+            "6eEP",
+            "CCLA"
+        ],
+        "url": "documentos/avaluacions/diagnostic/ad_6e_ep_2017_2018/ad_6e_ep_ang_2017_2018.zip",
+        "url_title": "Inclou instruccions, models, claus de resposta i fitxers multimèdia",
+        "img": "img/general/zip_img.png",
+        "title": "Prova competència en comunicació lingüística en llengua anglesa avaluació diagnòstic 6è d'EP curs 2017-2018.",
+        "any": "2017-2018" 
+    },
     {       
         "imprimible": true,
             "aval": "2n ESO",

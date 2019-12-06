@@ -1,7 +1,7 @@
 {
    "webmaster": "Josep Mulet",
    "encoding": "latin1",
-   "minify_html": false,
+   "minify_html": true,
    "bundles": [
       {
          "type": "js",
