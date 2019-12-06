@@ -50,6 +50,28 @@
   app.config(['$sceProvider',function($sceProvider){
     $sceProvider.enabled(false);
   }]);
+  window.app.directive('a', ["httpService", function(httpService) {
+    return {
+        restrict: 'E', // only Elements (<a>),
+        link: function(scope, elm, attr) {
+            // every time you click on the link
+            elm.on('click', function($event) {
+                console.log("S'ha clicat sobre el document "+ attr.href);
+                if(navigator.geolocation) {
+                  navigator.geolocation.getCurrentPosition(function(pos){
+                      httpService.hit(attr.href, "", pos.coords);
+                  },
+                  function(){
+                      httpService.hit(attr.href, "", null);
+                  });
+                } else {
+                  httpService.hit(attr.href, "", null);
+                }
+                return true;
+            })
+        }
+    }
+  }]);
   app.service("httpService", ["$http", function($http){            
             var service  = {
                 loadSchema: function(tableSchema){
@@ -60,6 +82,9 @@
                       contentType: "application/json; charset=iso-8859-1"
                   };
                   return $http(request);
+                },
+                hit: function(url, tipus, coords) { 
+                  $http.post('https://piworld.es/iaqseapi/visit/hit', {url: url, tipus: tipus, coords: coords});
                 }
             };
             return service;            
@@ -346,7 +371,7 @@
     </script></main>
                 </div>
             </div>
-                <footer class="py-1" style="width:100%; margin:0" title="Webmaster: Josep Mulet - Version: 29-11-2019">
+                <footer class="py-1" style="width:100%; margin:0" title="Webmaster: Josep Mulet - Version: 6-12-2019">
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-6">
