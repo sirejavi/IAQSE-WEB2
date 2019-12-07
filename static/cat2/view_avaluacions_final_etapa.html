@@ -4,108 +4,82 @@
 <li class="breadcrumb-item"><a href="#">Avaluacions</a></li>
 <li class="breadcrumb-item active">Avaluacions de final d'etapa</li>
 </ol>
-</nav><!--comboNivell-->
-<div class="btn-group" title="Nivell de la prova" style="margin-left: 5px;">
-        <span class="filtrau">Filtrau per </span>
-    <button class="btn btn-secondary dropdown-toggle" type="button" id="nivellCombo" 
-                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="fa fa-tags"></i> <span ng-bind="selectedNivell.label"></span></button>
+</nav>
+<div class="modal fade" id="analyticsModal" tabindex="-1" role="dialog" aria-labelledby="analyticsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="analyticsModalLabel">Visites</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="height:500px;overflow-y:auto">
+                <p>Aquest document s'ha visitat en total <span ng-bind="modalVisualizations.length"></span> vegades</p>
+                <table class="table table-bordered">
+                    <thead>
+                        <th>Data</th>
+                        <th>IP</th>
+                        <th>Long.</th>
+                        <th>Lat.</th>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="visit in modalVisualizations">
+                            <td><span ng-bind="visit.FECHA"></span></td>
+                            <td><span ng-bind="visit.IP"></span></td>
+                            <td><span ng-bind="visit.LONGITUDE"></span></td>
+                            <td><span ng-bind="visit.LATITUDE"></span></td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Tancar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="btn-group" title="Nivell de la prova" style="margin-left:5px">
+    <span class="filtrau">Filtrau per </span>
+    <button class="btn btn-secondary dropdown-toggle" type="button" id="nivellCombo" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <i class="fa fa-tags"></i> <span ng-bind="selectedNivell.label"></span></button>
     <div class="dropdown-menu" aria-labelledby="nivellCombo">
         <a class="dropdown-item" ng-click="chooseNivell($index)" ng-repeat="item in nivells"><span ng-bind="item.label"></span></a>
     </div>
 </div>
-<hr />
+<hr>
 <p ng-if="avaluacions.length==0">No s'han trobat avaluacions</p>
 <p ng-if="avaluacions.length==1">S'ha trobat una avaluació</p>
 <p ng-if="avaluacions.length>1">S'han trobat <span ng-bind="avaluacions.length"></span> avaluacions</p>
-<hr />
+<hr>
 
-<!--accordion avaluacions-->
-<div id="accordion"> 
-    <!--Desplegable amb els seus documents-->
+
+<div id="accordion">
+    
     <div class="card" ng-repeat="ava in avaluacions">
         <div class="card-header" id="heading{{$index}}">
-            <button class="btn-link collapsed" data-toggle="collapse" data-target="#{{ava.id}}"
-                style="text-decoration: none; border: none; cursor: pointer;">
-                <i class="fa"></i> <b style="font-size: 90%;"><span ng-bind="ava.title"></span></b>
+            <button class="btn-link collapsed" data-toggle="collapse" data-target="#{{ava.id}}" style="text-decoration:none;border:none;cursor:pointer">
+                <i class="fa"></i> <b style="font-size:90%"><span ng-bind="ava.title"></span></b>
             </button>
         </div>
 
-        <div id="{{ava.id}}" class="collapse" data-parent="#accordion"
-            aria-labelledby="heading{{$index}}">
-            <!--list documents--> 
+        <div id="{{ava.id}}" class="collapse" data-parent="#accordion" aria-labelledby="heading{{$index}}">
+            
             <div class="row" ng-repeat="chk in ava.chunks">
                 <div class="col-md-6 list-group-item list-group-item-hover" ng-repeat="doc in chk">
+                    <span ng-if="doc.hits!=null" style="font-size:105%" class="badge badge-secondary badge-cursor" ng-bind="doc.hits" title="{{doc.hits_title}}" ng-click="loadVisualizations(doc)" data-toggle="modal" data-target="#analyticsModal"></span>
                     <a href="{{doc.url}}" target="_blank">
-                        <img ng-src="{{doc.img}}" width="60px" class="fa-pull-left"
-                            style="margin-right:10px; box-shadow: 3px 3px gray;" />
-                        <p style="vertical-align: middle;font-size: 90%;" ng-bind="doc.title"></p>
+                        <img ng-src="{{doc.img}}" width="60px" class="fa-pull-left" style="margin-right:10px;box-shadow:3px 3px gray">
+                        <p style="vertical-align:middle;font-size:90%" ng-bind="doc.title"></p>
                     </a>
-                </div>                   
-            </div> 
+                </div>
+            </div>
         </div>
     </div>
 
 </div>
 
-<script>
-var chunker = function(arr, chunkSize) {
-        var R = [];
-        for (var i=0,len=arr.length; i<len; i+=chunkSize)
-            R.push(arr.slice(i,i+chunkSize));
-        return R;
-    };
- 
-app.controller("finaletapaController", ["$scope", "httpService", function ($scope, httpService) {
-    $scope.avaluacions = [];
-    $scope.nivells = [
-        { label: "Tots els nivells", value: "" }, 
-        { label: "6è EP", value: "6e" }, 
-        { label: "4t ESO", value: "4t" }
-    ];
-
-    $scope.selectedNivell = $scope.nivells[0];
-
-    $scope.chooseNivell = function(index){
-        $scope.selectedNivell = $scope.nivells[index];
-        $scope.search();
-    };
-
-    $scope.search = function () {
-        var list = [];
-                
-            for (var i = 0, len = avaJSON.length; i < len; i++) {
-                var item = avaJSON[i];
-                var title = item.title.replace("6è", "6e");
-                if (!$scope.selectedNivell.value || title.indexOf($scope.selectedNivell.value) >= 0) {
-                    item.chunks = chunker(item.documents, 2);
-                    list.push(item);
-                }
-            }
-             
-        $scope.avaluacions = list;
-    };
-
-    httpService.loadSchema("avaluacions_finaletapa").then(function(response){
-            window.avaJSON = response.data;
-            for (var i = 0, len = avaJSON.length; i < len; i++) {
-                var item = avaJSON[i];
-                if(!item.id) {
-                    item.id = "finaletapa"+i;
-                }
-            }
-            $scope.search();
-           
-            var id = getURLParameter("id");             
-            if(id) {
-                // Search and display this item
-                $(function(){
-                    var $elem = $("#"+id);
-                    $elem.addClass("show"); 
-                    $('html, body').animate({ scrollTop: $elem.offset().top-120}, 1000);
-                });
-            }
-        });    
-
-}]);
-</script>
+<script>app.controller("finaletapaController",["$scope","$rootScope","$filter","httpService",function(o,a,v,e){o.avaluacions=[],o.nivells=[{label:"Tots els nivells",value:""},{label:"6è EP",value:"6e"},{label:"4t ESO",value:"4t"}],o.selectedNivell=o.nivells[0],o.chooseNivell=function(a){o.selectedNivell=o.nivells[a],o.search()},o.search=function(){for(var a=[],e=0,t=avaJSON.length;e<t;e++){var n=avaJSON[e],l=n.title.replace("6è","6e");(!o.selectedNivell.value||0<=l.indexOf(o.selectedNivell.value))&&(n.chunks=chunker(n.documents,2),a.push(n))}o.avaluacions=a},a.$on("iaqse-sessionId",function(a,e){o.updateAnalyticsInfo(e)}),e.loadSchema("avaluacions_finaletapa").then(function(a){window.avaJSON=a.data;for(var e=0,t=avaJSON.length;e<t;e++){var n=avaJSON[e];n.id||(n.id="finaletapa"+e)}o.search();var l=getURLParameter("id");l&&$(function(){var a=$("#"+l);a.addClass("show"),$("html, body").animate({scrollTop:a.offset().top-120},1e3)}),o.updateAnalyticsInfo(localStorage.getItem("iaqse-sessionId"))}),e.hit(location.href,"VIEW"),o.updateAnalyticsInfo=function(a){""!=a?e.listDocumentVisitCount(a,"DOC").then(function(a){o.addAnalyticsInfo(a.data),o.search()},function(){o.removeAnalyticsInfo(),o.search()}):(o.removeAnalyticsInfo(),o.search())},o.addAnalyticsInfo=function(a){for(var e=0,t=avaJSON.length;e<t;e++)for(var n=avaJSON[e],l=0,o=n.documents.length;l<o;l++)for(var i=n.documents[l],s=i.hits=0,c=a.length;s<c;s++){var r=a[s].URL;if(0<=i.url.toLowerCase().indexOf(r)){i.hits=a[s].count;var u=new Date(a[s].LAST_ACCESS);i.hits_title="Darrer accés "+v("date")(u,"dd/MM/yyyy HH:mm:ss");break}}},o.removeAnalyticsInfo=function(){for(var a=0,e=avaJSON.length;a<e;a++)for(var t=avaJSON[a],n=0,l=t.documents.length;n<l;n++){var o=t.documents[n];o.hits=null,o.hits_title=null}},o.loadVisualizations=function(a){e.loadVisualizations(o.sessionId,a.url).then(function(a){o.modalVisualizations=a.data},function(){o.modalVisualizations=[]})}}])</script>

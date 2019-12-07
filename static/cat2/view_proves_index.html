@@ -5,7 +5,7 @@
 <li class="breadcrumb-item active">Originals</li>
 </ol>
 </nav><div ng-controller="indexController"> 
-    <!-- Modal -->
+    
 <div class="modal fade" id="analyticsModal" tabindex="-1" role="dialog" aria-labelledby="analyticsModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
           <div class="modal-content">
@@ -15,7 +15,7 @@
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
-            <div class="modal-body" style="height: 500px; overflow-y: auto;">      
+            <div class="modal-body" style="height:500px;overflow-y:auto">      
                 <p>Aquest document s'ha visitat en total <span ng-bind="modalVisualizations.length"></span> vegades</p>          
                 <table class="table table-bordered">
                     <thead>
@@ -33,7 +33,7 @@
                     </tr>
                     </tbody>
                 </table>
-                </tbody>                
+                                
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Tancar</button> 
@@ -44,41 +44,37 @@
     
         <div class="clearfix">
         <span class="filtrau">Filtrau per </span>
-        <!--combo nivells-->
-        <div class="btn-group float-left" title="Nivell de la prova" style="margin-left: 5px; margin-bottom: 5px;">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="nivellCombo" 
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        
+        <div class="btn-group float-left" title="Nivell de la prova" style="margin-left:5px;margin-bottom:5px">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="nivellCombo" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="fa fa-tags"></i> <span ng-bind="selections.nivell.label"></span></button>
             <div class="dropdown-menu" aria-labelledby="nivellCombo">
                 <a class="dropdown-item" ng-click="selectNivell($index)" ng-repeat="item in nivells"><span ng-bind="item.label"></span></a>
             </div>
         </div>
-         <!--combo competència-->
-         <div class="btn-group float-left" title="Competència" style="margin-left: 5px; margin-bottom: 5px;">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="competenciaCombo" 
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+         
+         <div class="btn-group float-left" title="Competència" style="margin-left:5px;margin-bottom:5px">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="competenciaCombo" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="fa fa-tags"></i> <span ng-bind="selections.competencia.label"></span></button>
                 <div class="dropdown-menu" aria-labelledby="competenciaCombo">
                     <a class="dropdown-item" ng-click="selectCompetencia($index)" ng-repeat="item in competencies"><span ng-bind="item.label"></span></a>
                 </div>
         </div>
-         <!--combo anys -->
-         <div class="btn-group float-left" title="Any de la prova" style="margin-left: 5px; margin-bottom: 5px;">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="anyCombo" 
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+         
+         <div class="btn-group float-left" title="Any de la prova" style="margin-left:5px;margin-bottom:5px">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="anyCombo" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="fa fa-tags"></i> <span ng-bind="selections.any.label"></span></button>
-                <div class="dropdown-menu" aria-labelledby="anyCombo" style="overflow: scroll; max-height: 300px;">
+                <div class="dropdown-menu" aria-labelledby="anyCombo" style="overflow:scroll;max-height:300px">
                     <a class="dropdown-item" ng-click="selectAny($index)" ng-repeat="item in anys"><span ng-bind="item.label"></span></a>
                 </div>
         </div>
        
 
-        <!--altres-->
-        <div class="btn-group float-left" title="Any de la prova" style="margin-left: 5px; margin-bottom: 5px;">
-            <button class="btn btn-info dropdown-toggle" type="button" id="versions" 
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        
+        <div class="btn-group float-left" title="Any de la prova" style="margin-left:5px;margin-bottom:5px">
+            <button class="btn btn-info dropdown-toggle" type="button" id="versions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="fa fa-star"></i> <span>Altres formats</span></button>
-            <div class="dropdown-menu" aria-labelledby="versions" style="overflow: scroll; max-height: 300px;">
+            <div class="dropdown-menu" aria-labelledby="versions" style="overflow:scroll;max-height:300px">
                 <a class="dropdown-item" ng-click="selections.printable=true; search();">
                         <i class="fa fa-print"></i>  <span>Proves per imprimir</span></a>
                 <a class="dropdown-item" href="#!interactives">
@@ -87,207 +83,43 @@
     </div>
  
 </div> 
-     <!--optimitzat impressió-->
-     <div   style="margin-left: 5px; margin-bottom: 5px;"></div>
-     <input type="checkbox" ng-change="search()" ng-model="selections.printable"/>  <i class="fa fa-print" title="Optimitzades per impressió"></i> <span>Optimitzades per impressió</span>
+     
+     <div style="margin-left:5px;margin-bottom:5px"></div>
+     <input type="checkbox" ng-change="search()" ng-model="selections.printable">  <i class="fa fa-print" title="Optimitzades per impressió"></i> <span>Optimitzades per impressió</span>
     
 
-    <hr />
+    <hr>
     <p ng-if="pubslength==0">No s'han trobat proves</p>
     <p ng-if="pubslength==1">S'ha trobat una prova</p>
     <p ng-if="pubslength>1">S'han trobat <span ng-bind="pubslength"></span> proves</p>
-    <hr />
+    <hr>
 
     <div class="list-group">
         <div class="row" ng-repeat="chunk in pubs">
         <div class="col-md-6 list-group-item list-group-item-hover" ng-repeat="pub in chunk">
             <div class="fa-pull-left">            
                 <a href="../{{pub.url}}" target="_blank">
-                    <img ng-src="../{{pub.img}}" class="proves-img" />
+                    <img ng-src="../{{pub.img}}" class="proves-img">
                 </a>
             </div>
 
             <p class="publication-title">
-                <span ng-if="pub.hits!=null" style="font-size: 105%;" class="badge badge-secondary badge-cursor" ng-bind="pub.hits"
-                    title="{{pub.hits_title}}" ng-click="loadVisualizations(pub)" data-toggle="modal" data-target="#analyticsModal"></span>
+                <span ng-if="pub.hits!=null" style="font-size:105%" class="badge badge-secondary badge-cursor" ng-bind="pub.hits" title="{{pub.hits_title}}" ng-click="loadVisualizations(pub)" data-toggle="modal" data-target="#analyticsModal"></span>
                 <i class="fa fa-print" title="Optimitzada per impressió" ng-if="pub.imprimible"></i>
                 <a href="../{{pub.url}}" target="_blank" title="{{pub.url_title}}"><span ng-bind="pub.title"></span></a></p>
             <p ng-bind="pub.description"></p>
             <p class="fa-pull-right publication-date" ng-bind="pub.pubdate"></p>
 
 
-            <div ng-if="pub.documents" style="overflow: auto; height: 60px; margin-top:-5px">
-                    <div  ng-repeat="doc in pub.documents">
+            <div ng-if="pub.documents" style="overflow:auto;height:60px;margin-top:-5px">
+                    <div ng-repeat="doc in pub.documents">
                         <a ng-href="../{{encodeURI(doc)}}" target="_blank">
                             <i class="fa" ng-class="doc | icona"></i> 
-                            <span style="font-size: 90%;" ng-bind="doc | fileName"></span></a>
+                            <span style="font-size:90%" ng-bind="doc | fileName"></span></a>
                     </div>
             </div>
         </div>
         </div>
     </div>
 </div>
-<script>
-    app.controller("indexController", ["$scope", "$filter", "httpService", function ($scope, $filter, httpService) {
-        $scope.pubs = [];
-        $scope.pubslength = 0;
-
-        $scope.nivells = [
-            {label:"Tots els nivells", value: ""},
-            {label:"3r EP", value: "3rEP"},
-            {label:"6è EP", value: "6eEP"},
-            {label:"2n ESO", value: "2nESO"},
-            {label:"4t ESO", value: "4tESO"} 
-            ];
-        $scope.competencies = [
-            {label: "Totes les competències", value: ""},
-            {label: "Competència Llengua Anglesa", value: "CCLA"},
-            {label: "Competència Llengua Castellana", value: "CCLE"},
-            {label: "Competència Llengua Catalana", value: "CCLC"},
-            {label: "Competència Matemàtica", value: "CMAT"},
-            {label: "Competència Ciència i Tecnologia", value: "CCiT"}            
-        ];
-        // Els anys es determinen en funció del nivell i la competència seleccionades
-        $scope.determinaAnys = function() {
-            $scope.anys = [];
-            // Determina els anys
-            for(var i=0, len=provesJSON.length; i<len; i++) {
-                var item = provesJSON[i];           
-                var nivellSelected = $scope.selections.nivell.value;
-                var competenciaSelected = $scope.selections.competencia.value;
-                if(item.any && (!nivellSelected || item.nivell == nivellSelected) &&
-                   (!competenciaSelected || item.tags.indexOf(competenciaSelected)>=0)) {
-                    var found = false;
-                    var k = 0;
-                    var n = $scope.anys.length;
-                    while(!found && k < n) {
-                        found = $scope.anys[k].value == item.any; 
-                        k++;
-                    }
-                    if(!found) {
-                        $scope.anys.push({label: item.any, value: item.any});
-                    }
-                }
-            }
-            // ordena
-            $scope.anys = $filter("orderBy")($scope.anys, "+label", true);
-            $scope.anys.unshift({label: "Tots els anys", value: -1});
-            $scope.selectAny(0);
-        };
-        $scope.selections = {
-            nivell: $scope.nivells[0],
-            competencia: $scope.competencies[0],
-            printable: false
-        };
-        $scope.selectNivell = function(index) {
-            $scope.selections.nivell = $scope.nivells[index];
-            $scope.determinaAnys() 
-            $scope.search();
-        };
-        $scope.selectCompetencia = function(index) {
-            $scope.selections.competencia = $scope.competencies[index];
-            $scope.determinaAnys();
-            $scope.search();                        
-        };
-        $scope.selectAny = function(index) {
-            $scope.selections.any = $scope.anys[index];
-            $scope.search();
-        };
-
-        $scope.search = function () { 
-            var list = [];
-            var nivellSelected = $scope.selections.nivell.value;
-            var competenciaSelected = $scope.selections.competencia.value;
-            for(var i=0, len = provesJSON.length; i<len; i++) {
-                var item = provesJSON[i];
-                if( (!nivellSelected || item.nivell == nivellSelected) &&
-                   (!competenciaSelected || item.tags.indexOf(competenciaSelected)>=0) &&
-                   ( $scope.selections.any.value==-1 || item.any==$scope.selections.any.value ) &&
-                   ( !$scope.selections.printable || ($scope.selections.printable && item.imprimible))) {
-                    list.push(item);
-                }
-            } 
-            $scope.pubslength = list.length;
-            $scope.pubs = chunker(list, 2); 
-        };
-   
-        $scope.encodeURI = function(url) {
-            return encodeURI(url);
-        };
-
-        $scope.keypress = function (keyEvent) {
-            if (keyEvent.which === 13) {
-                $scope.search();
-            }
-        }; 
-        
-        httpService.loadSchema("proves").then(function(response){
-            window.provesJSON = [];
-            // filtra per proves imprimibles
-            for(var i=0, len=response.data.length; i<len; i++)
-            {
-                var item = response.data[i];
-                if(!item.hidden) {
-                    window.provesJSON.push(item);
-                }
-            }
-            $scope.determinaAnys();
-            $scope.search();
-            
-                $scope.updateAnalyticsInfo(localStorage.getItem("iaqse-sessionId"));
-            
-        });
-
-        
-            httpService.hit(location.href, "PAGE");
-           
-
-            $scope.updateAnalyticsInfo = function (sessionId) {
-                if (sessionId != "") {
-                    httpService.listDocumentVisitCount("DOC", sessionId).then(function (res) {
-                        $scope.addAnalyticsInfo(res.data);
-                        $scope.search();
-                    }, function () {
-                        $scope.removeAnalyticsInfo();
-                        $scope.search();
-                    });
-                } else {
-                    $scope.removeAnalyticsInfo();
-                    $scope.search();
-                }
-            };
-
-            $scope.addAnalyticsInfo = function (data) {
-                for (var i = 0, len = provesJSON.length; i < len; i++) {
-                    var pub = provesJSON[i];
-                    pub.hits = 0;
-                    for (var j = 0, len2 = data.length; j < len2; j++) {
-                        var url = data[j].URL;
-                        if (pub.url.toLowerCase().indexOf(url) >= 0) {
-                            pub.hits = data[j].count;
-                            var date = new Date(data[j].LAST_ACCESS);
-                            pub.hits_title = "Darrer accés " + $filter('date')(date, 'dd/MM/yyyy HH:mm:ss');
-                            break;
-                        }
-                    }
-                }
-            };
-
-            $scope.removeAnalyticsInfo = function() {
-                for (var i = 0, len = provesJSON.length; i < len; i++) {
-                    var pub = provesJSON[i];
-                    pub.hits = null;
-                    pub.hits_title = null;
-                }
-            }
-            $scope.loadVisualizations = function(pub){
-                httpService.loadVisualizations(pub.url, $scope.sessionId).then(function(res){
-                    $scope.modalVisualizations = res.data;
-                }, function(){
-                    $scope.modalVisualizations = [];
-                });
-            };
-            
-      
-    }]);
-</script>
+<script>app.controller("indexController",["$scope","$rootScope","$filter","httpService",function(c,e,r,n){c.pubs=[],c.pubslength=0,c.nivells=[{label:"Tots els nivells",value:""},{label:"3r EP",value:"3rEP"},{label:"6è EP",value:"6eEP"},{label:"2n ESO",value:"2nESO"},{label:"4t ESO",value:"4tESO"}],c.competencies=[{label:"Totes les competències",value:""},{label:"Competència Llengua Anglesa",value:"CCLA"},{label:"Competència Llengua Castellana",value:"CCLE"},{label:"Competència Llengua Catalana",value:"CCLC"},{label:"Competència Matemàtica",value:"CMAT"},{label:"Competència Ciència i Tecnologia",value:"CCiT"}],c.determinaAnys=function(){c.anys=[];for(var e=0,n=provesJSON.length;e<n;e++){var a=provesJSON[e],l=c.selections.nivell.value,s=c.selections.competencia.value;if(a.any&&(!l||a.nivell==l)&&(!s||0<=a.tags.indexOf(s))){for(var t=!1,i=0,o=c.anys.length;!t&&i<o;)t=c.anys[i].value==a.any,i++;t||c.anys.push({label:a.any,value:a.any})}}c.anys=r("orderBy")(c.anys,"+label",!0),c.anys.unshift({label:"Tots els anys",value:-1}),c.selectAny(0)},c.selections={nivell:c.nivells[0],competencia:c.competencies[0],printable:!1},c.selectNivell=function(e){c.selections.nivell=c.nivells[e],c.determinaAnys(),c.search()},c.selectCompetencia=function(e){c.selections.competencia=c.competencies[e],c.determinaAnys(),c.search()},c.selectAny=function(e){c.selections.any=c.anys[e],c.search()},e.$on("iaqse-sessionId",function(e,n){c.updateAnalyticsInfo(n)}),c.search=function(){for(var e=[],n=c.selections.nivell.value,a=c.selections.competencia.value,l=0,s=provesJSON.length;l<s;l++){var t=provesJSON[l];n&&t.nivell!=n||a&&!(0<=t.tags.indexOf(a))||-1!=c.selections.any.value&&t.any!=c.selections.any.value||!(!c.selections.printable||c.selections.printable&&t.imprimible)||e.push(t)}c.pubslength=e.length,c.pubs=chunker(e,2)},c.encodeURI=function(e){return encodeURI(e)},c.keypress=function(e){13===e.which&&c.search()},n.loadSchema("proves").then(function(e){window.provesJSON=[];for(var n=0,a=e.data.length;n<a;n++){var l=e.data[n];l.hidden||window.provesJSON.push(l)}c.determinaAnys(),c.search(),c.updateAnalyticsInfo(localStorage.getItem("iaqse-sessionId"))}),n.hit(location.href,"PAGE"),c.updateAnalyticsInfo=function(e){""!=e?n.listDocumentVisitCount(e,"DOC").then(function(e){c.addAnalyticsInfo(e.data),c.search()},function(){c.removeAnalyticsInfo(),c.search()}):(c.removeAnalyticsInfo(),c.search())},c.addAnalyticsInfo=function(e){for(var n=0,a=provesJSON.length;n<a;n++)for(var l=provesJSON[n],s=l.hits=0,t=e.length;s<t;s++){var i=e[s].URL;if(0<=l.url.toLowerCase().indexOf(i)){l.hits=e[s].count;var o=new Date(e[s].LAST_ACCESS);l.hits_title="Darrer accés "+r("date")(o,"dd/MM/yyyy HH:mm:ss");break}}},c.removeAnalyticsInfo=function(){for(var e=0,n=provesJSON.length;e<n;e++){var a=provesJSON[e];a.hits=null,a.hits_title=null}},c.loadVisualizations=function(e){n.loadVisualizations(c.sessionId,e.url).then(function(e){c.modalVisualizations=e.data},function(){c.modalVisualizations=[]})}}])</script>

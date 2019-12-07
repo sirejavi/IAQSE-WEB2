@@ -41,7 +41,7 @@
 </style>
 
 <h5>Consola d'administració</h5>
-<div ng-if="status.authenticated==false" class="alert alert-danger">
+<div ng-if="!status.authenticated" class="alert alert-danger">
     No estau autenticat per accedir a aquesta pàgina.
 </div>
 <div ng-if="status.authenticated">
@@ -271,7 +271,7 @@
             };
 
             $scope.loadDocuments = function () {
-                httpService.listDocumentsTipus($scope.tipusSelected, $scope.sessionId).then(function (res) {
+                httpService.listDocumentsTipus($scope.sessionId, $scope.tipusSelected).then(function (res) {
                     $scope.documents = res.data;
                     $scope.documentSelected = null;
                     $scope.loadTimeline();
@@ -282,7 +282,7 @@
 
             // Load timeline
             $scope.loadTimeline = function () {
-                httpService.visitTimeline($scope.documentSelected, $scope.fromDate, $scope.toDate, $scope.sessionId).then(function (res) {
+                httpService.visitTimeline($scope.sessionId, $scope.documentSelected, $scope.fromDate, $scope.toDate).then(function (res) {
                     $scope.timeline = res.data;
                     $(function () {
                         setTimeout(function () {

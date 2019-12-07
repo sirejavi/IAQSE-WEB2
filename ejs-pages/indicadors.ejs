@@ -131,7 +131,7 @@
 
             $scope.updateAnalyticsInfo = function (sessionId) {
                 if (sessionId != "") {
-                    httpService.listDocumentVisitCount("DOC", sessionId).then(function (res) {
+                    httpService.listDocumentVisitCount(sessionId, "DOC").then(function (res) {
                         $scope.addAnalyticsInfo(res.data);
                         $scope.display();
                     }, function () {
@@ -168,7 +168,7 @@
                 }
             }
             $scope.loadVisualizations = function(pub){
-                httpService.loadVisualizations(pub.url, $scope.sessionId).then(function(res){
+                httpService.loadVisualizations($scope.sessionId, pub.url).then(function(res){
                     $scope.modalVisualizations = res.data;
                 }, function(){
                     $scope.modalVisualizations = [];

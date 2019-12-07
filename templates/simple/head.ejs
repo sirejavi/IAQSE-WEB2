@@ -62,9 +62,12 @@
           if (attr.href != null) {
             var url = attr.href;
             if (url.startsWith("#")) {
-              url = location.href;
+              url = location.href.split("#")[0]+url;
             }
-            httpService.hit(url, "");
+            var tipus = attr.tipus; 
+            if(tipus!='none'){
+                httpService.hit(url, tipus);
+            }
           }
           return true;
         })
@@ -123,16 +126,16 @@
     listTipus: function(sessionId) {
       return $http.post('<%=config.remoteURL%>/priv/document/tipus/list', { sessionId: sessionId });
     },
-    listDocumentsTipus: function(tipus, sessionId) {
+    listDocumentsTipus: function(sessionId, tipus) {
       return $http.post('<%=config.remoteURL%>/priv/document/list', { tipus: tipus, sessionId: sessionId});
     },
-    listDocumentVisitCount: function(tipus, sessionId) { 
+    listDocumentVisitCount: function(sessionId, tipus) { 
       return $http.post('<%=config.remoteURL%>/priv/visit/list', { tipus: tipus, sessionId: sessionId });
     }, 
-    visitTimeline: function (url, sqlDate1, sqlDate2, sessionId) {
+    visitTimeline: function (sessionId, url, sqlDate1, sqlDate2) {
        return $http.post('<%=config.remoteURL%>/priv/visit/timeline', { url: url, sqlDate1: sqlDate1, sqlDate2: sqlDate2, sessionId: sessionId });
     },
-    loadVisualizations: function(url, sessionId) {
+    loadVisualizations: function(sessionId, url, sessionId) {
       return $http.post('<%=config.remoteURL%>/priv/visit/history', {url:url, sessionId: sessionId });
     },
     geolocations: function(sessionId){

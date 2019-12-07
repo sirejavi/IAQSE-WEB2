@@ -4,12 +4,12 @@
     <head>
         <meta charset="iso-8859-1">
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
 <meta name="description" content="Institut d'avaluació i qualitat del sistema educatiu">
 <meta name="author" content="iaqse@iaqse.caib.es">
-<meta name="language" content="cat" />
+<meta name="language" content="cat">
 
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
 <meta name="robots" content="index,follow">
 <meta name="document-classification" content="Education">
@@ -26,283 +26,17 @@
 <script src="iaqse_bundle1.min.js"></script>
 
 
-<script>
-  window.addCssLink = function(url){
-    var link = document.createElement('link');  
-    link.rel = 'stylesheet';  
-    link.type = 'text/css'; 
-    link.href = url;  
-    document.getElementsByTagName('head')[0].appendChild(link);  
-  };
-  window.chunker = function (arr, chunkSize) {
-    var R = [];
-    for (var i = 0, len = arr.length; i < len; i += chunkSize)
-      R.push(arr.slice(i, i + chunkSize));
-    return R;
-  };
-  window.getURLParameter = function (name) {
-    var regexS = "[\\?&]" + name + "=([^&#]*)",
-      regex = new RegExp(regexS),
-      results = regex.exec(window.location.search);
-    if (results == null) {
-      results = regex.exec(window.location.href);
-    }
-    if (results == null) {
-      return "";
-    } else {
-      return decodeURIComponent(results[1].replace(/\+/g, " "));
-    }
-  };
-  window.app = angular.module("iaqse", ["ngRoute", "ngSanitize", "ngAnimate"]);
-  app.config(['$sceProvider', function ($sceProvider) {
-    $sceProvider.enabled(false);
-  }]);
-  window.app.directive('a', ["httpService", function (httpService) {
-    return {
-      restrict: 'E', // only Elements (<a>),
-      link: function (scope, elm, attr) {
-        // every time you click on the link
-        elm.on('click', function ($event) {
-          if (attr.href != null) {
-            var url = attr.href;
-            if (url.startsWith("#")) {
-              url = location.href;
-            }
-            httpService.hit(url, "");
-          }
-          return true;
-        })
-      }
-    }
-  }]);
-  app.service("geolocation", ["$q", function ($q) {
-    var positionCache = null;
-    var options = {
-      timeout: 5000
-    }
-    var service = {};
-    service.getCurrentPosition = function () {
-      var deferred = $q.defer();
-      if (positionCache != null) {
-        deferred.resolve(positionCache);
-      } else {
-        if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(function (pos) {
-            positionCache = { latitude: pos.coords.latitude, longitude: pos.coords.longitude };
-            deferred.resolve(positionCache);
-          }, function () {
-            deferred.reject();
-          }, options);
-        } else {
-          positionCache = {};
-          deferred.resolve(positionCache);
-        }
-      }
-      return deferred.promise;
-    };
-    return service;
-  }]);
-  app.service("httpService", ["$http", "geolocation", function ($http, geolocation) {
-    var service = {
-      loadSchema: function (tableSchema) {
-        var request = {
-          method: 'get',
-          url: 'database/' + tableSchema + '.json',
-          dataType: 'json',
-          contentType: "application/json; charset=iso-8859-1"
-        };
-        return $http(request);
-      }
-        
-      ,
-          isAuthenticated: function(sessionId) {
-            return $http.post('https://piworld.es/iaqseapi/authenticate', { sessionId: sessionId });
-          },
-    login: function(username, password) {
-      return $http.post('https://piworld.es/iaqseapi/login', { username: username, password: password });
-    },
-    logout: function(sessionId) {
-      return $http.post('https://piworld.es/iaqseapi/priv/logout', { sessionId: sessionId });
-    },
-    listTipus: function(sessionId) {
-      return $http.post('https://piworld.es/iaqseapi/priv/document/tipus/list', { sessionId: sessionId });
-    },
-    listDocumentsTipus: function(tipus, sessionId) {
-      return $http.post('https://piworld.es/iaqseapi/priv/document/list', { tipus: tipus, sessionId: sessionId});
-    },
-    listDocumentVisitCount: function(tipus, sessionId) { 
-      return $http.post('https://piworld.es/iaqseapi/priv/visit/list', { tipus: tipus, sessionId: sessionId });
-    }, 
-    visitTimeline: function (url, sqlDate1, sqlDate2, sessionId) {
-       return $http.post('https://piworld.es/iaqseapi/priv/visit/timeline', { url: url, sqlDate1: sqlDate1, sqlDate2: sqlDate2, sessionId: sessionId });
-    },
-    loadVisualizations: function(url, sessionId) {
-      return $http.post('https://piworld.es/iaqseapi/priv/visit/history', {url:url, sessionId: sessionId });
-    },
-    geolocations: function(sessionId){
-      return $http.post('https://piworld.es/iaqseapi/priv/visit/geolocations', { sessionId: sessionId });
-    },
-    hit: function (url, tipus) {
-      geolocation.getCurrentPosition().then(
-        function (coords) {
-          var data = { url: url, tipus: tipus, coords: coords }; 
-          $http.post('https://piworld.es/iaqseapi/visit/hit', data);
-        },
-        function (err) {
-          var data = { url: url, tipus: tipus };
-          $http.post('https://piworld.es/iaqseapi/visit/hit', data);
-        }
-      );
-    }
-      
-    };
-  return service;
-  }]);
-  window.app.filter("fileName", function () {
-    return function (fullPath) {
-      var i = fullPath.lastIndexOf("/");
-      return fullPath.substring(i + 1);
-    }
-  });
-  window.app.filter("icona", function () {
-    return function (filename) {
-      var extension = filename.substring(filename.lastIndexOf(".") + 1).trim().toLowerCase();
-      if (extension == "word") {
-        return "fa-file-word";
-      } else if (extension == "zip" || extension == "rar") {
-        return "fa-file-archive";
-      } else if (extension == "pdf") {
-        return "fa-file-pdf";
-      } else if (extension == "mp4" || extension == "avi" || extension == "mov" || extension == "qt") {
-        return "fa-file-video";
-      } else if (extension == "mp3" || extension == "ogg") {
-        return "fa-file-audio";
-      }
-
-      return "fa-file";
-    }
-  });
-  window.app.config(["$controllerProvider", "$provide", "$compileProvider", "$filterProvider",
-    function ($controllerProvider, $provide, $compileProvider, $filterProvider) {
-      // Since the "shorthand" methods for component
-      // definitions are no longer valid, we can just
-      // override them to use the providers for post-
-      // bootstrap loading.
-      // Let's keep the older references.
-      app._controller = app.controller;
-      app._service = app.service;
-      app._filter = app.filter;
-      app._component = app.component;
-      app._factory = app.factory;
-      app._value = app.value;
-      app._directive = app.directive;
-      app.controller = function (name, constructor) {
-        $controllerProvider.register(name, constructor);
-        return (this);
-      };
-      // Provider-based service.
-      app.service = function (name, constructor) {
-        $provide.service(name, constructor);
-        return (this);
-      };
-      // Provider-based factory.
-      app.factory = function (name, factory) {
-        $provide.factory(name, factory);
-        return (this);
-      };
-      // Provider-based value.
-      app.value = function (name, value) {
-        $provide.value(name, value);
-        return (this);
-      };
-      // Provider-based filter.
-      app.filter = function (name, filter) {
-        $filterProvider.register(name, filter);
-        return (this);
-      };
-      // Provider-based component.
-      app.component = function (name, component) {
-        $compileProvider.component(name, component);
-        return (this);
-      };
-      // Provider-based directive.
-      app.directive = function (name, factory) {
-        $compileProvider.directive(name, factory);
-        return (this);
-      };
-    }]);
-
-    
-    app.component("loginWidget", {
-      restrict: 'E',
-      transclude: true,
-      template: '<div ng-if="$ctrl.status.authenticated==false">' +
-        'Usuari: <input type="text" ng-model="$ctrl.username"/><br>' +
-        'Contrasenya: <input type="password" ng-model="$ctrl.password" ng-keyup="$event.keyCode == 13 && $ctrl.login()"/>' +
-        '<button class="btn btn-sm btn-secondary" style="margin-top:5px" ng-click="$ctrl.login()"><i class="fas fa-sign-in-alt"></i> Entrar</button>' +
-        '</div><div ng-if="$ctrl.status.authenticated">'+
-        '<center><span ng-bind="$ctrl.status.fullname"></span></center>' +
-        '<center><a href="admin_console.html">Consola d\'administració</a>' +
-        '<button class="btn btn-sm btn-secondary" style="margin-top:5px" ng-click="$ctrl.logout()"><i class="fas fa-sign-out-alt"></i> Sortir</button></center></div>',
-      controller: ["$rootScope", "httpService", function ($rootScope, httpService) {
-        var ctrl = this;
-        ctrl.username = "";
-        ctrl.password = "";
-        ctrl.status = { };
-
-        var errCallback = function () { ctrl.status.authenticated=false; };
- 
-        ctrl.login = function () {
-          httpService.login(ctrl.username, ctrl.password).then(function (res) {
-            ctrl.status = res.data;
-            if (res.data.authenticated) {
-              localStorage.setItem("iaqse-sessionId", res.data.sessionId);
-              $rootScope.$broadcast("iaqse-sessionId", res.data.sessionId);
-            }
-          }, errCallback);
-          ctrl.username = "";
-          ctrl.password = "";
-        };
-
-        ctrl.logout = function () {
-          var sessionId = localStorage.getItem("iaqse-sessionId");
-          if (sessionId) {
-            httpService.logout(sessionId).then(function (res) {
-            }, errCallback);
-          }
-          ctrl.status = { authenticated: false };
-          localStorage.removeItem("iaqse-sessionId");
-          $rootScope.$broadcast("iaqse-sessionId", "");
-        };
-
-        var sessionId = localStorage.getItem("iaqse-sessionId");
-        if (sessionId) {
-          httpService.isAuthenticated(sessionId).then(function (res) {
-            ctrl.status = res.data;
-            if (ctrl.status.authenticated) {
-              $rootScope.$broadcast("iaqse-sessionId", sessionId);
-            }
-          }, errCallback);
-        } else {
-          ctrl.status.authenticated = false;
-        };
-
-      }]
-    }
-
-    );
-  
-</script>
+<script>window.addCssLink=function(t){var e=document.createElement("link");e.rel="stylesheet",e.type="text/css",e.href=t,document.getElementsByTagName("head")[0].appendChild(e)},window.chunker=function(t,e){for(var i=[],n=0,o=t.length;n<o;n+=e)i.push(t.slice(n,n+e));return i},window.getURLParameter=function(t){var e=new RegExp("[\\?&]"+t+"=([^&#]*)"),i=e.exec(window.location.search);return null==i&&(i=e.exec(window.location.href)),null==i?"":decodeURIComponent(i[1].replace(/\+/g," "))},window.app=angular.module("iaqse",["ngRoute","ngSanitize","ngAnimate"]),app.config(["$sceProvider",function(t){t.enabled(!1)}]),window.app.directive("a",["httpService",function(o){return{restrict:"E",link:function(t,e,n){e.on("click",function(t){if(null!=n.href){var e=n.href;e.startsWith("#")&&(e=location.href.split("#")[0]+e);var i=n.tipus;"none"!=i&&o.hit(e,i)}return!0})}}}]),app.service("geolocation",["$q",function(t){var i=null,n={timeout:5e3},e={getCurrentPosition:function(){var e=t.defer();return null!=i?e.resolve(i):navigator.geolocation?navigator.geolocation.getCurrentPosition(function(t){i={latitude:t.coords.latitude,longitude:t.coords.longitude},e.resolve(i)},function(){e.reject()},n):(i={},e.resolve(i)),e.promise}};return e}]),app.service("httpService",["$http","geolocation",function(o,t){return{loadSchema:function(t){return o({method:"get",url:"database/"+t+".json",dataType:"json",contentType:"application/json; charset=iso-8859-1"})},isAuthenticated:function(t){return o.post("https://piworld.es/iaqseapi/authenticate",{sessionId:t})},login:function(t,e){return o.post("https://piworld.es/iaqseapi/login",{username:t,password:e})},logout:function(t){return o.post("https://piworld.es/iaqseapi/priv/logout",{sessionId:t})},listTipus:function(t){return o.post("https://piworld.es/iaqseapi/priv/document/tipus/list",{sessionId:t})},listDocumentsTipus:function(t,e){return o.post("https://piworld.es/iaqseapi/priv/document/list",{tipus:e,sessionId:t})},listDocumentVisitCount:function(t,e){return o.post("https://piworld.es/iaqseapi/priv/visit/list",{tipus:e,sessionId:t})},visitTimeline:function(t,e,i,n){return o.post("https://piworld.es/iaqseapi/priv/visit/timeline",{url:e,sqlDate1:i,sqlDate2:n,sessionId:t})},loadVisualizations:function(t,e,t){return o.post("https://piworld.es/iaqseapi/priv/visit/history",{url:e,sessionId:t})},geolocations:function(t){return o.post("https://piworld.es/iaqseapi/priv/visit/geolocations",{sessionId:t})},hit:function(i,n){t.getCurrentPosition().then(function(t){var e={url:i,tipus:n,coords:t};o.post("https://piworld.es/iaqseapi/visit/hit",e)},function(t){var e={url:i,tipus:n};o.post("https://piworld.es/iaqseapi/visit/hit",e)})}}}]),window.app.filter("fileName",function(){return function(t){var e=t.lastIndexOf("/");return t.substring(e+1)}}),window.app.filter("icona",function(){return function(t){var e=t.substring(t.lastIndexOf(".")+1).trim().toLowerCase();return"word"==e?"fa-file-word":"zip"==e||"rar"==e?"fa-file-archive":"pdf"==e?"fa-file-pdf":"mp4"==e||"avi"==e||"mov"==e||"qt"==e?"fa-file-video":"mp3"==e||"ogg"==e?"fa-file-audio":"fa-file"}}),window.app.config(["$controllerProvider","$provide","$compileProvider","$filterProvider",function(i,n,o,s){app._controller=app.controller,app._service=app.service,app._filter=app.filter,app._component=app.component,app._factory=app.factory,app._value=app.value,app._directive=app.directive,app.controller=function(t,e){return i.register(t,e),this},app.service=function(t,e){return n.service(t,e),this},app.factory=function(t,e){return n.factory(t,e),this},app.value=function(t,e){return n.value(t,e),this},app.filter=function(t,e){return s.register(t,e),this},app.component=function(t,e){return o.component(t,e),this},app.directive=function(t,e){return o.directive(t,e),this}}]),app.component("loginWidget",{restrict:"E",transclude:!0,template:'<div ng-if="$ctrl.status.authenticated==false">Usuari: <input type="text" ng-model="$ctrl.username"/><br>Contrasenya: <input type="password" ng-model="$ctrl.password" ng-keyup="$event.keyCode == 13 && $ctrl.login()"/><button class="btn btn-sm btn-secondary" style="margin-top:5px" ng-click="$ctrl.login()"><i class="fas fa-sign-in-alt"></i> Entrar</button></div><div ng-if="$ctrl.status.authenticated"><center><span ng-bind="$ctrl.status.fullname"></span></center><center><a href="admin_console.html">Consola d\'administració</a><button class="btn btn-sm btn-secondary" style="margin-top:5px" ng-click="$ctrl.logout()"><i class="fas fa-sign-out-alt"></i> Sortir</button></center></div>',controller:["$rootScope","httpService",function(e,i){var n=this;n.username="",n.password="",n.status={};function o(){n.status.authenticated=!1}n.login=function(){i.login(n.username,n.password).then(function(t){n.status=t.data,t.data.authenticated&&(localStorage.setItem("iaqse-sessionId",t.data.sessionId),e.$broadcast("iaqse-sessionId",t.data.sessionId))},o),n.username="",n.password=""},n.logout=function(){var t=localStorage.getItem("iaqse-sessionId");t&&i.logout(t).then(function(t){},o),n.status={authenticated:!1},localStorage.removeItem("iaqse-sessionId"),e.$broadcast("iaqse-sessionId","")};var s=localStorage.getItem("iaqse-sessionId");s?i.isAuthenticated(s).then(function(t){n.status=t.data,n.status.authenticated&&e.$broadcast("iaqse-sessionId",s)},o):n.status.authenticated=!1}]})</script>
     </head>
 
     <body ng-app="iaqse">
-        <div style="max-width: 1500px; margin: auto;">
+        <div style="max-width:1500px;margin:auto">
         <header>
-              <nav class="navbar navbar-expand-md navbar-dark fixed-top gradient" style="background-color: #003366 !important;">
+              <nav class="navbar navbar-expand-md navbar-dark fixed-top gradient" style="background-color:#036!important">
     <div class="container">
       <a class="navbar-brand" href="index.html">
-        <img src="../img/svg/qiaqse2.png" style="height:25px"/>
-        <span><b class="d-md-none d-xl-inline" style="color:rgb(255,70,70); font-family: Arial, Helvetica, sans-serif;vertical-align: top;">IAQSE</b></span>
+        <img src="../img/svg/qiaqse2.png" style="height:25px">
+        <span><b class="d-md-none d-xl-inline" style="color:#ff4646;font-family:Arial,Helvetica,sans-serif;vertical-align:top">IAQSE</b></span>
       </a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -310,38 +44,38 @@
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
           
-          <li class="nav-item ">
-            <a class="nav-link" href="index.html" title="">Inici</span>
+          <li class="nav-item">
+            <a class="nav-link" href="index.html" title="">Inici
             </a>
           </li>
           
-          <li class="nav-item ">
-            <a class="nav-link" href="quisom.html" title="">Qui som</span>
+          <li class="nav-item">
+            <a class="nav-link" href="quisom.html" title="">Qui som
             </a>
           </li>
           
-          <li class="nav-item ">
-            <a class="nav-link" href="avaluacions.html" title="">Avaluacions</span>
+          <li class="nav-item">
+            <a class="nav-link" href="avaluacions.html" title="">Avaluacions
             </a>
           </li>
           
-          <li class="nav-item ">
-            <a class="nav-link" href="publicacions.html" title="">Publicacions</span>
+          <li class="nav-item">
+            <a class="nav-link" href="publicacions.html" title="">Publicacions
             </a>
           </li>
           
-          <li class="nav-item ">
-            <a class="nav-link" href="indicadors.html" title="">Indicadors</span>
+          <li class="nav-item">
+            <a class="nav-link" href="indicadors.html" title="">Indicadors
             </a>
           </li>
           
-          <li class="nav-item ">
-            <a class="nav-link" href="enllacos.html" title="">Enllaços</span>
+          <li class="nav-item">
+            <a class="nav-link" href="enllacos.html" title="">Enllaços
             </a>
           </li>
           
-          <li class="nav-item  active ">
-            <a class="nav-link" href="proves.html" title="Proves alliberades">Proves</span>
+          <li class="nav-item active">
+            <a class="nav-link" href="proves.html" title="Proves alliberades">Proves
             </a>
           </li>
           
@@ -358,7 +92,7 @@
                 <a href="https://apps.caib.es/gesavafront/" target="_blank" title="Programari de gestió d'avaluacions">
                  
                     <img src="../img/gesava.png" style="width:35px"><br>
-                    <span style="font-size: 90%">Accés GESAVA</span>
+                    <span style="font-size:90%">Accés GESAVA</span>
                 </a>
               </center>
           </div> 
@@ -479,41 +213,15 @@
                 <div class="col-xl-10 col-lg-12">
                 <main>
                 
-<!--inject views here-->
+
 <div ng-view id="routedContent"></div>
 
-<script>
-    app.controller("mainController", ["$scope", "httpService", function($scope, httpService){        
-    }]);
-</script>
+<script>app.controller("mainController",["$scope","httpService",function(o,e){}])</script>
 
-    <script>
-            app.config(["$routeProvider", function ($routeProvider) {
-                        $routeProvider.when("/index", {
-        templateUrl: "view_proves_index.html"
-        ,
-	controller: "indexController"
-        }) 
-    .when("/imprimibles", {
-        templateUrl: "view_proves_imprimibles.html"
-        ,
-	controller: "imprimiblesController"
-        }) 
-    .when("/interactives", {
-        templateUrl: "view_proves_interactives.html"
-        ,
-	controller: "interactivesController"
-        }) 
-    
-                .otherwise({
-                    redirectTo: '/index' 
-                });
-                
-            }]);
-    </script></main>
+    <script>app.config(["$routeProvider",function(e){e.when("/index",{templateUrl:"view_proves_index.html",controller:"indexController"}).when("/imprimibles",{templateUrl:"view_proves_imprimibles.html",controller:"imprimiblesController"}).when("/interactives",{templateUrl:"view_proves_interactives.html",controller:"interactivesController"}).otherwise({redirectTo:"/index"})}])</script></main>
                 </div>
             </div>
-                <footer class="py-1" style="width:100%; margin:0" title="Webmaster: Josep Mulet - Version: 7-12-2019">
+                <footer class="py-1" style="width:100%;margin:0" title="Webmaster: Josep Mulet - Version: 7-12-2019">
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-6">
@@ -523,7 +231,7 @@
                 Fax. 971 17 69 02
             </p>
         </div> 
-        <div class="col-sm-6" style="padding-right: 95px;">
+        <div class="col-sm-6" style="padding-right:95px">
             <p style="text-align:right">
                 C. del Ter, 16 Edifici A<br>
                 07009 - Palma
@@ -537,46 +245,7 @@
 
 <script src="iaqse_bundle2.min.js"></script>
 
-<script>
-  
-    // El nostre servidor no permet carregar svg perquè l'apache no està ben configurat
-    // Hack: les carregam per jquery   
-    var replaceImgSvg = function(imgID, svgFile) {
-        var $img = $(imgID);
-        if($img.length) {
-            $.ajax({
-                type: "GET",
-                url: svgFile, 
-                contentType: "image/svg+xml;charset=ISO-8859-1", 
-                success: function(data){
-                    // Replace image with new SVG
-                    var $svg = $(data.documentElement);
-                    $svg.addClass($img.attr("class"));
-                    $img.replaceWith($svg);
-                }
-        });
- 
-        }
-    };
-
-    $(function(){
-        $('#tree1').treed();
-        //replaceImgSvg('#svg-brand', '../img/svg/qiaqse2.svg');
-        //$("#iaqse-brand").css("display", "");
-        replaceImgSvg('#svg-logo-cab', '../img/svg/iaqse-caib-w.svg');
-        replaceImgSvg('#logo-iaqse', '../img/svg/logo-iaqse.svg');
-    });
-    
-   
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-    ga('create', 'UA-40778701-3', 'auto');
-    ga('send', 'pageview');
-
-</script>
+<script>var replaceImgSvg=function(e,a){var g=$(e);g.length&&$.ajax({type:"GET",url:a,contentType:"image/svg+xml;charset=ISO-8859-1",success:function(e){var a=$(e.documentElement);a.addClass(g.attr("class")),g.replaceWith(a)}})};$(function(){$("#tree1").treed(),replaceImgSvg("#svg-logo-cab","../img/svg/iaqse-caib-w.svg"),replaceImgSvg("#logo-iaqse","../img/svg/logo-iaqse.svg")}),function(e,a,g,t,c,s,n){e.GoogleAnalyticsObject=c,e.ga=e.ga||function(){(e.ga.q=e.ga.q||[]).push(arguments)},e.ga.l=1*new Date,s=a.createElement(g),n=a.getElementsByTagName(g)[0],s.async=1,s.src="//www.google-analytics.com/analytics.js",n.parentNode.insertBefore(s,n)}(window,document,"script",0,"ga"),ga("create","UA-40778701-3","auto"),ga("send","pageview")</script>
             </div>
             
         </div>

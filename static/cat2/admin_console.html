@@ -4,12 +4,12 @@
     <head>
         <meta charset="iso-8859-1">
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
 <meta name="description" content="Institut d'avaluació i qualitat del sistema educatiu">
 <meta name="author" content="iaqse@iaqse.caib.es">
-<meta name="language" content="cat" />
+<meta name="language" content="cat">
 
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
 <meta name="robots" content="index,follow">
 <meta name="document-classification" content="Education">
@@ -26,283 +26,17 @@
 <script src="iaqse_bundle1.min.js"></script>
 
 
-<script>
-  window.addCssLink = function(url){
-    var link = document.createElement('link');  
-    link.rel = 'stylesheet';  
-    link.type = 'text/css'; 
-    link.href = url;  
-    document.getElementsByTagName('head')[0].appendChild(link);  
-  };
-  window.chunker = function (arr, chunkSize) {
-    var R = [];
-    for (var i = 0, len = arr.length; i < len; i += chunkSize)
-      R.push(arr.slice(i, i + chunkSize));
-    return R;
-  };
-  window.getURLParameter = function (name) {
-    var regexS = "[\\?&]" + name + "=([^&#]*)",
-      regex = new RegExp(regexS),
-      results = regex.exec(window.location.search);
-    if (results == null) {
-      results = regex.exec(window.location.href);
-    }
-    if (results == null) {
-      return "";
-    } else {
-      return decodeURIComponent(results[1].replace(/\+/g, " "));
-    }
-  };
-  window.app = angular.module("iaqse", ["ngRoute", "ngSanitize", "ngAnimate"]);
-  app.config(['$sceProvider', function ($sceProvider) {
-    $sceProvider.enabled(false);
-  }]);
-  window.app.directive('a', ["httpService", function (httpService) {
-    return {
-      restrict: 'E', // only Elements (<a>),
-      link: function (scope, elm, attr) {
-        // every time you click on the link
-        elm.on('click', function ($event) {
-          if (attr.href != null) {
-            var url = attr.href;
-            if (url.startsWith("#")) {
-              url = location.href;
-            }
-            httpService.hit(url, "");
-          }
-          return true;
-        })
-      }
-    }
-  }]);
-  app.service("geolocation", ["$q", function ($q) {
-    var positionCache = null;
-    var options = {
-      timeout: 5000
-    }
-    var service = {};
-    service.getCurrentPosition = function () {
-      var deferred = $q.defer();
-      if (positionCache != null) {
-        deferred.resolve(positionCache);
-      } else {
-        if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(function (pos) {
-            positionCache = { latitude: pos.coords.latitude, longitude: pos.coords.longitude };
-            deferred.resolve(positionCache);
-          }, function () {
-            deferred.reject();
-          }, options);
-        } else {
-          positionCache = {};
-          deferred.resolve(positionCache);
-        }
-      }
-      return deferred.promise;
-    };
-    return service;
-  }]);
-  app.service("httpService", ["$http", "geolocation", function ($http, geolocation) {
-    var service = {
-      loadSchema: function (tableSchema) {
-        var request = {
-          method: 'get',
-          url: 'database/' + tableSchema + '.json',
-          dataType: 'json',
-          contentType: "application/json; charset=iso-8859-1"
-        };
-        return $http(request);
-      }
-        
-      ,
-          isAuthenticated: function(sessionId) {
-            return $http.post('https://piworld.es/iaqseapi/authenticate', { sessionId: sessionId });
-          },
-    login: function(username, password) {
-      return $http.post('https://piworld.es/iaqseapi/login', { username: username, password: password });
-    },
-    logout: function(sessionId) {
-      return $http.post('https://piworld.es/iaqseapi/priv/logout', { sessionId: sessionId });
-    },
-    listTipus: function(sessionId) {
-      return $http.post('https://piworld.es/iaqseapi/priv/document/tipus/list', { sessionId: sessionId });
-    },
-    listDocumentsTipus: function(tipus, sessionId) {
-      return $http.post('https://piworld.es/iaqseapi/priv/document/list', { tipus: tipus, sessionId: sessionId});
-    },
-    listDocumentVisitCount: function(tipus, sessionId) { 
-      return $http.post('https://piworld.es/iaqseapi/priv/visit/list', { tipus: tipus, sessionId: sessionId });
-    }, 
-    visitTimeline: function (url, sqlDate1, sqlDate2, sessionId) {
-       return $http.post('https://piworld.es/iaqseapi/priv/visit/timeline', { url: url, sqlDate1: sqlDate1, sqlDate2: sqlDate2, sessionId: sessionId });
-    },
-    loadVisualizations: function(url, sessionId) {
-      return $http.post('https://piworld.es/iaqseapi/priv/visit/history', {url:url, sessionId: sessionId });
-    },
-    geolocations: function(sessionId){
-      return $http.post('https://piworld.es/iaqseapi/priv/visit/geolocations', { sessionId: sessionId });
-    },
-    hit: function (url, tipus) {
-      geolocation.getCurrentPosition().then(
-        function (coords) {
-          var data = { url: url, tipus: tipus, coords: coords }; 
-          $http.post('https://piworld.es/iaqseapi/visit/hit', data);
-        },
-        function (err) {
-          var data = { url: url, tipus: tipus };
-          $http.post('https://piworld.es/iaqseapi/visit/hit', data);
-        }
-      );
-    }
-      
-    };
-  return service;
-  }]);
-  window.app.filter("fileName", function () {
-    return function (fullPath) {
-      var i = fullPath.lastIndexOf("/");
-      return fullPath.substring(i + 1);
-    }
-  });
-  window.app.filter("icona", function () {
-    return function (filename) {
-      var extension = filename.substring(filename.lastIndexOf(".") + 1).trim().toLowerCase();
-      if (extension == "word") {
-        return "fa-file-word";
-      } else if (extension == "zip" || extension == "rar") {
-        return "fa-file-archive";
-      } else if (extension == "pdf") {
-        return "fa-file-pdf";
-      } else if (extension == "mp4" || extension == "avi" || extension == "mov" || extension == "qt") {
-        return "fa-file-video";
-      } else if (extension == "mp3" || extension == "ogg") {
-        return "fa-file-audio";
-      }
-
-      return "fa-file";
-    }
-  });
-  window.app.config(["$controllerProvider", "$provide", "$compileProvider", "$filterProvider",
-    function ($controllerProvider, $provide, $compileProvider, $filterProvider) {
-      // Since the "shorthand" methods for component
-      // definitions are no longer valid, we can just
-      // override them to use the providers for post-
-      // bootstrap loading.
-      // Let's keep the older references.
-      app._controller = app.controller;
-      app._service = app.service;
-      app._filter = app.filter;
-      app._component = app.component;
-      app._factory = app.factory;
-      app._value = app.value;
-      app._directive = app.directive;
-      app.controller = function (name, constructor) {
-        $controllerProvider.register(name, constructor);
-        return (this);
-      };
-      // Provider-based service.
-      app.service = function (name, constructor) {
-        $provide.service(name, constructor);
-        return (this);
-      };
-      // Provider-based factory.
-      app.factory = function (name, factory) {
-        $provide.factory(name, factory);
-        return (this);
-      };
-      // Provider-based value.
-      app.value = function (name, value) {
-        $provide.value(name, value);
-        return (this);
-      };
-      // Provider-based filter.
-      app.filter = function (name, filter) {
-        $filterProvider.register(name, filter);
-        return (this);
-      };
-      // Provider-based component.
-      app.component = function (name, component) {
-        $compileProvider.component(name, component);
-        return (this);
-      };
-      // Provider-based directive.
-      app.directive = function (name, factory) {
-        $compileProvider.directive(name, factory);
-        return (this);
-      };
-    }]);
-
-    
-    app.component("loginWidget", {
-      restrict: 'E',
-      transclude: true,
-      template: '<div ng-if="$ctrl.status.authenticated==false">' +
-        'Usuari: <input type="text" ng-model="$ctrl.username"/><br>' +
-        'Contrasenya: <input type="password" ng-model="$ctrl.password" ng-keyup="$event.keyCode == 13 && $ctrl.login()"/>' +
-        '<button class="btn btn-sm btn-secondary" style="margin-top:5px" ng-click="$ctrl.login()"><i class="fas fa-sign-in-alt"></i> Entrar</button>' +
-        '</div><div ng-if="$ctrl.status.authenticated">'+
-        '<center><span ng-bind="$ctrl.status.fullname"></span></center>' +
-        '<center><a href="admin_console.html">Consola d\'administració</a>' +
-        '<button class="btn btn-sm btn-secondary" style="margin-top:5px" ng-click="$ctrl.logout()"><i class="fas fa-sign-out-alt"></i> Sortir</button></center></div>',
-      controller: ["$rootScope", "httpService", function ($rootScope, httpService) {
-        var ctrl = this;
-        ctrl.username = "";
-        ctrl.password = "";
-        ctrl.status = { };
-
-        var errCallback = function () { ctrl.status.authenticated=false; };
- 
-        ctrl.login = function () {
-          httpService.login(ctrl.username, ctrl.password).then(function (res) {
-            ctrl.status = res.data;
-            if (res.data.authenticated) {
-              localStorage.setItem("iaqse-sessionId", res.data.sessionId);
-              $rootScope.$broadcast("iaqse-sessionId", res.data.sessionId);
-            }
-          }, errCallback);
-          ctrl.username = "";
-          ctrl.password = "";
-        };
-
-        ctrl.logout = function () {
-          var sessionId = localStorage.getItem("iaqse-sessionId");
-          if (sessionId) {
-            httpService.logout(sessionId).then(function (res) {
-            }, errCallback);
-          }
-          ctrl.status = { authenticated: false };
-          localStorage.removeItem("iaqse-sessionId");
-          $rootScope.$broadcast("iaqse-sessionId", "");
-        };
-
-        var sessionId = localStorage.getItem("iaqse-sessionId");
-        if (sessionId) {
-          httpService.isAuthenticated(sessionId).then(function (res) {
-            ctrl.status = res.data;
-            if (ctrl.status.authenticated) {
-              $rootScope.$broadcast("iaqse-sessionId", sessionId);
-            }
-          }, errCallback);
-        } else {
-          ctrl.status.authenticated = false;
-        };
-
-      }]
-    }
-
-    );
-  
-</script>
+<script>window.addCssLink=function(t){var e=document.createElement("link");e.rel="stylesheet",e.type="text/css",e.href=t,document.getElementsByTagName("head")[0].appendChild(e)},window.chunker=function(t,e){for(var i=[],n=0,o=t.length;n<o;n+=e)i.push(t.slice(n,n+e));return i},window.getURLParameter=function(t){var e=new RegExp("[\\?&]"+t+"=([^&#]*)"),i=e.exec(window.location.search);return null==i&&(i=e.exec(window.location.href)),null==i?"":decodeURIComponent(i[1].replace(/\+/g," "))},window.app=angular.module("iaqse",["ngRoute","ngSanitize","ngAnimate"]),app.config(["$sceProvider",function(t){t.enabled(!1)}]),window.app.directive("a",["httpService",function(o){return{restrict:"E",link:function(t,e,n){e.on("click",function(t){if(null!=n.href){var e=n.href;e.startsWith("#")&&(e=location.href.split("#")[0]+e);var i=n.tipus;"none"!=i&&o.hit(e,i)}return!0})}}}]),app.service("geolocation",["$q",function(t){var i=null,n={timeout:5e3},e={getCurrentPosition:function(){var e=t.defer();return null!=i?e.resolve(i):navigator.geolocation?navigator.geolocation.getCurrentPosition(function(t){i={latitude:t.coords.latitude,longitude:t.coords.longitude},e.resolve(i)},function(){e.reject()},n):(i={},e.resolve(i)),e.promise}};return e}]),app.service("httpService",["$http","geolocation",function(o,t){return{loadSchema:function(t){return o({method:"get",url:"database/"+t+".json",dataType:"json",contentType:"application/json; charset=iso-8859-1"})},isAuthenticated:function(t){return o.post("https://piworld.es/iaqseapi/authenticate",{sessionId:t})},login:function(t,e){return o.post("https://piworld.es/iaqseapi/login",{username:t,password:e})},logout:function(t){return o.post("https://piworld.es/iaqseapi/priv/logout",{sessionId:t})},listTipus:function(t){return o.post("https://piworld.es/iaqseapi/priv/document/tipus/list",{sessionId:t})},listDocumentsTipus:function(t,e){return o.post("https://piworld.es/iaqseapi/priv/document/list",{tipus:e,sessionId:t})},listDocumentVisitCount:function(t,e){return o.post("https://piworld.es/iaqseapi/priv/visit/list",{tipus:e,sessionId:t})},visitTimeline:function(t,e,i,n){return o.post("https://piworld.es/iaqseapi/priv/visit/timeline",{url:e,sqlDate1:i,sqlDate2:n,sessionId:t})},loadVisualizations:function(t,e,t){return o.post("https://piworld.es/iaqseapi/priv/visit/history",{url:e,sessionId:t})},geolocations:function(t){return o.post("https://piworld.es/iaqseapi/priv/visit/geolocations",{sessionId:t})},hit:function(i,n){t.getCurrentPosition().then(function(t){var e={url:i,tipus:n,coords:t};o.post("https://piworld.es/iaqseapi/visit/hit",e)},function(t){var e={url:i,tipus:n};o.post("https://piworld.es/iaqseapi/visit/hit",e)})}}}]),window.app.filter("fileName",function(){return function(t){var e=t.lastIndexOf("/");return t.substring(e+1)}}),window.app.filter("icona",function(){return function(t){var e=t.substring(t.lastIndexOf(".")+1).trim().toLowerCase();return"word"==e?"fa-file-word":"zip"==e||"rar"==e?"fa-file-archive":"pdf"==e?"fa-file-pdf":"mp4"==e||"avi"==e||"mov"==e||"qt"==e?"fa-file-video":"mp3"==e||"ogg"==e?"fa-file-audio":"fa-file"}}),window.app.config(["$controllerProvider","$provide","$compileProvider","$filterProvider",function(i,n,o,s){app._controller=app.controller,app._service=app.service,app._filter=app.filter,app._component=app.component,app._factory=app.factory,app._value=app.value,app._directive=app.directive,app.controller=function(t,e){return i.register(t,e),this},app.service=function(t,e){return n.service(t,e),this},app.factory=function(t,e){return n.factory(t,e),this},app.value=function(t,e){return n.value(t,e),this},app.filter=function(t,e){return s.register(t,e),this},app.component=function(t,e){return o.component(t,e),this},app.directive=function(t,e){return o.directive(t,e),this}}]),app.component("loginWidget",{restrict:"E",transclude:!0,template:'<div ng-if="$ctrl.status.authenticated==false">Usuari: <input type="text" ng-model="$ctrl.username"/><br>Contrasenya: <input type="password" ng-model="$ctrl.password" ng-keyup="$event.keyCode == 13 && $ctrl.login()"/><button class="btn btn-sm btn-secondary" style="margin-top:5px" ng-click="$ctrl.login()"><i class="fas fa-sign-in-alt"></i> Entrar</button></div><div ng-if="$ctrl.status.authenticated"><center><span ng-bind="$ctrl.status.fullname"></span></center><center><a href="admin_console.html">Consola d\'administració</a><button class="btn btn-sm btn-secondary" style="margin-top:5px" ng-click="$ctrl.logout()"><i class="fas fa-sign-out-alt"></i> Sortir</button></center></div>',controller:["$rootScope","httpService",function(e,i){var n=this;n.username="",n.password="",n.status={};function o(){n.status.authenticated=!1}n.login=function(){i.login(n.username,n.password).then(function(t){n.status=t.data,t.data.authenticated&&(localStorage.setItem("iaqse-sessionId",t.data.sessionId),e.$broadcast("iaqse-sessionId",t.data.sessionId))},o),n.username="",n.password=""},n.logout=function(){var t=localStorage.getItem("iaqse-sessionId");t&&i.logout(t).then(function(t){},o),n.status={authenticated:!1},localStorage.removeItem("iaqse-sessionId"),e.$broadcast("iaqse-sessionId","")};var s=localStorage.getItem("iaqse-sessionId");s?i.isAuthenticated(s).then(function(t){n.status=t.data,n.status.authenticated&&e.$broadcast("iaqse-sessionId",s)},o):n.status.authenticated=!1}]})</script>
     </head>
 
     <body ng-app="iaqse">
-        <div style="max-width: 1500px; margin: auto;">
+        <div style="max-width:1500px;margin:auto">
         <header>
-              <nav class="navbar navbar-expand-md navbar-dark fixed-top gradient" style="background-color: #003366 !important;">
+              <nav class="navbar navbar-expand-md navbar-dark fixed-top gradient" style="background-color:#036!important">
     <div class="container">
       <a class="navbar-brand" href="index.html">
-        <img src="../img/svg/qiaqse2.png" style="height:25px"/>
-        <span><b class="d-md-none d-xl-inline" style="color:rgb(255,70,70); font-family: Arial, Helvetica, sans-serif;vertical-align: top;">IAQSE</b></span>
+        <img src="../img/svg/qiaqse2.png" style="height:25px">
+        <span><b class="d-md-none d-xl-inline" style="color:#ff4646;font-family:Arial,Helvetica,sans-serif;vertical-align:top">IAQSE</b></span>
       </a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -310,38 +44,38 @@
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
           
-          <li class="nav-item ">
-            <a class="nav-link" href="index.html" title="">Inici</span>
+          <li class="nav-item">
+            <a class="nav-link" href="index.html" title="">Inici
             </a>
           </li>
           
-          <li class="nav-item ">
-            <a class="nav-link" href="quisom.html" title="">Qui som</span>
+          <li class="nav-item">
+            <a class="nav-link" href="quisom.html" title="">Qui som
             </a>
           </li>
           
-          <li class="nav-item ">
-            <a class="nav-link" href="avaluacions.html" title="">Avaluacions</span>
+          <li class="nav-item">
+            <a class="nav-link" href="avaluacions.html" title="">Avaluacions
             </a>
           </li>
           
-          <li class="nav-item ">
-            <a class="nav-link" href="publicacions.html" title="">Publicacions</span>
+          <li class="nav-item">
+            <a class="nav-link" href="publicacions.html" title="">Publicacions
             </a>
           </li>
           
-          <li class="nav-item ">
-            <a class="nav-link" href="indicadors.html" title="">Indicadors</span>
+          <li class="nav-item">
+            <a class="nav-link" href="indicadors.html" title="">Indicadors
             </a>
           </li>
           
-          <li class="nav-item ">
-            <a class="nav-link" href="enllacos.html" title="">Enllaços</span>
+          <li class="nav-item">
+            <a class="nav-link" href="enllacos.html" title="">Enllaços
             </a>
           </li>
           
-          <li class="nav-item ">
-            <a class="nav-link" href="proves.html" title="Proves alliberades">Proves</span>
+          <li class="nav-item">
+            <a class="nav-link" href="proves.html" title="Proves alliberades">Proves
             </a>
           </li>
           
@@ -358,7 +92,7 @@
                 <a href="https://apps.caib.es/gesavafront/" target="_blank" title="Programari de gestió d'avaluacions">
                  
                     <img src="../img/gesava.png" style="width:35px"><br>
-                    <span style="font-size: 90%">Accés GESAVA</span>
+                    <span style="font-size:90%">Accés GESAVA</span>
                 </a>
               </center>
           </div> 
@@ -485,50 +219,10 @@
           <li class="breadcrumb-item active"> Consola d'administració </li>  
         </ol>
         </nav>
-        <style>
-    [fixed-first-column] {
-        position: relative
-    }
-
-    [fixed-first-column]>.table-responsive {
-        margin-left: 80px;
-    }
-
-    [fixed-first-column]>.table-responsive .table {}
-
-    [fixed-first-column]>.table-responsive .table>thead>tr>td:first-child,
-    [fixed-first-column]>.table-responsive .table>tbody>tr>td:first-child,
-    [fixed-first-column]>.table-responsive .table>thead>tr>th:first-child,
-    [fixed-first-column]>.table-responsive .table>tbody>tr>th:first-child {
-        position: absolute;
-        min-width: 80px;
-        width: 80px;
-        border-right: 1px solid #ddd !important;
-        border-bottom: 1px solid #f5f5f5 !important;
-        left: 0;
-        top: auto;
-        padding-top: 0 !important;
-        padding-bottom: 0 !important;
-    }
-
-    [fixed-first-column]>.table-responsive .table>thead>tr>td:first-child>div,
-    [fixed-first-column]>.table-responsive .table>tbody>tr>td:first-child>div,
-    [fixed-first-column]>.table-responsive .table>thead>tr>th:first-child>div,
-    [fixed-first-column]>.table-responsive .table>tbody>tr>th:first-child>div {
-        padding-top: 5px;
-        padding-bottom: 5px;
-        position: relative;
-    }
-
-    [fixed-first-column] td {
-        min-width: 150px;
-        /* default width */
-        max-width: 300px;
-    }
-</style>
+        <style>[fixed-first-column]{position:relative}[fixed-first-column]>.table-responsive{margin-left:80px}[fixed-first-column]>.table-responsive .table>tbody>tr>td:first-child,[fixed-first-column]>.table-responsive .table>tbody>tr>th:first-child,[fixed-first-column]>.table-responsive .table>thead>tr>td:first-child,[fixed-first-column]>.table-responsive .table>thead>tr>th:first-child{position:absolute;min-width:80px;width:80px;border-right:1px solid #ddd!important;border-bottom:1px solid #f5f5f5!important;left:0;top:auto;padding-top:0!important;padding-bottom:0!important}[fixed-first-column]>.table-responsive .table>tbody>tr>td:first-child>div,[fixed-first-column]>.table-responsive .table>tbody>tr>th:first-child>div,[fixed-first-column]>.table-responsive .table>thead>tr>td:first-child>div,[fixed-first-column]>.table-responsive .table>thead>tr>th:first-child>div{padding-top:5px;padding-bottom:5px;position:relative}[fixed-first-column] td{min-width:150px;max-width:300px}</style>
 
 <h5>Consola d'administració</h5>
-<div ng-if="status.authenticated==false" class="alert alert-danger">
+<div ng-if="!status.authenticated" class="alert alert-danger">
     No estau autenticat per accedir a aquesta pàgina.
 </div>
 <div ng-if="status.authenticated">
@@ -536,8 +230,7 @@
         <div class="card">
             <div class="card-header" id="visitesDia">
                 <h5 class="mb-0">
-                    <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
-                        aria-controls="collapseOne">
+                    <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                         Visites per dia
                     </button>
                 </h5>
@@ -546,28 +239,25 @@
             <div id="collapseOne" class="collapse show" aria-labelledby="visitesDia" data-parent="#accordion">
                 <div class="card-body">
 
-                    <!--selecciona el tipus-->
+                    
                     Tipus:
                     <div class="btn-group">
-                        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
-                            aria-haspopup="true" aria-expanded="false">
+                        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <span ng-bind="tipusSelected?tipusSelected:'Tots'"></span>
                         </button>
                         <div class="dropdown-menu">
                             <a class="dropdown-item" ng-click="onSelectTipus()">
                                 <span>Tots</span>
                             </a>
-                            <a class="dropdown-item" ng-repeat="tipus in tipusdocuments"
-                                ng-click="onSelectTipus(tipus.TIPUS)">
+                            <a class="dropdown-item" ng-repeat="tipus in tipusdocuments" ng-click="onSelectTipus(tipus.TIPUS)">
                                 <span ng-bind="tipus.TIPUS"></span>
                             </a>
                         </div>
                     </div>
-                    <!--selecciona el document-->
+                    
                     Registres:
                     <div class="btn-group">
-                        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
-                            aria-haspopup="true" aria-expanded="false">
+                        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <span ng-bind="documentSelected?documentSelected:'Tots'"></span>
                         </button>
                         <div class="dropdown-menu">
@@ -580,9 +270,9 @@
                         </div>
                     </div>
                     <br>
-                    <!-- Contingut de visites per dia -->
+                    
 
-                    <div fixed-first-column style="width: 800px; margin:10px">
+                    <div fixed-first-column style="width:800px;margin:10px">
                         <table class="table table-condensed table-striped">
                             <thead>
                                 <tr>
@@ -610,15 +300,14 @@
             <div class="card">
                 <div class="card-header" id="geolocalitzacio">
                     <h5 class="mb-0">
-                        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo"
-                            aria-expanded="false" aria-controls="collapseTwo">
+                        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                             Geolocalització
                         </button>
                     </h5>
                 </div>
                 <div id="collapseTwo" class="collapse" aria-labelledby="geolocalitzacio" data-parent="#accordion">
                     <div class="card-body">
-                        <!-- Contingut de la geolocalització -->
+                        
                         <center>
                             <canvas id="canvas" width="800" height="450"></canvas>
                         </center>
@@ -630,173 +319,11 @@
 
     </div>
 
-    <!--
-        <script src="https://unpkg.com/bootstrap-table@1.15.5/dist/bootstrap-table.min.js"></script>
-        <script
-            src="https://unpkg.com/bootstrap-table@1.15.5/dist/extensions/fixed-columns/bootstrap-table-fixed-columns.js"></script>
-        -->
-    <script>
-
-        //   addCssLink("https://unpkg.com/bootstrap-table@1.15.5/dist/bootstrap-table.min.css");
-        //   addCssLink("https://unpkg.com/bootstrap-table@1.15.5/dist/extensions/fixed-columns/bootstrap-table-fixed-columns.css");
-        app.directive("fixedFirstColumn", [function () {
-            return {
-                restrict: "A",
-                template: "<div class='table-responsive'><div ng-transclude></div></div>",
-                transclude: true,
-                link: function ($scope, $element) {
-                    var interval = setInterval(function () {
-                        var tr = $element.find("tr");
-
-                        angular.forEach(tr, function (i) {
-                            var columns = angular.element(i).children();
-
-                            if (columns.length < 1) {
-                                // Row with no columns? Ignore it.
-                                return;
-                            }
-
-                            var column0 = angular.element(columns[0]).children()[0] || columns[0];
-                            var column1 = columns[1];
-
-                            // Calculate heights of each <td>.
-                            var height0 = (column0).offsetHeight;
-                            var height1 = column1 ? column1.offsetHeight : 0;
-
-                            // Calculate final height.
-                            var height = Math.max(height0, height1);
-
-                            // Set heights of <td> and <tr>.
-                            columns[0].style.height = height + "px";
-                            i.style.height = height + "px";
-
-                            if (column1) {
-                                column1.style.height = height + "px";
-                            }
-
-                            // If <td> heights have stabilized.
-                            if (height0 !== 0 && height0 === height1) {
-                                clearInterval(interval);
-                            }
-                        });
-                    }, 1000);
-                }
-            };
-        }]);
-
-    //Geolocalització
-        var geoList = [];
-        var renderCanvas = function(){
-            var oy = 40.124884;
-            var ox = 1.10;
-
-            var dx = 4.65-ox;
-            var dy = oy-38.547101;
-             
-            var canvas = document.getElementById("canvas");
-            var ctx = canvas.getContext("2d");
-            ctx.lineWidth = 2;
-
-            var canvasOffset = $("#canvas").offset();
-            var offsetX = canvasOffset.left;
-            var offsetY = canvasOffset.top;
-
-            var img = new Image();
-            img.onload = function () {
-                canvas.width = img.width;
-                canvas.height = img.height;
-                ctx.clearRect(0,0,canvas.width,canvas.height);
-                ctx.drawImage(img, 0, 0);
-                for(var i=0, len = geoList.length; i<len; i++){
-                    var geo = geoList[i];                   
-
-                    var xpos = canvas.width*(geo.LONGITUDE - ox)/dx;
-                    var ypos = canvas.height*(oy - geo.LATITUDE)/dy;
-
-                    ctx.beginPath();
-                    ctx.arc(xpos, ypos, 4, 0, 2 * Math.PI, false);
-                    ctx.fillStyle = 'red';
-                    ctx.fill();
-                    ctx.lineWidth = 1;
-                    ctx.strokeStyle = '#red';
-                    ctx.stroke();
-                }
-
-            }
-            img.src = "../img/balears.png";
-        }
-       
-
-        app.controller("mainController", ["$scope", "httpService", function ($scope, httpService) {
-            var errCallback = function () { };
-            $scope.status = {};
-            $scope.timeline = [];
-            $scope.tipusdocuments = [];
-            $scope.documents = [];
-            $scope.$on("iaqse-sessionId", function (evt, sessionId) {
-                $scope.sessionId = sessionId;
-                $scope.status.authenticated = sessionId != null && sessionId != "";
-                if ($scope.status.authenticated) {
-                    $scope.initConsole(sessionId);
-                }
-            });
-            $scope.initConsole = function () {
-                // Load tipus de documents
-                httpService.listTipus($scope.sessionId).then(function (res) {
-                    $scope.tipusdocuments = res.data;
-                }, function () {
-                    $scope.listTipus = [];
-                });
-
-                httpService.geolocations($scope.sessionId).then(function(res){
-                    window.geoList = res.data;
-                    $(function(){
-                        renderCanvas($scope.sessionId);
-                    });
-                }, function(){})
-                $scope.loadTimeline();
-            };
-
-            $scope.loadDocuments = function () {
-                httpService.listDocumentsTipus($scope.tipusSelected, $scope.sessionId).then(function (res) {
-                    $scope.documents = res.data;
-                    $scope.documentSelected = null;
-                    $scope.loadTimeline();
-                }, function () {
-                    $scope.documents = [];
-                });
-            }
-
-            // Load timeline
-            $scope.loadTimeline = function () {
-                httpService.visitTimeline($scope.documentSelected, $scope.fromDate, $scope.toDate, $scope.sessionId).then(function (res) {
-                    $scope.timeline = res.data;
-                    $(function () {
-                        setTimeout(function () {
-                            console.log("JQUERY");
-                            jQuery(".main-table").clone(true).appendTo('#table-scroll').addClass('clone');
-                        }, 1000);
-                    });
-
-                }, function () {
-                    $scope.timeline = [];
-                });
-            };
-
-            $scope.onSelectTipus = function (tipus) {
-                $scope.tipusSelected = tipus;
-                $scope.loadDocuments();
-            };
-
-            $scope.onSelectDocument = function (doc) {
-                $scope.documentSelected = doc;
-                $scope.loadTimeline();
-            };
-        }]);
-    </script></main>
+    
+    <script>app.directive("fixedFirstColumn",[function(){return{restrict:"A",template:"<div class='table-responsive'><div ng-transclude></div></div>",transclude:!0,link:function(e,t){var a=setInterval(function(){var e=t.find("tr");angular.forEach(e,function(e){var t=angular.element(e).children();if(!(t.length<1)){var n=angular.element(t[0]).children()[0]||t[0],i=t[1],o=n.offsetHeight,s=i?i.offsetHeight:0,l=Math.max(o,s);t[0].style.height=l+"px",e.style.height=l+"px",i&&(i.style.height=l+"px"),0!==o&&o===s&&clearInterval(a)}})},1e3)}}}]);var geoList=[],renderCanvas=function(){var s=40.124884,l=document.getElementById("canvas"),a=l.getContext("2d");a.lineWidth=2;var e=$("#canvas").offset(),c=(e.left,e.top,new Image);c.onload=function(){l.width=c.width,l.height=c.height,a.clearRect(0,0,l.width,l.height),a.drawImage(c,0,0);for(var e=0,t=geoList.length;e<t;e++){var n=geoList[e],i=l.width*(n.LONGITUDE-1.1)/(4.65-1.1),o=l.height*(s-n.LATITUDE)/1.5777830000000037;a.beginPath(),a.arc(i,o,4,0,2*Math.PI,!1),a.fillStyle="red",a.fill(),a.lineWidth=1,a.strokeStyle="#red",a.stroke()}},c.src="../img/balears.png"};app.controller("mainController",["$scope","httpService",function(n,e){n.status={},n.timeline=[],n.tipusdocuments=[],n.documents=[],n.$on("iaqse-sessionId",function(e,t){n.sessionId=t,n.status.authenticated=null!=t&&""!=t,n.status.authenticated&&n.initConsole(t)}),n.initConsole=function(){e.listTipus(n.sessionId).then(function(e){n.tipusdocuments=e.data},function(){n.listTipus=[]}),e.geolocations(n.sessionId).then(function(e){window.geoList=e.data,$(function(){renderCanvas(n.sessionId)})},function(){}),n.loadTimeline()},n.loadDocuments=function(){e.listDocumentsTipus(n.sessionId,n.tipusSelected).then(function(e){n.documents=e.data,n.documentSelected=null,n.loadTimeline()},function(){n.documents=[]})},n.loadTimeline=function(){e.visitTimeline(n.sessionId,n.documentSelected,n.fromDate,n.toDate).then(function(e){n.timeline=e.data,$(function(){setTimeout(function(){console.log("JQUERY"),jQuery(".main-table").clone(!0).appendTo("#table-scroll").addClass("clone")},1e3)})},function(){n.timeline=[]})},n.onSelectTipus=function(e){n.tipusSelected=e,n.loadDocuments()},n.onSelectDocument=function(e){n.documentSelected=e,n.loadTimeline()}}])</script></div></main>
                 </div>
             </div>
-                <footer class="py-1" style="width:100%; margin:0" title="Webmaster: Josep Mulet - Version: 7-12-2019">
+                <footer class="py-1" style="width:100%;margin:0" title="Webmaster: Josep Mulet - Version: 7-12-2019">
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-6">
@@ -806,7 +333,7 @@
                 Fax. 971 17 69 02
             </p>
         </div> 
-        <div class="col-sm-6" style="padding-right: 95px;">
+        <div class="col-sm-6" style="padding-right:95px">
             <p style="text-align:right">
                 C. del Ter, 16 Edifici A<br>
                 07009 - Palma
@@ -820,46 +347,7 @@
 
 <script src="iaqse_bundle2.min.js"></script>
 
-<script>
-  
-    // El nostre servidor no permet carregar svg perquè l'apache no està ben configurat
-    // Hack: les carregam per jquery   
-    var replaceImgSvg = function(imgID, svgFile) {
-        var $img = $(imgID);
-        if($img.length) {
-            $.ajax({
-                type: "GET",
-                url: svgFile, 
-                contentType: "image/svg+xml;charset=ISO-8859-1", 
-                success: function(data){
-                    // Replace image with new SVG
-                    var $svg = $(data.documentElement);
-                    $svg.addClass($img.attr("class"));
-                    $img.replaceWith($svg);
-                }
-        });
- 
-        }
-    };
-
-    $(function(){
-        $('#tree1').treed();
-        //replaceImgSvg('#svg-brand', '../img/svg/qiaqse2.svg');
-        //$("#iaqse-brand").css("display", "");
-        replaceImgSvg('#svg-logo-cab', '../img/svg/iaqse-caib-w.svg');
-        replaceImgSvg('#logo-iaqse', '../img/svg/logo-iaqse.svg');
-    });
-    
-   
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-    ga('create', 'UA-40778701-3', 'auto');
-    ga('send', 'pageview');
-
-</script>
+<script>var replaceImgSvg=function(e,a){var g=$(e);g.length&&$.ajax({type:"GET",url:a,contentType:"image/svg+xml;charset=ISO-8859-1",success:function(e){var a=$(e.documentElement);a.addClass(g.attr("class")),g.replaceWith(a)}})};$(function(){$("#tree1").treed(),replaceImgSvg("#svg-logo-cab","../img/svg/iaqse-caib-w.svg"),replaceImgSvg("#logo-iaqse","../img/svg/logo-iaqse.svg")}),function(e,a,g,t,c,s,n){e.GoogleAnalyticsObject=c,e.ga=e.ga||function(){(e.ga.q=e.ga.q||[]).push(arguments)},e.ga.l=1*new Date,s=a.createElement(g),n=a.getElementsByTagName(g)[0],s.async=1,s.src="//www.google-analytics.com/analytics.js",n.parentNode.insertBefore(s,n)}(window,document,"script",0,"ga"),ga("create","UA-40778701-3","auto"),ga("send","pageview")</script>
             </div>
             
         </div>

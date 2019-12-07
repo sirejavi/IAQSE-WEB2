@@ -35,7 +35,7 @@
           </div>
         </div>
     </div>
-    
+
         <div class="clearfix">
         <span class="filtrau">Filtrau per </span>
         <!--combo nivells-->
@@ -122,7 +122,8 @@
     </div>
 </div>
 <script>
-    app.controller("imprimiblesController", ["$scope", "$filter", "httpService", function ($scope, $filter, httpService) {
+    app.controller("imprimiblesController", ["$scope", "$rootScope", "$filter", "httpService", 
+            function ($scope, $rootScope, $filter, httpService) {
         $scope.pubs = [];
         $scope.pubslength = 0;
 
@@ -192,6 +193,11 @@
             return encodeURI(url);
         };
 
+        // S'ha produit un canvi en l'estat de la sessió
+        $rootScope.$on("iaqse-sessionId", function (evt, sessionId) {
+                $scope.updateAnalyticsInfo(sessionId);
+        });
+
         $scope.search = function () { 
             var list = [];
             var nivellSelected = $scope.selections.nivell.value;
@@ -238,7 +244,7 @@
 
             $scope.updateAnalyticsInfo = function (sessionId) {
                 if (sessionId != "") {
-                    httpService.listDocumentVisitCount("DOC", sessionId).then(function (res) {
+                    httpService.listDocumentVisitCount(sessionId, "DOC").then(function (res) {
                         $scope.addAnalyticsInfo(res.data);
                         $scope.search();
                     }, function () {
@@ -275,7 +281,7 @@
                 }
             }
             $scope.loadVisualizations = function(pub){
-                httpService.loadVisualizations(pub.url, $scope.sessionId).then(function(res){
+                httpService.loadVisualizations($scope.sessionId, pub.url).then(function(res){
                     $scope.modalVisualizations = res.data;
                 }, function(){
                     $scope.modalVisualizations = [];

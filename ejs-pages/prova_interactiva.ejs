@@ -1,14 +1,60 @@
-<!--s'obre en una pantalla separada empra el template prova-->
-<!--passam la prova al component-->
-<a href="proves.html#!/interactives" style="float: right;" class="btn btn-sm btn-warning"><i class="fa fa-times"></i>
-        Tancau la prova</a>
-<div id="mainController" ng-controller="mainController">
-        <iaqse-prova prova="prova" ng-if="prova!=null"></iaqse-prova>
+<div ng-controller="mainController">
+        <!-- Modal -->
+        <div class="modal fade" id="analyticsModal" tabindex="-1" role="dialog" aria-labelledby="analyticsModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+                                <div class="modal-header">
+                                        <h5 class="modal-title" id="analyticsModalLabel">Visites</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                        </button>
+                                </div>
+                                <div class="modal-body" style="height: 500px; overflow-y: auto;">
+                                        <p>Aquest document s'ha visitat en total <span
+                                                        ng-bind="modalVisualizations.length"></span> vegades</p>
+                                        <table class="table table-bordered">
+                                                <thead>
+                                                        <th>Data</th>
+                                                        <th>IP</th>
+                                                        <th>Long.</th>
+                                                        <th>Lat.</th>
+                                                </thead>
+                                                <tbody>
+                                                        <tr ng-repeat="visit in modalVisualizations">
+                                                                <td><span ng-bind="visit.FECHA"></span></td>
+                                                                <td><span ng-bind="visit.IP"></span></td>
+                                                                <td><span ng-bind="visit.LONGITUDE"></span></td>
+                                                                <td><span ng-bind="visit.LATITUDE"></span></td>
+                                                        </tr>
+                                                </tbody>
+                                        </table>
+                                        </tbody>
+                                </div>
+                                <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                                data-dismiss="modal">Tancar</button>
+                                </div>
+                        </div>
+                </div>
+        </div>
 
-        <div ng-if="mostraError" class="alert alert-danger">
-                <h5>:-( S'ha produït un error</h5>
-                <p>No s'ha trobat la prova amb identificador id={{id}}</p>
-                <a href="proves.html#!/interactives" class="btn btn-sm btn-warning">Tornau a proves</a>
+        <!--s'obre en una pantalla separada empra el template prova-->
+        <!--passam la prova al component-->
+        <a href="proves.html#!/interactives" style="float: right;" class="btn btn-sm btn-warning"><i
+                        class="fa fa-times"></i>
+                Tancau la prova</a>
+        <div id="mainController">
+                <span style="font-size: 105%;" class="badge badge-secondary badge-cursor" ng-bind="doc.hits"
+                        title="{{doc.hits_title}}" data-toggle="modal" data-target="#analyticsModal"></span>
+
+                <iaqse-prova prova="prova" ng-if="prova!=null"></iaqse-prova>
+
+                <div ng-if="mostraError" class="alert alert-danger">
+                        <h5>:-( S'ha produït un error</h5>
+                        <p>No s'ha trobat la prova amb identificador id={{id}}</p>
+                        <a href="proves.html#!/interactives" class="btn btn-sm btn-warning">Tornau a proves</a>
+                </div>
         </div>
 </div>
 <script>
@@ -270,7 +316,11 @@
         });
         app.controller("mainController", ["$scope", "$rootScope", "httpService",
                 function ($scope, $rootScope, httpService) {
-                        httpService.hit(location.href, "PAGE");
+
+                        <% if(config.remoteURL) { %>
+                        httpService.hit(location.href.replace("?", "-"), "PAGE");
+                        <% } %>
+
                         // Exemple que s'ha de carrega d'una base de dades json...
                         $scope.prova = null;
                         // Determina la id de la prova interactiva de la query
@@ -309,12 +359,12 @@
 
                                                 var rutaImatges = "src=\"../proves_interactives/" + nomJSON + "/";
                                                 // Carrega ara el contingut de la prova que es troba en un altre json
-                                                console.log("Carregant " + nomJSON);
+
                                                 httpService.loadSchema(nomJSON).then(function (response2) {
                                                         prova.estimuls = response2.data;
                                                         // Atenció cal reemplaçar totes les rutes a src=" per la ruta adient
                                                         // Atenció cal reemplaçar arrays per .join()
-                                                        console.log("S'ha carregat: " + prova);
+
                                                         for (var i = 0, len = prova.estimuls.length; i < len; i++) {
                                                                 var estimul = prova.estimuls[i];
                                                                 if (Array.isArray(estimul.estimul_body)) {
@@ -330,7 +380,7 @@
                                                                 }
                                                         }
 
-                                                        console.log(prova)
+
                                                         $scope.prova = prova;
                                                 }, function (err) {
                                                         console.log("Hi ha hagut un problema carregant la definició de la prova. Prova corrupta!: " + err);
@@ -341,20 +391,44 @@
                         } else {
                                 $scope.mostraError = true;
                         }
-                        $(function(){ 
+                        $(function () {
                                 var $element = $("#mainController")[0];
                                 var options = {
-                                                delimiters: [
-                                                        { left: "$", right: "$", display: false },
-                                                        { left: "\\(", right: "\\)", display: false },
-                                                        { left: "\\[", right: "\\]", display: true }
-                                                ]
-                                        };
+                                        delimiters: [
+                                                { left: "$", right: "$", display: false },
+                                                { left: "\\(", right: "\\)", display: false },
+                                                { left: "\\[", right: "\\]", display: true }
+                                        ]
+                                };
                                 $rootScope.$on("katex-update", function () {
                                         renderMathInElement($element, options);
                                 });
                         });
 
+
+                        $scope.doc = {};
+                        <% if(config.remoteURL) { %>
+                       
+                        // S'ha produit un canvi en l'estat de la sessió
+                        $rootScope.$on("iaqse-sessionId", function (evt, sessionId) {
+                                $scope.sessionId = sessionId;
+                                $scope.loadVisualizations();
+                        }); 
+                        $scope.loadVisualizations = function () { 
+                                var pagina = location.href.replace("?", "-");
+                                httpService.loadVisualizations($scope.sessionId, pagina).then(function (res) {
+                                        $scope.modalVisualizations = res.data;
+                                        $scope.doc.hits = res.data.length;
+                                        if (res.data.length) {
+                                                $scope.doc.hits_title = "Darrer accés " + res.data[0].FECHA;
+                                        }
+                                }, function () {
+                                        $scope.modalVisualizations = [];
+                                });
+                        }; 
+                        $scope.sessionId = localStorage.getItem("iaqse-sessionId"); 
+                        $scope.loadVisualizations(); 
+                        <% } %>
                 }]);
         app.filter("toLetter", function () {
                 return function (index) {

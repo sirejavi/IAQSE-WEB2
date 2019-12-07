@@ -24,114 +24,272 @@
   
 
 <script>
-  window.chunker = function(arr, chunkSize) {
+    window.addCssLink = function(url){
+      var link = document.createElement('link');  
+      link.rel = 'stylesheet';  
+      link.type = 'text/css'; 
+      link.href = url;  
+      document.getElementsByTagName('head')[0].appendChild(link);  
+    };
+    window.chunker = function (arr, chunkSize) {
       var R = [];
-      for (var i=0,len=arr.length; i<len; i+=chunkSize)
-           R.push(arr.slice(i,i+chunkSize));
+      for (var i = 0, len = arr.length; i < len; i += chunkSize)
+        R.push(arr.slice(i, i + chunkSize));
       return R;
-  }; 
-  window.getURLParameter = function( name ){
-      var regexS = "[\\?&]"+name+"=([^&#]*)", 
-    regex = new RegExp( regexS ),
-    results = regex.exec( window.location.search );
-    if(results == null) {
-      results = regex.exec( window.location.href);  
-    }
-    if( results == null ){
+    };
+    window.getURLParameter = function (name) {
+      var regexS = "[\\?&]" + name + "=([^&#]*)",
+        regex = new RegExp(regexS),
+        results = regex.exec(window.location.search);
+      if (results == null) {
+        results = regex.exec(window.location.href);
+      }
+      if (results == null) {
         return "";
-    } else{
+      } else {
         return decodeURIComponent(results[1].replace(/\+/g, " "));
-    }
-  };
-  window.app = angular.module("iaqse", ["ngRoute", "ngSanitize", "ngAnimate"]);
-  app.config(['$sceProvider',function($sceProvider){
-    $sceProvider.enabled(false);
-  }]);
-  app.service("httpService", ["$http", function($http){            
-            var service  = {
-                loadSchema: function(tableSchema){
-                  var request = {
-                      method: 'get',
-                      url: 'database/' + tableSchema + '.json',
-                      dataType: 'json',
-                      contentType: "application/json; charset=iso-8859-1"
-                  };
-                  return $http(request);
-                }
-            };
-            return service;            
-  }]);
-  window.app.filter("fileName", function(){
-        return function(fullPath) {
-            var i = fullPath.lastIndexOf("/");
-            return fullPath.substring(i+1);
-        }
-  });
-  window.app.filter("icona", function(){
-    return function(filename) {
-            var extension = filename.substring(filename.lastIndexOf(".")+1).trim().toLowerCase();
-            if(extension == "word") {
-                return "fa-file-word";
-            } else if(extension == "zip" || extension == "rar" ) {
-                return "fa-file-archive";
-            } else if(extension == "pdf") {
-                return "fa-file-pdf";
-            } else if(extension == "mp4" || extension == "avi" || extension == "mov" || extension == "qt") {
-                return "fa-file-video";
-            } else if(extension == "mp3" || extension == "ogg") {
-                return "fa-file-audio";
+      }
+    };
+    window.app = angular.module("iaqse", ["ngRoute", "ngSanitize", "ngAnimate"]);
+    app.config(['$sceProvider', function ($sceProvider) {
+      $sceProvider.enabled(false);
+    }]);
+    window.app.directive('a', ["httpService", function (httpService) {
+      return {
+        restrict: 'E', // only Elements (<a>),
+        link: function (scope, elm, attr) {
+          // every time you click on the link
+          elm.on('click', function ($event) {
+            if (attr.href != null) {
+              var url = attr.href;
+              if (url.startsWith("#")) {
+                url = location.href.split("#")[0]+url;
+              }
+              var tipus = attr.tipus;
+              if(tipus!='none'){
+                  httpService.hit(url, tipus);
+              }
             }
-
-            return "fa-file";
+            return true;
+          })
         }
-  });
-  window.app.config(["$controllerProvider", "$provide", "$compileProvider", "$filterProvider",
-       function($controllerProvider, $provide, $compileProvider, $filterProvider) {
-    // Since the "shorthand" methods for component
-    // definitions are no longer valid, we can just
-    // override them to use the providers for post-
-    // bootstrap loading.
-    // Let's keep the older references.
-    app._controller = app.controller;
-    app._service = app.service;
-    app._filter = app.filter;
-    app._component = app.component;
-    app._factory = app.factory;
-    app._value = app.value;
-    app._directive = app.directive;
-    app.controller = function(name, constructor) {
-      $controllerProvider.register(name, constructor);
-      return (this);
-    };
-    // Provider-based service.
-    app.service = function(name, constructor) {
-      $provide.service(name, constructor);
-      return (this);
-    };
-    // Provider-based factory.
-    app.factory = function(name, factory) {
-      $provide.factory(name, factory);
-      return (this);
-    };
-    // Provider-based value.
-    app.value = function(name, value) {
-      $provide.value(name, value);
-      return (this);
-    };
-    // Provider-based filter.
-    app.filter = function(name, filter) {
-      $filterProvider.register(name, filter);
-      return (this);
-    };
-    // Provider-based component.
-    app.component = function(name, component) {
-      $compileProvider.component(name, component);
-      return (this);
-    };
-    // Provider-based directive.
-    app.directive = function(name, factory) {
-      $compileProvider.directive(name, factory);
-      return (this);
-    };
-  }]);
-</script>
+      }
+    }]);
+    app.service("geolocation", ["$q", function ($q) {
+      var positionCache = null;
+      var options = {
+        timeout: 5000
+      }
+      var service = {};
+      service.getCurrentPosition = function () {
+        var deferred = $q.defer();
+        if (positionCache != null) {
+          deferred.resolve(positionCache);
+        } else {
+          if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function (pos) {
+              positionCache = { latitude: pos.coords.latitude, longitude: pos.coords.longitude };
+              deferred.resolve(positionCache);
+            }, function () {
+              deferred.reject();
+            }, options);
+          } else {
+            positionCache = {};
+            deferred.resolve(positionCache);
+          }
+        }
+        return deferred.promise;
+      };
+      return service;
+    }]);
+    app.service("httpService", ["$http", "geolocation", function ($http, geolocation) {
+      var service = {
+        loadSchema: function (tableSchema) {
+          var request = {
+            method: 'get',
+            url: 'database/' + tableSchema + '.json',
+            dataType: 'json',
+            contentType: "application/json; charset=iso-8859-1"
+          };
+          return $http(request);
+        }
+          <% if(config.remoteURL) { %>
+        ,
+            isAuthenticated: function(sessionId) {
+              return $http.post('<%=config.remoteURL%>/authenticate', { sessionId: sessionId });
+            },
+      login: function(username, password) {
+        return $http.post('<%=config.remoteURL%>/login', { username: username, password: password });
+      },
+      logout: function(sessionId) {
+        return $http.post('<%=config.remoteURL%>/priv/logout', { sessionId: sessionId });
+      },
+      listTipus: function(sessionId) {
+        return $http.post('<%=config.remoteURL%>/priv/document/tipus/list', { sessionId: sessionId });
+      },
+      listDocumentsTipus: function(sessionId, tipus) {
+        return $http.post('<%=config.remoteURL%>/priv/document/list', { tipus: tipus, sessionId: sessionId});
+      },
+      listDocumentVisitCount: function(sessionId, tipus) { 
+        return $http.post('<%=config.remoteURL%>/priv/visit/list', { tipus: tipus, sessionId: sessionId });
+      }, 
+      visitTimeline: function (sessionId, url, sqlDate1, sqlDate2) {
+         return $http.post('<%=config.remoteURL%>/priv/visit/timeline', { url: url, sqlDate1: sqlDate1, sqlDate2: sqlDate2, sessionId: sessionId });
+      },
+      loadVisualizations: function(sessionId, url, sessionId) {
+        return $http.post('<%=config.remoteURL%>/priv/visit/history', {url:url, sessionId: sessionId });
+      },
+      geolocations: function(sessionId){
+        return $http.post('<%=config.remoteURL%>/priv/visit/geolocations', { sessionId: sessionId });
+      },
+      hit: function (url, tipus) {
+        geolocation.getCurrentPosition().then(
+          function (coords) {
+            var data = { url: url, tipus: tipus, coords: coords }; 
+            $http.post('<%=config.remoteURL%>/visit/hit', data);
+          },
+          function (err) {
+            var data = { url: url, tipus: tipus };
+            $http.post('<%=config.remoteURL%>/visit/hit', data);
+          }
+        );
+      }
+        <% } %>
+      };
+    return service;
+    }]);
+    window.app.filter("fileName", function () {
+      return function (fullPath) {
+        var i = fullPath.lastIndexOf("/");
+        return fullPath.substring(i + 1);
+      }
+    });
+    window.app.filter("icona", function () {
+      return function (filename) {
+        var extension = filename.substring(filename.lastIndexOf(".") + 1).trim().toLowerCase();
+        if (extension == "word") {
+          return "fa-file-word";
+        } else if (extension == "zip" || extension == "rar") {
+          return "fa-file-archive";
+        } else if (extension == "pdf") {
+          return "fa-file-pdf";
+        } else if (extension == "mp4" || extension == "avi" || extension == "mov" || extension == "qt") {
+          return "fa-file-video";
+        } else if (extension == "mp3" || extension == "ogg") {
+          return "fa-file-audio";
+        }
+  
+        return "fa-file";
+      }
+    });
+    window.app.config(["$controllerProvider", "$provide", "$compileProvider", "$filterProvider",
+      function ($controllerProvider, $provide, $compileProvider, $filterProvider) {
+        // Since the "shorthand" methods for component
+        // definitions are no longer valid, we can just
+        // override them to use the providers for post-
+        // bootstrap loading.
+        // Let's keep the older references.
+        app._controller = app.controller;
+        app._service = app.service;
+        app._filter = app.filter;
+        app._component = app.component;
+        app._factory = app.factory;
+        app._value = app.value;
+        app._directive = app.directive;
+        app.controller = function (name, constructor) {
+          $controllerProvider.register(name, constructor);
+          return (this);
+        };
+        // Provider-based service.
+        app.service = function (name, constructor) {
+          $provide.service(name, constructor);
+          return (this);
+        };
+        // Provider-based factory.
+        app.factory = function (name, factory) {
+          $provide.factory(name, factory);
+          return (this);
+        };
+        // Provider-based value.
+        app.value = function (name, value) {
+          $provide.value(name, value);
+          return (this);
+        };
+        // Provider-based filter.
+        app.filter = function (name, filter) {
+          $filterProvider.register(name, filter);
+          return (this);
+        };
+        // Provider-based component.
+        app.component = function (name, component) {
+          $compileProvider.component(name, component);
+          return (this);
+        };
+        // Provider-based directive.
+        app.directive = function (name, factory) {
+          $compileProvider.directive(name, factory);
+          return (this);
+        };
+      }]);
+  
+      <% if (config.remoteURL) { %>
+      app.component("loginWidget", {
+        restrict: 'E',
+        transclude: true,
+        template: '<div ng-if="$ctrl.status.authenticated==false">' +
+          'Usuari: <input type="text" ng-model="$ctrl.username"/><br>' +
+          'Contrasenya: <input type="password" ng-model="$ctrl.password" ng-keyup="$event.keyCode == 13 && $ctrl.login()"/>' +
+          '<button class="btn btn-sm btn-secondary" style="margin-top:5px" ng-click="$ctrl.login()"><i class="fas fa-sign-in-alt"></i> Entrar</button>' +
+          '</div><div ng-if="$ctrl.status.authenticated">'+
+          '<center><span ng-bind="$ctrl.status.fullname"></span></center>' +
+          '<center><a href="admin_console.html">Consola d\'administració</a>' +
+          '<button class="btn btn-sm btn-secondary" style="margin-top:5px" ng-click="$ctrl.logout()"><i class="fas fa-sign-out-alt"></i> Sortir</button></center></div>',
+        controller: ["$rootScope", "httpService", function ($rootScope, httpService) {
+          var ctrl = this;
+          ctrl.username = "";
+          ctrl.password = "";
+          ctrl.status = { };
+  
+          var errCallback = function () { ctrl.status.authenticated=false; };
+   
+          ctrl.login = function () {
+            httpService.login(ctrl.username, ctrl.password).then(function (res) {
+              ctrl.status = res.data;
+              if (res.data.authenticated) {
+                localStorage.setItem("iaqse-sessionId", res.data.sessionId);
+                $rootScope.$broadcast("iaqse-sessionId", res.data.sessionId);
+              }
+            }, errCallback);
+            ctrl.username = "";
+            ctrl.password = "";
+          };
+  
+          ctrl.logout = function () {
+            var sessionId = localStorage.getItem("iaqse-sessionId");
+            if (sessionId) {
+              httpService.logout(sessionId).then(function (res) {
+              }, errCallback);
+            }
+            ctrl.status = { authenticated: false };
+            localStorage.removeItem("iaqse-sessionId");
+            $rootScope.$broadcast("iaqse-sessionId", "");
+          };
+  
+          var sessionId = localStorage.getItem("iaqse-sessionId");
+          if (sessionId) {
+            httpService.isAuthenticated(sessionId).then(function (res) {
+              ctrl.status = res.data;
+              if (ctrl.status.authenticated) {
+                $rootScope.$broadcast("iaqse-sessionId", sessionId);
+              }
+            }, errCallback);
+          } else {
+            ctrl.status.authenticated = false;
+          };
+  
+        }]
+      }
+  
+      );
+    <% } %>
+  </script>
