@@ -60,7 +60,12 @@ app.post('/iaqseapi/visit/hit', async function (req, res) {
 	(req.headers['x-forwarded-for'] || '').split(',').pop() || 
 	req.connection.remoteAddress || 
 	req.socket.remoteAddress || 
-	req.connection.socket.remoteAddress;
+	req.connection.socket.remoteAddress || "";
+
+	if(ip.indexOf("127.0.0.1")>=0 || ip.indexOf("localhost")>=0){
+		res.send({success: false});
+		return;
+	}
 	
 	const url = DocumentsCtrl.normalizeUrl(p.url); 
 	const tipus = p.tipus || DocumentsCtrl.obteTipus(url);
@@ -116,7 +121,12 @@ app.post('/iaqseapi/priv/visit/timeline', async function (req, res) {
 	 res.send(list);
 }); 
 
- 
+app.post('/iaqseapi/priv/visit/history', async function (req, res) {
+	const p = req.body;
+	const list = await DocumentsCtrl.history(p.url);
+	res.send(list);
+}); 
+
 app.listen(3009, function () {
 	console.log('iaqse server listening on port 3009!');
 });

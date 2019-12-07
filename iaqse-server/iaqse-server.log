@@ -1,0 +1,55 @@
+iaqse server listening on port 3009!
+iaqse server listening on port 3009!
+iaqse server listening on port 3009!
+Error: Failed to lookup view "welcome.ejs" in views directory "/home/ngnix/views"
+    at Function.render (/home/ngnix/iaqse-server/node_modules/express/lib/application.js:580:17)
+    at ServerResponse.render (/home/ngnix/iaqse-server/node_modules/express/lib/response.js:1012:7)
+    at /home/ngnix/iaqse-server/iaqse-server.js:34:6
+    at Layer.handle [as handle_request] (/home/ngnix/iaqse-server/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/ngnix/iaqse-server/node_modules/express/lib/router/route.js:137:13)
+    at Route.dispatch (/home/ngnix/iaqse-server/node_modules/express/lib/router/route.js:112:3)
+    at Layer.handle [as handle_request] (/home/ngnix/iaqse-server/node_modules/express/lib/router/layer.js:95:5)
+    at /home/ngnix/iaqse-server/node_modules/express/lib/router/index.js:281:22
+    at Function.process_params (/home/ngnix/iaqse-server/node_modules/express/lib/router/index.js:335:12)
+    at next (/home/ngnix/iaqse-server/node_modules/express/lib/router/index.js:275:10)
+iaqse server listening on port 3009!
+iaqse server listening on port 3009!
+Error: Failed to lookup view "welcome.ejs" in views directory "/home/ngnix/views"
+    at Function.render (/home/ngnix/iaqse-server/node_modules/express/lib/application.js:580:17)
+    at ServerResponse.render (/home/ngnix/iaqse-server/node_modules/express/lib/response.js:1012:7)
+    at /home/ngnix/iaqse-server/iaqse-server.js:34:6
+    at Layer.handle [as handle_request] (/home/ngnix/iaqse-server/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/ngnix/iaqse-server/node_modules/express/lib/router/route.js:137:13)
+    at Route.dispatch (/home/ngnix/iaqse-server/node_modules/express/lib/router/route.js:112:3)
+    at Layer.handle [as handle_request] (/home/ngnix/iaqse-server/node_modules/express/lib/router/layer.js:95:5)
+    at /home/ngnix/iaqse-server/node_modules/express/lib/router/index.js:281:22
+    at Function.process_params (/home/ngnix/iaqse-server/node_modules/express/lib/router/index.js:335:12)
+    at next (/home/ngnix/iaqse-server/node_modules/express/lib/router/index.js:275:10)
+iaqse server listening on port 3009!
+iaqse server listening on port 3009!
+iaqse server listening on port 3009!
+iaqse server listening on port 3009!
+You have triggered an unhandledRejection, you may have forgotten to catch a Promise rejection:
+Error: ER_PARSE_ERROR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ' `aval` = '2n ESO', `nivell` = '2nESO', `tags` = '2nESO', 'CMAT', `url` = 'docum' at line 2
+    at Query.Sequence._packetToError (/home/ngnix/iaqse-server/node_modules/mysql/lib/protocol/sequences/Sequence.js:47:14)
+    at Query.ErrorPacket (/home/ngnix/iaqse-server/node_modules/mysql/lib/protocol/sequences/Query.js:77:18)
+    at Protocol._parsePacket (/home/ngnix/iaqse-server/node_modules/mysql/lib/protocol/Protocol.js:291:23)
+    at Parser._parsePacket (/home/ngnix/iaqse-server/node_modules/mysql/lib/protocol/Parser.js:433:10)
+    at Parser.write (/home/ngnix/iaqse-server/node_modules/mysql/lib/protocol/Parser.js:43:10)
+    at Protocol.write (/home/ngnix/iaqse-server/node_modules/mysql/lib/protocol/Protocol.js:38:16)
+    at Socket.<anonymous> (/home/ngnix/iaqse-server/node_modules/mysql/lib/Connection.js:91:28)
+    at Socket.<anonymous> (/home/ngnix/iaqse-server/node_modules/mysql/lib/Connection.js:525:10)
+    at emitOne (events.js:116:13)
+    at Socket.emit (events.js:211:7)
+    --------------------
+    at Protocol._enqueue (/home/ngnix/iaqse-server/node_modules/mysql/lib/protocol/Protocol.js:144:48)
+    at PoolConnection.query (/home/ngnix/iaqse-server/node_modules/mysql/lib/Connection.js:201:25)
+    at /home/ngnix/iaqse-server/repositories/async-mysql.js:13:24
+    at Ping.onOperationComplete (/home/ngnix/iaqse-server/node_modules/mysql/lib/Pool.js:110:5)
+    at Ping.<anonymous> (/home/ngnix/iaqse-server/node_modules/mysql/lib/Connection.js:525:10)
+    at Ping._callback (/home/ngnix/iaqse-server/node_modules/mysql/lib/Connection.js:491:16)
+    at Ping.Sequence.end (/home/ngnix/iaqse-server/node_modules/mysql/lib/protocol/sequences/Sequence.js:83:24)
+    at Ping.Sequence.OkPacket (/home/ngnix/iaqse-server/node_modules/mysql/lib/protocol/sequences/Sequence.js:92:8)
+    at Protocol._parsePacket (/home/ngnix/iaqse-server/node_modules/mysql/lib/protocol/Protocol.js:291:23)
+    at Parser._parsePacket (/home/ngnix/iaqse-server/node_modules/mysql/lib/protocol/Parser.js:433:10)
+iaqse server listening on port 3009!

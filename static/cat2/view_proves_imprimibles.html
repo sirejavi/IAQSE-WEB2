@@ -5,6 +5,43 @@
 <li class="breadcrumb-item active">Per imprimir</li>
 </ol>
 </nav><div ng-controller="imprimiblesController"> 
+<!-- Modal -->
+<div class="modal fade" id="analyticsModal" tabindex="-1" role="dialog" aria-labelledby="analyticsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="analyticsModalLabel">Visites</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body" style="height: 500px; overflow-y: auto;">      
+                <p>Aquest document s'ha visitat en total <span ng-bind="modalVisualizations.length"></span> vegades</p>          
+                <table class="table table-bordered">
+                    <thead>
+                                <th>Data</th>
+                                <th>IP</th>
+                                <th>Long.</th>
+                                <th>Lat.</th>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="visit in modalVisualizations">
+                        <td><span ng-bind="visit.FECHA"></span></td>
+                        <td><span ng-bind="visit.IP"></span></td>
+                        <td><span ng-bind="visit.LONGITUDE"></span></td>
+                        <td><span ng-bind="visit.LATITUDE"></span></td>
+                    </tr>
+                    </tbody>
+                </table>
+                </tbody>                
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Tancar</button> 
+            </div>
+          </div>
+        </div>
+    </div>
+    
         <div class="clearfix">
         <span class="filtrau">Filtrau per </span>
         <!--combo nivells-->
@@ -42,18 +79,18 @@
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="fa fa-star"></i> <span>Altres formats</span></button>
             <div class="dropdown-menu" aria-labelledby="versions" style="overflow: scroll; max-height: 300px;">
-                <a class="dropdown-item" href="#!index">
-                        <i class="fa fa-print"></i>  <span>Totes les proves</span></a>
+                <a class="dropdown-item" ng-click="selections.printable=true; search();">
+                        <i class="fa fa-print"></i>  <span>Proves per imprimir</span></a>
                 <a class="dropdown-item" href="#!interactives">
                         <i class="fa fa-gamepad"></i>  <span>Proves interactives</span></a>
             </div>
     </div>
  
-</div>
+</div> 
      <!--optimitzat impressió-->
      <div   style="margin-left: 5px; margin-bottom: 5px;"></div>
-     <input type="checkbox" ng-change="search()" ng-model="selections.printable"/> <i class="fa fa-print" title="Optimitzades per impressió"></i>  <span>Optimitzades per impressió</span>
-   
+     <input type="checkbox" ng-change="search()" ng-model="selections.printable"/>  <i class="fa fa-print" title="Optimitzades per impressió"></i> <span>Optimitzades per impressió</span>
+    
 
     <hr />
     <p ng-if="pubslength==0">No s'han trobat proves</p>
@@ -64,14 +101,17 @@
     <div class="list-group">
         <div class="row" ng-repeat="chunk in pubs">
         <div class="col-md-6 list-group-item list-group-item-hover" ng-repeat="pub in chunk">
-            <div class="fa-pull-left">
-                <i ng-if="pub.destacat" class="fa fa-star"></i>
+            <div class="fa-pull-left">            
                 <a href="../{{pub.url}}" target="_blank">
                     <img ng-src="../{{pub.img}}" class="proves-img" />
                 </a>
             </div>
 
-            <p class="publication-title"><a href="../{{pub.url}}" target="_blank" title="{{pub.url_title}}"><span ng-bind="pub.title"></span></a></p>
+            <p class="publication-title">
+                <span ng-if="pub.hits!=null" style="font-size: 105%;" class="badge badge-secondary badge-cursor" ng-bind="pub.hits"
+                    title="{{pub.hits_title}}" ng-click="loadVisualizations(pub)" data-toggle="modal" data-target="#analyticsModal"></span>
+                <i class="fa fa-print" title="Optimitzada per impressió" ng-if="pub.imprimible"></i>
+                <a href="../{{pub.url}}" target="_blank" title="{{pub.url_title}}"><span ng-bind="pub.title"></span></a></p>
             <p ng-bind="pub.description"></p>
             <p class="fa-pull-right publication-date" ng-bind="pub.pubdate"></p>
 
@@ -80,7 +120,7 @@
                     <div  ng-repeat="doc in pub.documents">
                         <a ng-href="../{{encodeURI(doc)}}" target="_blank">
                             <i class="fa" ng-class="doc | icona"></i> 
-                            <span style="font-size: 90%;" ng-bind="doc | fileName"></span></a> 
+                            <span style="font-size: 90%;" ng-bind="doc | fileName"></span></a>
                     </div>
             </div>
         </div>
@@ -153,8 +193,12 @@
             $scope.selections.any = $scope.anys[index];
             $scope.search();
         };
+   
+        $scope.encodeURI = function(url) {
+            return encodeURI(url);
+        };
 
-        $scope.search = function () {
+        $scope.search = function () { 
             var list = [];
             var nivellSelected = $scope.selections.nivell.value;
             var competenciaSelected = $scope.selections.competencia.value;
@@ -163,13 +207,12 @@
                 if( (!nivellSelected || item.nivell == nivellSelected) &&
                    (!competenciaSelected || item.tags.indexOf(competenciaSelected)>=0) &&
                    ( $scope.selections.any.value==-1 || item.any==$scope.selections.any.value ) &&
-                   (!$scope.selections.printable || ($scope.selections.printable && item.imprimible))) {
+                   ( !$scope.selections.printable || ($scope.selections.printable && item.imprimible))) {
                     list.push(item);
                 }
-
-            }
+            } 
             $scope.pubslength = list.length;
-            $scope.pubs = chunker(list, 2);
+            $scope.pubs = chunker(list, 2); 
         };
 
         $scope.keypress = function (keyEvent) {
@@ -190,11 +233,62 @@
             }
             $scope.determinaAnys();
             $scope.search();
+            
+                $scope.updateAnalyticsInfo(localStorage.getItem("iaqse-sessionId"));
+            
         });
 
-        $scope.encodeURI = function(url) { 
-            return encodeURI(url);
-        };
-   
+        
+            httpService.hit(location.href, "PAGE");
+           
+
+            $scope.updateAnalyticsInfo = function (sessionId) {
+                if (sessionId != "") {
+                    httpService.listDocumentVisitCount("DOC", sessionId).then(function (res) {
+                        $scope.addAnalyticsInfo(res.data);
+                        $scope.search();
+                    }, function () {
+                        $scope.removeAnalyticsInfo();
+                        $scope.search();
+                    });
+                } else {
+                    $scope.removeAnalyticsInfo();
+                    $scope.search();
+                }
+            };
+
+            $scope.addAnalyticsInfo = function (data) {
+                for (var i = 0, len = provesJSON.length; i < len; i++) {
+                    var pub = provesJSON[i];
+                    pub.hits = 0;
+                    for (var j = 0, len2 = data.length; j < len2; j++) {
+                        var url = data[j].URL;
+                        if (pub.url.toLowerCase().indexOf(url) >= 0) {
+                            pub.hits = data[j].count;
+                            var date = new Date(data[j].LAST_ACCESS);
+                            pub.hits_title = "Darrer accés " + $filter('date')(date, 'dd/MM/yyyy HH:mm:ss');
+                            break;
+                        }
+                    }
+                }
+            };
+
+            $scope.removeAnalyticsInfo = function() {
+                for (var i = 0, len = provesJSON.length; i < len; i++) {
+                    var pub = provesJSON[i];
+                    pub.hits = null;
+                    pub.hits_title = null;
+                }
+            }
+            $scope.loadVisualizations = function(pub){
+                httpService.loadVisualizations(pub.url, $scope.sessionId).then(function(res){
+                    $scope.modalVisualizations = res.data;
+                }, function(){
+                    $scope.modalVisualizations = [];
+                });
+            };
+            
+      
+      
     }]);
 </script>

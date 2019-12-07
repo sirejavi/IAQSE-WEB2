@@ -136,6 +136,9 @@
     visitTimeline: function (url, sqlDate1, sqlDate2, sessionId) {
        return $http.post('https://piworld.es/iaqseapi/priv/visit/timeline', { url: url, sqlDate1: sqlDate1, sqlDate2: sqlDate2, sessionId: sessionId });
     },
+    loadVisualizations: function(url, sessionId) {
+      return $http.post('https://piworld.es/iaqseapi/priv/visit/history', {url:url, sessionId: sessionId });
+    },
     geolocations: function(sessionId){
       return $http.post('https://piworld.es/iaqseapi/priv/visit/geolocations', { sessionId: sessionId });
     },
@@ -480,10 +483,8 @@
 <div ng-view id="routedContent"></div>
 
 <script>
-    app.controller("mainController", ["$scope", "httpService", function($scope, httpService){
-        httpService.hit(location.href, "PAGE");
+    app.controller("mainController", ["$scope", "httpService", function($scope, httpService){        
     }]);
- 
 </script>
 
     <script>

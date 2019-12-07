@@ -109,14 +109,23 @@ const listTipusDocumentsSQL = "SELECT DISTINCT d.TIPUS FROM IAQSE_DOCUMENT AS d 
 DocumentsCtrl.listTipusDocuments = function() {
     return query(listTipusDocumentsSQL);
 }
+
 const listDocumentsSQL = "SELECT d.* FROM IAQSE_DOCUMENT AS d WHERE d.TIPUS=? ORDER BY d.URL ASC";
 DocumentsCtrl.listDocuments = function(tipus) { 
     return query(listDocumentsSQL, [tipus]);
 }
 
+const historySQL = `SELECT date_format(v.FECHA, "%d/%m/%y %H:%i:%S") AS FECHA, c.IP, c.LATITUDE, c.LONGITUDE 
+FROM IAQSE_VISITA AS v INNER JOIN IAQSE_CLIENT AS c on v.CLIENT_ID=c.ID INNER JOIN
+IAQSE_DOCUMENT AS d ON v.DOCUMENT_ID=d.ID WHERE d.URL=? ORDER BY FECHA DESC`;
+DocumentsCtrl.history = function(url) { 
+    return query(historySQL, [DocumentsCtrl.normalizeUrl(url)]);
+}
+
+
 DocumentsCtrl.normalizeUrl = function(url) {
     url = url || "";
-    url = url.trim();
+    url = (url+"").trim();
     url = url.replace(/\.\.\//g,'');
     url = url.toLowerCase();
     url = url.split("?")[0].trim();
@@ -125,7 +134,7 @@ DocumentsCtrl.normalizeUrl = function(url) {
 
 DocumentsCtrl.obteTipus = function(url) {
     let tipus  = "";
-    if(url.indexOf(".pdf")>=0 || url.indexOf(".odt")>=0 || url.indexOf(".doc")>=0 || url.indexOf(".docx")>=0) {
+    if(url.indexOf(".pdf")>=0 || url.indexOf(".odt")>=0 || url.indexOf(".doc")>=0 || url.indexOf(".docx")>=0 || url.indexOf(".zip")>=0 || url.indexOf(".rar")>=0) {
         tipus  = "DOC";
     } else if(url.endsWith(".html") || url.endsWith(".html")) {
         if(url.indexOf("#!/")>=0) 

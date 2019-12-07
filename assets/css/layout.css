@@ -100,7 +100,9 @@ a:hover {
     from { opacity: 0; }
     to   { opacity: 1; }
 }
-
+.badge-cursor{
+    cursor: pointer;
+}
 footer {
     margin-top: 50px!important;
     color: rgb(57, 57, 57);

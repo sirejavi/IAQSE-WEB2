@@ -136,6 +136,9 @@
     visitTimeline: function (url, sqlDate1, sqlDate2, sessionId) {
        return $http.post('https://piworld.es/iaqseapi/priv/visit/timeline', { url: url, sqlDate1: sqlDate1, sqlDate2: sqlDate2, sessionId: sessionId });
     },
+    loadVisualizations: function(url, sessionId) {
+      return $http.post('https://piworld.es/iaqseapi/priv/visit/history', {url:url, sessionId: sessionId });
+    },
     geolocations: function(sessionId){
       return $http.post('https://piworld.es/iaqseapi/priv/visit/geolocations', { sessionId: sessionId });
     },
@@ -482,7 +485,44 @@
           <li class="breadcrumb-item active"> Indicadors </li>  
         </ol>
         </nav>
-        <div>
+        <!-- Modal -->
+<div class="modal fade" id="analyticsModal" tabindex="-1" role="dialog" aria-labelledby="analyticsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="analyticsModalLabel">Visites</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body" style="height: 500px; overflow-y: auto;">      
+                <p>Aquest document s'ha visitat en total <span ng-bind="modalVisualizations.length"></span> vegades</p>          
+                <table class="table table-bordered">
+                    <thead>
+                                <th>Data</th>
+                                <th>IP</th>
+                                <th>Long.</th>
+                                <th>Lat.</th>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="visit in modalVisualizations">
+                        <td><span ng-bind="visit.FECHA"></span></td>
+                        <td><span ng-bind="visit.IP"></span></td>
+                        <td><span ng-bind="visit.LONGITUDE"></span></td>
+                        <td><span ng-bind="visit.LATITUDE"></span></td>
+                    </tr>
+                    </tbody>
+                </table>
+                </tbody>                
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Tancar</button> 
+            </div>
+          </div>
+        </div>
+    </div>
+    
+<div>
     <span class="filtrau">Filtrau per </span>
     <div class="btn-group" role="group" aria-label="Tipus d'indicador">
         <button type="button" class="btn" ng-click="select(menuItem)"
@@ -508,8 +548,8 @@
                         </a>
                     </div>
                     <div style="float: left;">
-                        <p><span ng-if="pub.hits!=null" style="font-size: 105%;" class="badge badge-secondary" ng-bind="pub.hits"
-                            title="{{pub.hits_title}}"></span>
+                        <p><span ng-if="pub.hits!=null" style="font-size: 105%;" class="badge badge-secondary badge-cursor" ng-bind="pub.hits"
+                            title="{{pub.hits_title}}" ng-click="loadVisualizations(pub)" data-toggle="modal" data-target="#analyticsModal"></span>
                             <a href="../{{pub.url}}" target="_blank" ng-bind="pub.title"></a></p>
                         <p ng-bind="pub.description"></p>
                         <p class="fa-pull-right publication-date" ng-bind="pub.pubdate"></p>
@@ -614,6 +654,13 @@
                     pub.hits_title = null;
                 }
             }
+            $scope.loadVisualizations = function(pub){
+                httpService.loadVisualizations(pub.url, $scope.sessionId).then(function(res){
+                    $scope.modalVisualizations = res.data;
+                }, function(){
+                    $scope.modalVisualizations = [];
+                });
+            };
             
 
         

@@ -2,8 +2,6 @@
 <div ng-view id="routedContent"></div>
 
 <script>
-    app.controller("mainController", ["$scope", "httpService", function($scope, httpService){
-        httpService.hit(location.href, "PAGE");
+    app.controller("mainController", ["$scope", "httpService", function($scope, httpService){        
     }]);
- 
 </script>
