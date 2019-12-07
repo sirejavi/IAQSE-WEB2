@@ -270,6 +270,7 @@
         });
         app.controller("mainController", ["$scope", "$rootScope", "httpService",
                 function ($scope, $rootScope, httpService) {
+                        httpService.hit(location.href, "PAGE");
                         // Exemple que s'ha de carrega d'una base de dades json...
                         $scope.prova = null;
                         // Determina la id de la prova interactiva de la query

@@ -1,4 +1,4 @@
-<div ng-controller="mainController">
+<div>
      <span class="filtrau">Filtrau per </span>
     <!--Tipus d'enllaç-->
     <div class="dropdown">
@@ -53,6 +53,6 @@
                 }
                 $scope.chooseType(0);           
             });
-            
+            httpService.hit(location.href, "PAGE");
         }]);
     </script>

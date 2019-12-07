@@ -126,6 +126,14 @@
             "comment": "La url necessita de query params",
             "template": "examen",
             "hide": true
+        },
+        {
+            "title": "Admin",
+            "title_long": "Consola d'administració",
+            "ejs": "admin_console",
+            "url": "admin_console", 
+            "comment": "Privat",
+            "hide": true
         }
 
     ]

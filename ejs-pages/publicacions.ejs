@@ -1,18 +1,20 @@
-<div ng-controller="mainController">
-     
-        <div class="clearfix">
-                <span class="filtrau">Filtrau per </span>
-             <!--combo categories-->
+<div>
+
+    <div class="clearfix">
+        <span class="filtrau">Filtrau per </span>
+        <!--combo categories-->
         <div class="btn-group float-left" title="Cerca per categoria" style="margin-left: 10px; margin-bottom: 5px;">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="tagsCombo" 
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="fa fa-tags"></i> <span ng-bind="selectedTag.name"></span></button>
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="tagsCombo" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                <i class="fa fa-tags"></i> <span ng-bind="selectedTag.name"></span></button>
             <div class="dropdown-menu" aria-labelledby="tagsCombo">
-                <a class="dropdown-item" ng-click="listByTag($index)" ng-repeat="st in searchTags"><span ng-bind="st.name"></span></a>
+                <a class="dropdown-item" ng-click="listByTag($index)" ng-repeat="st in searchTags"><span
+                        ng-bind="st.name"></span></a>
             </div>
         </div>
         <!--inputText search-->
-        <div class="input-group float-left" style="max-width: 400px; margin-left:10px;margin-bottom: 5px;" title="Cerca per text">
+        <div class="input-group float-left" style="max-width: 400px; margin-left:10px;margin-bottom: 5px;"
+            title="Cerca per text">
             <input type="text" class="form-control" placeholder="Cerca" ng-model="searchText"
                 ng-keypress="keypress($event)">
             <div class="input-group-append">
@@ -20,17 +22,18 @@
                     <i class="fa fa-search"></i>
                 </button>
             </div>
-        </div> 
+        </div>
         <!--spinner any-->
         <div class="float-left form-inline" style="margin-left: 30px;margin-bottom: 5px;">
-               <input class="form-check-input" type="checkbox"  id="activaCercaAny" style="vertical-align: sub;" ng-model="years.activaCercaAny"
-               ng-change="onYearChange(true)">
-               <label class="form-check-label" for="activaCercaAny" style="vertical-align: sub;"> Cerca per any </label>
-               
-               <input type="number" min="2000" max="{{years.thisYear}}" class="form-control" ng-model="years.selectedYear"   
-               ng-change="onYearChange(false)" ng-if="years.activaCercaAny" title="Triau l'any" style="width: 100px;margin-left: 10px;"/>
+            <input class="form-check-input" type="checkbox" id="activaCercaAny" style="vertical-align: sub;"
+                ng-model="years.activaCercaAny" ng-change="onYearChange(true)">
+            <label class="form-check-label" for="activaCercaAny" style="vertical-align: sub;"> Cerca per any </label>
+
+            <input type="number" min="2000" max="{{years.thisYear}}" class="form-control" ng-model="years.selectedYear"
+                ng-change="onYearChange(false)" ng-if="years.activaCercaAny" title="Triau l'any"
+                style="width: 100px;margin-left: 10px;" />
         </div>
-    </div> 
+    </div>
 
 
     <hr />
@@ -48,14 +51,17 @@
                 </a>
             </div>
 
-            <p class="publication-title"><a href="../{{pub.url}}" target="_blank" ng-bind="pub.title"></a></p>
+            <p class="publication-title">
+                <span ng-if="pub.hits!=null" style="font-size: 105%;" class="badge badge-secondary" ng-bind="pub.hits"
+                    title="{{pub.hits_title}}"></span>
+                <a href="../{{pub.url}}" target="_blank" ng-bind="pub.title"></a></p>
             <p ng-bind="pub.description"></p>
             <p class="fa-pull-right publication-date" ng-bind="pub.pubdate | pubDate"></p>
 
         </div>
     </div>
 </div>
-<script> 
+<script>
 
     app.service("PubService", function () {
         var service = {};
@@ -88,14 +94,14 @@
         service.search = function (tags, text, year) {
             var list = service.findByTags(tags);
             var text2 = text.toLowerCase().trim();
-            if(text2 || year) {                
+            if (text2 || year) {
                 var list2 = [];
                 for (var i = 0; i < list.length; i++) {
                     var p = list[i];
                     var condText = (text2 && (p.title.toLowerCase().indexOf(text2) >= 0 ||
                         p.description.toLowerCase().indexOf(text2) >= 0 ||
-                        p.pubdate.toLowerCase().indexOf(text2) >= 0)) || !text2;
-                    var condYear = (year && p.pubdate.toLowerCase().indexOf(year+"") >= 0) || !year;
+                        p.pubdate.toLowerCase().indexOf(text2) >= 0)) || !text2;
+                    var condYear = (year && p.pubdate.toLowerCase().indexOf(year + "") >= 0) || !year;
                     if (condText && condYear) {
                         list2.push(p);
                     }
@@ -108,110 +114,163 @@
         return service;
     });
     var MONTHS = ["gener", "febrer", "març", "abril", "maig", "juny", "juliol", "agost", "setembre", "octubre", "novembre", "desembre"];
-    app.filter("pubDate", function(){
-        return function(dateStr) {
-            if(!dateStr) {
+    app.filter("pubDate", function () {
+        return function (dateStr) {
+            if (!dateStr) {
                 return "";
             }
             var str = "";
             var parts = dateStr.split("/");
-            if(parts.length===3) {
+            if (parts.length === 3) {
                 var mesIndx = parseInt(parts[1]) - 1;
                 var mes = MONTHS[mesIndx];
                 str = "Publicat dia " + parts[0] + " ";
-                if(mes.startsWith("a") || mes.startsWith("o")) {
+                if (mes.startsWith("a") || mes.startsWith("o")) {
                     str += "d'" + mes;
                 } else {
-                    str += "de "+ mes;
+                    str += "de " + mes;
                 }
                 str += " de " + parts[2];
-            } else if(parts.length===2) {
+            } else if (parts.length === 2) {
                 var mesIndx = parseInt(parts[0]) - 1;
                 var mes = MONTHS[mesIndx];
                 str = "Publicat el mes ";
-                if(mes.startsWith("a") || mes.startsWith("o")) {
+                if (mes.startsWith("a") || mes.startsWith("o")) {
                     str += "d'" + mes;
                 } else {
-                    str += "de "+ mes;
+                    str += "de " + mes;
                 }
                 str += " de " + parts[1];
-            } else if(parts.length===1) {
-                 str = "Publicat l'any " + parts[0];
+            } else if (parts.length === 1) {
+                str = "Publicat l'any " + parts[0];
             }
             return str;
         }
     });
-    app.controller("mainController", ["$scope", "PubService", "httpService", function ($scope, PubService, httpService) {
-        var now = new Date().getFullYear();
-        $scope.years = {
-            activaCercaAny: false,
-            thisYear: now + 1,
-            selectedYear: now
-        };
-        $scope.pubs = [];
-        $scope.searchTags = [
-            { name: "Totes", tagList: null },
-            { name: "Diagnòstic", tagList: "AD" },
-            { name: "Primària", tagList: "1rEP,3rEP,4tEP,5eEP,6eEP,rubriques" },
-            { name: "Secundària", tagList: "2nESO,4tESO" },
-            { name: "Informes de resultats", tagList: "resultats" },
-            { name: "Indicadors SEIB", tagList: "indicadors" },
-            { name: "Anuaris", tagList: "anuari" },
-            { name: "Documents d'avaluació", tagList: "documents" }
-        ];
-        $scope.selectedTag = $scope.searchTags[0];
-        $scope.searchText = "";
-        $scope.listByTag = function (index) { 
-            $scope.selectedTag = $scope.searchTags[index];
+    app.controller("mainController", ["$scope", "$rootScope", "PubService", "httpService", "$filter",
+        function ($scope, $rootScope, PubService, httpService, $filter) {
+            var now = new Date().getFullYear();
+            $scope.years = {
+                activaCercaAny: false,
+                thisYear: now + 1,
+                selectedYear: now
+            };
+            $scope.pubs = [];
+            $scope.searchTags = [
+                { name: "Totes", tagList: null },
+                { name: "Diagnòstic", tagList: "AD" },
+                { name: "Primària", tagList: "1rEP,3rEP,4tEP,5eEP,6eEP,rubriques" },
+                { name: "Secundària", tagList: "2nESO,4tESO" },
+                { name: "Informes de resultats", tagList: "resultats" },
+                { name: "Indicadors SEIB", tagList: "indicadors" },
+                { name: "Anuaris", tagList: "anuari" },
+                { name: "Documents d'avaluació", tagList: "documents" }
+            ];
+            $scope.selectedTag = $scope.searchTags[0];
             $scope.searchText = "";
-            var tags = $scope.selectedTag.tagList;
-            if($scope.years.activaCercaAny) {
-                $scope.pubs = PubService.search(tags ? tags.split(",") : null, $scope.searchText, $scope.years.selectedYear);
-            } else {
-                $scope.pubs = PubService.search(tags ? tags.split(",") : null, $scope.searchText);
+            $scope.listByTag = function (index) {
+                $scope.selectedTag = $scope.searchTags[index];
+                $scope.searchText = "";
+                var tags = $scope.selectedTag.tagList;
+                if ($scope.years.activaCercaAny) {
+                    $scope.pubs = PubService.search(tags ? tags.split(",") : null, $scope.searchText, $scope.years.selectedYear);
+                } else {
+                    $scope.pubs = PubService.search(tags ? tags.split(",") : null, $scope.searchText);
+                }
             }
-        }
-       
-        $scope.search = function () {
-            var tags = $scope.selectedTag.tagList;
-            if($scope.years.activaCercaAny) {
-                $scope.pubs = PubService.search(tags ? tags.split(",") : null, $scope.searchText, $scope.years.selectedYear);
-            } else {
-                $scope.pubs = PubService.search(tags ? tags.split(",") : null, $scope.searchText);
-            }
-        };
-        $scope.keypress = function (keyEvent) {
-            if (keyEvent.which === 13) {
-                $scope.search();
-            }
-        };
-        $scope.onYearChange = function(clearTagSelection) {
-            if($scope.years.activaCercaAny && clearTagSelection) {
-                this.searchText = "";
-                this.selectedTag = this.searchTags[0];
-            }
-            var tags = $scope.selectedTag.tagList;
-            if($scope.years.activaCercaAny) {
-                $scope.pubs = PubService.search(tags ? tags.split(",") : null, $scope.searchText, $scope.years.selectedYear);
-            } else {
-                $scope.pubs = PubService.search(tags ? tags.split(",") : null, $scope.searchText);
-            }
-        } 
 
-        httpService.loadSchema("publicacions").then(function(response){
-            pubJSON = response.data;
-            var goTo = 0;
-            var tag = getURLParameter("tag");
-            console.log(tag);
-            if(tag) {
-                try{
-                    goTo = parseInt(tag);
-                } catch(e){};
+            $scope.search = function () {
+                var tags = $scope.selectedTag.tagList;
+                if ($scope.years.activaCercaAny) {
+                    $scope.pubs = PubService.search(tags ? tags.split(",") : null, $scope.searchText, $scope.years.selectedYear);
+                } else {
+                    $scope.pubs = PubService.search(tags ? tags.split(",") : null, $scope.searchText);
+                }
+            };
+            $scope.keypress = function (keyEvent) {
+                if (keyEvent.which === 13) {
+                    $scope.search();
+                }
+            };
+            $scope.onYearChange = function (clearTagSelection) {
+                if ($scope.years.activaCercaAny && clearTagSelection) {
+                    this.searchText = "";
+                    this.selectedTag = this.searchTags[0];
+                }
+                var tags = $scope.selectedTag.tagList;
+                if ($scope.years.activaCercaAny) {
+                    $scope.pubs = PubService.search(tags ? tags.split(",") : null, $scope.searchText, $scope.years.selectedYear);
+                } else {
+                    $scope.pubs = PubService.search(tags ? tags.split(",") : null, $scope.searchText);
+                }
             }
-            if(goTo>=$scope.searchTags.length) {
-               goTo = 0;
+
+            // S'ha produit un canvi en l'estat de la sessió
+            $rootScope.$on("iaqse-sessionId", function (evt, sessionId) {
+                $scope.updateAnalyticsInfo(sessionId);
+            });
+
+            httpService.loadSchema("publicacions").then(function (response) {
+                pubJSON = response.data;
+                var goTo = 0;
+                var tag = getURLParameter("tag"); 
+                if (tag) {
+                    try {
+                        goTo = parseInt(tag);
+                    } catch (e) { };
+                }
+                if (goTo >= $scope.searchTags.length) {
+                    goTo = 0;
+                }
+                $scope.listByTag(goTo);
+
+                <% if(config.remoteURL) { %>
+                $scope.updateAnalyticsInfo(localStorage.getItem("iaqse-sessionId"));
+                <% } %>
+            });
+
+            <% if(config.remoteURL) { %>
+            httpService.hit(location.href, "PAGE");
+           
+
+            $scope.updateAnalyticsInfo = function (sessionId) {
+                if (sessionId != "") {
+                    httpService.listDocumentVisitCount("DOC", sessionId).then(function (res) {
+                        $scope.addAnalyticsInfo(res.data);
+                        $scope.listByTag(0);
+                    }, function () {
+                        $scope.removeAnalyticsInfo();
+                        $scope.listByTag(0);
+                    });
+                } else {
+                    $scope.removeAnalyticsInfo();
+                    $scope.listByTag(0);
+                }
+            };
+
+            $scope.addAnalyticsInfo = function (data) {
+                for (var i = 0, len = pubJSON.length; i < len; i++) {
+                    var pub = pubJSON[i];
+                    pub.hits = 0;
+                    for (var j = 0, len2 = data.length; j < len2; j++) {
+                        var url = data[j].URL;
+                        if (pub.url.toLowerCase().indexOf(url) >= 0) {
+                            pub.hits = data[j].count;
+                            var date = new Date(data[j].LAST_ACCESS);
+                            pub.hits_title = "Darrer accés " + $filter('date')(date, 'dd/MM/yyyy HH:mm:ss');
+                            break;
+                        }
+                    }
+                }
+            };
+
+            $scope.removeAnalyticsInfo = function() {
+                for (var i = 0, len = pubJSON.length; i < len; i++) {
+                    var pub = pubJSON[i];
+                    pub.hits = null;
+                    pub.hits_title = null;
+                }
             }
-            $scope.listByTag(goTo);
-        });
-    }]);
+            <% } %>
+        }]);
 </script>

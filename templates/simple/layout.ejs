@@ -5,13 +5,13 @@
         <% include head %>
     </head>
 
-    <body>
+    <body ng-app="iaqse">
         <div style="max-width: 1500px; margin: auto;">
         <header>
             <% include header %>
         </header>
 
-        <div id="main-wrap" class="container-fluid">
+        <div id="main-wrap" class="container-fluid" ng-controller="mainController">
             <div class="row">
                 <div class="col-xl-2 d-none d-xl-block">
                     <div class="alert alert-primary">
@@ -39,10 +39,18 @@
                         </li>
                         <% } }) %>
                     </ul>
+
+                    <br><br>
+                    <div class="alert alert-primary">
+                            <h6><i class="fa fa-cogs"></i> Administració</h6>
+                    </div>
+                    <% if(config.remoteURL) { %>
+                    <login-widget></login-widget>
+                    <% } %>
                 </div>
 
                 <div class="col-xl-10 col-lg-12">
-                <main ng-app="iaqse">
+                <main>
                 </main>
                 </div>
             </div>

@@ -156,6 +156,7 @@
             }]
         };
     })
-    app.controller("mainController", ["$scope", "$filter",  function ($scope, $filter) {
+    app.controller("mainController", ["$scope", "httpService", function ($scope, httpService) {
+        httpService.hit(location.href, "PAGE");
     }]);
 </script>

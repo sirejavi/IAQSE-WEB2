@@ -1,0 +1,11 @@
+  {
+        "pool": {
+            "host": "localhost",
+            "user": "YOUR_USER",
+            "database": "YOUR_DATABASE",
+            "password": "YOUR_PASSWORD",
+            "waitForConnections": true,
+            "connectionLimit": 50,
+            "queueLimit": 0
+        }
+  }

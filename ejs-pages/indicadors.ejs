@@ -1,4 +1,4 @@
-<div ng-controller="mainController">
+<div>
     <span class="filtrau">Filtrau per </span>
     <div class="btn-group" role="group" aria-label="Tipus d'indicador">
         <button type="button" class="btn" ng-click="select(menuItem)"
@@ -24,7 +24,9 @@
                         </a>
                     </div>
                     <div style="float: left;">
-                        <p><a href="../{{pub.url}}" target="_blank" ng-bind="pub.title"></a></p>
+                        <p><span ng-if="pub.hits!=null" style="font-size: 105%;" class="badge badge-secondary" ng-bind="pub.hits"
+                            title="{{pub.hits_title}}"></span>
+                            <a href="../{{pub.url}}" target="_blank" ng-bind="pub.title"></a></p>
                         <p ng-bind="pub.description"></p>
                         <p class="fa-pull-right publication-date" ng-bind="pub.pubdate"></p>
                     </div>
@@ -35,7 +37,8 @@
 </div>
 
 <script>
-    app.controller("mainController", ["$scope", "httpService", function ($scope, httpService) {
+    app.controller("mainController", ["$scope", "$rootScope", "httpService", "$filter",
+         function ($scope, $rootScope, httpService, $filter) {
 
         $scope.pubs = [];
         $scope.pubslength = 0;
@@ -71,9 +74,64 @@
             $scope.pubs = chunker(list, 2);
         };
 
+         // S'ha produit un canvi en l'estat de la sessió
+         $rootScope.$on("iaqse-sessionId", function (evt, sessionId) {
+                $scope.updateAnalyticsInfo(sessionId);
+        });
+
         httpService.loadSchema("indicadors").then(function (response) {
             indicadorsJSON = response.data;
             $scope.display();
+            <% if(config.remoteURL) { %>
+                $scope.updateAnalyticsInfo(localStorage.getItem("iaqse-sessionId"));
+            <% } %>
         });
+        
+
+        <% if(config.remoteURL) { %>
+            httpService.hit(location.href, "PAGE");
+           
+
+            $scope.updateAnalyticsInfo = function (sessionId) {
+                if (sessionId != "") {
+                    httpService.listDocumentVisitCount("DOC", sessionId).then(function (res) {
+                        $scope.addAnalyticsInfo(res.data);
+                        $scope.display();
+                    }, function () {
+                        $scope.removeAnalyticsInfo();
+                        $scope.display();
+                    });
+                } else {
+                    $scope.removeAnalyticsInfo();
+                    $scope.display();
+                }
+            };
+
+            $scope.addAnalyticsInfo = function (data) {
+                for (var i = 0, len = indicadorsJSON.length; i < len; i++) {
+                    var pub = indicadorsJSON[i];
+                    pub.hits = 0;
+                    for (var j = 0, len2 = data.length; j < len2; j++) {
+                        var url = data[j].URL;
+                        if (pub.url.toLowerCase().indexOf(url) >= 0) {
+                            pub.hits = data[j].count;
+                            var date = new Date(data[j].LAST_ACCESS);
+                            pub.hits_title = "Darrer accés " + $filter('date')(date, 'dd/MM/yyyy HH:mm:ss');
+                            break;
+                        }
+                    }
+                }
+            };
+
+            $scope.removeAnalyticsInfo = function() {
+                for (var i = 0, len = indicadorsJSON.length; i < len; i++) {
+                    var pub = indicadorsJSON[i];
+                    pub.hits = null;
+                    pub.hits_title = null;
+                }
+            }
+            <% } %>
+
+        
     }]);
 </script>

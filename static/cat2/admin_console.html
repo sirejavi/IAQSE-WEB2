@@ -312,7 +312,7 @@
             </a>
           </li>
           
-          <li class="nav-item  active ">
+          <li class="nav-item ">
             <a class="nav-link" href="quisom.html" title="">Qui som</span>
             </a>
           </li>
@@ -476,34 +476,320 @@
                 <div class="col-xl-10 col-lg-12">
                 <main>
                 
-<!--inject views here-->
-<div ng-view id="routedContent"></div>
+<nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="index.html"><i class="fas fa-home"></i></a></li> 
+          <li class="breadcrumb-item active"> Consola d'administració </li>  
+        </ol>
+        </nav>
+        <style>
+    [fixed-first-column] {
+        position: relative
+    }
 
-<script>
-    app.controller("mainController", ["$scope", "httpService", function($scope, httpService){
-        httpService.hit(location.href, "PAGE");
-    }]);
-</script>
+    [fixed-first-column]>.table-responsive {
+        margin-left: 80px;
+    }
+
+    [fixed-first-column]>.table-responsive .table {}
+
+    [fixed-first-column]>.table-responsive .table>thead>tr>td:first-child,
+    [fixed-first-column]>.table-responsive .table>tbody>tr>td:first-child,
+    [fixed-first-column]>.table-responsive .table>thead>tr>th:first-child,
+    [fixed-first-column]>.table-responsive .table>tbody>tr>th:first-child {
+        position: absolute;
+        min-width: 80px;
+        width: 80px;
+        border-right: 1px solid #ddd !important;
+        border-bottom: 1px solid #f5f5f5 !important;
+        left: 0;
+        top: auto;
+        padding-top: 0 !important;
+        padding-bottom: 0 !important;
+    }
+
+    [fixed-first-column]>.table-responsive .table>thead>tr>td:first-child>div,
+    [fixed-first-column]>.table-responsive .table>tbody>tr>td:first-child>div,
+    [fixed-first-column]>.table-responsive .table>thead>tr>th:first-child>div,
+    [fixed-first-column]>.table-responsive .table>tbody>tr>th:first-child>div {
+        padding-top: 5px;
+        padding-bottom: 5px;
+        position: relative;
+    }
+
+    [fixed-first-column] td {
+        min-width: 150px;
+        /* default width */
+        max-width: 300px;
+    }
+</style>
+
+<h5>Consola d'administració</h5>
+<div ng-if="status.authenticated==false" class="alert alert-danger">
+    No estau autenticat per accedir a aquesta pàgina.
+</div>
+<div ng-if="status.authenticated">
+    <div id="accordion">
+        <div class="card">
+            <div class="card-header" id="visitesDia">
+                <h5 class="mb-0">
+                    <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
+                        aria-controls="collapseOne">
+                        Visites per dia
+                    </button>
+                </h5>
+            </div>
+
+            <div id="collapseOne" class="collapse show" aria-labelledby="visitesDia" data-parent="#accordion">
+                <div class="card-body">
+
+                    <!--selecciona el tipus-->
+                    Tipus:
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
+                            <span ng-bind="tipusSelected?tipusSelected:'Tots'"></span>
+                        </button>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" ng-click="onSelectTipus()">
+                                <span>Tots</span>
+                            </a>
+                            <a class="dropdown-item" ng-repeat="tipus in tipusdocuments"
+                                ng-click="onSelectTipus(tipus.TIPUS)">
+                                <span ng-bind="tipus.TIPUS"></span>
+                            </a>
+                        </div>
+                    </div>
+                    <!--selecciona el document-->
+                    Registres:
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
+                            <span ng-bind="documentSelected?documentSelected:'Tots'"></span>
+                        </button>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" ng-click="onSelectDocument()">
+                                <span>Tots</span>
+                            </a>
+                            <a class="dropdown-item" ng-repeat="doc in documents" ng-click="onSelectDocument(doc.URL)">
+                                <span ng-bind="doc.URL"></span>
+                            </a>
+                        </div>
+                    </div>
+                    <br>
+                    <!-- Contingut de visites per dia -->
+
+                    <div fixed-first-column style="width: 800px; margin:10px">
+                        <table class="table table-condensed table-striped">
+                            <thead>
+                                <tr>
+                                    <th class="fixed-side">Dia</th>
+                                    <th ng-repeat="m in timeline"><span ng-bind="m.dia"></span></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Visites</td>
+                                    <td ng-repeat="m in timeline"><span ng-bind="m.count"></span></td>
+                                </tr>
+                                <tr>
+                                    <td>Clients</td>
+                                    <td ng-repeat="m in timeline"><span ng-bind="m.clients"></span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="card">
+                <div class="card-header" id="geolocalitzacio">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo"
+                            aria-expanded="false" aria-controls="collapseTwo">
+                            Geolocalització
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseTwo" class="collapse" aria-labelledby="geolocalitzacio" data-parent="#accordion">
+                    <div class="card-body">
+                        <!-- Contingut de la geolocalització -->
+                        <center>
+                            <canvas id="canvas" width="800" height="450"></canvas>
+                        </center>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!--
+        <script src="https://unpkg.com/bootstrap-table@1.15.5/dist/bootstrap-table.min.js"></script>
+        <script
+            src="https://unpkg.com/bootstrap-table@1.15.5/dist/extensions/fixed-columns/bootstrap-table-fixed-columns.js"></script>
+        -->
     <script>
-            app.config(["$routeProvider", function ($routeProvider) {
-                        $routeProvider.when("/index", {
-        templateUrl: "view_quisom_index.html"
-        }) 
-    .when("/personal", {
-        templateUrl: "view_quisom_personal.html"
-        }) 
-    .when("/funcions", {
-        templateUrl: "view_quisom_funcions.html"
-        }) 
-    .when("/legislacio", {
-        templateUrl: "view_quisom_legislacio.html"
-        }) 
-    
-                .otherwise({
-                    redirectTo: '/index' 
+
+        //   addCssLink("https://unpkg.com/bootstrap-table@1.15.5/dist/bootstrap-table.min.css");
+        //   addCssLink("https://unpkg.com/bootstrap-table@1.15.5/dist/extensions/fixed-columns/bootstrap-table-fixed-columns.css");
+        app.directive("fixedFirstColumn", [function () {
+            return {
+                restrict: "A",
+                template: "<div class='table-responsive'><div ng-transclude></div></div>",
+                transclude: true,
+                link: function ($scope, $element) {
+                    var interval = setInterval(function () {
+                        var tr = $element.find("tr");
+
+                        angular.forEach(tr, function (i) {
+                            var columns = angular.element(i).children();
+
+                            if (columns.length < 1) {
+                                // Row with no columns? Ignore it.
+                                return;
+                            }
+
+                            var column0 = angular.element(columns[0]).children()[0] || columns[0];
+                            var column1 = columns[1];
+
+                            // Calculate heights of each <td>.
+                            var height0 = (column0).offsetHeight;
+                            var height1 = column1 ? column1.offsetHeight : 0;
+
+                            // Calculate final height.
+                            var height = Math.max(height0, height1);
+
+                            // Set heights of <td> and <tr>.
+                            columns[0].style.height = height + "px";
+                            i.style.height = height + "px";
+
+                            if (column1) {
+                                column1.style.height = height + "px";
+                            }
+
+                            // If <td> heights have stabilized.
+                            if (height0 !== 0 && height0 === height1) {
+                                clearInterval(interval);
+                            }
+                        });
+                    }, 1000);
+                }
+            };
+        }]);
+
+    //Geolocalització
+        var geoList = [];
+        var renderCanvas = function(){
+            var oy = 40.124884;
+            var ox = 1.10;
+
+            var dx = 4.65-ox;
+            var dy = oy-38.547101;
+             
+            var canvas = document.getElementById("canvas");
+            var ctx = canvas.getContext("2d");
+            ctx.lineWidth = 2;
+
+            var canvasOffset = $("#canvas").offset();
+            var offsetX = canvasOffset.left;
+            var offsetY = canvasOffset.top;
+
+            var img = new Image();
+            img.onload = function () {
+                canvas.width = img.width;
+                canvas.height = img.height;
+                ctx.clearRect(0,0,canvas.width,canvas.height);
+                ctx.drawImage(img, 0, 0);
+                for(var i=0, len = geoList.length; i<len; i++){
+                    var geo = geoList[i];                   
+
+                    var xpos = canvas.width*(geo.LONGITUDE - ox)/dx;
+                    var ypos = canvas.height*(oy - geo.LATITUDE)/dy;
+
+                    ctx.beginPath();
+                    ctx.arc(xpos, ypos, 4, 0, 2 * Math.PI, false);
+                    ctx.fillStyle = 'red';
+                    ctx.fill();
+                    ctx.lineWidth = 1;
+                    ctx.strokeStyle = '#red';
+                    ctx.stroke();
+                }
+
+            }
+            img.src = "../img/balears.png";
+        }
+       
+
+        app.controller("mainController", ["$scope", "httpService", function ($scope, httpService) {
+            var errCallback = function () { };
+            $scope.status = {};
+            $scope.timeline = [];
+            $scope.tipusdocuments = [];
+            $scope.documents = [];
+            $scope.$on("iaqse-sessionId", function (evt, sessionId) {
+                $scope.sessionId = sessionId;
+                $scope.status.authenticated = sessionId != null && sessionId != "";
+                if ($scope.status.authenticated) {
+                    $scope.initConsole(sessionId);
+                }
+            });
+            $scope.initConsole = function () {
+                // Load tipus de documents
+                httpService.listTipus($scope.sessionId).then(function (res) {
+                    $scope.tipusdocuments = res.data;
+                }, function () {
+                    $scope.listTipus = [];
                 });
-                
-            }]);
+
+                httpService.geolocations($scope.sessionId).then(function(res){
+                    window.geoList = res.data;
+                    $(function(){
+                        renderCanvas($scope.sessionId);
+                    });
+                }, function(){})
+                $scope.loadTimeline();
+            };
+
+            $scope.loadDocuments = function () {
+                httpService.listDocumentsTipus($scope.tipusSelected, $scope.sessionId).then(function (res) {
+                    $scope.documents = res.data;
+                    $scope.documentSelected = null;
+                    $scope.loadTimeline();
+                }, function () {
+                    $scope.documents = [];
+                });
+            }
+
+            // Load timeline
+            $scope.loadTimeline = function () {
+                httpService.visitTimeline($scope.documentSelected, $scope.fromDate, $scope.toDate, $scope.sessionId).then(function (res) {
+                    $scope.timeline = res.data;
+                    $(function () {
+                        setTimeout(function () {
+                            console.log("JQUERY");
+                            jQuery(".main-table").clone(true).appendTo('#table-scroll').addClass('clone');
+                        }, 1000);
+                    });
+
+                }, function () {
+                    $scope.timeline = [];
+                });
+            };
+
+            $scope.onSelectTipus = function (tipus) {
+                $scope.tipusSelected = tipus;
+                $scope.loadDocuments();
+            };
+
+            $scope.onSelectDocument = function (doc) {
+                $scope.documentSelected = doc;
+                $scope.loadTimeline();
+            };
+        }]);
     </script></main>
                 </div>
             </div>
