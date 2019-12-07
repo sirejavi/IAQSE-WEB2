@@ -62,10 +62,12 @@ app.post('/iaqseapi/visit/hit', async function (req, res) {
 	req.socket.remoteAddress || 
 	req.connection.socket.remoteAddress || "";
 
+	/*
 	if(ip.indexOf("127.0.0.1")>=0 || ip.indexOf("localhost")>=0){
 		res.send({success: false});
 		return;
 	}
+	*/
 	
 	const url = DocumentsCtrl.normalizeUrl(p.url); 
 	const tipus = p.tipus || DocumentsCtrl.obteTipus(url);

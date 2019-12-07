@@ -53,3 +53,4 @@ Error: ER_PARSE_ERROR: You have an error in your SQL syntax; check the manual th
     at Protocol._parsePacket (/home/ngnix/iaqse-server/node_modules/mysql/lib/protocol/Protocol.js:291:23)
     at Parser._parsePacket (/home/ngnix/iaqse-server/node_modules/mysql/lib/protocol/Parser.js:433:10)
 iaqse server listening on port 3009!
+iaqse server listening on port 3009!
