@@ -119,7 +119,9 @@ app.controller("interactivesController", ["$scope", "httpService", function($sco
         $scope.gotoExamen = function(prova) {
                 location.href = "prova_interactiva.html?id=" + prova.id+"&lang=ca";
         };
- 
+        <% if(config.remoteURL) { %>
+            httpService.hit(location.href, "PAGE");
+        <% } %>
        
 }]);
 </script>

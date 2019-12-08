@@ -225,14 +225,16 @@
 
                     var xpos = canvas.width*(geo.LONGITUDE - ox)/dx;
                     var ypos = canvas.height*(oy - geo.LATITUDE)/dy;
-
-                    ctx.beginPath();
-                    ctx.arc(xpos, ypos, 4, 0, 2 * Math.PI, false);
-                    ctx.fillStyle = 'red';
-                    ctx.fill();
-                    ctx.lineWidth = 1;
-                    ctx.strokeStyle = '#red';
-                    ctx.stroke();
+                    if(xpos>=0 && xpos<canvas.width &&
+                       ypos>=0 && ypos<canvas.height) {
+                            ctx.beginPath();
+                            ctx.arc(xpos, ypos, 4, 0, 2 * Math.PI, false);
+                            ctx.fillStyle = 'red';
+                            ctx.fill();
+                            ctx.lineWidth = 1;
+                            ctx.strokeStyle = '#red';
+                            ctx.stroke();
+                       }
                 }
 
             }
@@ -305,5 +307,8 @@
                 $scope.documentSelected = doc;
                 $scope.loadTimeline();
             };
+            <% if(config.remoteURL) { %>
+            httpService.hit(location.href, "PAGE");
+            <% } %>
         }]);
     </script>

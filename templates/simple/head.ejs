@@ -53,21 +53,19 @@
   app.config(['$sceProvider', function ($sceProvider) {
     $sceProvider.enabled(false);
   }]);
-  window.app.directive('a', ["httpService", function (httpService) {
+  window.app.directive('trackType', ["httpService", function (httpService) {
     return {
-      restrict: 'E', // only Elements (<a>),
+      restrict: 'A', // only to elements with attribute (track-type),
       link: function (scope, elm, attr) {
         // every time you click on the link
         elm.on('click', function ($event) {
-          if (attr.href != null) {
-            var url = attr.href;
-            if (url.startsWith("#")) {
-              url = location.href.split("#")[0]+url;
-            }
-            var tipus = attr.tipus; 
-            if(tipus!='none'){
-                httpService.hit(url, tipus);
-            }
+          var url = attr.href || attr.ngHref || attr.url;
+          if (url != null && url.startsWith("#")) {            
+              url = location.href.split("#")[0]+url;            
+          } 
+          var tipus = attr.trackType; 
+          if(url && tipus){
+              httpService.hit(url, tipus);
           }
           return true;
         })

@@ -66,13 +66,13 @@
         <div class="row" ng-repeat="chk in selectedType.list">
         <div class="list-group-item list-group-item-hover col-md-6" ng-repeat="pub in chk">           
             <div class="fa-pull-left"> 
-                <a href="{{pub.url}}" title="{{pub.url_title}}" target="_blank" tipus="LINK"> 
+                <a href="{{pub.url}}" title="{{pub.url_title}}" target="_blank" track-type="LINK"> 
                       <img ng-src="../{{pub.img}}" title="{{pub.img_title}}" class="enllacos-img"/>               
                 </a>
             </div>            
             <span ng-if="pub.hits!=null" style="font-size: 105%;" class="badge badge-secondary badge-cursor" ng-bind="pub.hits"
             title="{{pub.hits_title}}" ng-click="loadVisualizations(pub)" data-toggle="modal" data-target="#analyticsModal"></span>                         
-            <a href="{{pub.url}}" title="{{pub.url_title}}" target="_blank" tipus="LINK"> 
+            <a href="{{pub.url}}" title="{{pub.url_title}}" target="_blank" track-type="LINK"> 
                  <p  class="enllacos-title" ng-bind="pub.description"></p>
             </a>         
         </div> 

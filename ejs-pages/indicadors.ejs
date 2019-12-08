@@ -56,14 +56,14 @@
                 <div style="display: flex; align-items: center;">
                     <div style="width: 150px; float: left;">
                         <i ng-if="pub.destacat" class="fa fa-star"></i>
-                        <a href="../{{pub.url}}" target="_blank">
+                        <a href="../{{pub.url}}" target="_blank" track-type="DOC">
                             <img ng-src="../{{pub.img}}" class="publication-img" />
                         </a>
                     </div>
                     <div style="float: left;">
                         <p><span ng-if="pub.hits!=null" style="font-size: 105%;" class="badge badge-secondary badge-cursor" ng-bind="pub.hits"
                             title="{{pub.hits_title}}" ng-click="loadVisualizations(pub)" data-toggle="modal" data-target="#analyticsModal"></span>
-                            <a href="../{{pub.url}}" target="_blank" ng-bind="pub.title"></a></p>
+                            <a href="../{{pub.url}}" target="_blank" ng-bind="pub.title" track-type="DOC"></a></p>
                         <p ng-bind="pub.description"></p>
                         <p class="fa-pull-right publication-date" ng-bind="pub.pubdate"></p>
                     </div>
