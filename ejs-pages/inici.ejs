@@ -157,7 +157,7 @@
         };
     })
     app.controller("mainController", ["$scope", "httpService", function ($scope, httpService) {
-        <% if(remoteURL) { %>
+        <% if(config.remoteURL) { %>
         httpService.hit(location.href, "PAGE");
         <% } %>
     }]);

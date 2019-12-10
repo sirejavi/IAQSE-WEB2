@@ -80,6 +80,7 @@
     var service = {};
     service.getCurrentPosition = function () {
       var deferred = $q.defer();
+      <% if(config.geolocation) { %>
       if (positionCache != null) {
         deferred.resolve(positionCache);
       } else {
@@ -95,6 +96,10 @@
           deferred.resolve(positionCache);
         }
       }
+      <% } else { %>
+        positionCache = {};
+        deferred.resolve(positionCache);
+      <% } %>
       return deferred.promise;
     };
     return service;

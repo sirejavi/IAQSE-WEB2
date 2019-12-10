@@ -1,6 +1,7 @@
 {
    "webmaster": "Josep Mulet",
    "remoteURL": "https://piworld.es/iaqseapi",
+   "geolocalization": false,
    "encoding": "latin1",
    "minify_html": true,
    "bundles": [
