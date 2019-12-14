@@ -145,6 +145,10 @@
       return $http.post('<%=config.remoteURL%>/priv/visit/geolocations', { sessionId: sessionId });
     },
     hit: function (url, tipus) {
+      if(localStorage!=null && localStorage.getItem("iaqse-sessionId")) {
+        // No facis seguiment per a usuaris loggeats
+        return;
+      }
       geolocation.getCurrentPosition().then(
         function (coords) {
           var data = { url: url, tipus: tipus, coords: coords }; 
