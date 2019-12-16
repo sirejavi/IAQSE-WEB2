@@ -140,7 +140,76 @@
             "any": "2016-2017",
             "documents": [],
             "walkdir": "documentos/proves/ad_2neso_ang_2017_imprimible/contents/"
-    },    
+    },  
+
+
+    {       
+        "imprimible": true,
+            "aval": "2n ESO",
+            "nivell": "2nESO",
+            "tags": [
+                "2nESO",
+                "CCLA"
+            ],
+            "url": "documentos/proves/ad_2neso_ang_2014_imprimible/ad_2neso_ang_2014_imprimible.zip",
+            "url_title": "",
+            "img": "img/general/zip_img.png",
+            "title": "Prova competència en comunicació lingüística en llengua anglesa avaluació diagnòstic 2n d'ESO curs 2014-2015.",
+            "any": "2014-2015",
+            "documents": [],
+            "walkdir": "documentos/proves/ad_2neso_ang_2014_imprimible/contents/"
+    },   
+    {       
+        "imprimible": true,
+            "aval": "2n ESO",
+            "nivell": "2nESO",
+            "tags": [
+                "2nESO",
+                "CCLE"
+            ],
+            "url": "documentos/proves/ad_2neso_cast_2014_imprimible/ad_2neso_cast_2014_imprimible.zip",
+            "url_title": "",
+            "img": "img/general/zip_img.png",
+            "title": "Prova competència en comunicació lingüística en llengua catellana avaluació diagnòstic 2n d'ESO curs 2014-2015.",
+            "any": "2014-2015",
+            "documents": [],
+            "walkdir": "documentos/proves/ad_2neso_cast_2014_imprimible/contents/"
+    },     
+    {       
+        "imprimible": true,
+            "aval": "2n ESO",
+            "nivell": "2nESO",
+            "tags": [
+                "2nESO",
+                "CCLC"
+            ],
+            "url": "documentos/proves/ad_2neso_cat_2014_imprimible/ad_2neso_cat_2014_imprimible.zip",
+            "url_title": "",
+            "img": "img/general/zip_img.png",
+            "title": "Prova competència en comunicació lingüística en llengua catalana avaluació diagnòstic 2n d'ESO curs 2014-2015.",
+            "any": "2014-2015",
+            "documents": [],
+            "walkdir": "documentos/proves/ad_2neso_cat_2014_imprimible/contents/"
+    },     
+    {       
+        "imprimible": true,
+            "aval": "2n ESO",
+            "nivell": "2nESO",
+            "tags": [
+                "2nESO",
+                "CMAT"
+            ],
+            "url": "documentos/proves/ad_2neso_mat_2014_imprimible/ad_2neso_mat_2014_imprimible.zip",
+            "url_title": "",
+            "img": "img/general/zip_img.png",
+            "title": "Prova competència en comunicació matemàtica avaluació diagnòstic 2n d'ESO curs 2014-2015.",
+            "any": "2014-2015",
+            "documents": [],
+            "walkdir": "documentos/proves/ad_2neso_mat_2014_imprimible/contents/"
+    },     
+
+
+
     {
         "aval": "2n ESO",
         "nivell": "2nESO",
