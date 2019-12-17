@@ -441,6 +441,26 @@
             <div class="list-group-item-hover list-group-item">
                 <div style="display:flex;align-items:center">
                     <div style="float:left;width:90px">
+                        <a href="../documentos/indicadors/2018/Informe_indicadors_resultats_2018_2019.pdf" target="_blank">
+                            
+                            <img src="../img/indicadors/2018/Informe_indicadors_resultats_2018_2019.png" style="width:55px">
+                            
+                            
+                        </a>
+                    </div>
+                    <div style="float:left;margin-left:10px">
+                            <p style="text-align:left;font-size:90%">
+                        <a href="../documentos/indicadors/2018/Informe_indicadors_resultats_2018_2019.pdf" target="_blank">
+                            <span shorten-text="Indicadors de Resultats Acadèmics de les Illes Balears (curs 2018-2019)" shorten-length="70" style="font-size:90%"></span><br> 
+                        </a>
+                    </p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="list-group-item-hover list-group-item">
+                <div style="display:flex;align-items:center">
+                    <div style="float:left;width:90px">
                         <a href="../documentos/publicacions/Informe_Executiu_6EP_2018_2019.pdf" target="_blank">
                             
                             <img src="../img/publicacions/Informe_Executiu_6EP_2018_2019.png" style="width:55px">
@@ -478,26 +498,6 @@
                 </div>
             </div>
             
-            <div class="list-group-item-hover list-group-item">
-                <div style="display:flex;align-items:center">
-                    <div style="float:left;width:90px">
-                        <a href="../documentos/documents/document_20.pdf" target="_blank">
-                            
-                            <img src="../img/documents/document_20.jpg" style="width:55px">
-                            
-                            
-                        </a>
-                    </div>
-                    <div style="float:left;margin-left:10px">
-                            <p style="text-align:left;font-size:90%">
-                        <a href="../documentos/documents/document_20.pdf" target="_blank">
-                            <span shorten-text="Document d&#39;avaluació 20 - Avaluació de l&#39;impacte de diferents metodologies d&#39;ensenyament i aprenentatge sobre la competència matemàtica dels alumnes en el primer cicle d&#39;EP." shorten-length="70" style="font-size:90%"></span><br> 
-                        </a>
-                    </p>
-                    </div>
-                </div>
-            </div>
-            
         </div>
     </div>
 </div>
@@ -505,7 +505,7 @@
 <script>app.directive("shortenText",function(){return{restrict:"A",scope:{shortenText:"@",shortenLength:"="},template:'<span ng-bind="displayText" ng-mouseover="displayAll()" ng-mouseleave="displayShort()"></span>',controller:["$scope",function(t){var n=t.shortenLength||100;t.displayAll=function(){t.displayText=t.shortenText},t.displayShort=function(){if(t.shortenText&&t.shortenText.length>n){var e=t.shortenText.substring(n).indexOf(" ");t.displayText=t.shortenText.substring(0,n+e+1)+" ..."}else t.displayText=t.shortenText},t.displayShort()}]}}),app.controller("mainController",["$scope","httpService",function(e,t){t.hit(location.href,"PAGE")}])</script></main>
                 </div>
             </div>
-                <footer class="py-1" style="width:100%;margin:0" title="Webmaster: Josep Mulet - Version: 16-12-2019">
+                <footer class="py-1" style="width:100%;margin:0" title="Webmaster: Josep Mulet - Version: 17-12-2019">
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-6">

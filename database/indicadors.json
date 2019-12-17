@@ -1,6 +1,13 @@
 [
     {
         "tag": "RESULTATS",
+        "img": "img/indicadors/2018/Informe_indicadors_resultats_2018_2019.png",
+        "title": "Indicadors de Resultats Acadèmics de les Illes Balears (curs 2018-2019)",
+        "url": "documentos/indicadors/2018/Informe_indicadors_resultats_2018_2019.pdf",
+        "date": "12/2019"
+    },
+    {
+        "tag": "RESULTATS",
         "img": "img/indicadors/2017/Informe_indicadors_resultats_2017_2018.jpg",
         "title": "Indicadors de Resultats Acadèmics de les Illes Balears (curs 2017-2018)",
         "url": "documentos/indicadors/2017/Informe_indicadors_resultats_2017_2018.pdf",
