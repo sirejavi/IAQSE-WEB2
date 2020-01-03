@@ -1,4 +1,5 @@
 {
+    "comment": "Aquests destacats s'afegeixen al les darreres publicacions per odre de pubdate",
     "destacats": [
         {
             "img": "img/avaluacions/pisa/pisa_2018/informe_pisa2018.png",
@@ -6,7 +7,8 @@
             "comment": "https://drive.google.com/file/d/1QOkG8vq1GzhAuNP7mHLtQm3iCqt8wC8G/view",
             "title": "PISA 2018. Informe español",
             "description": "(Versión preliminar)",
-            "target": "_blank"
+            "target": "_blank",
+            "pubdate": "1/12/2019"
         },
         {
             "icon": "fa fa-print",
@@ -14,14 +16,16 @@
             "title": "Proves de diagnòstic",
             "description": "Versions per imprimir i interactives",
             "class": "alert-warning",
-            "target": ""
+            "target": "",
+            "pubdate": "25/11/2019"
         },
         {
             "icon": "fa fa-chart-bar",
             "url": "avaluacions.html#!/diagnostic?id=ad2neso1920", 
             "title": "Avaluació de diagnòstic 2n ESO 2019-2020",
             "description": "Normativa BOIB",            
-            "target": ""
+            "target": "",
+            "pubdate": "22/11/2019"
         }
     ],
     "carousel": [

@@ -47,6 +47,9 @@ try {
 console.log("Reading database files...");
 const dbFiles = fs.readdirSync("./database");
 const database = {};
+let destacatsManual = [];
+
+
 dbFiles.forEach(file => {
     let name;
     if (file.endsWith(".json")) {
@@ -56,6 +59,10 @@ dbFiles.forEach(file => {
         name = path.basename(file, ".csv");
         const csvContents = fs.readFileSync("./" + path.join("database", file), "utf8");
         database[name] = utils.parseCsv(csvContents);
+    }
+
+    if(name == "inici"){
+        destacatsManual =  database[name].destacats;
     }
 
     if(name == "proves") {
@@ -124,18 +131,37 @@ database.version =  date.getDate() + "-" + (date.getMonth()+1) + "-" + date.getF
 
 //************************************************ Determina automàticament destacats */
 // Treim les publicacions més noves (aquesta base no s'ha d'editar a ma, per això el JSON no està formatat)
+
 database.destacats = [];
-// Agafa les tres primeres publicacions (suposa que estan ordenades!)
-[0, 1, 2, 3, 4].forEach((idx) => {
-    const pub = database.publicacions[idx];
+
+/** Afegeix els destacats introduits manualment per l'usuari **/
+(destacatsManual || []).forEach( (destacat)=>{
+    // Afegeix el flag manual per saber com renderitzar-lo a la presentació
+    destacat.manual = true;
+    destacat.pubdate = utils.toDate(destacat.pubdate);
+    database.destacats.push(destacat);
+});
+
+// Converteix totes les publicacions a destacats amb una pubdate parsejada
+database.publicacions.forEach( pub => { 
     database.destacats.push({
         title: pub.title,
         description: pub.description,
-        url: pub.url,
+        url: "../"+pub.url,
         target: "_blank",
-        img: pub.img
+        pubdate: utils.toDate(pub.pubdate || pub.date),
+        img: "../"+pub.img
     });
 });
+
+/** Orderna pel camp pubdate (tipus Date) descendent */
+database.destacats.sort( (d1, d2) => d2.pubdate.getTime() - d1.pubdate.getTime() );
+
+/** Limita la llista a  6 elements **/
+if(database.destacats.length > 6) {
+    database.destacats = database.destacats.slice(0, 6);
+}
+
 fs.writeFileSync("./database/destacats.json", JSON.stringify(database.destacats), { encoding: "utf8" });
 
 

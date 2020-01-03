@@ -69,11 +69,11 @@
             <h6 style="margin-top: 5px;"><i class="fa fa-star"></i> Destacats</h6>
         </div>
         <div class="list-group">
-            <!--destacats definits per usuari-->
-            <% inici.destacats.forEach( item => { %>
+           
+            <% destacats.forEach( (item, i) => {  %>
+
             <div class="list-group-item-hover list-group-item clearfix" style="padding: 5px;">
                 <div class="">
-
                         <div style="display: flex; align-items: center;padding:10px" <% if(item.class) { %>class="<%=item.class%>" <% } %>> 
                                 <div style="float: left; width: 90px">
                                     <a href="<%=item.url%>" <% if(item.target){ %> target="<%=item.target%>" <% } %> >
@@ -95,9 +95,13 @@
                                 </div>
                         </div>
                 </div>
-            </div>
-            <% }) %>
-            <!--Destacats generats automàticament-->
+            </div>   
+
+           <% }) %>   
+
+            <!--Destacats generats automàticament (antic)-->
+          
+            <!--
             <% destacats.forEach( (item, i) => { if(i < 6 - inici.destacats.length){  %>
             <div class="list-group-item-hover list-group-item">
                 <div style="display: flex; align-items: center;">
@@ -121,6 +125,36 @@
                 </div>
             </div>
             <% }  }) %>
+ 
+             <% inici.destacats.forEach( item => { %>
+                <div class="list-group-item-hover list-group-item clearfix" style="padding: 5px;">
+                    <div class="">
+    
+                            <div style="display: flex; align-items: center;padding:10px" <% if(item.class) { %>class="<%=item.class%>" <% } %>> 
+                                    <div style="float: left; width: 90px">
+                                        <a href="<%=item.url%>" <% if(item.target){ %> target="<%=item.target%>" <% } %> >
+                                            <% if(item.img) { %>
+                                            <img src="../<%=item.img%>" style="width:55px;" />
+                                            <% } %>
+                                            <% if(item.icon) { %>
+                                                <i style="width:55px; font-size: 150%;" class="<%=item.icon%>"></i>
+                                            <% } %>
+                                        </a>
+                                    </div>
+                                    <div style="float: left; margin-left:10px">
+                                            <p style="text-align: left; font-size: 90%;">
+                                        <a href="<%=item.url%>" <% if(item.target){ %> target="<%=item.target%>" <% } %>>
+                                             <span shorten-text="<%=item.title%>" shorten-length="60"></span><br>
+                                             <span shorten-text="<%=item.description%>" shorten-length="60" style="font-size: 90%;"></span>
+                                        </a>
+                                    </p>
+                                    </div>
+                            </div>
+                    </div>
+                </div>            
+                <% }) %>
+            -->
+            
         </div>
     </div>
 </div>
