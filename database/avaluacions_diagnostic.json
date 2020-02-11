@@ -15,6 +15,24 @@
                 "url": "../documentos/avaluacions/diagnostic/ad_2n_eso_2019_2020/11776CasBoib.pdf",
                 "img": "../img/avaluacions/diagnostic/ad_2n_eso_2019_2020/11776CasBoib.png",
                 "description": "Resolución del consejero de Educación y Universidad de 21 de noviembre de 2019, por la cual se regula la realización de la evaluación de diagnóstico del curso 2019-2020 a los alumnos de segundo curso de educación secundaria y el procedimiento de aplicación a los centros docentes no universitarios de las Illes Balears en los cuales se imparten estas enseñanzas"
+            },
+            {
+                "title": "Tutorial de l'aplicació GESAVA per a l'Avaluació de Diagnòstic 2019-2020",
+                "url": "../documentos/avaluacions/diagnostic/ad_2n_eso_2019_2020/Tutorial_GESAVA_2020.pdf",
+                "img": "../img/avaluacions/diagnostic/ad_2n_eso_2019_2020/Tutorial_GESAVA_2020.png",
+                "description": "Tutorial de l'aplicació GESAVA per a l'Avaluació de Diagnòstic 2019-2020"
+            },
+            {
+                "title": "DOCUMENT 1: Aspectes generals de l'avaluació de diagnòstic 2019-2020",
+                "url": "../documentos/avaluacions/diagnostic/ad_2n_eso_2019_2020/DOCUMENT_1_AD_2020_aspectes _generals.pdf",
+                "img": "../img/avaluacions/diagnostic/ad_2n_eso_2019_2020/DOCUMENT_1_AD_2020_aspectes _generals.png",
+                "description": "DOCUMENT 1: Aspectes generals de l'avaluació de diagnòstic 2019-2020"
+            },
+            {
+                "title": "Exemple de prova en format HTML.",
+                "url": "../documentos/avaluacions/primaria/6_ep_2015_2016/prova_CAS_3EP.zip",
+                "img": "../img/general/zip_img.png",
+                "description": "Exemple de prova en format HTML"
             }
 	]
     },

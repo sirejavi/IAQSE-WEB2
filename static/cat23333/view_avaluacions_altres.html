@@ -1,0 +1,89 @@
+<nav aria-label="breadcrumb">
+<ol class="breadcrumb">
+<li class="breadcrumb-item"><a href="index.html"><i class="fas fa-home"></i></a></li>
+<li class="breadcrumb-item"><a href="#">Avaluacions</a></li>
+<li class="breadcrumb-item active">Altres avaluacions</li>
+</ol>
+</nav>
+<div class="modal fade" id="analyticsModal" tabindex="-1" role="dialog" aria-labelledby="analyticsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="analyticsModalLabel">Visites</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body" style="height:500px;overflow-y:auto">      
+                <p>Aquest document s'ha visitat en total <span ng-bind="modalVisualizations.length"></span> vegades</p>          
+                <table class="table table-bordered">
+                    <thead>
+                                <th>Data</th>
+                                <th>IP</th>
+                                <th>Long.</th>
+                                <th>Lat.</th>
+                                <th>Municipi</th>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="visit in modalVisualizations">
+                        <td><span ng-bind="visit.FECHA"></span></td>
+                        <td><span ng-bind="visit.IP"></span></td>
+                        <td><span ng-bind="visit.LONGITUDE"></span></td>
+                        <td><span ng-bind="visit.LATITUDE"></span></td>
+                        <td><span ng-bind="visit.CITY"></span></td>
+                    </tr>
+                    </tbody>
+                </table>
+                                
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Tancar</button> 
+            </div>
+          </div>
+        </div>
+    </div>
+
+
+
+<span class="filtrau">Filtrau per </span>
+<div class="btn-group" title="Nivell de la prova" style="margin-left:5px">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="nivellCombo" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fa fa-tags"></i> <span ng-bind="selectedNivell.label"></span></button>
+        <div class="dropdown-menu" aria-labelledby="nivellCombo">
+            <a class="dropdown-item" ng-click="chooseNivell($index)" ng-repeat="item in nivells"><span ng-bind="item.label"></span></a>
+        </div>
+    </div>
+    <hr>
+    <p ng-if="avaluacions.length==0">No s'han trobat avaluacions</p>
+    <p ng-if="avaluacions.length==1">S'ha trobat una avaluació</p>
+    <p ng-if="avaluacions.length>1">S'han trobat <span ng-bind="avaluacions.length"></span> avaluacions</p>
+    <hr>
+    
+    
+    <div id="accordion"> 
+        
+        <div class="card" ng-repeat="ava in avaluacions">
+            <div class="card-header" id="heading{{$index}}">
+                <button class="btn-link collapsed" data-toggle="collapse" data-target="#{{ava.id}}" style="text-decoration:none;border:none;cursor:pointer">
+                    <i class="fa"></i> <b style="font-size:90%"><span ng-bind="ava.title"></span></b>
+                </button>
+            </div>
+    
+            <div id="{{ava.id}}" class="collapse" data-parent="#accordion" aria-labelledby="heading{{$index}}">
+                 
+                <div class="row" ng-repeat="chk in ava.chunks">
+                    <div class="col-md-6 list-group-item list-group-item-hover" ng-repeat="doc in chk">
+                            <span ng-if="doc.hits!=null" style="font-size:105%" class="badge badge-secondary badge-cursor" ng-bind="doc.hits" title="{{doc.hits_title}}" ng-click="loadVisualizations(doc)" data-toggle="modal" data-target="#analyticsModal"></span>
+                      
+                        <a href="{{doc.url}}" target="_blank" track-type="DOC">
+                            <img ng-src="{{doc.img}}" width="60px" class="fa-pull-left" style="margin-right:10px;box-shadow:3px 3px gray">
+                            <p style="vertical-align:middle;font-size:90%" ng-bind="doc.title"></p>
+                        </a>
+                    </div>                   
+                </div> 
+            </div>
+        </div>
+    
+    </div>
+    
+    <script>var hasTag=function(a,e){for(var t=!1,n=0;!t&&n<e.length;)t=0<=a.indexOf(e[n].trim()),n++;return t};app.controller("altresController",["$scope","$rootScope","$filter","httpService",function(s,a,v,e){s.avaluacions=[],s.nivells=[{label:"Tots els nivells",values:""},{label:"Educació Primària",values:"EP"},{label:"Educació Secundària",values:"ESO"}],s.selectedNivell=s.nivells[0],s.chooseNivell=function(a){s.selectedNivell=s.nivells[a],s.search()},s.search=function(){for(var a=[],e=0,t=avaJSON.length;e<t;e++){var n=avaJSON[e];s.selectedNivell.values&&""!=s.selectedNivell.values&&!hasTag(n.tag,s.selectedNivell.values.split(","))||(n.chunks=chunker(n.documents,2),a.push(n))}s.avaluacions=a},a.$on("iaqse-sessionId",function(a,e){s.updateAnalyticsInfo(e)}),e.loadSchema("avaluacions_altres").then(function(a){window.avaJSON=a.data;for(var e=0,t=avaJSON.length;e<t;e++){var n=avaJSON[e];n.id||(n.id="altres"+e)}s.search();var l=getURLParameter("id");l&&$(function(){var a=$("#"+l);a.addClass("show"),$("html, body").animate({scrollTop:a.offset().top-120},1e3)}),s.updateAnalyticsInfo(localStorage.getItem("iaqse-sessionId"))}),e.hit(location.href,"VIEW"),s.updateAnalyticsInfo=function(a){""!=a?e.listDocumentVisitCount(a,"DOC").then(function(a){s.addAnalyticsInfo(a.data),s.search()},function(){s.removeAnalyticsInfo(),s.search()}):(s.removeAnalyticsInfo(),s.search())},s.addAnalyticsInfo=function(a){for(var e=0,t=avaJSON.length;e<t;e++)for(var n=avaJSON[e],l=0,s=n.documents.length;l<s;l++)for(var i=n.documents[l],o=i.hits=0,c=a.length;o<c;o++){var r=a[o].URL;if(0<=i.url.toLowerCase().indexOf(r)){i.hits=a[o].count;var u=new Date(a[o].LAST_ACCESS);i.hits_title="Darrer accés "+v("date")(u,"dd/MM/yyyy HH:mm:ss");break}}},s.removeAnalyticsInfo=function(){for(var a=0,e=avaJSON.length;a<e;a++)for(var t=avaJSON[a],n=0,l=t.documents.length;n<l;n++){var s=t.documents[n];s.hits=null,s.hits_title=null}},s.loadVisualizations=function(a){e.loadVisualizations(s.sessionId,a.url).then(function(a){s.modalVisualizations=a.data},function(){s.modalVisualizations=[]})}}])</script>

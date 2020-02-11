@@ -8,9 +8,6 @@
 <meta name="description" content="Institut d'avaluació i qualitat del sistema educatiu">
 <meta name="author" content="iaqse@iaqse.caib.es">
 <meta name="language" content="cat">
-<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-<meta http-equiv="Pragma" content="no-cache">
-<meta http-equiv="Expires" content="0">
 
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
@@ -52,7 +49,7 @@
             </a>
           </li>
           
-          <li class="nav-item">
+          <li class="nav-item active">
             <a class="nav-link" href="quisom.html" title="">Qui som
             </a>
           </li>
@@ -216,114 +213,11 @@
                 <div class="col-xl-10 col-lg-12">
                 <main>
                 
-<nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="index.html"><i class="fas fa-home"></i></a></li> 
-          <li class="breadcrumb-item active"> Consola d'administració </li>  
-        </ol>
-        </nav>
-        <style>[fixed-first-column]{position:relative}[fixed-first-column]>.table-responsive{margin-left:80px}[fixed-first-column]>.table-responsive .table>tbody>tr>td:first-child,[fixed-first-column]>.table-responsive .table>tbody>tr>th:first-child,[fixed-first-column]>.table-responsive .table>thead>tr>td:first-child,[fixed-first-column]>.table-responsive .table>thead>tr>th:first-child{position:absolute;min-width:80px;width:80px;border-right:1px solid #ddd!important;border-bottom:1px solid #f5f5f5!important;left:0;top:auto;padding-top:0!important;padding-bottom:0!important}[fixed-first-column]>.table-responsive .table>tbody>tr>td:first-child>div,[fixed-first-column]>.table-responsive .table>tbody>tr>th:first-child>div,[fixed-first-column]>.table-responsive .table>thead>tr>td:first-child>div,[fixed-first-column]>.table-responsive .table>thead>tr>th:first-child>div{padding-top:5px;padding-bottom:5px;position:relative}[fixed-first-column] td{min-width:150px;max-width:300px}</style>
 
-<h5>Consola d'administració</h5>
-<div ng-if="!status.authenticated" class="alert alert-danger">
-    No estau autenticat per accedir a aquesta pàgina.
-</div>
-<div ng-if="status.authenticated">
-    <div id="accordion">
-        <div class="card">
-            <div class="card-header" id="visitesDia">
-                <h5 class="mb-0">
-                    <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                        Visites per dia
-                    </button>
-                </h5>
-            </div>
+<div ng-view id="routedContent"></div>
 
-            <div id="collapseOne" class="collapse show" aria-labelledby="visitesDia" data-parent="#accordion">
-                <div class="card-body">
-
-                    
-                    Tipus:
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span ng-bind="tipusSelected?tipusSelected:'Tots'"></span>
-                        </button>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" ng-click="onSelectTipus()">
-                                <span>Tots</span>
-                            </a>
-                            <a class="dropdown-item" ng-repeat="tipus in tipusdocuments" ng-click="onSelectTipus(tipus.TIPUS)">
-                                <span ng-bind="tipus.TIPUS"></span>
-                            </a>
-                        </div>
-                    </div>
-                    
-                    Registres:
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span ng-bind="documentSelected?documentSelected:'Tots'"></span>
-                        </button>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" ng-click="onSelectDocument()">
-                                <span>Tots</span>
-                            </a>
-                            <a class="dropdown-item" ng-repeat="doc in documents" ng-click="onSelectDocument(doc.URL)">
-                                <span ng-bind="doc.URL"></span>
-                            </a>
-                        </div>
-                    </div>
-                    <br>
-                    
-
-                    <div fixed-first-column style="width:800px;margin:10px">
-                        <table class="table table-condensed table-striped">
-                            <thead>
-                                <tr>
-                                    <th class="fixed-side">Dia</th>
-                                    <th ng-repeat="m in timeline"><span ng-bind="m.dia"></span></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Visites</td>
-                                    <td ng-repeat="m in timeline"><span ng-bind="m.count"></span></td>
-                                </tr>
-                                <tr>
-                                    <td>Clients</td>
-                                    <td ng-repeat="m in timeline"><span ng-bind="m.clients"></span></td>
-                                </tr>
-                            </tbody>
-                        </table>
-
-                    </div>
-                </div>
-
-
-            </div>
-            <div class="card">
-                <div class="card-header" id="geolocalitzacio">
-                    <h5 class="mb-0">
-                        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                            Geolocalització
-                        </button>
-                    </h5>
-                </div>
-                <div id="collapseTwo" class="collapse" aria-labelledby="geolocalitzacio" data-parent="#accordion">
-                    <div class="card-body">
-                        
-                        <center>
-                            <canvas id="canvas" width="800" height="450"></canvas>
-                        </center>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-    </div>
-
-    
-    <script>app.directive("fixedFirstColumn",[function(){return{restrict:"A",template:"<div class='table-responsive'><div ng-transclude></div></div>",transclude:!0,link:function(e,t){var a=setInterval(function(){var e=t.find("tr");angular.forEach(e,function(e){var t=angular.element(e).children();if(!(t.length<1)){var n=angular.element(t[0]).children()[0]||t[0],i=t[1],o=n.offsetHeight,s=i?i.offsetHeight:0,l=Math.max(o,s);t[0].style.height=l+"px",e.style.height=l+"px",i&&(i.style.height=l+"px"),0!==o&&o===s&&clearInterval(a)}})},1e3)}}}]);var geoList=[],renderCanvas=function(){var s=40.124884,l=document.getElementById("canvas"),a=l.getContext("2d");a.lineWidth=2;var e=$("#canvas").offset(),c=(e.left,e.top,new Image);c.onload=function(){l.width=c.width,l.height=c.height,a.clearRect(0,0,l.width,l.height),a.drawImage(c,0,0);for(var e=0,t=geoList.length;e<t;e++){var n=geoList[e],i=l.width*(n.LONGITUDE-1.1)/(4.65-1.1),o=l.height*(s-n.LATITUDE)/1.5777830000000037;0<=i&&i<l.width&&0<=o&&o<l.height&&(a.beginPath(),a.arc(i,o,4,0,2*Math.PI,!1),a.fillStyle="red",a.fill(),a.lineWidth=1,a.strokeStyle="#red",a.stroke())}},c.src="../img/balears.png"};app.controller("mainController",["$scope","httpService",function(n,e){n.status={},n.timeline=[],n.tipusdocuments=[],n.documents=[],n.$on("iaqse-sessionId",function(e,t){n.sessionId=t,n.status.authenticated=null!=t&&""!=t,n.status.authenticated&&n.initConsole(t)}),n.initConsole=function(){e.listTipus(n.sessionId).then(function(e){n.tipusdocuments=e.data},function(){n.listTipus=[]}),e.geolocations(n.sessionId).then(function(e){window.geoList=e.data,$(function(){renderCanvas(n.sessionId)})},function(){}),n.loadTimeline()},n.loadDocuments=function(){e.listDocumentsTipus(n.sessionId,n.tipusSelected).then(function(e){n.documents=e.data,n.documentSelected=null,n.loadTimeline()},function(){n.documents=[]})},n.loadTimeline=function(){e.visitTimeline(n.sessionId,n.documentSelected,n.fromDate,n.toDate).then(function(e){n.timeline=e.data,$(function(){setTimeout(function(){console.log("JQUERY"),jQuery(".main-table").clone(!0).appendTo("#table-scroll").addClass("clone")},1e3)})},function(){n.timeline=[]})},n.onSelectTipus=function(e){n.tipusSelected=e,n.loadDocuments()},n.onSelectDocument=function(e){n.documentSelected=e,n.loadTimeline()},e.hit(location.href,"PAGE")}])</script></div></main>
+<script>app.controller("mainController",["$scope","httpService",function(o,t){t.hit(location.href,"PAGE")}])</script>
+    <script>app.config(["$routeProvider",function(e){e.when("/index",{templateUrl:"view_quisom_index.html"}).when("/personal",{templateUrl:"view_quisom_personal.html"}).when("/funcions",{templateUrl:"view_quisom_funcions.html"}).when("/legislacio",{templateUrl:"view_quisom_legislacio.html"}).otherwise({redirectTo:"/index"})}])</script></main>
                 </div>
             </div>
                 <footer class="py-1" style="width:100%;margin:0" title="Webmaster: Josep Mulet - Version: 11-2-2020">
