@@ -1,7 +1,7 @@
 <div class="row">
 
     <div class="col-md-7">
-        <div id="carouselIndicators" class="carousel slide" data-ride="carousel">
+        <div id="carouselIndicators" class="carousel slide" data-ride="carousel" data-interval="10000">
             <ol class="carousel-indicators">
                 <% inici.carousel.forEach( (item, idx) => { %>
                 <li data-target="#carouselIndicators" data-slide-to="<%=idx%>" <% if(idx==0) { %>class="active" <% } %>>

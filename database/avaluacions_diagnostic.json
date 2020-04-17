@@ -1,10 +1,22 @@
 [
     {
         "title": "Avaluació de diagnòstic 2n ESO 2019-2020",
-        "tag": "EP",
+        "tag": "ESO",
         "id": "ad2neso1920",
         "documents": [
-           {
+            {
+                "title": "Comunicat de SUSPENSIÓ DE LES AVALUACIONS DIAGNÒSTIQUES DEL CURS 2019-2020.",
+                "url": "../documentos/avaluacions/diagnostic/ad_2n_eso_2019_2020/suspensio_avaluacions_diagnostiques_iaqse.pdf",
+                "img": "../img/avaluacions/diagnostic/ad_2n_eso_2019_2020/suspensio_avaluacions_diagnostiques_iaqse.png",
+                "description": "Comunicat de SUSPENSIÓ DE LES AVALUACIONS DIAGNÒSTIQUES DEL CURS 2019-2020"
+            },
+            {
+                "title": "Resolució del conseller d'Educació i Universitat de suspensió de l'avaluació de diagnòstic del curs 2019-2020 als alumnes de 2n d'ESO", 
+                "url": "../documentos/avaluacions/diagnostic/ad_2n_eso_2019_2020/boib_cat_suspensio_proves_2n_eso.pdf",
+                "img": "../img/avaluacions/diagnostic/ad_2n_eso_2019_2020/boib_cat_suspensio_proves_2n_eso.png",
+                "description": "Resolució del conseller d'Educació i Universitat de 7 d'abril de 2020 per la qual se suspèn la convocatòria de les proves de l'avaluació de diagnòstic del curs 2019-2020 als alumnes de segon curs d'educació secundària obligatòria en els centres docents no universitaris de les Illes Balears que imparteixen aquests ensenyaments"
+            },
+            {
                 "title": "Resolució per la qual es regula la realització de l'avaluació de diagnòstic del curs 2019-2020 de 2n d'ESO.",
                 "url": "../documentos/avaluacions/diagnostic/ad_2n_eso_2019_2020/11776CatBoib.pdf",
                 "img": "../img/avaluacions/diagnostic/ad_2n_eso_2019_2020/11776CatBoib.png",
@@ -140,7 +152,7 @@
     },
     {
         "title": "Avaluació de diagnòstic 2n ESO 2016-2017",
-        "tag": " ESO",
+        "tag": "ESO",
         "documents": [
             {
                 "title": "Informe executiu AD 2n ESO curs 2016-2017.",

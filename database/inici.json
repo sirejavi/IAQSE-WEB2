@@ -2,6 +2,14 @@
     "comment": "Aquests destacats s'afegeixen al les darreres publicacions per odre de pubdate",
     "destacats": [
         {
+            "img": "img/avaluacions/diagnostic/ad_2n_eso_2019_2020/suspensio_avaluacions_diagnostiques_iaqse.png",
+            "url": "avaluacions.html#!/diagnostic?id=ad2neso1920",
+            "title": "Suspensió de l'avaluació de diagnòstic del curs 2019-2020 als alumnes de 2n d'ESO",
+            "target": "_blank",
+            "class": "bg-warning",
+            "pubdate": "17/04/2020"
+        },
+        {
             "img": "img/avaluacions/diagnostic/ad_2n_eso_2019_2020/Tutorial_GESAVA_2020.png",
             "url": "../documentos/avaluacions/diagnostic/ad_2n_eso_2019_2020/Tutorial_GESAVA_2020.pdf", 
             "title": "Tutorial de l'aplicació GESAVA per a l'Avaluació de Diagnòstic 2019-2020",
@@ -35,6 +43,20 @@
         }
     ],
     "carousel": [
+        {
+            "img": "img/carousel/covid19.jpg",
+            "url": "../documentos/avaluacions/diagnostic/ad_2n_eso_2019_2020/suspensio_avaluacions_diagnostiques_iaqse.pdf",
+            "target": "_blank",
+            "title": "Suspensió de l'avaluació de diagnòstic 2019-20 2n d'ESO",
+            "description": "Comunicat del director de l'IAQSE"
+        },
+        {
+            "img": "img/carousel/covid19.jpg",
+            "url": "../documentos/avaluacions/diagnostic/ad_2n_eso_2019_2020/boib_cat_suspensio_proves_2n_eso.pdf",
+            "target": "_blank",
+            "title": "Suspensió de l'avaluació de diagnòstic 2019-20 2n d'ESO",
+            "description": "Resolució del Conseller"
+        },
         {
             "img": "img/carousel/0.png",
             "url": "https://apps.caib.es/gesavafront/",

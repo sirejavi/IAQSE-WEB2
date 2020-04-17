@@ -416,3 +416,6 @@ a>.enllacos-title {
         margin-right:150px;  
     }
 }
+.bg-warning {
+    background-color: #ffeaad !important;
+}
