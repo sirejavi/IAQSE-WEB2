@@ -62,7 +62,7 @@
             </a>
           </li>
           
-          <li class="nav-item active">
+          <li class="nav-item">
             <a class="nav-link" href="publicacions.html" title="">Publicacions
             </a>
           </li>
@@ -216,108 +216,12 @@
                 <div class="col-xl-10 col-lg-12">
                 <main>
                 
-<nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="index.html"><i class="fas fa-home"></i></a></li> 
-          <li class="breadcrumb-item active"> Publicacions </li>  
-        </ol>
-        </nav>
-        
-<div class="modal fade" id="analyticsModal" tabindex="-1" role="dialog" aria-labelledby="analyticsModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="analyticsModalLabel">Visites</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body" style="height:500px;overflow-y:auto">      
-                <p>Aquest document s'ha visitat en total <span ng-bind="modalVisualizations.length"></span> vegades</p>          
-                <table class="table table-bordered">
-                    <thead>
-                                <th>Data</th>
-                                <th>IP</th>
-                                <th>Long.</th>
-                                <th>Lat.</th>
-                                <th>Municipi</th>
-                    </thead>
-                    <tbody>
-                    <tr ng-repeat="visit in modalVisualizations">
-                        <td><span ng-bind="visit.FECHA"></span></td>
-                        <td><span ng-bind="visit.IP"></span></td>
-                        <td><span ng-bind="visit.LONGITUDE"></span></td>
-                        <td><span ng-bind="visit.LATITUDE"></span></td>
-                        <td><span ng-bind="visit.CITY"></span></td>
-                    </tr>
-                    </tbody>
-                </table>
-                                
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Tancar</button> 
-            </div>
-          </div>
-        </div>
-    </div>
-    
+<style>.iaqse-contents{background:#f5f5f5;border:1px solid #add8e6;box-shadow:2px 2px #d3d3d3;margin:10px;padding:10px;width:98%}.iaqse-section{width:98%;border-bottom:1px solid #add8e6}</style>
 
-<div>
+<div ng-view id="routedContent"></div>
 
-    <div class="clearfix">
-        <span class="filtrau">Filtrau per </span>
-        
-        <div class="btn-group float-left" title="Cerca per categoria" style="margin-left:10px;margin-bottom:5px">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="tagsCombo" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fa fa-tags"></i> <span ng-bind="selectedTag.name"></span></button>
-            <div class="dropdown-menu" aria-labelledby="tagsCombo">
-                <a class="dropdown-item" ng-click="listByTag($index)" ng-repeat="st in searchTags"><span ng-bind="st.name"></span></a>
-            </div>
-        </div>
-        
-        <div class="input-group float-left" style="max-width:400px;margin-left:10px;margin-bottom:5px" title="Cerca per text">
-            <input type="text" class="form-control" placeholder="Cerca" ng-model="searchText" ng-keypress="keypress($event)">
-            <div class="input-group-append">
-                <button class="btn btn-secondary" type="button" ng-click="search()">
-                    <i class="fa fa-search"></i>
-                </button>
-            </div>
-        </div>
-        
-        <div class="float-left form-inline" style="margin-left:30px;margin-bottom:5px">
-            <input class="form-check-input" type="checkbox" id="activaCercaAny" style="vertical-align:sub" ng-model="years.activaCercaAny" ng-change="onYearChange(true)">
-            <label class="form-check-label" for="activaCercaAny" style="vertical-align:sub"> Cerca per any </label>
-
-            <input type="number" min="2000" max="{{years.thisYear}}" class="form-control" ng-model="years.selectedYear" ng-change="onYearChange(false)" ng-if="years.activaCercaAny" title="Triau l'any" style="width:100px;margin-left:10px">
-        </div>
-    </div>
-
-
-    <hr>
-    <p ng-if="pubs.length==0">No s'han trobat publicacions</p>
-    <p ng-if="pubs.length==1">S'ha trobat una publicació</p>
-    <p ng-if="pubs.length>1">S'han trobat <span ng-bind="pubs.length"></span> publicacions</p>
-    <hr>
-
-    <div class="list-group">
-        <div class="list-group-item list-group-item-hover" ng-repeat="pub in pubs">
-            <div class="fa-pull-left">
-                <i ng-if="pub.destacat" class="fa fa-star"></i>
-                <a href="../{{pub.url}}" target="_blank" track-type="DOC">
-                    <img ng-src="../{{pub.img}}" class="publication-img">
-                </a>
-            </div>
-
-            <p class="publication-title">
-                <span ng-if="pub.hits!=null" style="font-size:105%" class="badge badge-secondary badge-cursor" ng-bind="pub.hits" title="{{pub.hits_title}}" ng-click="loadVisualizations(pub)" data-toggle="modal" data-target="#analyticsModal"></span>
-                <a href="../{{pub.url}}" target="_blank" ng-bind="pub.title" track-type="DOC"></a>
-            <span ng-bind="pub.description"></span></p>
-            <p class="fa-pull-right publication-date" ng-bind="pub.pubdate | pubDate"></p>
-
-        </div>
-    </div>
-</div>
-<script>app.service("PubService",function(){var u={findByTags:function(e){if(!e||0==e.length)return pubJSON;for(var a=[],t=0;t<pubJSON.length;t++){for(var s=pubJSON[t],r=!1,n=0;!r&&n<e.length;){for(var i=0;!r&&i<s.tags.length;)s.tags[i].toLowerCase()==e[n].toLowerCase()&&(r=!0),i++;n++}r&&a.push(s)}return a},search:function(e,a,t){var s=u.findByTags(e),r=a.toLowerCase().trim();if(r||t)for(var n=[],i=0;i<s.length;i++){var c=s[i],l=r&&(0<=c.title.toLowerCase().indexOf(r)||0<=c.description.toLowerCase().indexOf(r)||0<=c.pubdate.toLowerCase().indexOf(r))||!r,o=t&&0<=c.pubdate.toLowerCase().indexOf(t+"")||!t;l&&o&&n.push(c)}else n=s;return n}};return u});var MONTHS=["gener","febrer","març","abril","maig","juny","juliol","agost","setembre","octubre","novembre","desembre"];app.filter("pubDate",function(){return function(e){if(!e)return"";var a,t,s="",r=e.split("/");return 3===r.length?(a=parseInt(r[1])-1,t=MONTHS[a],s="Publicat dia "+r[0]+" ",t.startsWith("a")||t.startsWith("o")?s+="d'"+t:s+="de "+t,s+=" de "+r[2]):2===r.length?(a=parseInt(r[0])-1,s="Publicat el mes ",(t=MONTHS[a]).startsWith("a")||t.startsWith("o")?s+="d'"+t:s+="de "+t,s+=" de "+r[1]):1===r.length&&(s="Publicat l'any "+r[0]),s}}),app.controller("mainController",["$scope","$rootScope","PubService","httpService","$filter",function(s,e,t,a,l){var r=(new Date).getFullYear();s.years={activaCercaAny:!1,thisYear:r+1,selectedYear:r},s.pubs=[],s.searchTags=[{name:"Totes",tagList:null},{name:"Diagnòstic",tagList:"AD"},{name:"Primària",tagList:"1rEP,3rEP,4tEP,5eEP,6eEP,rubriques"},{name:"Secundària",tagList:"2nESO,4tESO"},{name:"Informes de resultats",tagList:"resultats"},{name:"Indicadors SEIB",tagList:"indicadors"},{name:"Anuaris",tagList:"anuari"},{name:"Documents d'avaluació",tagList:"documents"}],s.selectedTag=s.searchTags[0],s.searchText="",s.listByTag=function(e){s.selectedTag=s.searchTags[e],s.searchText="";var a=s.selectedTag.tagList;s.years.activaCercaAny?s.pubs=t.search(a?a.split(","):null,s.searchText,s.years.selectedYear):s.pubs=t.search(a?a.split(","):null,s.searchText)},s.search=function(){var e=s.selectedTag.tagList;s.years.activaCercaAny?s.pubs=t.search(e?e.split(","):null,s.searchText,s.years.selectedYear):s.pubs=t.search(e?e.split(","):null,s.searchText)},s.keypress=function(e){13===e.which&&s.search()},s.onYearChange=function(e){s.years.activaCercaAny&&e&&(this.searchText="",this.selectedTag=this.searchTags[0]);var a=s.selectedTag.tagList;s.years.activaCercaAny?s.pubs=t.search(a?a.split(","):null,s.searchText,s.years.selectedYear):s.pubs=t.search(a?a.split(","):null,s.searchText)},e.$on("iaqse-sessionId",function(e,a){s.updateAnalyticsInfo(a)}),a.loadSchema("publicacions").then(function(e){pubJSON=e.data;var a=0,t=getURLParameter("tag");if(t)try{a=parseInt(t)}catch(e){}a>=s.searchTags.length&&(a=0),s.listByTag(a),s.updateAnalyticsInfo(localStorage.getItem("iaqse-sessionId"))}),a.hit(location.href,"PAGE"),s.updateAnalyticsInfo=function(e){""!=e?a.listDocumentVisitCount(e,"DOC").then(function(e){s.addAnalyticsInfo(e.data),s.listByTag(0)},function(){s.removeAnalyticsInfo(),s.listByTag(0)}):(s.removeAnalyticsInfo(),s.listByTag(0))},s.addAnalyticsInfo=function(e){for(var a=0,t=pubJSON.length;a<t;a++)for(var s=pubJSON[a],r=s.hits=0,n=e.length;r<n;r++){var i=e[r].URL;if(0<=s.url.toLowerCase().indexOf(i)){s.hits=e[r].count;var c=new Date(e[r].LAST_ACCESS);s.hits_title="Darrer accés "+l("date")(c,"dd/MM/yyyy HH:mm:ss");break}}},s.removeAnalyticsInfo=function(){for(var e=0,a=pubJSON.length;e<a;e++){var t=pubJSON[e];t.hits=null,t.hits_title=null}},s.loadVisualizations=function(e){a.loadVisualizations(s.sessionId,e.url).then(function(e){s.modalVisualizations=e.data},function(){s.modalVisualizations=[]})}}])</script></main>
+<script>app.controller("mainController",["$scope","httpService",function(o,t){t.hit(location.href,"PAGE")}])</script>
+    <script>app.config(["$routeProvider",function(e){e.when("/index",{templateUrl:"view_gesava2_index.html"}).when("/alu",{templateUrl:"view_gesava2_alu.html",controller:"alumnatController"}).when("/fam",{templateUrl:"view_gesava2_fam.html",controller:"familiesController"}).otherwise({redirectTo:"/index"})}])</script></main>
                 </div>
             </div>
                 <footer class="py-1" style="width:100%;margin:0" title="Webmaster: Josep Mulet - Version: 18-5-2020">

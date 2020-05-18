@@ -1,0 +1,41 @@
+<h4>Gesava2: Alumnat</h4>
+
+<div class="iaqse-contents">
+    <ol>
+        <li><a href ng-click="navigate($event,'section1')">Accés a l'aplicació</a></li>
+        <li><a href ng-click="navigate($event,'section2')">Realitzar el qüestionari</a></li>
+        <li><a href ng-click="navigate($event,'section3')">Visualitzar els resultats</a></li>
+        <li><a href ng-click="navigate($event,'section4')">Video tutorial</a></li>
+    </ol>
+</div>
+
+<h4 id="section1" class="iaqse-section">1. Accés a l'aplicació</h4>
+
+<p>Per accedir a l'aplicació seguiu les següents passes:</p>
+
+<ul>
+    <li></li>
+</ul>
+
+<h4 id="section2" class="iaqse-section">2. Realitzar el qüestionari</h4>
+
+<h4 id="section3" class="iaqse-section">3. Visualitzar els resultats</h4>
+
+<h4 id="section4" class="iaqse-section">4. Video tutorial</h4>
+
+<script>
+    app.controller("alumnatController", ["$scope", "$rootScope", "$filter", "httpService",
+        function ($scope, $rootScope, $filter, httpService) {
+        
+        $scope.navigate = function(evt, id) {
+            evt.preventDefault();
+            var elem = document.getElementById(id);
+            elem && elem.scrollIntoView();
+        };
+
+        <% if (config.remoteURL) { %>
+                httpService.hit(location.href, "VIEW");
+        <% } %>
+      
+    }]);
+</script>

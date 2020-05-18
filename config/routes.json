@@ -128,6 +128,32 @@
             "hide": true
         },
         {
+            "title": "Gesava2",
+            "title_long": "Tutorial Gesava2",
+            "ejs": "gesava2",
+            "url": "gesava2",  
+            "hide": true,
+            "views":[
+                {
+                    "title": "Triau col·lectiu",
+                    "ejs": "gesava2/colectius",
+                    "url": "index" 
+                },
+                {
+                    "title": "Alumnat",
+                    "ejs": "gesava2/alumnat",
+                    "url": "alu",
+                    "controller": "alumnat"
+                }, 
+                {
+                    "title": "Famílies",
+                    "ejs": "gesava2/families",
+                    "url": "fam",
+                    "controller": "families"
+                }
+            ]
+        },
+        {
             "title": "Admin",
             "title_long": "Consola d'administració",
             "ejs": "admin_console",

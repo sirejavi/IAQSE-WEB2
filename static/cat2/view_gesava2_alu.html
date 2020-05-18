@@ -1,0 +1,26 @@
+<nav aria-label="breadcrumb">
+<ol class="breadcrumb">
+<li class="breadcrumb-item"><a href="index.html"><i class="fas fa-home"></i></a></li>
+<li class="breadcrumb-item"><a href="#">Tutorial Gesava2</a></li>
+<li class="breadcrumb-item active">Alumnat</li>
+</ol>
+</nav><h4>Gesava2:: Alumnat</h4>
+
+<div class="iaqse-contents">
+    <ol>
+        <li><a href ng-click="navigate($event,'section1')">Accés a l'aplicació</a></li>
+        <li><a href ng-click="navigate($event,'section2')">Realitzar el qüestionari</a></li>
+        <li><a href ng-click="navigate($event,'section3')">Visualitzar els resultats</a></li>
+        <li><a href ng-click="navigate($event,'section4')">Video tutorial</a></li>
+    </ol>
+</div>
+
+<h4 id="section1" class="iaqse-section">1. Accés a l'aplicació</h4>
+
+<h4 id="section2" class="iaqse-section">2. Realitzar el qüestionari</h4>
+
+<h4 id="section3" class="iaqse-section">3. Visualitzar els resultats</h4>
+
+<h4 id="section4" class="iaqse-section">4. Video tutorial</h4>
+
+<script>app.controller("alumnatController",["$scope","$rootScope","$filter","httpService",function(t,e,o,n){t.navigate=function(t,e){t.preventDefault();var o=document.getElementById(e);o&&o.scrollIntoView()},n.hit(location.href,"VIEW")}])</script>

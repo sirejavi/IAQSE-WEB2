@@ -398,7 +398,7 @@
 
             L'Institut d'Avaluació i Qualitat del Sistema Educatiu de les Illes Balears -IAQSE- és l'òrgan de
             coordinació,
-            de consulta i tècnic de la Conselleria d'Educació i Universitat, que actua sota la dependència directa de la
+            de consulta i tècnic de la Conselleria d'Educació, Universitat i Recerca, que actua sota la dependència directa de la
             Direcció General de Planificació, Ordenació i Centres, amb l'objectiu de dur a terme tasques d'anàlisi i
             avaluació externa del sistema educatiu de les Illes Balears.<p></p>
 
@@ -574,10 +574,10 @@
     </div>
 </div>
 
-<script>app.directive("shortenText",function(){return{restrict:"A",scope:{shortenText:"@",shortenLength:"="},template:'<span ng-bind="displayText" ng-mouseover="displayAll()" ng-mouseleave="displayShort()"></span>',controller:["$scope",function(t){var n=t.shortenLength||100;t.displayAll=function(){t.displayText=t.shortenText},t.displayShort=function(){if(t.shortenText&&t.shortenText.length>n){var e=t.shortenText.substring(n).indexOf(" ");t.displayText=t.shortenText.substring(0,n+e+1)+" ..."}else t.displayText=t.shortenText},t.displayShort()}]}}),app.controller("mainController",["$scope","httpService",function(e,t){t.hit(location.href,"PAGE")}])</script></main>
+<script>app.directive("shortenText",function(){return{restrict:"A",scope:{shortenText:"@",shortenLength:"="},template:'<span ng-bind="displayText" ng-mouseover="displayAll()" ng-mouseleave="displayShort()"></span>',controller:["$scope",function(e){var n=e.shortenLength||100;e.displayAll=function(){e.displayText=e.shortenText},e.displayShort=function(){var t;e.shortenText&&e.shortenText.length>n?(t=e.shortenText.substring(n).indexOf(" "),e.displayText=e.shortenText.substring(0,n+t+1)+" ..."):e.displayText=e.shortenText},e.displayShort()}]}}),app.controller("mainController",["$scope","httpService",function(t,e){e.hit(location.href,"PAGE")}])</script></main>
                 </div>
             </div>
-                <footer class="py-1" style="width:100%;margin:0" title="Webmaster: Josep Mulet - Version: 17-4-2020">
+                <footer class="py-1" style="width:100%;margin:0" title="Webmaster: Josep Mulet - Version: 18-5-2020">
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-6">
@@ -601,7 +601,7 @@
 
 <script src="iaqse_bundle2.min.js"></script>
 
-<script>var replaceImgSvg=function(e,a){var g=$(e);g.length&&$.ajax({type:"GET",url:a,contentType:"image/svg+xml;charset=ISO-8859-1",success:function(e){var a=$(e.documentElement);a.addClass(g.attr("class")),g.replaceWith(a)}})};$(function(){$("#tree1").treed(),replaceImgSvg("#svg-logo-cab","../img/svg/iaqse-caib-w.svg"),replaceImgSvg("#logo-iaqse","../img/svg/logo-iaqse.svg")}),function(e,a,g,t,c,s,n){e.GoogleAnalyticsObject=c,e.ga=e.ga||function(){(e.ga.q=e.ga.q||[]).push(arguments)},e.ga.l=1*new Date,s=a.createElement(g),n=a.getElementsByTagName(g)[0],s.async=1,s.src="//www.google-analytics.com/analytics.js",n.parentNode.insertBefore(s,n)}(window,document,"script",0,"ga"),ga("create","UA-40778701-3","auto"),ga("send","pageview")</script>
+<script>var replaceImgSvg=function(e,a){var g=$(e);g.length&&$.ajax({type:"GET",url:a,contentType:"image/svg+xml;charset=ISO-8859-1",success:function(e){var a=$(e.documentElement);a.addClass(g.attr("class")),g.replaceWith(a)}})};$(function(){$("#tree1").treed(),replaceImgSvg("#svg-logo-cab","../img/svg/iaqse-caib-w.svg"),replaceImgSvg("#logo-iaqse","../img/svg/logo-iaqse.svg")}),function(e,a,g,t,c,s){e.GoogleAnalyticsObject=t,e.ga=e.ga||function(){(e.ga.q=e.ga.q||[]).push(arguments)},e.ga.l=+new Date,c=a.createElement(g),s=a.getElementsByTagName(g)[0],c.async=1,c.src="//www.google-analytics.com/analytics.js",s.parentNode.insertBefore(c,s)}(window,document,"script","ga"),ga("create","UA-40778701-3","auto"),ga("send","pageview")</script>
             </div>
             
         </div>
