@@ -150,6 +150,30 @@
                     "ejs": "gesava2/families",
                     "url": "fam",
                     "controller": "families"
+                }, 
+                {
+                    "title": "Professorat",
+                    "ejs": "gesava2/professorat",
+                    "url": "prof",
+                    "controller": "professorat"
+                }, 
+                {
+                    "title": "Directors",
+                    "ejs": "gesava2/directors",
+                    "url": "dir",
+                    "controller": "directors"
+                }, 
+                {
+                    "title": "Aplicadors",
+                    "ejs": "gesava2/aplicadors",
+                    "url": "apli",
+                    "controller": "aplicadors"
+                }, 
+                {
+                    "title": "Aplicadors mostrals",
+                    "ejs": "gesava2/aplicadors_mostrals",
+                    "url": "apli-mostral",
+                    "controller": "aplicadors_mostrals"
                 }
             ]
         },

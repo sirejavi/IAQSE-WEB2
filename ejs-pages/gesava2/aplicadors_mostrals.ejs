@@ -1,11 +1,10 @@
-<h4><a href="#!index">Gesava2</a> <i class="fa fa-caret-right"></i> Famílies</h4>
+<h4><a href="#!index">Gesava2</a> <i class="fa fa-caret-right"></i> Aplicadors mostrals</h4>
 
 <div class="iaqse-contents">
     <h5>Índex de continguts</h5>
     <ol>
         <li><a href ng-click="navigate($event,'section1')">Accés a l'aplicació</a></li>
-        <li><a href ng-click="navigate($event,'section2')">Realitzar el qüestionari</a></li>
-        <li><a href ng-click="navigate($event,'section3')">Visualitzar els resultats</a></li>
+        <li><a href ng-click="navigate($event,'section2')">Realitzar el qüestionari</a></li> 
         <li><a href ng-click="navigate($event,'section4')">Video tutorial</a></li>
     </ol>
 </div>
@@ -22,11 +21,11 @@
 
     <li><p>
         Us apareixerà la pàgina d'accés a l'aplicació en la qual heu d'introduir l'usuari i contrasenya que us
-        ha proporcionat el vostre centre. El vostre usuari comença amb les lletres FAM-. Aneu en compte d'escriure exactament els camps, respectant majúscules 
+        ha proporcionat l'equip directiu del vostre centre. El vostre usuari comença amb les lletres PROF-. Aneu en compte d'escriure exactament els camps, respectant majúscules 
         minúscules i sense deixar espais en blanc.
     </p>
         <div class="row-fluid img-center">
-            <img src="../img/gesava2/fam-login.png" class="img-fluid"/>
+            <img src="../img/gesava2/login-prof.png" class="img-fluid"/>
         </div>
     </li>
 
@@ -39,18 +38,15 @@
 
 <h4 id="section2" class="iaqse-section">2. Realitzar el qüestionari</h4>
 
-<p>Per realitzar el qüestionari de família heu de:</p>
+<p>Per realitzar el qüestionari de professorat heu de:</p>
 
 <ul>
-
-    <li>
-        <p>Triar l'idioma en què voleu fer el qüestionari (català / castellà) del menú desplegable.</p>
+ 
+    <li><p>Clicar sobre el botó "Fer qüestionari" de la pantalla d'inici</p>
         <div class="row-fluid img-center">
-                <img src="../img/gesava2/home-families.png" class="img-fluid"/>
+                <img src="../img/gesava2/home-prof.png" class="img-fluid"/>
         </div>
     </li>
-
-    <li><p>Clicar sobre el botó "Fer qüestionari"</p></li>
 
     <li><p>A la següent pantalla s'obrirà el qüestionari. A la part superior
         trobareu les instruccions que podreu amagar/desplegar mitjançant el botó 
@@ -59,17 +55,22 @@
     </p>
 
         <div class="row-fluid img-center">
-                <img src="../img/gesava2/questionari-fam.png" class="img-fluid"/>
+                <img src="../img/gesava2/questionari-prof.png" class="img-fluid"/>
         </div>
     </li>
  
+    <li><p>Teniu en compte que el nombre de preguntes del qüestionari dependrà de si impartiu classe al
+            nivell de l'avaluació i quines matèries impartiu. Per això, és obligatori contestar aquestes preguntes
+            perquè, segons elles, s'anirà construint el qüestionari.
+        </p></li>
+
     <li><p>Fixeu-vos que hi ha preguntes que contenen diferents apartats. En tal cas, heu de contestar cadascun
         d'ells. </p>
         <p>Aneu desplaçant la pàgina verticalment per contestar més preguntes. 
             Quan hagueu contestat la darrera és important que pitgeu "<b>Desar i Finalitzar</b>". Si pitjau el
         botó "Sortir" es perdran totes les respostes que heu donat </p>
         <div class="row-fluid img-center">
-                <img src="../img/gesava2/questionari-fam-bottom.png" class="img-fluid"/>
+                <img src="../img/gesava2/questionari-prof-bottom.png" class="img-fluid"/>
         </div> 
     </li>
  
@@ -83,31 +84,18 @@
         </div> 
 
         <div class="row-fluid img-center">
-                <img src="../img/gesava2/home-fam-done.png" class="img-fluid"/>
+                <img src="../img/gesava2/home-prof-done.png" class="img-fluid"/>
         </div> 
     </li>
 
     <li>Si ja heu acabat, recordeu a pitjar sobre el botó <img src="../img/gesava2/desconnectar-btn.png" 
-        style="height:24px;vertical-align: middle;"/>. Informar-vos que les respostes que doneu són 
-        anònimes, i el centre no tindrà accés a elles.
-    </li>
+        style="height:24px;vertical-align: middle;"/></li>. Informar-vos que les respostes que doneu són totalment
+        anònimes i el vostre centre no tindrà accés a elles.
 </ul>
 
+ 
 
-<h4 id="section3" class="iaqse-section">3. Visualitzar els resultats</h4>
-
-Si el vostre centre ha autoritzat la visualització dels resultats per part de les famílies, 
-podreu veure a la part
-inferior de la pantalla d'inici els resultats de les proves que varen realitzar els vostres fills.
-Les puntuacions de totes les proves són sobre 100. Si en una matèria apareix "Pendent d'inici" vol dir
-que encara no s'ha corregit l'examen. En canvi, si apareix el missatge "Bloquejat" significa que el
-vostre fill no va realitzar la prova d'aquella matèria.
-
-<div class="row-fluid img-center">
-        <img src="../img/gesava2/resultats-fam.png" class="img-fluid"/>
-</div> 
-
-<h4 id="section4" class="iaqse-section">4. Video tutorial</h4>
+<h4 id="section4" class="iaqse-section">3. Video tutorial</h4>
 
 <div class="row-fluid video-center">
         <div class="embed-responsive embed-responsive-16by9">
@@ -116,7 +104,7 @@ vostre fill no va realitzar la prova d'aquella matèria.
 </div>
 
 <script>
-    app.controller("familiesController", ["$scope", "$rootScope", "$filter", "httpService",
+    app.controller("aplicadors_mostralsController", ["$scope", "$rootScope", "$filter", "httpService",
         function ($scope, $rootScope, $filter, httpService) {
         
         $scope.navigate = function(evt, id) {
