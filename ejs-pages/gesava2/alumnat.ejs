@@ -1,6 +1,7 @@
-<h4>Gesava2: Alumnat</h4>
+<h4>Gesava2 <i class="fa fa-caret-right"></i> Alumnat</h4>
 
 <div class="iaqse-contents">
+    <h5>Índex de continguts</h5>
     <ol>
         <li><a href ng-click="navigate($event,'section1')">Accés a l'aplicació</a></li>
         <li><a href ng-click="navigate($event,'section2')">Realitzar el qüestionari</a></li>
@@ -90,19 +91,28 @@
                 <img src="../img/gesava2/qalu-fin.png" class="img-fluid"/>
         </div> 
     </li>
+
+    <li>Si ja heu acabat, recordeu a pitjar sobre el botó <img src="../img/gesava2/desconnectar-btn.png" 
+        style="height:20px;vertical-align: middle;"/></li>
 </ul>
 
 
 <h4 id="section3" class="iaqse-section">3. Visualitzar els resultats</h4>
 
 Si el vostre centre ha autoritzat la visualització dels resultats per alumnes, podreu veure a la part
-inferior de la pantalla d'inici els resultats de les proves que vàreu realitzar.
+inferior de la pantalla d'inici els resultats de les proves que vàreu realitzar. Les puntuacions de totes les proves són sobre 100.
 
 <div class="row-fluid img-center">
         <img src="../img/gesava2/resultats-alu.png" class="img-fluid"/>
 </div> 
 
 <h4 id="section4" class="iaqse-section">4. Video tutorial</h4>
+
+<div class="row-fluid video-center">
+        <div class="embed-responsive embed-responsive-16by9">
+                <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/zpOULjycy-n8?rel=0" allowfullscreen></iframe>
+        </div>
+</div>
 
 <script>
     app.controller("alumnatController", ["$scope", "$rootScope", "$filter", "httpService",
@@ -111,8 +121,12 @@ inferior de la pantalla d'inici els resultats de les proves que vàreu realitzar
         $scope.navigate = function(evt, id) {
             evt.preventDefault();
             var elem = document.getElementById(id);
-            elem && elem.scrollIntoView();
+            if(elem) {
+                var pos = elem.offsetTop + 100;
+                window.scrollTo(0, pos);
+            }
         };
+ 
 
         <% if (config.remoteURL) { %>
                 httpService.hit(location.href, "VIEW");

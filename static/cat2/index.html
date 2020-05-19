@@ -577,7 +577,7 @@
 <script>app.directive("shortenText",function(){return{restrict:"A",scope:{shortenText:"@",shortenLength:"="},template:'<span ng-bind="displayText" ng-mouseover="displayAll()" ng-mouseleave="displayShort()"></span>',controller:["$scope",function(e){var n=e.shortenLength||100;e.displayAll=function(){e.displayText=e.shortenText},e.displayShort=function(){var t;e.shortenText&&e.shortenText.length>n?(t=e.shortenText.substring(n).indexOf(" "),e.displayText=e.shortenText.substring(0,n+t+1)+" ..."):e.displayText=e.shortenText},e.displayShort()}]}}),app.controller("mainController",["$scope","httpService",function(t,e){e.hit(location.href,"PAGE")}])</script></main>
                 </div>
             </div>
-                <footer class="py-1" style="width:100%;margin:0" title="Webmaster: Josep Mulet - Version: 18-5-2020">
+                <footer class="py-1" style="width:100%;margin:0" title="Webmaster: Josep Mulet - Version: 19-5-2020">
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-6">
