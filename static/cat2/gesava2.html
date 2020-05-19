@@ -221,7 +221,7 @@
 <div ng-view id="routedContent"></div>
 
 <script>app.controller("mainController",["$scope","httpService",function(o,t){t.hit(location.href,"PAGE")}])</script>
-    <script>app.config(["$routeProvider",function(e){e.when("/index",{templateUrl:"view_gesava2_index.html"}).when("/alu",{templateUrl:"view_gesava2_alu.html",controller:"alumnatController"}).when("/fam",{templateUrl:"view_gesava2_fam.html",controller:"familiesController"}).otherwise({redirectTo:"/index"})}])</script></main>
+    <script>app.config(["$routeProvider",function(e){e.when("/index",{templateUrl:"view_gesava2_index.html"}).when("/alu",{templateUrl:"view_gesava2_alu.html",controller:"alumnatController"}).when("/fam",{templateUrl:"view_gesava2_fam.html",controller:"familiesController"}).when("/prof",{templateUrl:"view_gesava2_prof.html",controller:"professoratController"}).when("/dir",{templateUrl:"view_gesava2_dir.html",controller:"directorsController"}).when("/apli",{templateUrl:"view_gesava2_apli.html",controller:"aplicadorsController"}).when("/apli-mostral",{templateUrl:"view_gesava2_apli-mostral.html",controller:"aplicadors_mostralsController"}).otherwise({redirectTo:"/index"})}])</script></main>
                 </div>
             </div>
                 <footer class="py-1" style="width:100%;margin:0" title="Webmaster: Josep Mulet - Version: 19-5-2020">

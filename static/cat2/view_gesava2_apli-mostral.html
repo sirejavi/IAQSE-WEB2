@@ -1,0 +1,111 @@
+<nav aria-label="breadcrumb">
+<ol class="breadcrumb">
+<li class="breadcrumb-item"><a href="index.html"><i class="fas fa-home"></i></a></li>
+<li class="breadcrumb-item"><a href="#">Tutorial Gesava2</a></li>
+<li class="breadcrumb-item active">Aplicadors mostrals</li>
+</ol>
+</nav><h4><a href="#!index">Gesava2</a> <i class="fa fa-caret-right"></i> Aplicadors mostrals</h4>
+
+<div class="iaqse-contents">
+    <h5>Índex de continguts</h5>
+    <ol>
+        <li><a href ng-click="navigate($event,'section1')">Accés a l'aplicació</a></li>
+        <li><a href ng-click="navigate($event,'section2')">Realitzar el qüestionari</a></li> 
+        <li><a href ng-click="navigate($event,'section4')">Video tutorial</a></li>
+    </ol>
+</div>
+
+<h4 id="section1" class="iaqse-section">1. Accés a l'aplicació</h4>
+
+<p>Per accedir a l'aplicació seguiu les següents passes:</p>
+
+<ul>
+    <li>
+        <p>Cliqueu sobre la imatge "Accés Gesava2" <img src="../img/gesava.png" style="width:30px;vertical-align:middle">
+             de la part superior dreta d'aquesta pantalla.</p>
+    </li>
+
+    <li><p>
+        Us apareixerà la pàgina d'accés a l'aplicació en la qual heu d'introduir l'usuari i contrasenya que us
+        ha proporcionat l'equip directiu del vostre centre. El vostre usuari comença amb les lletres PROF-. Aneu en compte d'escriure exactament els camps, respectant majúscules 
+        minúscules i sense deixar espais en blanc.
+    </p>
+        <div class="row-fluid img-center">
+            <img src="../img/gesava2/login-prof.png" class="img-fluid">
+        </div>
+    </li>
+
+    <li><p>Molt Important! Recordeu a tancar la sessió pitjant sobre el botó "Desconnecta" quan hagueu acabat.</p>
+        <div class="row-fluid img-center">
+                <img src="../img/gesava2/desconnectar.png" class="img-fluid">
+        </div>
+    </li>
+</ul>
+
+<h4 id="section2" class="iaqse-section">2. Realitzar el qüestionari</h4>
+
+<p>Per realitzar el qüestionari de professorat heu de:</p>
+
+<ul>
+ 
+    <li><p>Clicar sobre el botó "Fer qüestionari" de la pantalla d'inici</p>
+        <div class="row-fluid img-center">
+                <img src="../img/gesava2/home-prof.png" class="img-fluid">
+        </div>
+    </li>
+
+    <li><p>A la següent pantalla s'obrirà el qüestionari. A la part superior
+        trobareu les instruccions que podreu amagar/desplegar mitjançant el botó 
+         <img src="../img/gesava2/minus.png" style="width:18px;vertical-align:middle"> / 
+         <img src="../img/gesava2/plus.png" style="width:18px;vertical-align:middle">
+    </p>
+
+        <div class="row-fluid img-center">
+                <img src="../img/gesava2/questionari-prof.png" class="img-fluid">
+        </div>
+    </li>
+ 
+    <li><p>Teniu en compte que el nombre de preguntes del qüestionari dependrà de si impartiu classe al
+            nivell de l'avaluació i quines matèries impartiu. Per això, és obligatori contestar aquestes preguntes
+            perquè, segons elles, s'anirà construint el qüestionari.
+        </p></li>
+
+    <li><p>Fixeu-vos que hi ha preguntes que contenen diferents apartats. En tal cas, heu de contestar cadascun
+        d'ells. </p>
+        <p>Aneu desplaçant la pàgina verticalment per contestar més preguntes. 
+            Quan hagueu contestat la darrera és important que pitgeu "<b>Desar i Finalitzar</b>". Si pitjau el
+        botó "Sortir" es perdran totes les respostes que heu donat </p>
+        <div class="row-fluid img-center">
+                <img src="../img/gesava2/questionari-prof-bottom.png" class="img-fluid">
+        </div> 
+    </li>
+ 
+
+    <li>
+        <p>Us apareixerà un diàleg de confirmació. Cliqueu sobre el botó "Finalitza" i tot seguit tornareu
+            a la pàgina inicial on podreu llegir el missatge "Qüestionari Finalitzat. Moltes gràcies".
+        </p>
+        <div class="row-fluid img-center">
+                <img src="../img/gesava2/confirma.png" class="img-fluid">
+        </div> 
+
+        <div class="row-fluid img-center">
+                <img src="../img/gesava2/home-prof-done.png" class="img-fluid">
+        </div> 
+    </li>
+
+    <li>Si ja heu acabat, recordeu a pitjar sobre el botó <img src="../img/gesava2/desconnectar-btn.png" style="height:24px;vertical-align:middle"></li>. Informar-vos que les respostes que doneu són totalment
+        anònimes i el vostre centre no tindrà accés a elles.
+</ul>
+
+ 
+
+<h4 id="section4" class="iaqse-section">3. Video tutorial</h4>
+
+<div class="row-fluid video-center">
+        <div class="embed-responsive embed-responsive-16by9">
+                <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/zpOULjycy-n8?rel=0" allowfullscreen></iframe>
+        </div>
+</div>
+
+<script>app.controller("aplicadors_mostralsController",["$scope","$rootScope","$filter","httpService",function(o,t,e,r){o.navigate=function(o,t){o.preventDefault();var e,r=document.getElementById(t);r&&(e=r.offsetTop+100,window.scrollTo(0,e))},r.hit(location.href,"VIEW")}])</script>
