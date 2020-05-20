@@ -1,4 +1,4 @@
-<style>
+<style id="gesava2-doc-css">
     .iaqse-contents {
         background: whitesmoke;
         border: 1px solid lightblue;
@@ -25,6 +25,15 @@
 <div ng-view id="routedContent"></div>
 
 <script>
+    function printDocument(divName) {
+            var printContents = document.getElementById(divName).innerHTML;
+            var cssContents = document.getElementById('gesava2-doc-css').innerHTML;
+            var popupWin = window.open('', '_blank', 'width=800,height=600'); 
+            popupWin.document.open();
+            popupWin.document.write('<html><head><title>Previsualització de la impressió</title><link rel="stylesheet" type="text/css" href="iaqse_bundle.min.css" /><style>'+
+               cssContents +'</style></head><body onload="window.print()">' + printContents + '</body></html>');
+            popupWin.document.close();
+    }
     app.controller("mainController", ["$scope", "httpService", function($scope, httpService){
         httpService.hit(location.href, "PAGE");
     }]);

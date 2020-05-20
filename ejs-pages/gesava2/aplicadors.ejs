@@ -1,109 +1,189 @@
+<button class="btn btn-sm btn-secondary" style="float:right" ng-click="printDiv()">
+    <i class="fa fa-print"></i> Imprimir</button>
+
+<div id="print-area">
 <h4><a href="#!index">Gesava2</a> <i class="fa fa-caret-right"></i> Aplicadors</h4>
 
 <div class="iaqse-contents">
     <h5>Índex de continguts</h5>
     <ol>
         <li><a href ng-click="navigate($event,'section1')">Accés a l'aplicació</a></li>
-        <li><a href ng-click="navigate($event,'section2')">Realitzar el qüestionari</a></li> 
-        <li><a href ng-click="navigate($event,'section4')">Video tutorial</a></li>
+        <li><a href ng-click="navigate($event,'section2')">Descarregar claus i qüestionari en paper</a>
+            <p><a href ng-click="navigate($event,'section21')">2.1 Claus dels alumnes</a><br/>
+            <a href ng-click="navigate($event,'section22')">2.2 Claus de les famílies</a><br/>
+            <a href ng-click="navigate($event,'section23')">2.3 Qüestionaris de les famílies en paper</a></p>
+        </li> 
+        <li><a href ng-click="navigate($event,'section3')">Descarregar fulls d'incidències i respostes</a></li> 
+        <li><a href ng-click="navigate($event,'section5')">Introduir respostes d'un qüestionari de família</a></li>
+        <li><a href ng-click="navigate($event,'section6')">Introduir respostes d'una prova diagnòstica</a></li>
     </ol>
 </div>
 
 <h4 id="section1" class="iaqse-section">1. Accés a l'aplicació</h4>
 
+
 <p>Per accedir a l'aplicació seguiu les següents passes:</p>
 
 <ul>
     <li>
-        <p>Cliqueu sobre la imatge "Accés Gesava2" <img src="../img/gesava.png" style="width:30px;vertical-align: middle;"/>
-             de la part superior dreta d'aquesta pantalla.</p>
+        <p>Cliqueu sobre la imatge <a href="<%=config.gesavaUrl%>" target="_blank">"<%=config.gesavaTitle%>" <img src="../img/gesava.png" style="width:30px;vertical-align: middle;"/></a>
+            de la part superior dreta d'aquesta pantalla.</p>
     </li>
 
     <li><p>
         Us apareixerà la pàgina d'accés a l'aplicació en la qual heu d'introduir l'usuari i contrasenya que us
-        ha proporcionat l'equip directiu del vostre centre. El vostre usuari comença amb les lletres PROF-. Aneu en compte d'escriure exactament els camps, respectant majúscules 
+        ha proporcionat l'equip directiu del vostre centre. El vostre usuari comença amb les lletres APLI-. Aneu en compte d'escriure exactament els camps, respectant majúscules 
         minúscules i sense deixar espais en blanc.
     </p>
         <div class="row-fluid img-center">
-            <img src="../img/gesava2/login-prof.png" class="img-fluid"/>
+            <img src="../img/gesava2/login-apli.png" class="img-fluid"/>
         </div>
     </li>
-
-    <li><p>Molt Important! Recordeu a tancar la sessió pitjant sobre el botó "Desconnecta" quan hagueu acabat.</p>
-        <div class="row-fluid img-center">
-                <img src="../img/gesava2/desconnectar.png" class="img-fluid"/>
-        </div>
-    </li>
-</ul>
-
-<h4 id="section2" class="iaqse-section">2. Realitzar el qüestionari</h4>
-
-<p>Per realitzar el qüestionari de professorat heu de:</p>
-
-<ul>
- 
-    <li><p>Clicar sobre el botó "Fer qüestionari" de la pantalla d'inici</p>
-        <div class="row-fluid img-center">
-                <img src="../img/gesava2/home-prof.png" class="img-fluid"/>
-        </div>
-    </li>
-
-    <li><p>A la següent pantalla s'obrirà el qüestionari. A la part superior
-        trobareu les instruccions que podreu amagar/desplegar mitjançant el botó 
-         <img src="../img/gesava2/minus.png" style="width:18px;vertical-align: middle;"/> / 
-         <img src="../img/gesava2/plus.png" style="width:18px;vertical-align: middle;"/>
-    </p>
-
-        <div class="row-fluid img-center">
-                <img src="../img/gesava2/questionari-prof.png" class="img-fluid"/>
-        </div>
-    </li>
- 
-    <li><p>Teniu en compte que el nombre de preguntes del qüestionari dependrà de si impartiu classe al
-            nivell de l'avaluació i quines matèries impartiu. Per això, és obligatori contestar aquestes preguntes
-            perquè, segons elles, s'anirà construint el qüestionari.
-        </p></li>
-
-    <li><p>Fixeu-vos que hi ha preguntes que contenen diferents apartats. En tal cas, heu de contestar cadascun
-        d'ells. </p>
-        <p>Aneu desplaçant la pàgina verticalment per contestar més preguntes. 
-            Quan hagueu contestat la darrera és important que pitgeu "<b>Desar i Finalitzar</b>". Si pitjau el
-        botó "Sortir" es perdran totes les respostes que heu donat </p>
-        <div class="row-fluid img-center">
-                <img src="../img/gesava2/questionari-prof-bottom.png" class="img-fluid"/>
-        </div> 
-    </li>
- 
 
     <li>
-        <p>Us apareixerà un diàleg de confirmació. Cliqueu sobre el botó "Finalitza" i tot seguit tornareu
-            a la pàgina inicial on podreu llegir el missatge "Qüestionari Finalitzat. Moltes gràcies".
+        <p>Una vegada validats, us apareixerà la pantalla d'inici d'aplicador on trobareu una taula que 
+            conté tots els grups / matèria.
         </p>
-        <div class="row-fluid img-center">
-                <img src="../img/gesava2/confirma.png" class="img-fluid"/>
-        </div> 
 
         <div class="row-fluid img-center">
-                <img src="../img/gesava2/home-prof-done.png" class="img-fluid"/>
-        </div> 
+                <img src="../img/gesava2/apli-home-logout.png" class="img-fluid"/>
+        </div>
     </li>
 
-    <li>Si ja heu acabat, recordeu a pitjar sobre el botó <img src="../img/gesava2/desconnectar-btn.png" 
-        style="height:24px;vertical-align: middle;"/></li>. Informar-vos que les respostes que doneu són totalment
-        anònimes i el vostre centre no tindrà accés a elles.
+    <li><p><b>Molt Important!</b> Recordeu a tancar la sessió pitjant sobre el botó "Desconnecta" quan hagueu acabat.</p>
+        
+    </li>
 </ul>
+
+
+<h4 id="section2" class="iaqse-section">2. Descarregar claus i qüestionaris en paper</h4>
+
+<h5 id="section21">2.1 Claus dels alumnes</h5>
+<ul>
+    <li>
+        <p>En el cas que els alumnes hagin de realitzar qüestionaris d'alumne, ho faran online. 
+            Per això, necessitaran
+            disposar d'usuari i clau d'accés a Gesava2. A la taula de grups/matèries, cercau
+            la matèria "Qüestionari d'alumne". Si no us apareix aquesta matèria, vol dir que 
+            l'avaluació actual no té associat aquests qüestionaris.
+        </p>
+        <div class="row-fluid img-center">
+                <img src="../img/gesava2/apli-alumnes.png" class="img-fluid"/>
+        </div>
+    </li>
+    <li><p>
+        Clicau sobre el botó d'un grup per accedir a ell. S'obrirà una pantalla amb el llistat 
+        d'alumnes del grup. Anau a la part inferior de la pantalla on trobareu botons d'acció.
+        Clicau sobre "Llistat claus continu".
+    </p>
+    <div class="row-fluid img-center">
+            <img src="../img/gesava2/apli-alu-claus.png" class="img-fluid"/>
+    </div>
+    <p>Obtindreu un fitxer PDF que podreu imprimir, retallar i repartir als alumnes</p>
+    <div class="row-fluid img-center">
+            <img src="../img/gesava2/claus-alumnes.png" class="img-fluid"/>
+    </div>
+</li>
+</ul>
+<p></p>
+
+
+<h5 id="section22">2.2 Claus de les famílies</h5>
+
+<ul>
+    <li><p>A la pantalla inicial d'aplicador accediu a cada grup/matèria que tingui per nom
+        "Qüestionari famílies". Accediu a la pàgina de cada grup i, a la part inferior de la pàgina,
+        trobareu els botons d'acció. Clicau sobre el botó "Llistat claus continu Fam.".
+    </p>
+    <div class="row-fluid img-center">
+            <img src="../img/gesava2/apli-fam-claus.png" class="img-fluid"/>
+    </div></li>
+    <li>
+    <p>Obtindreu un fitxer PDF que podreu imprimir, retallar i repartir a les famílies dels alumnes</p>
+    <div class="row-fluid img-center">
+            <img src="../img/gesava2/claus-families.png" class="img-fluid"/>
+    </div>
+    </li>
+</ul>
+
+<h5 id="section23">2.3 Qüestionaris de les famílies en paper</h5>
+
+<p>S'ha de fomentar que les famílies realitzin el qüestionari online mitjançant els usuaris i
+    contrasenyes obtinguts a l'apartat 2.2. No obstant això, si alguna família
+    sol·licita poder fer el qüestionari en paper, veurem com descarregar-lo.
+</p>
+<p>Aneu a la pàgina inicial de l'aplicador. Cercau els grups/matèria amb nom "Qüestionari famílies" i
+    accediu a ells. A la part inferior de la pàgina de cada grup trobareu botons d'acció. Cliqueu sobre
+    "Baixar qüestionari" i trieu l'idioma que vulgueu.
+</p>
+<div class="row-fluid img-center">
+        <img src="../img/gesava2/apli-baixar-qfam.png" class="img-fluid"/>
+</div>
+<p>Obtindreu un PDF amb els qüestionaris de família de tots els alumnes del grup. A l'hora d'imprimir, 
+    seleccioneu només les pàgines que necessiteu.
+</p>
+
+<div class="row-fluid img-center">
+        <img src="../img/gesava2/qfam-paper.png" class="img-fluid"/>
+</div>
+
+
+<h4 id="section3" class="iaqse-section">3. Descarregar fulls d'incidències i respostes</h4>
+
+<p>
+El dia de la prova de cada matèria avaluable, la persona encarregada d'aplicar la prova
+necessitarà tenir impresos els fulls de respostes, on els alumnes escriuran les respostes de les preguntes,
+i els fulls d'incidències allà on l'aplicador de la prova podrà escriure comentaris de seguiment.</p>
+
+<ul>
+    <li><p>Anau a la pàgina inicial de l'aplicador i seleccioneu els grups/matèria que necessiteu. Per exemple,
+        clicam sobre la matèria "Competència Matemàtica" del grup A. En la part inferior de la pantalla del
+        grup, trobam els botons "Llistat d'incidències" i "Baixar fulls de respostes". Pel cas de la competència 
+    matemàtica, els fulls de respostes estan disponibles en dos idiomes.</p>
+        <div class="row-fluid img-center">
+                <img src="../img/gesava2/llista-incidencies.png" class="img-fluid"/>
+        </div>
+    </li> 
+</ul>
+
+<div class="bg-warning" style="padding:5px">
+    <p>Els fulls de resposta s'han d'imprimir i s'aconsella fer-ho a doble cara. 
+         És recomanable que a l'hora d'imprimir seleccioneu l'opció "Ajusta" 
+        per evitar que pugui quedar contingut fora dels marges de la pàgina</p>
+        <center>
+                <img src="../img/gesava2/quadre-impressio.png" style="width:375px"/>
+        </center>  
+</div>
+
+<h4 id="section5" class="iaqse-section">5. Introduir respostes d'un qüestionari de família</h4>
+
+<ul>
+    <li>
+        <p>Des de la pàgina inicial de l'aplicador, trieu el grup/matèria "Qüestionari famílies" i 
+            accediu a ell.
+        </p>
+    </li>
+
+    <li>
+        <p>Cerqueu el nom de l'alumne del qual heu d'introduir el qüestionari de família en paper. Cliqueu el botó 
+            <img src="../img/gesava2/btn-edita" style="height: 22px; vertical-align: middle;"/>
+        </p>
+        <div class="row-fluid img-center">
+                <img src="../img/gesava2/apli-tria-qfam.png" class="img-fluid"/>
+        </div>
+    </li>
+
+</ul>
+
+<h4 id="section6" class="iaqse-section">6. Introduir respostes d'una prova diagnòstica</h4>
+
 
  
 
-<h4 id="section4" class="iaqse-section">3. Video tutorial</h4>
 
-<div class="row-fluid video-center">
-        <div class="embed-responsive embed-responsive-16by9">
-                <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/zpOULjycy-n8?rel=0" allowfullscreen></iframe>
-        </div>
+
 </div>
-
-<script>
+ <script>
     app.controller("aplicadorsController", ["$scope", "$rootScope", "$filter", "httpService",
         function ($scope, $rootScope, $filter, httpService) {
         
@@ -115,8 +195,10 @@
                 window.scrollTo(0, pos);
             }
         };
- 
 
+        $scope.printDiv = function() {
+            printDocument('print-area');
+        } 
 
         <% if (config.remoteURL) { %>
                 httpService.hit(location.href, "VIEW");

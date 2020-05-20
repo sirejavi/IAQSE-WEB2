@@ -1,3 +1,7 @@
+<button class="btn btn-sm btn-secondary" style="float:right" ng-click="printDiv()">
+        <i class="fa fa-print"></i> Imprimir</button>
+    
+<div id="print-area">
 <h4><a href="#!index">Gesava2</a> <i class="fa fa-caret-right"></i> Directors</h4>
 
 <div class="iaqse-contents">
@@ -20,8 +24,8 @@
 
 <ul>
     <li>
-        <p>Cliqueu sobre la imatge "Accés Gesava2" <img src="../img/gesava.png" style="width:30px;vertical-align: middle;"/>
-             de la part superior dreta d'aquesta pantalla.</p>
+        <p>Cliqueu sobre la imatge <a href="<%=config.gesavaUrl%>" target="_blank">"<%=config.gesavaTitle%>" <img src="../img/gesava.png" style="width:30px;vertical-align: middle;"/></a>
+            de la part superior dreta d'aquesta pantalla.</p>
     </li>
 
     <li><p>
@@ -142,7 +146,7 @@ Les diferents funcionalitats les trobareu organitzades un menú de pestanyes.</p
                 <img src="../img/gesava2/visibilitats-dir.png" class="img-fluid"/>
         </div> 
 
-
+</div>
 <script>
     app.controller("directorsController", ["$scope", "$rootScope", "$filter", "httpService",
         function ($scope, $rootScope, $filter, httpService) {
@@ -157,6 +161,9 @@ Les diferents funcionalitats les trobareu organitzades un menú de pestanyes.</p
         };
  
 
+        $scope.printDiv = function() {
+            printDocument('print-area');
+        } 
 
         <% if (config.remoteURL) { %>
                 httpService.hit(location.href, "VIEW");

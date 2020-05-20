@@ -4,14 +4,18 @@
 <li class="breadcrumb-item"><a href="#">Tutorial Gesava2</a></li>
 <li class="breadcrumb-item active">Aplicadors mostrals</li>
 </ol>
-</nav><h4><a href="#!index">Gesava2</a> <i class="fa fa-caret-right"></i> Aplicadors mostrals</h4>
+</nav><button class="btn btn-sm btn-secondary" style="float:right" ng-click="printDiv()">
+        <i class="fa fa-print"></i> Imprimir</button>
+    
+<div id="print-area">
+<h4><a href="#!index">Gesava2</a> <i class="fa fa-caret-right"></i> Aplicadors mostrals</h4>
 
 <div class="iaqse-contents">
     <h5>Índex de continguts</h5>
     <ol>
         <li><a href ng-click="navigate($event,'section1')">Accés a l'aplicació</a></li>
         <li><a href ng-click="navigate($event,'section2')">Realitzar el qüestionari</a></li> 
-        <li><a href ng-click="navigate($event,'section4')">Video tutorial</a></li>
+        <li class="d-print-none"><a href ng-click="navigate($event,'section4')">Video tutorial</a></li>
     </ol>
 </div>
 
@@ -21,8 +25,8 @@
 
 <ul>
     <li>
-        <p>Cliqueu sobre la imatge "Accés Gesava2" <img src="../img/gesava.png" style="width:30px;vertical-align:middle">
-             de la part superior dreta d'aquesta pantalla.</p>
+        <p>Cliqueu sobre la imatge <a href="https://apps.caib.es/gesavafront/" target="_blank">"Accés GESAVA" <img src="../img/gesava.png" style="width:30px;vertical-align:middle"></a>
+            de la part superior dreta d'aquesta pantalla.</p>
     </li>
 
     <li><p>
@@ -99,13 +103,5 @@
 </ul>
 
  
-
-<h4 id="section4" class="iaqse-section">3. Video tutorial</h4>
-
-<div class="row-fluid video-center">
-        <div class="embed-responsive embed-responsive-16by9">
-                <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/zpOULjycy-n8?rel=0" allowfullscreen></iframe>
-        </div>
 </div>
-
-<script>app.controller("aplicadors_mostralsController",["$scope","$rootScope","$filter","httpService",function(o,t,e,r){o.navigate=function(o,t){o.preventDefault();var e,r=document.getElementById(t);r&&(e=r.offsetTop+100,window.scrollTo(0,e))},r.hit(location.href,"VIEW")}])</script>
+<script>app.controller("aplicadors_mostralsController",["$scope","$rootScope","$filter","httpService",function(t,o,e,n){t.navigate=function(t,o){t.preventDefault();var e,n=document.getElementById(o);n&&(e=n.offsetTop+100,window.scrollTo(0,e))},t.printDiv=function(){printDocument("print-area")},n.hit(location.href,"VIEW")}])</script>

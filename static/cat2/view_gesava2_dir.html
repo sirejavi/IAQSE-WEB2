@@ -4,7 +4,11 @@
 <li class="breadcrumb-item"><a href="#">Tutorial Gesava2</a></li>
 <li class="breadcrumb-item active">Directors</li>
 </ol>
-</nav><h4><a href="#!index">Gesava2</a> <i class="fa fa-caret-right"></i> Directors</h4>
+</nav><button class="btn btn-sm btn-secondary" style="float:right" ng-click="printDiv()">
+        <i class="fa fa-print"></i> Imprimir</button>
+    
+<div id="print-area">
+<h4><a href="#!index">Gesava2</a> <i class="fa fa-caret-right"></i> Directors</h4>
 
 <div class="iaqse-contents">
     <h5>Índex de continguts</h5>
@@ -26,8 +30,8 @@
 
 <ul>
     <li>
-        <p>Cliqueu sobre la imatge "Accés Gesava2" <img src="../img/gesava.png" style="width:30px;vertical-align:middle">
-             de la part superior dreta d'aquesta pantalla.</p>
+        <p>Cliqueu sobre la imatge <a href="https://apps.caib.es/gesavafront/" target="_blank">"Accés GESAVA" <img src="../img/gesava.png" style="width:30px;vertical-align:middle"></a>
+            de la part superior dreta d'aquesta pantalla.</p>
     </li>
 
     <li><p>
@@ -136,6 +140,9 @@ Les diferents funcionalitats les trobareu organitzades un menú de pestanyes.</p>
 
 <h4 id="section4" class="iaqse-section">4. Canviar la visibilitat dels resultats</h4>
 
+<p>Per defecte, l'aplicació no permet veure els resultats als alumnes ni famílies. 
+   Si es vol canviar aquest comportament, cal que el director modifiqui els permisos d'accés.</p>
+
  <p>Seleccioneu la pestanya "visibilitats". Del menú desplegable podeu triar quin col·lectius voleu que
      puguin tenir accés a la puntuació de les proves diagnòstiques.
  </p>
@@ -144,5 +151,5 @@ Les diferents funcionalitats les trobareu organitzades un menú de pestanyes.</p>
                 <img src="../img/gesava2/visibilitats-dir.png" class="img-fluid">
         </div> 
 
-
-<script>app.controller("directorsController",["$scope","$rootScope","$filter","httpService",function(o,e,t,r){o.navigate=function(o,e){o.preventDefault();var t,r=document.getElementById(e);r&&(t=r.offsetTop+100,window.scrollTo(0,t))},r.hit(location.href,"VIEW")}])</script>
+</div>
+<script>app.controller("directorsController",["$scope","$rootScope","$filter","httpService",function(t,o,e,n){t.navigate=function(t,o){t.preventDefault();var e,n=document.getElementById(o);n&&(e=n.offsetTop+100,window.scrollTo(0,e))},t.printDiv=function(){printDocument("print-area")},n.hit(location.href,"VIEW")}])</script>

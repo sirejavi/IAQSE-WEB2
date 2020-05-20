@@ -1,5 +1,7 @@
 {
    "webmaster": "Josep Mulet",
+   "gesavaUrl": "https://apps.caib.es/gesavafront/",
+   "gesavaTitle": "Accés GESAVA",
    "remoteURL": "https://piworld.es/iaqseapi",
    "geolocation": false,
    "encoding": "latin1",
