@@ -45,13 +45,6 @@
     "carousel": [
         {
             "img": "img/carousel/covid19.jpg",
-            "url": "../documentos/avaluacions/diagnostic/ad_2n_eso_2019_2020/suspensio_avaluacions_diagnostiques_iaqse.pdf",
-            "target": "_blank",
-            "title": "Suspensió de l'avaluació de diagnòstic 2019-20 2n d'ESO",
-            "description": "Comunicat del director de l'IAQSE"
-        },
-        {
-            "img": "img/carousel/covid19.jpg",
             "url": "../documentos/avaluacions/diagnostic/ad_2n_eso_2019_2020/boib_cat_suspensio_proves_2n_eso.pdf",
             "target": "_blank",
             "title": "Suspensió de l'avaluació de diagnòstic 2019-20 2n d'ESO",
