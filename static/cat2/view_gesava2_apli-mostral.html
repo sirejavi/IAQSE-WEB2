@@ -5,21 +5,38 @@
 <li class="breadcrumb-item active">Aplicadors mostrals</li>
 </ol>
 </nav><button class="btn btn-sm btn-secondary" style="float:right" ng-click="printDiv()">
-        <i class="fa fa-print"></i> Imprimir</button>
-    
+    <i class="fa fa-print"></i> Imprimir</button>
+
 <div id="print-area">
-<h4><a href="#!index">Gesava2</a> <i class="fa fa-caret-right"></i> Aplicadors mostrals</h4>
+<h4 class="d-print-none"><a href="#!index">Gesava2</a> <i class="fa fa-caret-right"></i> Aplicadors mostrals</h4>
+<h3 class="d-none d-print-block"> <b>Gesava2 - Aplicadors mostrals</b></h3>
 
 <div class="iaqse-contents">
     <h5>Índex de continguts</h5>
     <ol>
-        <li><a href ng-click="navigate($event,'section1')">Accés a l'aplicació</a></li>
-        <li><a href ng-click="navigate($event,'section2')">Realitzar el qüestionari</a></li> 
-        <li class="d-print-none"><a href ng-click="navigate($event,'section4')">Video tutorial</a></li>
+        <li><a href ng-click="navigate($event,'section1')">Introducció</a></li>
+        <li><a href ng-click="navigate($event,'section2')">Accés a l'aplicació</a></li>
+        <li><a href ng-click="navigate($event,'section3')">Descarregar fulls d'incidències i respostes</a></li> 
+        <li><a href ng-click="navigate($event,'section4')">Introduir respostes d'una prova diagnòstica</a></li>
     </ol>
 </div>
 
-<h4 id="section1" class="iaqse-section">1. Accés a l'aplicació</h4>
+<h4 id="section1" class="iaqse-section">1. Introducció</h4>
+
+<p>Els aplicadors mostrals actuen sota la supervisió de l'IAQSE i s'encarreguen d'aplicar i/o corregir
+    les proves diagnòstiques a certs grups/matèria d'aquells centres que participen en la mostra d'aquell any. 
+</p>
+<p>Un aplicador mostral pot tenir assignat un o dos d'aquests rols</p>
+<ul>
+    <li>Rol d'aplicador de prova</li>
+    <li>Rol de corrector de prova</li>
+</ul>
+<p>Un aplicador amb rol d'aplicador de prova podrà descarregar els fulls d'incidències i de respostes. Un
+    aplicador amb rol de corrector, a més a més, podrà introduir les respostes de les proves. 
+</p>
+
+<h4 id="section2" class="iaqse-section">2. Accés a l'aplicació</h4>
+
 
 <p>Per accedir a l'aplicació seguiu les següents passes:</p>
 
@@ -31,77 +48,157 @@
 
     <li><p>
         Us apareixerà la pàgina d'accés a l'aplicació en la qual heu d'introduir l'usuari i contrasenya que us
-        ha proporcionat l'equip directiu del vostre centre. El vostre usuari comença amb les lletres PROF-. Aneu en compte d'escriure exactament els camps, respectant majúscules 
+        ha proporcionat l'IAQSE. El vostre usuari comença amb les lletres APLI-. 
+        Aneu en compte d'escriure exactament els camps, respectant majúscules 
         minúscules i sense deixar espais en blanc.
     </p>
         <div class="row-fluid img-center">
-            <img src="../img/gesava2/login-prof.png" class="img-fluid">
+            <img src="../img/gesava2/login-aplim.png" class="img-fluid">
         </div>
     </li>
-
-    <li><p>Molt Important! Recordeu a tancar la sessió pitjant sobre el botó "Desconnecta" quan hagueu acabat.</p>
-        <div class="row-fluid img-center">
-                <img src="../img/gesava2/desconnectar.png" class="img-fluid">
-        </div>
-    </li>
-</ul>
-
-<h4 id="section2" class="iaqse-section">2. Realitzar el qüestionari</h4>
-
-<p>Per realitzar el qüestionari de professorat heu de:</p>
-
-<ul>
- 
-    <li><p>Clicar sobre el botó "Fer qüestionari" de la pantalla d'inici</p>
-        <div class="row-fluid img-center">
-                <img src="../img/gesava2/home-prof.png" class="img-fluid">
-        </div>
-    </li>
-
-    <li><p>A la següent pantalla s'obrirà el qüestionari. A la part superior
-        trobareu les instruccions que podreu amagar/desplegar mitjançant el botó 
-         <img src="../img/gesava2/minus.png" style="width:18px;vertical-align:middle"> / 
-         <img src="../img/gesava2/plus.png" style="width:18px;vertical-align:middle">
-    </p>
-
-        <div class="row-fluid img-center">
-                <img src="../img/gesava2/questionari-prof.png" class="img-fluid">
-        </div>
-    </li>
- 
-    <li><p>Teniu en compte que el nombre de preguntes del qüestionari dependrà de si impartiu classe al
-            nivell de l'avaluació i quines matèries impartiu. Per això, és obligatori contestar aquestes preguntes
-            perquè, segons elles, s'anirà construint el qüestionari.
-        </p></li>
-
-    <li><p>Fixeu-vos que hi ha preguntes que contenen diferents apartats. En tal cas, heu de contestar cadascun
-        d'ells. </p>
-        <p>Aneu desplaçant la pàgina verticalment per contestar més preguntes. 
-            Quan hagueu contestat la darrera és important que pitgeu "<b>Desar i Finalitzar</b>". Si pitjau el
-        botó "Sortir" es perdran totes les respostes que heu donat </p>
-        <div class="row-fluid img-center">
-                <img src="../img/gesava2/questionari-prof-bottom.png" class="img-fluid">
-        </div> 
-    </li>
- 
 
     <li>
-        <p>Us apareixerà un diàleg de confirmació. Cliqueu sobre el botó "Finalitza" i tot seguit tornareu
-            a la pàgina inicial on podreu llegir el missatge "Qüestionari Finalitzat. Moltes gràcies".
+        <p>Una vegada validats, us apareixerà la pantalla d'inici d'aplicador mostral on trobareu una taula que 
+            conté tots els grups / matèria dels centres que teniu assignats.
         </p>
-        <div class="row-fluid img-center">
-                <img src="../img/gesava2/confirma.png" class="img-fluid">
-        </div> 
 
         <div class="row-fluid img-center">
-                <img src="../img/gesava2/home-prof-done.png" class="img-fluid">
-        </div> 
+                <img src="../img/gesava2/aplim-editor-home.png" class="img-fluid">
+        </div>
     </li>
 
-    <li>Si ja heu acabat, recordeu a pitjar sobre el botó <img src="../img/gesava2/desconnectar-btn.png" style="height:24px;vertical-align:middle"></li>. Informar-vos que les respostes que doneu són totalment
-        anònimes i el vostre centre no tindrà accés a elles.
+    <li><p><b>Molt Important!</b> Recordeu a tancar la sessió pitjant sobre el botó "Desconnectar" quan hagueu acabat.</p>
+        
+    </li>
 </ul>
 
  
+
+<h4 id="section3" class="iaqse-section">3. Descarregar fulls d'incidències i respostes</h4>
+
+<p>
+El dia de la prova de cada matèria avaluable, la persona encarregada d'aplicar la prova
+necessitarà tenir impresos els fulls de respostes, on els alumnes escriuran les respostes de les preguntes,
+i els fulls d'incidències allà on l'aplicador de la prova podrà escriure comentaris de seguiment.</p>
+
+<ul>
+    <li><p>Anau a la pàgina inicial de l'aplicador i seleccioneu els grups/matèria que necessiteu. Per exemple,
+        clicam sobre la matèria "Competència Matemàtica" del grup A. En la part inferior de la pantalla del
+        grup, trobam els botons "Llistat d'incidències" i "Baixar fulls de respostes". Pel cas de la competència 
+    matemàtica, els fulls de respostes estan disponibles en dos idiomes.</p>
+        <div class="row-fluid img-center">
+                <img src="../img/gesava2/llista-incidencies.png" class="img-fluid">
+        </div>
+    </li> 
+</ul>
+
+<div class="bg-warning md-center">
+    <p>Els fulls de resposta s'han d'imprimir i s'aconsella fer-ho a doble cara. 
+         És recomanable que a l'hora d'imprimir seleccioneu l'opció "Ajusta" 
+        per evitar que pugui quedar contingut fora dels marges de la pàgina</p>
+        <center>
+                <img src="../img/gesava2/quadre-impressio.png" style="width:375px">
+        </center>  
 </div>
-<script>app.controller("aplicadors_mostralsController",["$scope","$rootScope","$filter","httpService",function(t,o,e,n){t.navigate=function(t,o){t.preventDefault();var e,n=document.getElementById(o);n&&(e=n.offsetTop+100,window.scrollTo(0,e))},t.printDiv=function(){printDocument("print-area")},n.hit(location.href,"VIEW")}])</script>
+ 
+
+<h4 id="section4" class="iaqse-section">4. Introduir respostes d'una prova diagnòstica</h4>
+ 
+<ul>
+    <li>
+        <p>Des de la pàgina inicial de l'aplicador, trieu el grup/matèria que us interessi,
+            per exemple, "Competència matemàtica" i accediu a ell.
+        </p>
+        <div class="row-fluid img-center">
+                <img src="../img/gesava2/aplim-editor-grup.png" class="img-fluid">
+        </div>
+
+        <div class="bg-warning md-center">
+            <p>
+               Si no teniu el rol d'aplicador corrector, us apareixerà un missatge que us informa
+               que no podeu editar. Això significa que hi teniu accés però només podreu fer consultes.
+            </p>
+            <div class="row-fluid img-center">
+                    <img src="../img/gesava2/aplim-aplica-grup.png" class="img-fluid">
+            </div>
+        </div>
+    </li>
+
+    <li>
+        <p>A la columna model apareix el numero de model assignat a cada alumne. Comproveu que no
+            hi ha hagut cap canvi en el grup i, en cas que n'hi hagi, modificau el número de model
+            mitjançant el menú desplegable.
+        </p>
+        <p>Cliqueu sobre el botó 
+            <img src="../img/gesava2/btn-edita.png" style="height:22px;vertical-align:middle"> del primer
+            alumne del grup.
+        </p> 
+    </li>
+
+    <li><p>Una vegada s'ha carregat la pàgina,  si la prova admet més d'un idioma, 
+        com per exemple la competència matemàtica,
+            caldrà que introduïu l'idioma en què s'ha fet la prova per poder continuar.</p>
+        <div class="row-fluid img-center">
+                <img src="../img/gesava2/seleccio-idioma-cmat.png" class="img-fluid">
+        </div>
+    </li>
+
+    <li>
+        <p>Una vegada s'han carregat les preguntes, veureu que la primera està activa i apareix remarcada
+            amb un fons blau.</p>
+
+        <p>Hi ha preguntes obertes i tancades. El menú de les obertes estan remarcades amb color salmó i
+         admeten les opcions X, 0, 1, ···. Les tancades admeten opcions X, A, B, C, ···.</p>
+            <p>
+         Basta que pitgeu la tecla de l'opció contestada A, B, ···, 0, 1, ··· o X si l'alumne ha deixat la pregunta en blanc. 
+         Veureu com, una vegada pitjada la tecla, la pregunta activa passa automàticament a la següent.
+         Aquesta és la forma més ràpida per introduir respostes però, si
+            voleu, també podeu anar triant les opcions de cada menú desplegable.
+        </p>
+        <div class="row-fluid img-center">
+                <img src="../img/gesava2/editor-cmat.png" class="img-fluid">
+        </div>
+        <p>És molt important que al final del qüestionari no hagi cap pregunta "en blanc" o sense opció introduïda, sinó
+            el programa no us deixarà desar.
+        </p>
+
+    </li>
+
+    <li><p>Quan hagueu emplenat la resposta de la darrera pregunta del qüestionari, heu de pitjar
+        el botó "Desar i finalitzar". Recordau que una vegada finalitzat, no es permet fer més canvis a la prova.
+    </p>
+    <div class="row-fluid img-center">
+            <img src="../img/gesava2/apli-cmat-dif.png" class="img-fluid">
+    </div>
+    <p>Us apareixerà un diàleg de confirmació en el qual heu de pitjar el botó "Desar i finalitzar" o la tecla INTRO.</p>
+    <div class="row-fluid img-center">
+            <img src="../img/gesava2/apli-qfam-confirm.png" class="img-fluid">
+    </div>
+    <p>Si tot ha anat bé, a la part superior dreta de la pantalla veureu un missatge de confirmació</p>
+    <div class="row-fluid img-center">
+            <img src="../img/gesava2/apli-qfam-ok.png" class="img-fluid">
+    </div>
+
+    <p>Podeu anar de forma ràpida a l'alumne següent de la llista pitjant sobre el botó 
+            <img src="../img/gesava2/btn-seguent.png" style="height:22px;vertical-align:middle">.
+        Si pitjau el botó "Sortir", tornareu al llistat del grup i podreu comprovam com l'estat de la
+        prova ha passat a finalitzat. Es podran consultar aquelles proves que
+        tinguin "Origen: APLICADOR" però no se'n permetrà fer més canvis.  
+    </p>
+    <div class="row-fluid img-center">
+            <img src="../img/gesava2/aplim-editor-grup-done.png" class="img-fluid">
+    </div>
+</li>
+
+<li>Si algun alumne el grup no ha fet la prova, marcau la columna "Bloquejar".</li>
+
+<li>Quan tots els alumnes del grup tinguin les respostes introduïdes o hagin estat bloquejats,
+    el grup passarà a prova/grup "TANCADA".</li>
+</ul>
+
+
+
+
+
+</div>
+ <script>app.controller("aplicadors_mostralsController",["$scope","$rootScope","$filter","httpService",function(o,t,e,r){o.navigate=function(o,t){o.preventDefault();var e,r=document.getElementById(t);r&&(e=r.offsetTop+100,window.scrollTo(0,e))},o.printDiv=function(){printDocument("print-area","Aplicadors mostrals")},r.hit(location.href,"VIEW")}])</script>

@@ -2,8 +2,8 @@
     <i class="fa fa-print"></i> Imprimir</button>
 
 <div id="print-area">
-<h4><a href="#!index">Gesava2</a> <i class="fa fa-caret-right"></i> Aplicadors</h4>
-
+        <h4 class="d-print-none"><a href="#!index">Gesava2</a> <i class="fa fa-caret-right"></i> Aplicadors </h4>
+        <h3 class="d-none d-print-block"> <b>Gesava2 - Aplicadors </b></h3>
 <div class="iaqse-contents">
     <h5>Índex de continguts</h5>
     <ol>
@@ -146,7 +146,7 @@ i els fulls d'incidències allà on l'aplicador de la prova podrà escriure come
     </li> 
 </ul>
 
-<div class="bg-warning" style="padding:5px">
+<div class="bg-warning md-center">
     <p>Els fulls de resposta s'han d'imprimir i s'aconsella fer-ho a doble cara. 
          És recomanable que a l'hora d'imprimir seleccioneu l'opció "Ajusta" 
         per evitar que pugui quedar contingut fora dels marges de la pàgina</p>
@@ -239,6 +239,17 @@ i els fulls d'incidències allà on l'aplicador de la prova podrà escriure come
         </p>
         <div class="row-fluid img-center">
                 <img src="../img/gesava2/apli-tria-cmat.png" class="img-fluid"/>
+        </div>
+
+        <div class="bg-warning md-center">
+            <p>
+                Si el vostre centre és mostral, algunes proves seran realitzades per un
+                aplicador extern. En tal cas, veureu el text "Mostral" devora el botó d'accés al
+                grup/matèria. Això significa que hi teniu accés però només podreu fer consultes.
+            </p>
+            <div class="row-fluid img-center">
+                    <img src="../img/gesava2/apli-amb-mostrals.png" class="img-fluid"/>
+            </div>
         </div>
     </li>
 
@@ -336,7 +347,7 @@ i els fulls d'incidències allà on l'aplicador de la prova podrà escriure come
         };
 
         $scope.printDiv = function() {
-            printDocument('print-area');
+            printDocument('print-area', 'Aplicadors');
         } 
 
         <% if (config.remoteURL) { %>

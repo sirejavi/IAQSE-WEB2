@@ -216,15 +216,15 @@
                 <div class="col-xl-10 col-lg-12">
                 <main>
                 
-<style id="gesava2-doc-css">.iaqse-contents{background:#f5f5f5;border:1px solid #add8e6;box-shadow:2px 2px #d3d3d3;margin:30px;padding:15px;width:98%}.iaqse-section{width:98%;border-bottom:1px solid #add8e6;margin:60px 0 30px 0}.img-center{max-width:600px!important;margin:30px auto!important}.video-center{max-width:800px!important;margin:30px auto!important}</style>
+<style id="gesava2-doc-css">.iaqse-contents{background:#f5f5f5;border:1px solid #add8e6;box-shadow:2px 2px #d3d3d3;margin:30px;padding:15px;width:98%}.iaqse-section{width:98%;border-bottom:1px solid #add8e6;margin:60px 0 30px 0}.img-center{max-width:600px!important;margin:30px auto!important}.video-center{max-width:800px!important;margin:30px auto!important}.md-center{padding:5px;width:70%;margin:auto}@media print{body{margin:50px 25px 10px 25px}}</style>
 
 <div ng-view id="routedContent"></div>
 
-<script>function printDocument(e){var t=document.getElementById(e).innerHTML,n=document.getElementById("gesava2-doc-css").innerHTML,i=window.open("","_blank","width=800,height=600");i.document.open(),i.document.write('<html><head><title>Previsualització de la impressió</title><link rel="stylesheet" type="text/css" href="iaqse_bundle.min.css" /><style>'+n+'</style></head><body onload="window.print()">'+t+"</body></html>"),i.document.close()}app.controller("mainController",["$scope","httpService",function(e,t){t.hit(location.href,"PAGE")}])</script>
+<script>function printDocument(e,t){var n=document.getElementById(e).innerHTML,o=document.getElementById("gesava2-doc-css").innerHTML,i=window.open("","_blank","width=800,height=600");i.document.open();var l="Ajuda Gesava2";t&&(l+=" - "+t),i.document.write("<html><head><title>"+l+'</title><link rel="stylesheet" type="text/css" href="iaqse_bundle.min.css" /><style>'+o+'</style></head><body onload="window.print()">'+n+"</body></html>"),i.document.close()}app.controller("mainController",["$scope","httpService",function(e,t){t.hit(location.href,"PAGE")}])</script>
     <script>app.config(["$routeProvider",function(e){e.when("/index",{templateUrl:"view_gesava2_index.html"}).when("/alu",{templateUrl:"view_gesava2_alu.html",controller:"alumnatController"}).when("/fam",{templateUrl:"view_gesava2_fam.html",controller:"familiesController"}).when("/prof",{templateUrl:"view_gesava2_prof.html",controller:"professoratController"}).when("/dir",{templateUrl:"view_gesava2_dir.html",controller:"directorsController"}).when("/apli",{templateUrl:"view_gesava2_apli.html",controller:"aplicadorsController"}).when("/apli-mostral",{templateUrl:"view_gesava2_apli-mostral.html",controller:"aplicadors_mostralsController"}).otherwise({redirectTo:"/index"})}])</script></main>
                 </div>
             </div>
-                <footer class="py-1" style="width:100%;margin:0" title="Webmaster: Josep Mulet - Version: 20-5-2020">
+                <footer class="py-1" style="width:100%;margin:0" title="Webmaster: Josep Mulet - Version: 21-5-2020">
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-6">

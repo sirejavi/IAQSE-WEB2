@@ -2,7 +2,8 @@
         <i class="fa fa-print"></i> Imprimir</button>
     
 <div id="print-area">
-<h4><a href="#!index">Gesava2</a> <i class="fa fa-caret-right"></i> Famílies</h4>
+        <h4 class="d-print-none"><a href="#!index">Gesava2</a> <i class="fa fa-caret-right"></i> Famílies</h4>
+        <h3 class="d-none d-print-block"> <b>Gesava2 - Famílies</b></h3>
 
 <div class="iaqse-contents">
     <h5>Índex de continguts</h5>
@@ -136,7 +137,7 @@ vostre fill no va realitzar la prova d'aquella matèria.
  
 
         $scope.printDiv = function() {
-            printDocument('print-area');
+            printDocument('print-area', 'Famílies');
         } 
 
         <% if (config.remoteURL) { %>

@@ -8,7 +8,8 @@
         <i class="fa fa-print"></i> Imprimir</button>
     
 <div id="print-area">
-<h4><a href="#!index">Gesava2</a> <i class="fa fa-caret-right"></i> Directors</h4>
+<h4 class="d-print-none"><a href="#!index">Gesava2</a> <i class="fa fa-caret-right"></i> Directors</h4>
+<h3 class="d-none d-print-block"> <b>Gesava2 - Directors</b></h3>
 
 <div class="iaqse-contents">
     <h5>Índex de continguts</h5>
@@ -152,4 +153,4 @@ Les diferents funcionalitats les trobareu organitzades un menú de pestanyes.</p>
         </div> 
 
 </div>
-<script>app.controller("directorsController",["$scope","$rootScope","$filter","httpService",function(t,o,e,n){t.navigate=function(t,o){t.preventDefault();var e,n=document.getElementById(o);n&&(e=n.offsetTop+100,window.scrollTo(0,e))},t.printDiv=function(){printDocument("print-area")},n.hit(location.href,"VIEW")}])</script>
+<script>app.controller("directorsController",["$scope","$rootScope","$filter","httpService",function(t,o,e,r){t.navigate=function(t,o){t.preventDefault();var e,r=document.getElementById(o);r&&(e=r.offsetTop+100,window.scrollTo(0,e))},t.printDiv=function(){printDocument("print-area","Directors")},r.hit(location.href,"VIEW")}])</script>
