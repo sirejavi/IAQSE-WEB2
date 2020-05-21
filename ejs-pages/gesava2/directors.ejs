@@ -10,12 +10,21 @@
     <ol>
         <li><a href ng-click="navigate($event,'section1')">Accés a l'aplicació</a></li>
         <li><a href ng-click="navigate($event,'section2')">Actualitzar les dades del centre</a></li> 
-        <li><a href ng-click="navigate($event,'section3')">Realitzar el qüestionari</a></li> 
-        <li><a href ng-click="navigate($event,'section4')">Canviar la visibilitat dels resultats</a></li>
+        <li><a href ng-click="navigate($event,'section3')">Apartat de comunicacions</a></li> 
+        <li><a href ng-click="navigate($event,'section4')">Realitzar el qüestionari de director</a></li> 
+        <li><a href ng-click="navigate($event,'section5')">Apartat d'accions</a></li>
+        <p>
+            <a href ng-click="navigate($event,'section51')">5.1 Crear usuaris de professor de centre</a><br/>
+            <a href ng-click="navigate($event,'section52')">5.2 Gestionar alumnes NESE</a><br/>
+            <a href ng-click="navigate($event,'section53')">5.3 Usuari aplicador de centre</a>
+        </p>
+        <li><a href ng-click="navigate($event,'section6')">Descarregar instruments d'avaluació</a></li>
+        <li><a href ng-click="navigate($event,'section7')">Canviar la visibilitat dels resultats</a></li>
+        <li><a href ng-click="navigate($event,'section8')">Seguiment i resultats preliminars</a></li>
     </ol>
 
     <img src="../img/general/pdf_icon.jpg" style="width:20px; vertical-align:middle"/>
-    <a href="../documents/gesava2/tutorial-gesava2.pdf" target="_blank">Tutorial complet de l'avaluació diagnòstica de 2n d'ESO en format PDF</a>
+    <a href="../documents/gesava2/tutorial-gesava2-ad2eso-2021.pdf" target="_blank">Tutorial complet de l'avaluació diagnòstica de 2n d'ESO 2020/21 en format PDF</a>
 
 </div>
 
@@ -70,7 +79,23 @@ Les diferents funcionalitats les trobareu organitzades un menú de pestanyes.</p
         <img src="../img/gesava2/ava-dir-home.png" class="img-fluid"/>
 </div>
 
-<h4 id="section3" class="iaqse-section">3. Realitzar el qüestionari</h4>
+
+<h4 id="section3" class="iaqse-section">3. Apartat de comunicacions</h4>
+
+<p>
+A partir del mateix dia de la prova, amb l'usuari de director, es podran descarregar 
+les guies de correcció de les preguntes obertes de cada competència clicant sobre la pestanya 
+"Comunicacions". 
+</p>
+
+
+<div class="row-fluid img-center">
+        <img src="../img/gesava2/dir-comunicacions.png" class="img-fluid"/>
+</div>
+
+
+
+<h4 id="section4" class="iaqse-section">4. Realitzar el qüestionari de director</h4>
 
 <p>Per realitzar el qüestionari de director heu de:</p>
 
@@ -132,9 +157,137 @@ Les diferents funcionalitats les trobareu organitzades un menú de pestanyes.</p
         style="height:24px;vertical-align: middle;"/>.</li>
 </ul>
 
+
+
+
+<h4 id="section5" class="iaqse-section">5. Apartat d'accions</h4>
+ 
+<h4 id="section51" class="iaqse-subsection">5.1 Crear usuaris de professor de centre</h4>
+
+<p>
+Per donar d'alta tot el professorat  que ha de contestar el qüestionari i generar els seus 
+codis d'usuari (PROF-...) clicau sobre la pestanya "Accions" i tot seguit sobre el botó "Crear Professors".
+</p>
+
+<div class="row-fluid img-center">
+        <img src="../img/gesava2/dir-menu-creaprof.png" class="img-fluid"/>
+</div> 
+
+<p>
+En primer lloc, el director ha de seleccionar del menú desplegable el nombre de professors necessaris
+del centre (EP, ESO i batxillerat) i després clicar sobre el botó "Crear Professors".
+</p>
+
+<div class="row-fluid img-center">
+        <img src="../img/gesava2/dir-tria-nprofs.png" class="img-fluid"/>
+</div> 
+
+<p>
+Apareixerà el llistat del professorat donat d'alta.
+ Podreu imprimir el llistat per donar un usuari i la clau corresponent a cada professor 
+ participant si feis servir el botó "Llistat continu PDF".
+</p>
+
+<div class="row-fluid img-center">
+        <img src="../img/gesava2/dir-prof-export.png" class="img-fluid"/>
+</div> 
+
+<p>
+En cas necessari, hi ha l'opció d'afegir més professors,
+ tornant a triar el nombre de professors a  afegir del desplegable i pitjant el botó "Crear Professors".
+</p>
+
+<p>Més endavant, també podreu fer el seguiment de quins qüestionaris s'han contestat 
+    (S) i quins no (N) consultant la columna de seguiment QPROF*. 
+</p>
+
+<div class="bg-warning md-center">
+<p><b>Observació:</b></p>   
+<p>Si heu donat d'alta professorat de més, us haureu de posar en contacte 
+    amb l'<a href="mailto:iaqse@iaqse.caib.es">IAQSE</a> perquè els donem de baixa de l'aplicació.</p>
+</div>
+
+<h4 id="section52" class="iaqse-subsection">5.2 Gestionar alumnes NESE</h4>
+
+<p>Heu d'entrar al GESAVA2 amb la sessió de director, triar l'avaluació i clicar sobre la pestanya "Accions"
+i, finalment, pitjar el botó "Gestió alumnes computen".  
+</p>
+
+<div class="row-fluid img-center">
+        <img src="../img/gesava2/dir-pestanya-nese.png" class="img-fluid"/>
+</div> 
  
 
-<h4 id="section4" class="iaqse-section">4. Canviar la visibilitat dels resultats</h4>
+<p> 
+Si teniu alumnes amb NESE, sortirà un llistat amb aquest alumnat per grups, amb el qual podreu fer el
+ següent:
+</p>
+<ol>
+<li> Comprovar que el llistat d'alumnes és correcte. Si detectau qualsevol incidència, 
+    ho heu de comunicar a
+     l'IAQSE per tal de resoldre-la. Aquesta llista s'obté directament del GESTIB, per tant,
+      si un alumne no figura
+    correctament allà tampoc ho farà al GESAVA2.</li>
+
+<li> Per a cada alumne, desmarcau les caselles de les matèries en què NO ha de computar.</li>
+<li> Si voleu desar i continuar més endavant cliclau el botó "Desa".</li> 
+</ol>
+
+
+<h4 id="section53" class="iaqse-subsection">5.3 Usuari aplicador de centre</h4>
+
+<p>Recordam que l'usuari aplicador de centre (codi APLI-...) el pot obtenir el director des de 
+    la seva sessió anant a la pestanya "Accions" i clicant sobre l'apartat desplegable 
+    "Dades de l'aplicador de centre"</p>
+
+<div class="row-fluid img-center">
+        <img src="../img/gesava2/dir-credencials-apli.png" class="img-fluid"/>
+</div> 
+
+
+<h4 id="section6" class="iaqse-section">6. Descarregar instruments d'avaluació</h4>
+
+<p>Els fulls d'incidències i els fulls de resposta s'obtenen des de la sessió 
+    de l'aplicador del centre. Vegeu l'apartat 
+    <a href="#!apli">GESAVA2 - Aplicador</a> per a més informació.
+</p>
+
+<p>
+Dos dies abans de cada prova, el director accedirà, amb el seu usuari CAIB,
+a l'aplicació GESAVA2 per descarregar:</p>
+<ul>
+<li>els distints models de prova en format HTML per poder copiar-los als ordinadors 
+    dels alumnes o a una carpeta compartida, </li>
+<li>l'àudio en format MP3, que s'ha de reproduir en realitzar les proves 
+    de competència en comunicació lingüística. </li>
+</ul>
+
+<p>
+Una vegada el director ha triat l'avaluació, pitjarà sobre "Proves" 
+del menú de pestanyes principal. Si estan disponibles, 
+li apareixeran els enllaços per poder descarregar-se en fitxer zip de cada competència. 
+Si algun fitxer encara no està preparat per ésser descarregat apareixerà el missatge
+"Fitxer no disponible".
+</p>
+
+<div class="row-fluid img-center">
+        <img src="../img/gesava2/dir-download-proves.png" class="img-fluid"/>
+</div> 
+
+<div class="bg-warning md-center">
+<p>
+En cas de no disposar d'ordinadors o tauletes suficients, 
+amb sol·licitud prèvia a l'IAQSE, es podrà realitzar la prova en paper imprimint els
+models de prova en format PDF. En aquest cas, s'haurà d'anotar prèviament el nom de 
+l'alumne en el model de prova que li correspongui -apareix al llistat d'alumnes i seguiment-
+i no serà necessari utilitzar full de respostes perquè l'alumne contestarà les preguntes
+directament en el model de prova imprès.
+</p>
+</div>
+
+
+
+<h4 id="section7" class="iaqse-section">7. Canviar la visibilitat dels resultats</h4>
 
 <p>Per defecte, l'aplicació no permet veure els resultats als alumnes ni famílies. 
    Si es vol canviar aquest comportament, cal que el director modifiqui els permisos d'accés.</p>
@@ -146,6 +299,50 @@ Les diferents funcionalitats les trobareu organitzades un menú de pestanyes.</p
         <div class="row-fluid img-center">
                 <img src="../img/gesava2/visibilitats-dir.png" class="img-fluid"/>
         </div> 
+
+
+
+<h4 id="section8" class="iaqse-section">8. Seguiment i resultats preliminars</h4>
+
+<p>
+El director tindrà accés als resultats de l'avaluació de diagnòstic del seu centre. 
+Aquesta és una informació dinàmica que es va calculant a mesura que s'introdueixen dades al GESAVA2. 
+També cal tenir present que són dades provisionals, és a dir, sense aplicar-hi un processat estadístic 
+complet. Amb aquest sentit, caldrà esperar que els tècnics de l'IAQSE posin a la disposició dels centres
+els informes de resultats definitius.
+</p>
+
+<p>Per accedir als resultats preliminars cal clicar sobre la pestanya "Resultats"</p>
+
+<p>Es mostren dues taules, una per a matèries avaluables i l'altra per a qüestionaris 
+(més avall en la pàgina).  Els grups que no estan TANCATS apareixen en fons vermell i, per tant
+ els seus resultats són susceptibles d'anar canviant a mesura que s'introdueixin noves dades.
+Per a cada matèria i grup, es mostra el % de participació (com nombre d'exàmens realitzats),
+ el total d'alumnes del grup, la mitjana de puntuació del grup i la seva desviació típica. 
+La fila de totals, acumula els resultats de cada matèria.
+</p>
+
+
+<div class="row-fluid img-center">
+        <img src="../img/gesava2/preliminars1.png" class="img-fluid"/>
+</div> 
+
+<p>
+En la taula de resultats de qüestionaris, únicament es mostra el percentatge de participació 
+(Completats) sobre el total.
+</p>
+
+
+<div class="row-fluid img-center">
+        <img src="../img/gesava2/preliminars2.png" class="img-fluid"/>
+</div> 
+
+<p>
+Recordam que en la sessió de director, es pot fer un seguiment més exhaustiu dels 
+Qüestionaris de Professor, anant a la pestanya Accions, i clicar sobre el botó Crear Professors. 
+D'aquesta forma es pot saber si un usuari PROF-··· en concret ha completat o no el qüestionari.
+A les seves respostes, naturalment, no s'hi podrà accedir.
+</p>
 
 </div>
 <script>

@@ -129,7 +129,7 @@
         },
         {
             "title": "Gesava2",
-            "title_long": "Tutorial Gesava2",
+            "title_long": "Ajuda Gesava2",
             "ejs": "gesava2",
             "url": "gesava2",  
             "hide": true,
