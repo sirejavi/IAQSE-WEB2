@@ -1,11 +1,12 @@
 {
-   "webmaster": "Josep Mulet",
+   "webmaster": "IAQSE",
    "gesavaUrl": "https://apps.caib.es/gesavafront/",
    "gesavaTitle": "Accés GESAVA",
    "remoteURL": "https://piworld.es/iaqseapi",
    "geolocation": false,
    "encoding": "latin1",
    "minify_html": true,
+   "minify_json": true,
    "bundles": [
       {
          "type": "js",

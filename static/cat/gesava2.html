@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="ca">
+
+    <head>
+        <meta charset="iso-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
+<meta name="description" content="Institut d'avaluació i qualitat del sistema educatiu">
+<meta name="author" content="iaqse@iaqse.caib.es">
+<meta name="language" content="cat">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+<meta name="robots" content="index,follow">
+<meta name="document-classification" content="Education">
+<meta name="document-type" content="Public">
+<meta name="document-rating" content="Safe for Kids">
+
+<link rel="icon" href="../css/img/favicon.ico" type="image/x-icon">
+<link rel="shortcut icon" type="image/x-icon" href="../css/img/favicon.ico">
+
+
+<title>IAQSE</title>
+<link href="iaqse_bundle.min.css" rel="stylesheet">
+<link href="../css/assets/fontawesome/css/all.min.css" rel="stylesheet">
+<script src="iaqse_bundle1.min.js"></script>
+
+
+<script>window.addCssLink=function(t){var e=document.createElement("link");e.rel="stylesheet",e.type="text/css",e.href=t,document.getElementsByTagName("head")[0].appendChild(e)},window.chunker=function(t,e){for(var i=[],n=0,s=t.length;n<s;n+=e)i.push(t.slice(n,n+e));return i},window.getURLParameter=function(t){var e=new RegExp("[\\?&]"+t+"=([^&#]*)"),i=e.exec(window.location.search);return null==i&&(i=e.exec(window.location.href)),null==i?"":decodeURIComponent(i[1].replace(/\+/g," "))},window.app=angular.module("iaqse",["ngRoute","ngSanitize","ngAnimate"]),app.config(["$sceProvider",function(t){t.enabled(!1)}]),window.app.directive("trackType",["httpService",function(s){return{restrict:"A",link:function(t,e,n){e.on("click",function(t){var e=n.href||n.ngHref||n.url;null!=e&&e.startsWith("#")&&(e=location.href.split("#")[0]+e);var i=n.trackType;return e&&i&&s.hit(e,i),!0})}}}]),app.service("geolocation",["$q",function(e){var i=null,t={getCurrentPosition:function(){var t=e.defer();return i={},t.resolve(i),t.promise}};return t}]),app.service("httpService",["$http","geolocation",function(s,t){return{loadSchema:function(t){return s({method:"get",url:"database/"+t+".json",dataType:"json",contentType:"application/json; charset=iso-8859-1"})},isAuthenticated:function(t){return s.post("https://piworld.es/iaqseapi/authenticate",{sessionId:t})},login:function(t,e){return s.post("https://piworld.es/iaqseapi/login",{username:t,password:e})},logout:function(t){return s.post("https://piworld.es/iaqseapi/priv/logout",{sessionId:t})},listTipus:function(t){return s.post("https://piworld.es/iaqseapi/priv/document/tipus/list",{sessionId:t})},listDocumentsTipus:function(t,e){return s.post("https://piworld.es/iaqseapi/priv/document/list",{tipus:e,sessionId:t})},listDocumentVisitCount:function(t,e){return s.post("https://piworld.es/iaqseapi/priv/visit/list",{tipus:e,sessionId:t})},visitTimeline:function(t,e,i,n){return s.post("https://piworld.es/iaqseapi/priv/visit/timeline",{url:e,sqlDate1:i,sqlDate2:n,sessionId:t})},loadVisualizations:function(t,e,t){return s.post("https://piworld.es/iaqseapi/priv/visit/history",{url:e,sessionId:t})},geolocations:function(t){return s.post("https://piworld.es/iaqseapi/priv/visit/geolocations",{sessionId:t})},hit:function(i,n){null!=localStorage&&localStorage.getItem("iaqse-sessionId")||t.getCurrentPosition().then(function(t){var e={url:i,tipus:n,coords:t};s.post("https://piworld.es/iaqseapi/visit/hit",e)},function(t){var e={url:i,tipus:n};s.post("https://piworld.es/iaqseapi/visit/hit",e)})}}}]),window.app.filter("fileName",function(){return function(t){var e=t.lastIndexOf("/");return t.substring(e+1)}}),window.app.filter("icona",function(){return function(t){var e=t.substring(t.lastIndexOf(".")+1).trim().toLowerCase();return"word"==e?"fa-file-word":"zip"==e||"rar"==e?"fa-file-archive":"pdf"==e?"fa-file-pdf":"mp4"==e||"avi"==e||"mov"==e||"qt"==e?"fa-file-video":"mp3"==e||"ogg"==e?"fa-file-audio":"fa-file"}}),window.app.config(["$controllerProvider","$provide","$compileProvider","$filterProvider",function(i,n,s,o){app._controller=app.controller,app._service=app.service,app._filter=app.filter,app._component=app.component,app._factory=app.factory,app._value=app.value,app._directive=app.directive,app.controller=function(t,e){return i.register(t,e),this},app.service=function(t,e){return n.service(t,e),this},app.factory=function(t,e){return n.factory(t,e),this},app.value=function(t,e){return n.value(t,e),this},app.filter=function(t,e){return o.register(t,e),this},app.component=function(t,e){return s.component(t,e),this},app.directive=function(t,e){return s.directive(t,e),this}}]),app.component("loginWidget",{restrict:"E",transclude:!0,template:'<div ng-if="$ctrl.status.authenticated==false">Usuari: <input type="text" style="width:95%" ng-model="$ctrl.username"/><br>Contrasenya: <input type="password" style="width:95%" ng-model="$ctrl.password" ng-keyup="$event.keyCode == 13 && $ctrl.login()"/><button class="btn btn-sm btn-secondary" style="margin-top:5px" ng-click="$ctrl.login()"><i class="fas fa-sign-in-alt"></i> Entrar</button></div><div ng-if="$ctrl.status.authenticated"><center><span ng-bind="$ctrl.status.fullname"></span></center><center><a href="admin_console.html">Consola d\'administració</a><button class="btn btn-sm btn-secondary" style="margin-top:5px" ng-click="$ctrl.logout()"><i class="fas fa-sign-out-alt"></i> Sortir</button></center></div>',controller:["$rootScope","httpService",function(e,i){var n=this;n.username="",n.password="",n.status={};function s(){n.status.authenticated=!1}n.login=function(){i.login(n.username,n.password).then(function(t){n.status=t.data,t.data.authenticated&&(localStorage.setItem("iaqse-sessionId",t.data.sessionId),e.$broadcast("iaqse-sessionId",t.data.sessionId))},s),n.username="",n.password=""},n.logout=function(){var t=localStorage.getItem("iaqse-sessionId");t&&i.logout(t).then(function(t){},s),n.status={authenticated:!1},localStorage.removeItem("iaqse-sessionId"),e.$broadcast("iaqse-sessionId","")};var o=localStorage.getItem("iaqse-sessionId");o?i.isAuthenticated(o).then(function(t){n.status=t.data,n.status.authenticated&&e.$broadcast("iaqse-sessionId",o)},s):n.status.authenticated=!1}]})</script>
+    </head>
+
+    <body ng-app="iaqse">
+        <div style="max-width:1500px;margin:auto">
+        <header>
+              <nav class="navbar navbar-expand-md navbar-dark fixed-top gradient" style="background-color:#036!important">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">
+        <img src="../img/svg/qiaqse2.png" style="height:25px">
+        <span><b class="d-md-none d-xl-inline" style="color:#ff4646;font-family:Arial,Helvetica,sans-serif;vertical-align:top">IAQSE</b></span>
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          
+          <li class="nav-item">
+            <a class="nav-link" href="index.html" title="">Inici
+            </a>
+          </li>
+          
+          <li class="nav-item">
+            <a class="nav-link" href="quisom.html" title="">Qui som
+            </a>
+          </li>
+          
+          <li class="nav-item">
+            <a class="nav-link" href="avaluacions.html" title="">Avaluacions
+            </a>
+          </li>
+          
+          <li class="nav-item">
+            <a class="nav-link" href="publicacions.html" title="">Publicacions
+            </a>
+          </li>
+          
+          <li class="nav-item">
+            <a class="nav-link" href="indicadors.html" title="">Indicadors
+            </a>
+          </li>
+          
+          <li class="nav-item">
+            <a class="nav-link" href="enllacos.html" title="">Enllaços
+            </a>
+          </li>
+          
+          <li class="nav-item">
+            <a class="nav-link" href="proves.html" title="Proves alliberades">Proves
+            </a>
+          </li>
+          
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div id="logo-cab" class="container-fluid">
+    <div class="clearfix">
+          <div id="svg-logo-cab" class="logo-left"></div> 
+           <div class="logo-right">
+             <center>
+                <a href="https://apps.caib.es/gesavafront/" target="_blank" title="Programari de gestió d'avaluacions diagnòstiques">
+                 
+                    <img src="../img/gesava.png" style="width:35px"><br>
+                    <span style="font-size:90%">Accés GESAVA</span>
+                </a>
+              </center>
+          </div> 
+      </div>
+     
+  </div>
+  
+        </header>
+
+        <div id="main-wrap" class="container-fluid" ng-controller="mainController">
+            <div class="row">
+                <div class="col-xl-2 d-none d-xl-block">
+                    <div class="alert alert-primary">
+                        <h6><i class="fa fa-compass"></i> Navegació</h6>
+                    </div>
+
+                    <ul id="tree1">
+                        
+                        <li><a href="index.html">Inici</a>
+                            
+                        </li>
+                        
+                        <li><a href="quisom.html">Qui som</a>
+                            
+                            <ul>
+                                
+                                <li><a href="quisom.html#!/index">Índex</a>
+                                    
+                                </li>
+                                
+                                <li><a href="quisom.html#!/personal">Personal</a>
+                                    
+                                </li>
+                                
+                                <li><a href="quisom.html#!/funcions">Funcions</a>
+                                    
+                                </li>
+                                
+                                <li><a href="quisom.html#!/legislacio">Legislació</a>
+                                    
+                                </li>
+                                
+                            </ul>
+                            
+                        </li>
+                        
+                        <li><a href="avaluacions.html">Avaluacions</a>
+                            
+                            <ul>
+                                
+                                <li><a href="avaluacions.html#!/index">Índex</a>
+                                    
+                                </li>
+                                
+                                <li><a href="avaluacions.html#!/final_etapa">Avaluacions de final d&#39;etapa</a>
+                                    
+                                </li>
+                                
+                                <li><a href="avaluacions.html#!/diagnostic">Avaluacions de diagnòstic</a>
+                                    
+                                </li>
+                                
+                                <li><a href="avaluacions.html#!/internacionals">Avaluacions internacionals</a>
+                                    
+                                </li>
+                                
+                                <li><a href="avaluacions.html#!/altres">Altres avaluacions</a>
+                                    
+                                </li>
+                                
+                            </ul>
+                            
+                        </li>
+                        
+                        <li><a href="publicacions.html">Publicacions</a>
+                            
+                        </li>
+                        
+                        <li><a href="indicadors.html">Indicadors</a>
+                            
+                        </li>
+                        
+                        <li><a href="enllacos.html">Enllaços</a>
+                            
+                        </li>
+                        
+                        <li><a href="proves.html">Proves</a>
+                            
+                            <ul>
+                                
+                                <li><a href="proves.html#!/index">Originals</a>
+                                    
+                                </li>
+                                
+                                <li><a href="proves.html#!/imprimibles">Per imprimir</a>
+                                    
+                                </li>
+                                
+                                <li><a href="proves.html#!/interactives">Interactives</a>
+                                    
+                                </li>
+                                
+                            </ul>
+                            
+                        </li>
+                        
+                    </ul>
+
+                    <br><br>
+                    <div class="alert alert-primary">
+                            <h6><i class="fa fa-cogs"></i> Administració</h6>
+                    </div>
+                    
+                    <login-widget></login-widget>
+                    
+                </div>
+
+                <div class="col-xl-10 col-lg-12">
+                <main>
+                
+<style id="gesava2-doc-css">.iaqse-contents{background:#f5f5f5;border:1px solid #add8e6;box-shadow:2px 2px #d3d3d3;margin:30px;padding:15px;width:98%}.iaqse-section{width:98%;border-bottom:1px solid #add8e6;margin:60px 0 30px 0}.iaqse-subsection{margin:60px 0 30px 0}.img-center{max-width:600px!important;margin:30px auto!important}.video-center{max-width:800px!important;margin:30px auto!important}.md-center{padding:5px;width:70%;margin:5px auto 10px auto}@media print{body{margin:50px 25px 10px 25px}}</style>
+
+<div ng-view id="routedContent"></div>
+
+<script>function printDocument(e,t){var n=document.getElementById(e).innerHTML,o=document.getElementById("gesava2-doc-css").innerHTML,i=window.open("","_blank","width=800,height=600");i.document.open();var l="Ajuda Gesava2";t&&(l+=" - "+t),i.document.write("<html><head><title>"+l+'</title><link rel="stylesheet" type="text/css" href="iaqse_bundle.min.css" /><style>'+o+'</style></head><body onload="window.print()">'+n+"</body></html>"),i.document.close()}app.controller("mainController",["$scope","httpService",function(e,t){t.hit(location.href,"PAGE")}])</script>
+    <script>app.config(["$routeProvider",function(e){e.when("/index",{templateUrl:"view_gesava2_index.html"}).when("/alu",{templateUrl:"view_gesava2_alu.html",controller:"alumnatController"}).when("/fam",{templateUrl:"view_gesava2_fam.html",controller:"familiesController"}).when("/prof",{templateUrl:"view_gesava2_prof.html",controller:"professoratController"}).when("/dir",{templateUrl:"view_gesava2_dir.html",controller:"directorsController"}).when("/apli",{templateUrl:"view_gesava2_apli.html",controller:"aplicadorsController"}).when("/apli-mostral",{templateUrl:"view_gesava2_apli-mostral.html",controller:"aplicadors_mostralsController"}).otherwise({redirectTo:"/index"})}])</script></main>
+                </div>
+            </div>
+                <footer class="py-1" style="width:100%;margin:0" title="Webmaster: IAQSE - Version: 21-6-2020">
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-6">
+            <p>
+                Email. <a href="mailto:iaqse@iaqse.caib.es">iaqse@iaqse.caib.es</a><br>
+                Tel. 971 17 78 76 - 
+                Fax. 971 17 69 02
+            </p>
+        </div> 
+        <div class="col-sm-6" style="padding-right:95px">
+            <p style="text-align:right">
+                C. del Ter, 16 Edifici A<br>
+                07009 - Palma
+            </p>
+        </div>
+    </div>
+</div>
+</footer>
+
+<a href="#" id="back-to-top" class="btn btn-primary btn-lg" role="button"><i class="fa fa-chevron-circle-up" aria-hidden="true"></i></a>
+
+<script src="iaqse_bundle2.min.js"></script>
+
+<script>var replaceImgSvg=function(e,a){var g=$(e);g.length&&$.ajax({type:"GET",url:a,contentType:"image/svg+xml;charset=ISO-8859-1",success:function(e){var a=$(e.documentElement);a.addClass(g.attr("class")),g.replaceWith(a)}})};$(function(){$("#tree1").treed(),replaceImgSvg("#svg-logo-cab","../img/svg/iaqse-caib-w.svg"),replaceImgSvg("#logo-iaqse","../img/svg/logo-iaqse.svg")}),function(e,a,g,t,c,s){e.GoogleAnalyticsObject=t,e.ga=e.ga||function(){(e.ga.q=e.ga.q||[]).push(arguments)},e.ga.l=+new Date,c=a.createElement(g),s=a.getElementsByTagName(g)[0],c.async=1,c.src="//www.google-analytics.com/analytics.js",s.parentNode.insertBefore(c,s)}(window,document,"script","ga"),ga("create","UA-40778701-3","auto"),ga("send","pageview")</script>
+            </div>
+            
+        </div>
+
+</body>
+
+</html>

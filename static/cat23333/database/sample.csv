@@ -1,6 +1,0 @@
-# La primera línia és un comentari, la segona especifica el separador, i la tercera defineix les columnes
-|
-id:int | name | age:int | weight:float
-1 | Josep | 44 | 77.42
-2 | Maria magdalena | 40 | 58.3
-3 | Andreu Antoni | 9 | 30.45

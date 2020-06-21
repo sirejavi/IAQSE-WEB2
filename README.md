@@ -18,12 +18,14 @@ You will need nodejs, npm and git installed in your computer.
 
 `npm install`
 
- Please note that the static/documents folder nor the cat/ are included in the distribution.
+Please note that the static/documents folder nor the cat/ are included in the distribution.
 
 # Configuration
 The directory /config has two files
 ### config.json
 In this file, the encoding of the generated static content can be defined "encoding": "latin1" or "utf-8". 
+
+
 
 ### routes.json
 In this file, the tree structure of your site can be defined. The site is organized into pages. Every page can have many views and,

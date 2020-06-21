@@ -3,6 +3,13 @@
  * using the current configuration set in config/config.json
  */
 
+if(process.argv.indexOf("-dbonly") < 0 && process.argv.indexOf('-all') < 0) {
+
+    console.error('\nERROR: One flag -dbonly or -all is required\n')
+    process.exit(1);
+
+}
+
 // imports
 const ejs = require("ejs");
 const fs = require("fs");
@@ -17,7 +24,7 @@ const config = require("./config/config.json");
 const encoding = config.encoding || "utf8";
 console.log("\tUsing encoding " + encoding);
 console.log("Reading routes...");
-const routes = require("./config/routes.json");
+const routes = require("./config/routes.json"); 
 
 const baseUrl = routes.baseurl;
 // Crear els punters al parent
@@ -31,16 +38,30 @@ routes.pages.forEach((page) => {
     }
 });
 
+if(!baseUrl) {
+    console.log("ERROR: Error de configuració. Es requereix establir un 'baseUrl' en el fitxer de configuració")
+    process.exit(1);
+} 
 
+let dir
+if(process.argv.indexOf('-all') > 0) {
+    // Remove old compilation
+    dir = path.join("./static", baseUrl)
+} else {
+    // Remove old database folder
+    dir = path.join("./static", baseUrl, "database")
+}
 
-// Remove old database
 try {
-    fs.rmdirSync(path.join("./static", baseUrl, "database"));
+    fs.rmdirSync(dir, {recursive: true});
 } catch (e) {
+    console.error("ERROR: No es pot esborrar el directori ", dir)
 }
 try {
-    fs.mkdirSync(path.join("./static", baseUrl, "database"));
+    dir = path.join("./static", baseUrl, "database")
+    fs.mkdirSync(dir, {recursive: true});
 } catch (e) {
+    console.error("ERROR: No es pot crear el directori ", dir)
 }
 
 // Load all database files (which will be passed to views during rendering process)
@@ -75,7 +96,7 @@ dbFiles.forEach(file => {
                
                 prova.documents = prova.documents || [];
                 const dir2 = path.join("./static", prova.walkdir);
-                console.log("Walk ", dir2) 
+                console.log("\t\tWalk ", dir2) 
                 fs.readdirSync(dir2).forEach( file => {
                     prova.documents.push(dir2.replace("static/", "")+file);
                 }); 
@@ -87,7 +108,7 @@ dbFiles.forEach(file => {
 
     // En la base de dades d'avaluacions convertir les url a les url reals
     if(name.startsWith("avaluacions_")) {
-        console.log("Normalitzant url per a taula "+ name);
+        console.log("\t\tNormalitzant url per a taula "+ name);
         database[name].forEach( ava => {
             if(ava.documents != null){
                 ava.documents.forEach((doc) => {
@@ -102,10 +123,14 @@ dbFiles.forEach(file => {
         });
     }
 
-    // Ho escriu al directori static però en format comprimit per reduir la mida de l'ajax
-    fs.writeFileSync(path.join("./static", baseUrl, "database/" + name + ".json"),
-        JSON.stringify(database[name]),
-        { encoding: encoding});
+    // Ho escriu al directori static (si està configurat en format comprimit) per reduir la mida de l'ajax
+    let schemaContent;
+    if(config.minify_json) {
+        schemaContent = JSON.stringify(database[name]);
+    } else {
+        schemaContent = JSON.stringify(database[name], null, 2);
+    }
+    fs.writeFileSync(path.join("./static", baseUrl, "database/" + name + ".json"), schemaContent ,{ encoding: encoding});
 
 
     let information = " ";
@@ -164,20 +189,16 @@ if(database.destacats.length > 6) {
 
 fs.writeFileSync("./database/destacats.json", JSON.stringify(database.destacats), { encoding: "utf8" });
 
+if(process.argv.indexOf("-dbonly") > 0) {
+    // Només ha de construir la db, les pàgines no cal modificar-les
+    console.log(" > Flag -dbonly detected. Skipping pages build");
+    process.exit(0);
+}
+
 
 // Process all routes 
 const defaultTemplate = routes.template || "simple"; 
-
-// Remove old compilations
-try {
-    fs.rmdirSync(path.join("./static", baseUrl));
-} catch (e) {
-}
-try {
-    fs.mkdirSync(path.join("./static", baseUrl));
-} catch (e) {
-}
-
+ 
 routes.pages.forEach((page) => {
 
     const currentTemplate = page.template || defaultTemplate;
@@ -259,4 +280,4 @@ routes.pages.forEach((page) => {
 
 });
 
-    console.log("All done!");
+console.log("All done!");

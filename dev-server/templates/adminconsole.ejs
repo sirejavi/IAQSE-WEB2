@@ -1,0 +1,52 @@
+<!DOCTYPE html">
+<html lang="cat">
+<head>
+<meta title="Adminconsole"/>
+<meta charset="UTF-8"/> 
+</head>
+<body ng-app="iaqse-console" ng-controller="adminConsoleController">
+    <h1>Consola d'administració del site IAQSE</h1>
+
+    <a href="/<%=config.baseUrl%>/index.html" target="_blank"> Obrir el site local </a>
+
+    <h2>Configuració</h2>
+    <button ng-click="saveConfigChanges" ng-disabled="!config">Desar canvis</button>
+
+    <div ng-if="config">
+
+        <table>
+            <tr>
+                <td>Nom del webmaster</td>
+                <td><input type="text" ng-model="config.webmaster"/></td>
+            </tr>
+        </table>
+
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.9/angular.min.js"></script>
+    <script>
+        var app = angular.module('iaqse-console', []); 
+
+        app.controller('adminConsoleController', function($scope, $http){
+            $scope.config = null;
+            $scope.refresh = function() {
+                $http.get("/adminconsole/api/select?schema="+encodeURIComponent('config.json')).then(function(res) {
+                    console.log("HE rebut", res);
+                    $scope.config = res.data;
+                }, function(err){
+                    $scope.config = null;
+                });
+            };
+            $scope.saveConfigChanges = function() {
+                $http.post("/adminconsole/api/update", {schema: 'config.json', data: $scope.config}).then(function(res) {
+                     
+                }, function(err) {
+
+                });
+            }
+            $scope.refresh(); 
+        });
+    </script>
+</body>
+</html>
+	
