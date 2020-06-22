@@ -15,10 +15,10 @@
     },
     {
         "tag": "ISEIB",
-        "img": "img/publicacions/Indicadors_2017.jpg",
-        "title": "Indicadors del sistema educatiu de les Illes Balears 2017",
-        "url": "documentos/indicadors/2017/Indicadors_2017.pdf",
-        "date": "2017"
+        "img": "img/indicadors/edicio2019/Indicadors-edicio2019.png",
+        "title": "Indicadors del sistema educatiu de les Illes Balears (ISEIB). Edició 2019. (Dades del curs 2016-2017)",
+        "url": "documentos/indicadors/edicio2019/Indicadors_edicio2019.pdf",
+        "date": "5/2019"
     },
     {
         "tag": "RESULTATS",
@@ -29,10 +29,10 @@
     },
     {
         "tag": "ISEIB",
-        "img": "img/publicacions/Indicadors_2016.jpg",
-        "title": "Indicadors del sistema educatiu de les Illes Balears 2016",
-        "url": "documentos/indicadors/2016/Indicadors_2016.pdf",
-        "date": "2016"
+        "img": "img/indicadors/edicio2018/Indicadors-edicio2018.png",
+        "title": "Indicadors del sistema educatiu de les Illes Balears (ISEIB). Edició 2018 (Dades del curs 2015-2016)",
+        "url": "documentos/indicadors/edicio2018/Indicadors_edicio2018.pdf",
+        "date": "2018"
     },
     {
         "tag": "RESULTATS",
@@ -43,10 +43,10 @@
     },
     {
         "tag": "ISEIB",
-        "img": "img/publicacions/indicadors_2015.jpg",
-        "title": "Indicadors del sistema educatiu de les Illes Balears 2015",
+        "img": "img/indicadors/edicio2017/Indicadors-edicio2017.png",
+        "title": "Indicadors del sistema educatiu de les Illes Balears (ISEIB). Edició 2017 (Dades del curs 2014-2015)",
         "url": "documentos/indicadors/2015/indicadors_2015.pdf",
-        "date": "2015"
+        "date": "2017"
     },
     {
         "tag": "RESULTATS",
@@ -57,10 +57,10 @@
     },
     {
         "tag": "ISEIB",
-        "img": "img/publicacions/indicadors_2014.jpg",
-        "title": "Indicadors del sistema educatiu de les Illes Balears 2014",
-        "url": "documentos/indicadors/2014/indicadors_2014.pdf",
-        "date": "2014"
+        "img": "img/indicadors/edicio2016/Indicadors-edicio2016.png",
+        "title": "Indicadors del sistema educatiu de les Illes Balears (ISEIB). Edició 2016 (Dades del curs 2013-2014)",
+        "url": "documentos/indicadors/edicio2016/Indicadors_edicio2016.pdf",
+        "date": "2016"
     },
     {
         "tag": "ISEIB",

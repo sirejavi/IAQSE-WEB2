@@ -2,6 +2,12 @@
     "comment": "Aquests destacats s'afegeixen al les darreres publicacions per odre de pubdate",
     "destacats": [
         {
+            "icon": "fa fa-print",
+            "url": "proves.html#!/imprimibles",
+            "title": "Proves alliberades de l'avaluació de diagnòstic de 6è EP curs 2017-2018 per imprimir.",
+            "pubdate": "22/06/2020"
+        },
+        {
             "img": "img/avaluacions/diagnostic/ad_2n_eso_2019_2020/suspensio_avaluacions_diagnostiques_iaqse.png",
             "url": "avaluacions.html#!/diagnostic?id=ad2neso1920",
             "title": "Suspensió de l'avaluació de diagnòstic del curs 2019-2020 als alumnes de 2n d'ESO",

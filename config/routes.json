@@ -88,12 +88,7 @@
             "url": "indicadors"
         },
         {
-            "title": "Enllaços",
-            "ejs": "enllacos",
-            "url": "enllacos"
-        },
-        {
-            "title": "Proves",
+            "title": "Proves alliberades",
             "title_long": "Proves alliberades",
             "ejs": "proves",
             "url": "proves",
@@ -176,6 +171,11 @@
                     "controller": "aplicadors_mostrals"
                 }
             ]
+        },
+        {
+            "title": "Enllaços",
+            "ejs": "enllacos",
+            "url": "enllacos"
         },
         {
             "title": "Admin",
