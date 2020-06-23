@@ -1,0 +1,9 @@
+node_modules
+node_modules/
+node_modules/*
+package-lock.json
+static/documentos
+/cat/
+.DS_Store
+iaqse-server/config.json
+iaqse-server/node_modules

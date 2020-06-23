@@ -1,0 +1,79 @@
+{
+  "_args": [
+    [
+      "primeicons",
+      "/home/x78215109/WEB/IAQSE-WEB2/dev-server"
+    ]
+  ],
+  "_from": "primeicons@latest",
+  "_hasShrinkwrap": false,
+  "_id": "primeicons@4.0.0",
+  "_inCache": true,
+  "_installable": true,
+  "_location": "/primeicons",
+  "_nodeVersion": "10.13.0",
+  "_npmOperationalInternal": {
+    "host": "s3://npm-registry-packages",
+    "tmp": "tmp/primeicons_4.0.0_1592210838309_0.6982969173966136"
+  },
+  "_npmUser": {
+    "email": "cagatay.civici@gmail.com",
+    "name": "cagatay.civici"
+  },
+  "_npmVersion": "6.4.1",
+  "_phantomChildren": {},
+  "_requested": {
+    "name": "primeicons",
+    "raw": "primeicons",
+    "rawSpec": "",
+    "scope": null,
+    "spec": "latest",
+    "type": "tag"
+  },
+  "_requiredBy": [
+    "#DEV:/"
+  ],
+  "_resolved": "http://registry.npmjs.org/primeicons/-/primeicons-4.0.0.tgz",
+  "_shasum": "a3594b3af213dcf8c4c3d6fc99eea05b7c92f57c",
+  "_shrinkwrap": null,
+  "_spec": "primeicons",
+  "_where": "/home/x78215109/WEB/IAQSE-WEB2/dev-server",
+  "author": {
+    "name": "PrimeTek"
+  },
+  "bugs": {
+    "url": "https://github.com/primefaces/primeicons/issues"
+  },
+  "dependencies": {},
+  "description": "Font Icon Library for Prime UI Libraries",
+  "devDependencies": {},
+  "directories": {},
+  "dist": {
+    "fileCount": 191,
+    "integrity": "sha512-JQBIswGSItn8I0Pq21RchENpKJxSi1MjfBDfggMQpXtoKNKblJoHmol/7tCV3CAV2Dlb94ht8TD8qdIAW01pGg==",
+    "npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJe5zWWCRA9TVsSAnZWagAAid4QAKNeYPIZQc+VwKkwtCqj\n8logbNdLOY2v0icEGbmb0PCyzUUe5coCBG89OrFfBLV5DMxAVMtucTSn1vJU\naAWMFM5jx8v6CpfhsRkrMUTv7hDZG2BstdgSNHtioImYXSttAd9NAzGvlHOv\n4BBAPwq9J99sOn+wloSHYo0R0xXDzi2wHVojM16PV0UIyuIYiToLzsC6iFqz\nZ7L1NcPQ+KTOawFQ/KFfiFNnunlB15pNtVNBMRBdFDTjBFVFOa0AZzvl04Ca\nt2n8SVWMQVjU1wikcFbPBRqLUfxxxAYUxNQwyvk6QBepyjq1JyKPUfvRD+Ui\nHHHhPdTC6oWmC9OrTf8G0Uh5sU3rQ48psdC07ud0dyrvIqagBtorexzV3izD\nLUu/xZRdarFUV3MPgIIGH3hCbZHCuJ4b28L91cMkRE6H6+Xpf8xH8UGkZH5Z\nVDLF3/FWqjsj7OfgruoPlr0Duw3i/LaPZtyzRcj5qyqjgd8XALvefRnZ4PMN\nvr2zG5iiUZsxX0tvx3PRiLkmwzLeHFb0rVOd/TxtzF9N+H2nxOtcLIgKwExK\n1jZOYV/pj+TsqS71q5EdxFajjWoUHy2sGmmBpDM7VFAP8HKhjNr11gVhsVoR\n6qDDYqrGV53TtLce/6ilPfHUg82cJ+UbKwBKkGKWtiyGe6J4TOG7HfGraG7O\ngffy\r\n=YkJQ\r\n-----END PGP SIGNATURE-----\r\n",
+    "shasum": "a3594b3af213dcf8c4c3d6fc99eea05b7c92f57c",
+    "tarball": "https://registry.npmjs.org/primeicons/-/primeicons-4.0.0.tgz",
+    "unpackedSize": 464817
+  },
+  "gitHead": "00e2fc49675190b89ed0c65745dcc2d4e72c776d",
+  "homepage": "https://github.com/primefaces/primeicons#readme",
+  "keywords": [
+    "Icon"
+  ],
+  "license": "MIT",
+  "maintainers": [
+    {
+      "name": "cagatay.civici",
+      "email": "cagatay.civici@gmail.com"
+    }
+  ],
+  "name": "primeicons",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/primefaces/primeicons.git"
+  },
+  "version": "4.0.0"
+}

@@ -17,6 +17,9 @@
     "html-minifier": "^4.0.0"
   },
   "devDependencies": {
+    "primeicons": "^4.0.0",
+    "primeng": "^9.1.0",
+    "primevue": "^2.0.0-rc.1",
     "uglify-js": "^3.6.9",
     "uglifycss": "0.0.29"
   }

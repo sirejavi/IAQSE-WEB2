@@ -1,51 +1,76 @@
 <!DOCTYPE html">
-<html lang="cat">
+<html lang="es">
 <head>
-<meta title="Adminconsole"/>
-<meta charset="UTF-8"/> 
+    <meta title="Adminconsole"/>
+    <meta charset="UTF-8"/> 
+    <link href="https://unpkg.com/primevue/resources/themes/saga-blue/theme.css" rel="stylesheet">
+    <link href="https://unpkg.com/primevue/resources/primevue.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/primeicons/primeicons.css" rel="stylesheet">
 </head>
-<body ng-app="iaqse-console" ng-controller="adminConsoleController">
-    <h1>Consola d'administració del site IAQSE</h1>
+<body>
+    <div id="iaqse-console">
+            <h1>Consola d'administració del site IAQSE</h1>
 
-    <a href="/<%=config.baseUrl%>/index.html" target="_blank"> Obrir el site local </a>
+            <a href="/<%=routes.baseurl%>/index.html" target="_blank"> Obrir el site local </a>
 
-    <h2>Configuració</h2>
-    <button ng-click="saveConfigChanges" ng-disabled="!config">Desar canvis</button>
+            <h2>Configuració</h2>
+            <button ng-click="saveConfigChanges" :disabled="!config">Desar canvis</button>
 
-    <div ng-if="config">
+            <p-calendar></p-calendar>
 
-        <table>
-            <tr>
-                <td>Nom del webmaster</td>
-                <td><input type="text" ng-model="config.webmaster"/></td>
-            </tr>
-        </table>
+            <div ng-if="config">
 
+                    <DataTable :value="cars">
+                            <Column field="vin" header="Vin"></Column>
+                            <Column field="year" header="Year"></Column> 
+                        </DataTable>
+                        
+
+                <table>
+                    <tr>
+                        <td>Nom del webmaster</td>
+                        <td><input type="text" v-model="config.webmaster"/></td>
+                    </tr>
+                </table>
+
+            </div>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.9/angular.min.js"></script>
-    <script>
-        var app = angular.module('iaqse-console', []); 
 
-        app.controller('adminConsoleController', function($scope, $http){
-            $scope.config = null;
-            $scope.refresh = function() {
-                $http.get("/adminconsole/api/select?schema="+encodeURIComponent('config.json')).then(function(res) {
-                    console.log("HE rebut", res);
-                    $scope.config = res.data;
+    <script src="https://unpkg.com/vue"></script>
+    <script src="https://unpkg.com/primevue/components/dialog/dialog.umd.min.js"></script>
+    <script src="https://unpkg.com/primevue/components/calendar/calendar.umd.min.js"></script>
+    <script src="https://unpkg.com/primevue/components/datatable/datatable.umd.min.js"></script>
+    <script src="https://unpkg.com/primevue/components/column/column.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.js"></script>
+    <script> 
+        Vue.component('p-calendar', calendar);
+        Vue.component('p-datatable', datatable);
+        Vue.component('p-column', column);
+        Vue.component('p-dialog', dialog);
+
+        var vm = new Vue({
+            components: {
+                'p-calendar': calendar,
+                'p-datatable': datatable,
+                'p-column': column,
+                'p-dialog': dialog
+            },
+            data: {
+                config: {},
+                cars: [{vin:'asdasdas', year:2018}]
+            },
+            mounted: function(){
+                var self = this;
+                axios.get("/adminconsole/api/select?schema="+encodeURIComponent('config/config')).then(function(res) {
+                    self.config = res.data;
                 }, function(err){
-                    $scope.config = null;
-                });
-            };
-            $scope.saveConfigChanges = function() {
-                $http.post("/adminconsole/api/update", {schema: 'config.json', data: $scope.config}).then(function(res) {
-                     
-                }, function(err) {
-
+                    self.config = {};
+                    console.log(err);
                 });
             }
-            $scope.refresh(); 
-        });
+        }).$mount('#iaqse-console');
+
     </script>
 </body>
 </html>

@@ -6,8 +6,13 @@ const ejs = require('ejs');
 const fs = require("fs");
 const app = express();
 const config = require('../config/config.json');
+const routes = require('../config/routes.json');
+const path = require('path')
 
 app.use(bodyParser.text({ type: 'text/html', defaultCharset: "iso-8859-1" }));
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
 app.set('view engine', 'ejs');
 app.set('views', './dev-server/templates');
 app.use((req, res, next) => { //change app.all to app.use here and remove '*', i.e. the first parameter part
@@ -27,7 +32,7 @@ app.use((req, res, next) => { //change app.all to app.use here and remove '*', i
 
 // renderitza pàgina d'aministració
 app.get('/adminconsole', function (req, res) {
-   res.render('adminconsole', {config: config});
+   res.render('adminconsole', {config: config, routes: routes});
 });
 
 // Mostra el contingut d'un esquema "alias fitxer json"
@@ -51,8 +56,27 @@ app.use('/adminconsole/database/', function (req, res, next) {
 
 // api
 app.get('/adminconsole/api/select', function (req, res) {
-  console.log(req)
-  res.json({});
+  let filename = req.query.schema;
+  if(!filename) {
+    res.json({err: 'Requires schema query param'});
+  }
+  if(filename.indexOf("/") < 0) {
+    filename = 'database/' + filename;
+  }
+  if(!filename.endsWith('.json')) {
+    filename += '.json';
+  }
+  fs.readFile(path.join("./", filename), function(err, data){
+
+    if(err) {
+      res.json({err: err});
+      return;
+    }
+
+    res.json(JSON.parse(data));
+
+  });
+ 
 });
 
 // static server 
