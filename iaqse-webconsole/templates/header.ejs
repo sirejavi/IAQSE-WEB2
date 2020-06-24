@@ -17,6 +17,11 @@
 
 <br/>
 
-<a href="/<%=routes.baseurl%>/index.html" target="_blank"> Obrir el site local </a>
+<div class="push-right">
+   
+    <a href="/<%=routes.baseurl%>/index.html" target="_blank"> Obrir el site local </a>
 
-<p-toast position="topleft"></p-toast>
+    <p-button label="Publicar" @click="publish" class="p-button-success"></p-button>
+</div>
+
+<p-toast id="toast" position="bottomleft"></p-toast>

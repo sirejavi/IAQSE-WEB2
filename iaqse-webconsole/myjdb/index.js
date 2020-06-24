@@ -12,7 +12,9 @@ const init = function() {
         if(fileName.endsWith(".json")) {
             const content = fs.readFileSync("./config/"+fileName, {encoding: 'utf8'});
             fileName = fileName.replace(".json", "");
-            inMemoryDB['config/'+fileName] = {
+            fileName = 'config/' + fileName;
+            inMemoryDB[fileName] = {
+                name: fileName,
                 modified: false,
                 contents: JSON.parse(content)
             };
@@ -65,6 +67,7 @@ const getTable = function(tableName) {
 };
 
 const setTable = function(table) {
+    console.log("setting table ", table)
     table.modified = true;
     let existeix = false;
     if(inMemoryDB[table.name]) {
@@ -77,9 +80,7 @@ const setTable = function(table) {
 const getModified = function(tableName) {
     return ((inMemoryDB[tableName] || {}).modified) || false;
 };
-
  
-
 init();
 
 module.exports = {

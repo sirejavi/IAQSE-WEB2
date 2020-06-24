@@ -1,50 +1,156 @@
 <!DOCTYPE html">
 <html lang="es">
 <head>
-    <meta title="webconsole-inici"/>
-    <meta charset="UTF-8"/> 
-    <link href="https://unpkg.com/primevue/resources/themes/saga-blue/theme.css" rel="stylesheet">
-    <link href="https://unpkg.com/primevue/resources/primevue.min.css" rel="stylesheet">
-    <link href="https://unpkg.com/primeicons/primeicons.css" rel="stylesheet">
+    <meta title="webconsole-inici" />
+    <%- include head.ejs %>
 </head>
 <body>
-    <%- include header.ejs %>
-           
-    <h1>PAGINA D'INICI</h1>
+    <div id="webconsole-page">
+
+        <%- include header.ejs %>
+
+        <h1>PANTALLA D'INICI</h1>
+        <p-panel header="Configuració" :toggleable="true">
+            <template #header>
+                <span class="p-panel-title">Carousel</span>
+                <p-button label="Afegir" @click="addPantallaCarousel()" class="p-button-success" icon="pi pi-plus"></p-button>     
+                <p-button label="Desar canvis" @click="saveChanges()" icon="pi pi-save"></p-button>               
+            </template> 
+            <div v-if="iniciTable.contents">
+
+                <p-orderlist v-model="iniciTable.contents.carousel" listStyle="height:auto" dataKey="id" :selection.sync="carouselSelection">
+                    <template #header>
+                        Pantalles del carousel
+                    </template>
+                    <template #item="slotProps">
+                       {{slotProps.item.title}}
+                    </template>
+                </p-orderlist>
  
-  
+                <br/>
+
+                <div v-if="carouselSelection && carouselSelection.length == 1">
+                    <p-button class="p-button-danger" icon="pi pi-trash" @click="verDlgDelCarousel=true" label="Esborrar"></p-button>
+                    <p-togglebutton onLabel="I" offLabel="I reject"/> 
+                    <br/>
+                    <br/>
+
+                    <table>
+                        <tr>
+                            <td>Titol</td>
+                            <td><p-inputtext v-model="carouselSelection[0].title"></p-inputtext></td>
+                        </tr>
+                        <tr>
+                            <td>Descripció</td>
+                            <td><p-textarea v-model="carouselSelection[0].description"></p-textarea></td>
+                        </tr>
+                        <tr>
+                            <td>Imatge</td>
+                            <td><p-inputtext v-model="carouselSelection[0].imatge"></p-inputtext></td>
+                        </tr>
+                        <tr>
+                            <td>Enllaç</td>
+                            <td><p-inputtext v-model="carouselSelection[0].url"></p-inputtext></td>
+                        </tr>
+                        <tr>
+                            <td>Target d'enllaç</td>
+                            <td><p-inputtext v-model="carouselSelection[0].target"></p-inputtext></td>
+                        </tr>
+                    </table>
+
+                </div>
+            </div>
+        </p-panel>
+
+
+        <p-dialog header="Confirmar esborrar" :visible.sync="verDlgDelCarousel" :modal="true">
+            <p>Segur que voleu esborrar aquesta pantalla del carousel?</p>
+            <p-button label="No" icon="pi pi-times" class="p-button-secondary" @click="verDlgDelCarousel=false"></p-button>
+            <p-button label="Sí" icon="pi pi-check" class="p-button-danger" @click="esborrarCarousel"></p-button>
+        </p-dialog>
+
+    </div>
+
     <%- include footer.ejs %>
 
+    <script>
+        requirejs(['p_orderlist', 'p_dialog', 'p_textarea', 'p_togglebutton'],
+            function (p_orderlist, p_dialog, p_textarea, p_togglebutton) {
+ 
+                Vue.component('p-orderlist', p_orderlist); 
+                Vue.component('p-dialog', p_dialog); 
+                Vue.component('p-textarea', p_textarea); 
+                Vue.component('p-togglebutton', p_togglebutton);
 
-    <script src="https://unpkg.com/vue"></script>
-    <script src="https://unpkg.com/primevue/components/dialog/dialog.umd.min.js"></script>
-    <script src="https://unpkg.com/primevue/components/calendar/calendar.umd.min.js"></script>
-    <script src="https://unpkg.com/primevue/components/datatable/datatable.umd.min.js"></script>
-    <script src="https://unpkg.com/primevue/components/column/column.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.js"></script>
-    <script> 
-        Vue.component('p-calendar', calendar);
-        Vue.component('p-datatable', datatable);
-        Vue.component('p-column', column);
-        Vue.component('p-dialog', dialog);
+                var vm = new Vue({
+                    el: '#webconsole-page',
+                    data: function () {
+                        return {
+                            iniciTable: {},
+                            carouselSelection: null,
+                            verDlgDelCarousel: false
+                        }
+                    },
+                    mounted: function () {
+                        var self = this;
+                        axios.post("/<%=mountPoint%>/api/gettable", { tableName: 'inici' }).then(function (res) {
+                            // comprova que tots els elements tenen una id
+                            check_ids(res.data.contents.carousel);
+                            check_ids(res.data.contents.destacats);
+                            
+                            self.iniciTable = res.data;
+                        }, function (err) {
+                            self.iniciTable = {};
+                            self.$toast.add({ severity: 'error', summary: "No s'ha pogut carregar la taula inici", life: 3000 });
+                            console.log(err);
+                        }); 
+                    },
+                    methods: {
+                        saveChanges: function () {
+                            var self = this;
+                            axios.post("/<%=mountPoint%>/api/settable", { table: self.iniciTable }).then(function (res) {
+                                console.log(res.data);
+                                if(res.data && res.data.result) {
+                                    self.$toast.add({ severity: 'success', summary: "S'han desat els canvis", life: 3000 });
+                                } else {
+                                    self.$toast.add({ severity: 'error', summary: "No s'han pogut desar els canvis", life: 3000 });
+                                }
+                            }, function (err) {
+                                console.log(err);
+                                self.$toast.add({ severity: 'error', summary: "No s'han pogut desar els canvis", life: 3000 });
+                            });
+                        },
+                        publish: function () {
 
-        var vm = new Vue({
-            components: {
-                'p-calendar': calendar,
-                'p-datatable': datatable,
-                'p-column': column,
-                'p-dialog': dialog
-            },
-            data: {
-                config: {},
-            },
-            mounted: function(){
-                var self = this;
-             
-            }
-        }).$mount('#webconsole-page');
+                        },
+                        addPantallaCarousel: function(){
+                            var novaPantalla = {
+                                id: uuidv4(),
+                                title: 'Nova pantalla',
+                                description: '',
+                                img: 'img/carousel/x.jpg',
+                                url: '',
+                                target: '_self'
+                            };
+                            this.iniciTable.contents.carousel.push(novaPantalla);
+                            this.pantallaCarousel = novaPantalla;
+                        },
+                        esborrarCarousel: function() {
+                            if(!this.carouselSelection || this.carouselSelection.length != 1) {
+                                return;
+                            }
+                            var selection = this.carouselSelection[0];
+                            var pos = this.iniciTable.contents.carousel.indexOf(selection);
+                            this.iniciTable.contents.carousel.splice(pos, 1);
+                            this.verDlgDelCarousel = false;
+                            this.carouselSelection = null;
+                        }
+                    }
+                }); 
+ 
+            });
 
     </script>
 </body>
+
 </html>
-	

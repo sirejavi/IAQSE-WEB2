@@ -7,32 +7,50 @@
 
 <script src="/<%=mountPoint%>/assets/vue/vue.min.js"></script> 
 <script src="/<%=mountPoint%>/assets/primevue/components/button/button.umd.min.js"></script>
-<script src="/<%=mountPoint%>/assets/primevue/components/inputtext/inputtext.umd.min.js"></script> 
-<script src="/<%=mountPoint%>/assets/primevue/components/toast/toast.umd.min.js"></script> 
-<script src="/<%=mountPoint%>/assets/primevue/components/toast/toastservice.umd.min.js"></script> 
-<script src="/<%=mountPoint%>/assets/primevue/components/toast/toastmessage.umd.min.js"></script> 
+<script src="/<%=mountPoint%>/assets/primevue/components/inputtext/inputtext.umd.min.js"></script>   
 <script src="/<%=mountPoint%>/assets/primevue/components/panel/panel.umd.min.js"></script> 
+
+<script src="/<%=mountPoint%>/assets/primevue/components/toast/toast.umd.min.js"></script> 
+<script src="/<%=mountPoint%>/assets/primevue/components/toast/toastservice-patched.js"></script> 
+<script src="/<%=mountPoint%>/assets/primevue/components/toast/toast-patched.js"></script> 
+<script src="/<%=mountPoint%>/assets/uuidv4.min.js"></script>
 <script src="/<%=mountPoint%>/assets/axios.min.js"></script>
+    <script>
+    // Registra components primeVue globals que s'empraran per tot
+    Vue.use(ToastService);
+    Vue.component('p-inputtext', inputtext);
+    Vue.component('p-button', button); 
+    Vue.component('p-panel', panel);  
+    Vue.component('p-toast', ptoast)
+</script>
+
+
 <script src="/<%=mountPoint%>/assets/require.min.js"></script>
-<script>
-
-// Registra components primeVue globals que s'empraran per tot
-Vue.use(toastservice);
-Vue.component('p-inputtext', inputtext);
-Vue.component('p-button', button); 
-Vue.component('p-panel', panel); 
-Vue.component('p-toast', toast);
-
+<script> 
 // Components que es poden carregar opcionalment mitjançant requirejs
 requirejs.config({
     baseUrl: '/<%=mountPoint%>/assets',
     paths: {  
-        p_dialog: 'primevue/components/dialog/dialog.umd',
-        p_calendar: 'primevue/components/calendar/calendar.umd',
-        p_datatable: 'primevue/components/datatable/datatable.umd',
-        p_column: 'primevue/components/column/column.umd',
-        p_editor: 'primevue/components/editor/editor.umd'
+        p_dialog: 'primevue/components/dialog/dialog.umd.min',
+        p_calendar: 'primevue/components/calendar/calendar.umd.min',
+        p_datatable: 'primevue/components/datatable/datatable.umd.min',
+        p_column: 'primevue/components/column/column.umd.min',
+        p_editor: 'primevue/components/editor/editor.umd.min',
+        p_orderlist: 'primevue/components/orderlist/orderlist.umd.min',
+        p_textarea: 'primevue/components/textarea/textarea.umd.min',
+        p_togglebutton: 'primevue/components/togglebutton/togglebutton.umd.min'
     } 
 });
 
-</script>
+function check_ids(list) {
+    if(!list) {
+        return;
+    }
+    var n = list.length;
+    for(var i=0; i<n; i++) {
+        if(!list[i].id) {
+            list[i].id = uuidv4();
+        }
+    }
+}
+</script> 
