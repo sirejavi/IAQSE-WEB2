@@ -1,0 +1,38 @@
+
+<footer>
+    (c) IAQSE 2020
+</footer>
+
+
+
+<script src="/<%=mountPoint%>/assets/vue/vue.min.js"></script> 
+<script src="/<%=mountPoint%>/assets/primevue/components/button/button.umd.min.js"></script>
+<script src="/<%=mountPoint%>/assets/primevue/components/inputtext/inputtext.umd.min.js"></script> 
+<script src="/<%=mountPoint%>/assets/primevue/components/toast/toast.umd.min.js"></script> 
+<script src="/<%=mountPoint%>/assets/primevue/components/toast/toastservice.umd.min.js"></script> 
+<script src="/<%=mountPoint%>/assets/primevue/components/toast/toastmessage.umd.min.js"></script> 
+<script src="/<%=mountPoint%>/assets/primevue/components/panel/panel.umd.min.js"></script> 
+<script src="/<%=mountPoint%>/assets/axios.min.js"></script>
+<script src="/<%=mountPoint%>/assets/require.min.js"></script>
+<script>
+
+// Registra components primeVue globals que s'empraran per tot
+Vue.use(toastservice);
+Vue.component('p-inputtext', inputtext);
+Vue.component('p-button', button); 
+Vue.component('p-panel', panel); 
+Vue.component('p-toast', toast);
+
+// Components que es poden carregar opcionalment mitjançant requirejs
+requirejs.config({
+    baseUrl: '/<%=mountPoint%>/assets',
+    paths: {  
+        p_dialog: 'primevue/components/dialog/dialog.umd',
+        p_calendar: 'primevue/components/calendar/calendar.umd',
+        p_datatable: 'primevue/components/datatable/datatable.umd',
+        p_column: 'primevue/components/column/column.umd',
+        p_editor: 'primevue/components/editor/editor.umd'
+    } 
+});
+
+</script>

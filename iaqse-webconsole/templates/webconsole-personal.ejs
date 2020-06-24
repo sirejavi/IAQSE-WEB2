@@ -1,0 +1,50 @@
+<!DOCTYPE html">
+<html lang="es">
+<head>
+    <meta title="webconsole-personal"/>
+    <meta charset="UTF-8"/> 
+    <link href="https://unpkg.com/primevue/resources/themes/saga-blue/theme.css" rel="stylesheet">
+    <link href="https://unpkg.com/primevue/resources/primevue.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/primeicons/primeicons.css" rel="stylesheet">
+</head>
+<body>
+    <%- include header.ejs %>
+           
+    <h1>PERSONAL</h1>
+ 
+  
+    <%- include footer.ejs %>
+
+
+    <script src="https://unpkg.com/vue"></script>
+    <script src="https://unpkg.com/primevue/components/dialog/dialog.umd.min.js"></script>
+    <script src="https://unpkg.com/primevue/components/calendar/calendar.umd.min.js"></script>
+    <script src="https://unpkg.com/primevue/components/datatable/datatable.umd.min.js"></script>
+    <script src="https://unpkg.com/primevue/components/column/column.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.js"></script>
+    <script> 
+        Vue.component('p-calendar', calendar);
+        Vue.component('p-datatable', datatable);
+        Vue.component('p-column', column);
+        Vue.component('p-dialog', dialog);
+
+        var vm = new Vue({
+            components: {
+                'p-calendar': calendar,
+                'p-datatable': datatable,
+                'p-column': column,
+                'p-dialog': dialog
+            },
+            data: {
+                config: {},
+            },
+            mounted: function(){
+                var self = this;
+             
+            }
+        }).$mount('#webconsole-page');
+
+    </script>
+</body>
+</html>
+	

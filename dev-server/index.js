@@ -7,7 +7,7 @@ const fs = require("fs");
 const app = express();
 const config = require('../config/config.json');
 const routes = require('../config/routes.json');
-const path = require('path')
+const path = require('path');
 
 app.use(bodyParser.text({ type: 'text/html', defaultCharset: "iso-8859-1" }));
 app.use(bodyParser.urlencoded({ extended: false }));

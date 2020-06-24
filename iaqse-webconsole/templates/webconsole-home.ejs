@@ -1,0 +1,89 @@
+<!DOCTYPE html">
+<html lang="es">
+
+<head>
+    <meta title="webconsole-home" />
+    <%- include head.ejs %>
+</head>
+
+<body>
+    <div id="webconsole-page">
+
+        <%- include header.ejs %>
+        <div class="push-right">
+            <p-button label="Publicar" @click="publish" class="p-button-success"></p-button>
+        </div>
+
+        <h1>HOME</h1>
+        <p-panel header="Configuració">
+            <template #header>
+                <span>Configuració</span>
+                <p-button label="Desar canvis" @click="saveChanges"></p-button>
+            </template>
+            <div v-if="configTable.contents">
+                <table>
+                    <tr>
+                        <td>Nom del webmaster</td>
+                        <td>
+                            <p-inputtext type="text" v-model="configTable.contents.webmaster"></p-inputtext>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </p-panel>
+    </div>
+
+    <%- include footer.ejs %>
+    <script>
+        requirejs(['p_dialog', 'p_datatable', 'p_column', 'p_calendar'],
+            function (p_dialog, p_datatable, p_column, p_calendar) {
+
+                Vue.component('p-dialog', p_dialog);
+                Vue.component('p-datatable', p_datatable);
+                Vue.component('p-column', p_column);
+                Vue.component('p-calendar', p_calendar);
+
+                var vm = new Vue({
+                    data: function () {
+                        return {
+                            configTable: {}
+                        }
+                    },
+                    mounted: function () {
+                        var self = this;
+                        axios.post("/<%=mountPoint%>/api/gettable", { tableName: 'config/config' }).then(function (res) {
+                            self.configTable = res.data;
+                        }, function (err) {
+                            self.configTable = {};
+                            self.$toast.add({ severity: 'error', summary: "No s'ha pogut carregar la taula config/config", life: 3000 });
+                            console.log(err);
+                        });
+                    },
+                    methods: {
+                        saveChanges: function () {
+                            var self = this;
+                            axios.post("/<%=mountPoint%>/api/settable", { table: self.configTable }).then(function (res) {
+                                console.log(res.data);
+                                if(res.data && res.data.result) {
+                                    self.$toast.add({ severity: 'success', summary: "S'han desat els canvis", life: 3000 });
+                                } else {
+                                    self.$toast.add({ severity: 'error', summary: "No s'han pogut desar els canvis", life: 3000 });
+                                }
+                            }, function (err) {
+                                console.log(err);
+                                self.$toast.add({ severity: 'error', summary: "No s'han pogut desar els canvis", life: 3000 });
+                            });
+                        },
+                        publish: function () {
+
+                        }
+                    }
+                });
+
+                vm.$mount('#webconsole-page');
+
+            });
+    </script>
+</body>
+
+</html>

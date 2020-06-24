@@ -1,40 +1,19 @@
 <!DOCTYPE html">
 <html lang="es">
 <head>
-    <meta title="Adminconsole"/>
+    <meta title="webconsole-publicacions"/>
     <meta charset="UTF-8"/> 
     <link href="https://unpkg.com/primevue/resources/themes/saga-blue/theme.css" rel="stylesheet">
     <link href="https://unpkg.com/primevue/resources/primevue.min.css" rel="stylesheet">
     <link href="https://unpkg.com/primeicons/primeicons.css" rel="stylesheet">
 </head>
 <body>
-    <div id="iaqse-console">
-            <h1>Consola d'administració del site IAQSE</h1>
-
-            <a href="/<%=routes.baseurl%>/index.html" target="_blank"> Obrir el site local </a>
-
-            <h2>Configuració</h2>
-            <button ng-click="saveConfigChanges" :disabled="!config">Desar canvis</button>
-
-            <p-calendar></p-calendar>
-
-            <div ng-if="config">
-
-                    <DataTable :value="cars">
-                            <Column field="vin" header="Vin"></Column>
-                            <Column field="year" header="Year"></Column> 
-                        </DataTable>
-                        
-
-                <table>
-                    <tr>
-                        <td>Nom del webmaster</td>
-                        <td><input type="text" v-model="config.webmaster"/></td>
-                    </tr>
-                </table>
-
-            </div>
-    </div>
+    <%- include header.ejs %>
+           
+    <h1>PUBLICACIONS</h1>
+ 
+  
+    <%- include footer.ejs %>
 
 
     <script src="https://unpkg.com/vue"></script>
@@ -58,18 +37,12 @@
             },
             data: {
                 config: {},
-                cars: [{vin:'asdasdas', year:2018}]
             },
             mounted: function(){
                 var self = this;
-                axios.get("/adminconsole/api/select?schema="+encodeURIComponent('config/config')).then(function(res) {
-                    self.config = res.data;
-                }, function(err){
-                    self.config = {};
-                    console.log(err);
-                });
+             
             }
-        }).$mount('#iaqse-console');
+        }).$mount('#webconsole-page');
 
     </script>
 </body>
