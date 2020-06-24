@@ -38,7 +38,8 @@ requirejs.config({
         p_editor: 'primevue/components/editor/editor.umd.min',
         p_orderlist: 'primevue/components/orderlist/orderlist.umd.min',
         p_textarea: 'primevue/components/textarea/textarea.umd.min',
-        p_togglebutton: 'primevue/components/togglebutton/togglebutton.umd.min'
+        p_togglebutton: 'primevue/components/togglebutton/togglebutton.umd.min',
+        p_dropdown: 'primevue/components/dropdown/dropdown.umd.min'
     } 
 });
 
@@ -52,5 +53,9 @@ function check_ids(list) {
             list[i].id = uuidv4();
         }
     }
+}
+
+function formatDate(d) {
+    return d.getDate()  + "/" + (d.getMonth()+1) + "/" + d.getFullYear();
 }
 </script> 

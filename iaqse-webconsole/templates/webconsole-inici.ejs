@@ -10,12 +10,12 @@
         <%- include header.ejs %>
 
         <h1>PANTALLA D'INICI</h1>
-        <p-panel header="Configuració" :toggleable="true">
-            <template #header>
-                <span class="p-panel-title">Carousel</span>
-                <p-button label="Afegir" @click="addPantallaCarousel()" class="p-button-success" icon="pi pi-plus"></p-button>     
-                <p-button label="Desar canvis" @click="saveChanges()" icon="pi pi-save"></p-button>               
-            </template> 
+        <p-panel header="Carousel" :toggleable="true">
+            <p-button label="Afegir" @click="addPantallaCarousel()" class="p-button-success" icon="pi pi-plus"></p-button>     
+            <p-button label="Desar canvis" @click="saveChanges()" icon="pi pi-save"></p-button>    
+
+            <br/><br/>
+
             <div v-if="iniciTable.contents">
 
                 <p-orderlist v-model="iniciTable.contents.carousel" listStyle="height:auto" dataKey="id" :selection.sync="carouselSelection">
@@ -23,7 +23,10 @@
                         Pantalles del carousel
                     </template>
                     <template #item="slotProps">
-                       {{slotProps.item.title}}
+                       <img :src="'../'+ slotProps.item.img" style="width:60px; vertical-align: middle;"/>
+                       <i class="pi pi-eye-slash" v-if="slotProps.item.hiden"></i>
+                       <i v-if="!slotProps.item.hiden" style="display: inline-block; width: 18px;"></i>
+                        {{slotProps.item.title}}
                     </template>
                 </p-orderlist>
  
@@ -31,42 +34,117 @@
 
                 <div v-if="carouselSelection && carouselSelection.length == 1">
                     <p-button class="p-button-danger" icon="pi pi-trash" @click="verDlgDelCarousel=true" label="Esborrar"></p-button>
-                    <p-togglebutton onLabel="I" offLabel="I reject"/> 
+                    <p-togglebutton v-model="carouselSelection[0].hiden" on-label="Amagat" off-label="Visible" on-icon="pi pi-eye-slash" off-icon="pi pi-eye"></p-togglebutton> 
                     <br/>
                     <br/>
 
-                    <table>
+                    <table class="p-datatable" style="width: 98%;">
+                        <thead class="p-datatable-thead">
+                            <tr>
+                                <th style="width: 20%;">Propietat</th>
+                                <th style="width: 80%;">Valor</th>
+                            </tr>
+                        </thead>
+                        <tbody class="p-datatable-tbody">
                         <tr>
                             <td>Titol</td>
-                            <td><p-inputtext v-model="carouselSelection[0].title"></p-inputtext></td>
+                            <td><p-inputtext v-model="carouselSelection[0].title" style="width: 100%;"></p-inputtext></td>
                         </tr>
                         <tr>
                             <td>Descripció</td>
-                            <td><p-textarea v-model="carouselSelection[0].description"></p-textarea></td>
+                            <td><p-textarea v-model="carouselSelection[0].description" style="width: 100%;"></p-textarea></td>
                         </tr>
                         <tr>
                             <td>Imatge</td>
-                            <td><p-inputtext v-model="carouselSelection[0].imatge"></p-inputtext></td>
+                            <td><p-inputtext v-model="carouselSelection[0].img" style="width: 90%;"></p-inputtext>
+                                <p-button class="p-button-secondary" icon="pi pi-search" @click="verDlgPreviewImage=true" title="Previsualització"></p-button>
+                            </td>
                         </tr>
                         <tr>
                             <td>Enllaç</td>
-                            <td><p-inputtext v-model="carouselSelection[0].url"></p-inputtext></td>
+                            <td><p-inputtext v-model="carouselSelection[0].url" style="width: 90%;"></p-inputtext>
+                                <a :href="getRealUrl(carouselSelection[0].url)" target="_blank">Enllaç</a>
+                            </td>
+
+                          
                         </tr>
                         <tr>
                             <td>Target d'enllaç</td>
-                            <td><p-inputtext v-model="carouselSelection[0].target"></p-inputtext></td>
+                            <td><p-dropdown v-model="carouselSelection[0].target" :options="opcionsTarget"></p-dropdown> 
                         </tr>
+                    </tbody>
                     </table>
-
                 </div>
             </div>
         </p-panel>
 
 
-        <p-dialog header="Confirmar esborrar" :visible.sync="verDlgDelCarousel" :modal="true">
+        <p-panel header="Destacats" :toggleable="true">
+            <p-button label="Afegir" @click="addDestacat()" class="p-button-success" icon="pi pi-plus"></p-button>     
+            <p-button label="Desar canvis" @click="saveChanges()" icon="pi pi-save"></p-button>       
+            
+            <br/><br/>
+        
+            <div v-if="iniciTable.contents">
+                <table class="p-datatable" style="width:98%; table-layout: fixed;">
+                    <thead class="p-datatable-thead">
+                        <tr>
+                            <th>Title</th>
+                            <th style="width:15%">Icon/Img</th>
+                            <th style="width:15%">Class</th>
+                            <th> Url</th>
+                            <th style="width:15%">Url target</th>
+                            <th style="width: 140px;">Data publicació</th>
+                            <th>Accions</th>
+                        </tr>
+                    </thead>
+                    <tbody class="p-datatable-tbody">
+                        <tr v-for="actual in iniciTable.contents.destacats" :class="actual.hiden?'row-hiden':''">
+                            <td>
+                                {{actual.title}}
+                            </td>
+                            <td>
+                                {{actual.icon}}
+                            </td>
+                            <td>
+                                {{actual.class}}
+                            </td>
+                            <td>
+                                {{actual.url}}
+                            </td>
+                            <td>
+                                {{actual.target}}
+                            </td>
+                            <td>
+                                {{actual.pubdate}}
+                            </td>
+                            <td>
+                                <p-button class="p-button-danger" @click="verDlgDelDestacat=true" icon="pi pi-trash"></p-button>
+                                <p-button class="p-button-primary" icon="pi pi-pencil"></p-button>
+                                <p-togglebutton v-model="actual.hiden" on-label="Amagat" off-label="Visible" on-icon="pi pi-eye-slash" off-icon="pi pi-eye"></p-togglebutton>  
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </p-panel>
+
+        <p-dialog header="Confirmar esborrar carousel" :visible.sync="verDlgDelCarousel" :modal="true">
             <p>Segur que voleu esborrar aquesta pantalla del carousel?</p>
             <p-button label="No" icon="pi pi-times" class="p-button-secondary" @click="verDlgDelCarousel=false"></p-button>
             <p-button label="Sí" icon="pi pi-check" class="p-button-danger" @click="esborrarCarousel"></p-button>
+        </p-dialog>
+
+        <p-dialog header="Confirmar esborrar destacat" :visible.sync="verDlgDelDestacat" :modal="true">
+            <p>Segur que voleu esborrar aquesta notícia destacada?</p>
+            <p-button label="No" icon="pi pi-times" class="p-button-secondary" @click="verDlgDelDestacat=false"></p-button>
+            <p-button label="Sí" icon="pi pi-check" class="p-button-danger" @click="esborrarDestacat"></p-button>
+        </p-dialog>
+
+        <p-dialog header="Previsualització imatge" :visible.sync="verDlgPreviewImage" :modal="true">
+            <img v-if="carouselSelection" :src="'../' + carouselSelection[0].img" style="max-width: 600px;"/>
+            <br/>
+            <p-button label="Tancar" icon="pi pi-times" class="p-button-secondary" @click="verDlgPreviewImage=false"></p-button> 
         </p-dialog>
 
     </div>
@@ -74,13 +152,14 @@
     <%- include footer.ejs %>
 
     <script>
-        requirejs(['p_orderlist', 'p_dialog', 'p_textarea', 'p_togglebutton'],
-            function (p_orderlist, p_dialog, p_textarea, p_togglebutton) {
+        requirejs(['p_orderlist', 'p_dialog', 'p_textarea', 'p_togglebutton', 'p_dropdown'],
+            function (p_orderlist, p_dialog, p_textarea, p_togglebutton, p_dropdown) {
  
                 Vue.component('p-orderlist', p_orderlist); 
                 Vue.component('p-dialog', p_dialog); 
                 Vue.component('p-textarea', p_textarea); 
                 Vue.component('p-togglebutton', p_togglebutton);
+                Vue.component('p-dropdown', p_dropdown);
 
                 var vm = new Vue({
                     el: '#webconsole-page',
@@ -88,7 +167,12 @@
                         return {
                             iniciTable: {},
                             carouselSelection: null,
-                            verDlgDelCarousel: false
+                            verDlgDelCarousel: false,
+                            verDlgPreviewImage: false,
+                            verDlgDelDestacat: false,
+                            opcionsTarget: [
+                               "", "_self", "_blank"
+                            ]
                         }
                     },
                     mounted: function () {
@@ -144,6 +228,28 @@
                             this.iniciTable.contents.carousel.splice(pos, 1);
                             this.verDlgDelCarousel = false;
                             this.carouselSelection = null;
+                        },
+                        getRealUrl: function(url) {
+                            if(url.indexOf("http") < 0) {
+                                url = "/cat/" + url;
+                            }
+                            return url;
+                        },
+                        addDestacat: function() {
+                            var today = new Date();
+                            var nouDestacat = {
+                                id: uuidv4(),
+                                title: 'Nou destacat',
+                                icon: 'fa fa-print',
+                                class: null,
+                                url: '',
+                                target: '_self',
+                                pubdate: formatDate(today)
+                            };
+                            this.iniciTable.contents.destacats.unshift(nouDestacat);
+                        },
+                        esborrarDestacat: function(destacat) {
+
                         }
                     }
                 }); 
