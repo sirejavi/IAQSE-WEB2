@@ -24,7 +24,13 @@ module.exports = function(app, mountPoint) {
     });
 
     app.post('/'+mountPoint+'/api/persist', function(req, res) {
-        const result = myjdb.persist();
+        // Pot contenir opcionalment una taula per actualitzar primer
+        let result = true;
+        if(req.body.table) {
+            result = myjdb.setTable(req.body.table);
+        }
+        // Ara desa a disc totes les taules que han estat settable!
+        result =  result && myjdb.persist();
         res.send({result: result});
     });
 

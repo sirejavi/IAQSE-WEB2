@@ -165,6 +165,7 @@
                     el: '#webconsole-page',
                     data: function () {
                         return {
+                            menuModel: menuModelBuilder(),
                             iniciTable: {},
                             carouselSelection: null,
                             verDlgDelCarousel: false,
@@ -190,10 +191,21 @@
                         }); 
                     },
                     methods: {
-                        saveChanges: function () {
+                        syncChanges: function () {
                             var self = this;
                             axios.post("/<%=mountPoint%>/api/settable", { table: self.iniciTable }).then(function (res) {
-                                console.log(res.data);
+                                if(res.data && res.data.result) {
+                                } else {
+                                    self.$toast.add({ severity: 'error', summary: "No s'han pogut sincronitzar els canvis", life: 3000 });
+                                }
+                            }, function (err) {
+                                console.log(err);
+                                self.$toast.add({ severity: 'error', summary: "No s'han pogut desar els canvis", life: 3000 });
+                            });
+                        },
+                        saveChanges: function () {
+                            var self = this;
+                            axios.post("/<%=mountPoint%>/api/persist", { table: self.iniciTable }).then(function (res) {
                                 if(res.data && res.data.result) {
                                     self.$toast.add({ severity: 'success', summary: "S'han desat els canvis", life: 3000 });
                                 } else {

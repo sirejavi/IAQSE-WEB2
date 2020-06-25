@@ -1,50 +1,63 @@
 <!DOCTYPE html">
 <html lang="es">
 <head>
-    <meta title="webconsole-ava-internacionals"/>
-    <meta charset="UTF-8"/> 
-    <link href="https://unpkg.com/primevue/resources/themes/saga-blue/theme.css" rel="stylesheet">
-    <link href="https://unpkg.com/primevue/resources/primevue.min.css" rel="stylesheet">
-    <link href="https://unpkg.com/primeicons/primeicons.css" rel="stylesheet">
+    <meta title="webconsole-ava-internacionals" />
+    <%- include head.ejs %>
 </head>
 <body>
-    <%- include header.ejs %>
-           
-    <h1>AVALUACIONS INTERNACIONALS</h1>
- 
-  
-    <%- include footer.ejs %>
+    <div id="webconsole-page">
+
+        <%- include header.ejs %>
+
+        <h1>AVALUACIONS INTERNACIONALS</h1>
+        
+        <div v-if="table.contents">
+
+            {{table.contents}}
 
 
-    <script src="https://unpkg.com/vue"></script>
-    <script src="https://unpkg.com/primevue/components/dialog/dialog.umd.min.js"></script>
-    <script src="https://unpkg.com/primevue/components/calendar/calendar.umd.min.js"></script>
-    <script src="https://unpkg.com/primevue/components/datatable/datatable.umd.min.js"></script>
-    <script src="https://unpkg.com/primevue/components/column/column.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.js"></script>
-    <script> 
-        Vue.component('p-calendar', calendar);
-        Vue.component('p-datatable', datatable);
-        Vue.component('p-column', column);
-        Vue.component('p-dialog', dialog);
+        </div>
 
-        var vm = new Vue({
-            components: {
-                'p-calendar': calendar,
-                'p-datatable': datatable,
-                'p-column': column,
-                'p-dialog': dialog
-            },
-            data: {
-                config: {},
-            },
-            mounted: function(){
-                var self = this;
-             
-            }
-        }).$mount('#webconsole-page');
+        <%- include footer.ejs %>
 
+    </div>
+
+    <script>
+        requirejs([], function () {
+
+            var tableName = "avaluacions_internacionals";
+            var vm = new Vue({
+                el: '#webconsole-page',
+                data: function () {
+                    return {
+                        menuModel: menuModelBuilder(),
+                        table: {}
+                    }
+                },
+                mounted: function () {
+                    var self = this;
+                    axios.post("/<%=mountPoint%>/api/gettable", { tableName: tableName }).then(function (res) {
+                        // comprova que tots els elements tenen una id
+                        check_ids(res.data.contents);
+                        self.table = res.data;
+                    }, function (err) {
+                        self.table = {};
+                        self.$toast.add({ severity: 'error', summary: "No s'ha pogut carregar la taula " + tableName, life: 3000 });
+                        console.log(err);
+                    });
+                },
+                methods: {
+                    saveChanges: function(){
+
+                    },
+                    publish: function() {
+
+                    }
+                }
+            });
+
+        });
     </script>
 </body>
+
 </html>
-	

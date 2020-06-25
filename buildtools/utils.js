@@ -3,9 +3,9 @@ const path = require("path");
 const fs = require("fs");
 const ejs = require("ejs");
 let utils = {}; 
-const encoding = require("./config/config.json").encoding || "utf8";
+const encoding = require("../config/config.json").encoding || "utf8";
 const htmlMinifier = require('html-minifier').minify; 
-const config = require("./config/config.json");
+const config = require("../config/config.json");
 
 
 utils.isObject = function(a) {

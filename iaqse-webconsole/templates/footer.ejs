@@ -9,6 +9,7 @@
 <script src="/<%=mountPoint%>/assets/primevue/components/button/button.umd.min.js"></script>
 <script src="/<%=mountPoint%>/assets/primevue/components/inputtext/inputtext.umd.min.js"></script>   
 <script src="/<%=mountPoint%>/assets/primevue/components/panel/panel.umd.min.js"></script> 
+<script src="/<%=mountPoint%>/assets/primevue/components/menubar/menubar.umd.min.js"></script> 
 
 <script src="/<%=mountPoint%>/assets/primevue/components/toast/toast.umd.min.js"></script> 
 <script src="/<%=mountPoint%>/assets/primevue/components/toast/toastservice-patched.js"></script> 
@@ -21,7 +22,81 @@
     Vue.component('p-inputtext', inputtext);
     Vue.component('p-button', button); 
     Vue.component('p-panel', panel);  
-    Vue.component('p-toast', ptoast)
+    Vue.component('p-toast', ptoast);
+    Vue.component('p-menubar', menubar);
+
+    function menuActionHandler(event) {
+        console.log("Click on menu item ", event); 
+        //carrega la nova pàgina
+        location.href = event.item._href;
+    }
+
+    function menuModelBuilder() {
+        return [
+            {
+             label: 'Inici',
+             icon: 'pi pi-home',
+             _href: '/<%=mountPoint%>/inici',
+             command: menuActionHandler
+            },
+            {
+             label: 'Personal', 
+             _href: '/<%=mountPoint%>/personal',
+             command: menuActionHandler
+            },
+            {
+             label: 'Normativa', 
+             _href: '/<%=mountPoint%>/normativa',
+             command: menuActionHandler
+            },
+            {
+             label: 'Avaluacions', 
+             items: [
+                {
+                    label: 'Diagnòstic', 
+                    _href: '/<%=mountPoint%>/ava-diagnostic',
+                    command: menuActionHandler
+                },
+                {
+                    label: 'Final etapa', 
+                    _href: '/<%=mountPoint%>/ava-finaletapa',
+                    command: menuActionHandler
+                },
+                {
+                    label: 'Internacionals', 
+                    _href: '/<%=mountPoint%>/ava-internacionals',
+                    command: menuActionHandler
+                },
+                {
+                    label: 'Altres', 
+                    _href: '/<%=mountPoint%>/ava-altres',
+                    command: menuActionHandler
+                }
+             ]
+            },
+            {
+                label: 'Publicacions', 
+                _href: '/<%=mountPoint%>/publicacions',
+                command: menuActionHandler
+            },
+            {
+                label: 'Proves', 
+                _href: '/<%=mountPoint%>/proves',
+                command: menuActionHandler
+            },
+            {
+                label: 'Enllaços', 
+                _href: '/<%=mountPoint%>/enllacos',
+                command: menuActionHandler
+            },
+            {
+                icon: 'pi pi-cog',
+                _href: '/<%=mountPoint%>/home',
+                command: menuActionHandler
+            }
+
+        ];
+    }
 </script>
 
 

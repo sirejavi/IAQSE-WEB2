@@ -1,78 +1,97 @@
 {
-    "comment": "Aquests destacats s'afegeixen al les darreres publicacions per odre de pubdate",
-    "destacats": [
-        {
-            "icon": "fa fa-print",
-            "url": "proves.html#!/imprimibles",
-            "title": "Proves alliberades de l'avaluació de diagnòstic de 6è EP curs 2017-2018 per imprimir.",
-            "pubdate": "22/06/2020"
-        },
-        {
-            "img": "img/avaluacions/diagnostic/ad_2n_eso_2019_2020/suspensio_avaluacions_diagnostiques_iaqse.png",
-            "url": "avaluacions.html#!/diagnostic?id=ad2neso1920",
-            "title": "Suspensió de l'avaluació de diagnòstic del curs 2019-2020 als alumnes de 2n d'ESO",
-            "target": "_blank",
-            "class": "bg-warning",
-            "pubdate": "17/04/2020"
-        },
-        {
-            "img": "img/avaluacions/diagnostic/ad_2n_eso_2019_2020/Tutorial_GESAVA_2020.png",
-            "url": "../documentos/avaluacions/diagnostic/ad_2n_eso_2019_2020/Tutorial_GESAVA_2020.pdf", 
-            "title": "Tutorial de l'aplicació GESAVA per a l'Avaluació de Diagnòstic 2019-2020",
-            "target": "_blank",
-            "pubdate": "11/02/2020"
-        },
-        {
-            "img": "img/avaluacions/pisa/pisa_2018/informe_pisa2018.png",
-            "url": "avaluacions.html#!/internacionals?id=ava_pisa2018", 
-            "comment": "https://drive.google.com/file/d/1QOkG8vq1GzhAuNP7mHLtQm3iCqt8wC8G/view",
-            "title": "PISA 2018. Informe español",
-            "description": "(Versión preliminar)",
-            "target": "_blank",
-            "pubdate": "1/12/2019"
-        },
-        {
-            "icon": "fa fa-print",
-            "url": "proves.html#!/imprimibles", 
-            "title": "Proves de diagnòstic",
-            "description": "Versions per imprimir i interactives", 
-            "target": "",
-            "pubdate": "25/11/2019"
-        },
-        {
-            "icon": "fa fa-chart-bar",
-            "url": "avaluacions.html#!/diagnostic?id=ad2neso1920", 
-            "title": "Avaluació de diagnòstic 2n ESO 2019-2020",
-            "description": "Normativa BOIB",            
-            "target": "",
-            "pubdate": "22/11/2019"
-        }
-    ],
-    "carousel": [
-        {
-            "img": "img/carousel/0.png",
-            "url": "https://apps.caib.es/gesavafront/",
-            "target": "_blank",
-            "title": "Accés GESAVA",
-            "description": "Programa de gestió de les avaluacions"
-        },
-        {
-            "img": "img/carousel/2.jpg",
-            "url": "avaluacions.html#!/diagnostic?id=ad2neso1920",
-            "title": "AVALUACIÓ DE DIAGNÒSTIC",
-            "description": "2n ESO - Curs 2019-20"
-        },
-        {
-            "img": "img/carousel/1.jpg",
-            "url": "quisom.html",
-            "title": "QUI SOM?",
-            "description": "Funcions de l'IAQSE"
-        },
-        {
-            "img": "img/carousel/3.jpg",
-            "url": "proves.html#!/imprimibles",
-            "title": "PROVES ALLIBERADES",
-            "description": "Proves per baixar i imprimir"
-        }
-    ]
+  "comment": "Aquests destacats s'afegeixen al les darreres publicacions per odre de pubdate",
+  "destacats": [
+    {
+      "id": "132b9f05-51ad-4e44-bf54-a33e5bc781da",
+      "title": "Nou destacat",
+      "icon": "fa fa-print",
+      "class": null,
+      "url": "",
+      "target": "_self",
+      "pubdate": "25/6/2020"
+    },
+    {
+      "icon": "fa fa-print",
+      "url": "proves.html#!/imprimibles",
+      "title": "Proves alliberades de l'avaluació de diagnòstic de 6è EP curs 2017-2018 per imprimir.",
+      "pubdate": "22/06/2020",
+      "id": "5a38542d-af71-43bf-b935-78d28cd73254"
+    },
+    {
+      "img": "img/avaluacions/diagnostic/ad_2n_eso_2019_2020/suspensio_avaluacions_diagnostiques_iaqse.png",
+      "url": "avaluacions.html#!/diagnostic?id=ad2neso1920",
+      "title": "Suspensió de l'avaluació de diagnòstic del curs 2019-2020 als alumnes de 2n d'ESO",
+      "target": "_blank",
+      "class": "bg-warning",
+      "pubdate": "17/04/2020",
+      "id": "533605e3-4502-47d6-81c3-df4d6df1d687"
+    },
+    {
+      "img": "img/avaluacions/diagnostic/ad_2n_eso_2019_2020/Tutorial_GESAVA_2020.png",
+      "url": "../documentos/avaluacions/diagnostic/ad_2n_eso_2019_2020/Tutorial_GESAVA_2020.pdf",
+      "title": "Tutorial de l'aplicació GESAVA per a l'Avaluació de Diagnòstic 2019-2020",
+      "target": "_blank",
+      "pubdate": "11/02/2020",
+      "id": "dc05ce81-590f-4076-b87d-07c4ac1fc0d2"
+    },
+    {
+      "img": "img/avaluacions/pisa/pisa_2018/informe_pisa2018.png",
+      "url": "avaluacions.html#!/internacionals?id=ava_pisa2018",
+      "comment": "https://drive.google.com/file/d/1QOkG8vq1GzhAuNP7mHLtQm3iCqt8wC8G/view",
+      "title": "PISA 2018. Informe español",
+      "description": "(Versión preliminar)",
+      "target": "_blank",
+      "pubdate": "1/12/2019",
+      "id": "73b66f9c-9cdc-4640-afb3-c98e4f38b21b"
+    },
+    {
+      "icon": "fa fa-print",
+      "url": "proves.html#!/imprimibles",
+      "title": "Proves de diagnòstic",
+      "description": "Versions per imprimir i interactives",
+      "target": "",
+      "pubdate": "25/11/2019",
+      "id": "47966a06-b91f-4475-ad28-e752de523601"
+    },
+    {
+      "icon": "fa fa-chart-bar",
+      "url": "avaluacions.html#!/diagnostic?id=ad2neso1920",
+      "title": "Avaluació de diagnòstic 2n ESO 2019-2020",
+      "description": "Normativa BOIB",
+      "target": "",
+      "pubdate": "22/11/2019",
+      "id": "45fd855d-2fb2-4249-abb9-e54cb789e9f9"
+    }
+  ],
+  "carousel": [
+    {
+      "img": "img/carousel/0.png",
+      "url": "https://apps.caib.es/gesavafront/",
+      "target": "_blank",
+      "title": "Accés GESAVA",
+      "description": "Programa de gestió de les avaluacions",
+      "id": "5c997ad5-8dbd-4f28-87c6-ca8b5c0faf20"
+    },
+    {
+      "img": "img/carousel/2.jpg",
+      "url": "avaluacions.html#!/diagnostic?id=ad2neso1920",
+      "title": "AVALUACIÓ DE DIAGNÒSTIC",
+      "description": "2n ESO - Curs 2019-20",
+      "id": "eeeb262c-2872-41a5-9563-023609713309"
+    },
+    {
+      "img": "img/carousel/1.jpg",
+      "url": "quisom.html",
+      "title": "QUI SOM?",
+      "description": "Funcions de l'IAQSE",
+      "id": "501c2e4e-95b0-4bd4-9ffe-26f0a4e29e95"
+    },
+    {
+      "img": "img/carousel/3.jpg",
+      "url": "proves.html#!/imprimibles",
+      "title": "PROVES ALLIBERADES",
+      "description": "Proves per baixar i imprimir",
+      "id": "70e3da32-5866-43f9-ad98-5fc5f719f6c8"
+    }
+  ]
 }
