@@ -18,9 +18,11 @@
     "uuid": "^8.2.0"
   },
   "devDependencies": {
+    "fs-extra": "^9.0.1",
     "primeicons": "^4.0.0",
     "primeng": "^9.1.0",
     "primevue": "^2.0.0-rc.1",
+    "socket.io": "^2.3.0",
     "uglify-js": "^3.6.9",
     "uglifycss": "0.0.29"
   }

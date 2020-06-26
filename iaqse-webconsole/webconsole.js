@@ -30,10 +30,9 @@ const CONSOLE_WEB_PATH = 'webconsole';
 // Carregam tot el que necessitam
 const express = require('express');
 const ejs = require('ejs');
-const fs = require("fs");
-const app = express();
-const config = require('../config/config.json');
-const routes = require('../config/routes.json');
+const app = express(); 
+var http = require('http').createServer(app);
+app.io = require('socket.io')(http);
 
 
 // Middleware per parsejar les peticions ajax
@@ -81,5 +80,5 @@ app.use('/', express.static('static'));
 
 
 
-app.listen(3000);
+http.listen(3000);
 console.log('Application server running on port 3000');

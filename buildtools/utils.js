@@ -216,6 +216,10 @@ utils.toDate = function(str) {
     // any        : suposa mes 1 i  dia 1
     // empty      : suposa 1/1/2000
 
+    if(typeof(str)!=='string') {
+        throw new Error(str, " is not a string");
+    }
+
     if(!str || !str.trim()) {
         return new Date(2000, 0, 1, 0, 0, 0, 0);
     }
@@ -248,4 +252,11 @@ utils.normalitzaURL = function(url) {
     }
     return url;
 }
+
+utils.requireJSON = function(dirFile, opts) {
+    opts = opts || {encoding: 'utf8'};
+    const text = fs.readFileSync(dirFile, opts);
+    return JSON.parse(text);
+}
+
 module.exports = utils;

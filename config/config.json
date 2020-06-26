@@ -3,6 +3,7 @@
    "gesavaUrl": "https://apps.caib.es/gesavafront/",
    "gesavaTitle": "Accés GESAVA",
    "remoteURL": "https://piworld.es/iaqseapi",
+   "publicationFolder": "/run/user/1000/gvfs/smb-share:domain=CAIB,server=ldoc2,share=wiaqseu,user=x78215109/cat",
    "geolocation": false,
    "encoding": "latin1",
    "minify_html": true,

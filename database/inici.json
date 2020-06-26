@@ -2,13 +2,14 @@
   "comment": "Aquests destacats s'afegeixen al les darreres publicacions per odre de pubdate",
   "destacats": [
     {
-      "id": "132b9f05-51ad-4e44-bf54-a33e5bc781da",
-      "title": "Nou destacat",
-      "icon": "fa fa-print",
+      "id": "ba788514-4f32-44e7-9971-6bb484a62d64",
+      "title": "Piworld.es",
+      "icon": "fa fa-web",
       "class": null,
-      "url": "",
-      "target": "_self",
-      "pubdate": "25/6/2020"
+      "url": "https://piworld.es",
+      "target": "_blank",
+      "pubdate": "26/6/2020",
+      "hiden": false
     },
     {
       "icon": "fa fa-print",
@@ -70,14 +71,16 @@
       "target": "_blank",
       "title": "Accés GESAVA",
       "description": "Programa de gestió de les avaluacions",
-      "id": "5c997ad5-8dbd-4f28-87c6-ca8b5c0faf20"
+      "id": "5c997ad5-8dbd-4f28-87c6-ca8b5c0faf20",
+      "hiden": true
     },
     {
-      "img": "img/carousel/2.jpg",
-      "url": "avaluacions.html#!/diagnostic?id=ad2neso1920",
-      "title": "AVALUACIÓ DE DIAGNÒSTIC",
-      "description": "2n ESO - Curs 2019-20",
-      "id": "eeeb262c-2872-41a5-9563-023609713309"
+      "img": "img/carousel/3.jpg",
+      "url": "proves.html#!/imprimibles",
+      "title": "PROVES ALLIBERADES",
+      "description": "Proves per baixar i imprimir",
+      "id": "70e3da32-5866-43f9-ad98-5fc5f719f6c8",
+      "hiden": true
     },
     {
       "img": "img/carousel/1.jpg",
@@ -87,11 +90,12 @@
       "id": "501c2e4e-95b0-4bd4-9ffe-26f0a4e29e95"
     },
     {
-      "img": "img/carousel/3.jpg",
-      "url": "proves.html#!/imprimibles",
-      "title": "PROVES ALLIBERADES",
-      "description": "Proves per baixar i imprimir",
-      "id": "70e3da32-5866-43f9-ad98-5fc5f719f6c8"
+      "id": "b9a94be2-48c8-466a-9d6a-114f4e6372ca",
+      "title": "Aquesta és la segona nova pantalla",
+      "description": "Res més que dir",
+      "img": "img/carousel/1.jpg",
+      "url": "piworld.es",
+      "target": "_blank"
     }
   ]
 }

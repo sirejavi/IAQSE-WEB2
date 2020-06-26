@@ -52,6 +52,7 @@ const persist = function() {
             }
             outputFile += tableName + ".json";
             const content = JSON.stringify(table.contents, null, 2);
+            console.log("*****PERSIST: ", outputFile);
             fs.writeFileSync(outputFile, content, {encoding: 'utf8'});
             changes = true;
             table.modified = false;

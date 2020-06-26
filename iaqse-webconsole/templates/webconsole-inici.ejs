@@ -10,11 +10,14 @@
         <%- include header.ejs %>
 
         <h1>PANTALLA D'INICI</h1>
-        <p-panel header="Carousel" :toggleable="true">
+        <p-tabview>
+            <p-tabpanel header="Carousel">
+            
+            <center>
             <p-button label="Afegir" @click="addPantallaCarousel()" class="p-button-success" icon="pi pi-plus"></p-button>     
-            <p-button label="Desar canvis" @click="saveChanges()" icon="pi pi-save"></p-button>    
+            </center>
 
-            <br/><br/>
+            <br/> 
 
             <div v-if="iniciTable.contents">
 
@@ -65,8 +68,7 @@
                             <td><p-inputtext v-model="carouselSelection[0].url" style="width: 90%;"></p-inputtext>
                                 <a :href="getRealUrl(carouselSelection[0].url)" target="_blank">Enllaç</a>
                             </td>
-
-                          
+          
                         </tr>
                         <tr>
                             <td>Target d'enllaç</td>
@@ -76,14 +78,15 @@
                     </table>
                 </div>
             </div>
-        </p-panel>
+        </p-tabpanel>
 
 
-        <p-panel header="Destacats" :toggleable="true">
+        <p-tabpanel header="Destacats">
+            <center>
             <p-button label="Afegir" @click="addDestacat()" class="p-button-success" icon="pi pi-plus"></p-button>     
-            <p-button label="Desar canvis" @click="saveChanges()" icon="pi pi-save"></p-button>       
-            
-            <br/><br/>
+            </center>
+
+            <br/> 
         
             <div v-if="iniciTable.contents">
                 <table class="p-datatable" style="width:98%; table-layout: fixed;">
@@ -99,7 +102,7 @@
                         </tr>
                     </thead>
                     <tbody class="p-datatable-tbody">
-                        <tr v-for="actual in iniciTable.contents.destacats" :class="actual.hiden?'row-hiden':''">
+                        <tr v-for="actual in iniciTable.contents.destacats" :class="[actual.hiden?'row-hiden':'']">
                             <td>
                                 {{actual.title}}
                             </td>
@@ -110,7 +113,7 @@
                                 {{actual.class}}
                             </td>
                             <td>
-                                {{actual.url}}
+                               <span style="word-wrap: break-word;"> {{actual.url}}</span>
                             </td>
                             <td>
                                 {{actual.target}}
@@ -119,16 +122,17 @@
                                 {{actual.pubdate}}
                             </td>
                             <td>
-                                <p-button class="p-button-danger" @click="verDlgDelDestacat=true" icon="pi pi-trash"></p-button>
-                                <p-button class="p-button-primary" icon="pi pi-pencil"></p-button>
+                                <p-button class="p-button-danger" @click="verDlgDelDestacat=true;destacatSeleccionat=actual" icon="pi pi-trash"></p-button>
+                                <p-button class="p-button-primary" icon="pi pi-pencil" @click="verDlgEditDestacat=true;destacatSeleccionat=actual"></p-button>
                                 <p-togglebutton v-model="actual.hiden" on-label="Amagat" off-label="Visible" on-icon="pi pi-eye-slash" off-icon="pi pi-eye"></p-togglebutton>  
                             </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
-        </p-panel>
-
+        </p-tabpanel>
+        </p-tabview>
+ 
         <p-dialog header="Confirmar esborrar carousel" :visible.sync="verDlgDelCarousel" :modal="true">
             <p>Segur que voleu esborrar aquesta pantalla del carousel?</p>
             <p-button label="No" icon="pi pi-times" class="p-button-secondary" @click="verDlgDelCarousel=false"></p-button>
@@ -141,10 +145,57 @@
             <p-button label="Sí" icon="pi pi-check" class="p-button-danger" @click="esborrarDestacat"></p-button>
         </p-dialog>
 
+        <p-dialog header="Editar destacat" :visible.sync="verDlgEditDestacat" :modal="true">
+                <div v-if="destacatSeleccionat">
+
+                    <table class="p-table">
+                        <tbody class="p-table-tbody">
+                        <tr>
+                            <td>Títol</td>
+                            <td><p-textarea v-model="destacatSeleccionat.title" style="width:400px"></p-textarea></td>
+                        </tr>
+                        <tr>
+                            <td>Icona</td>
+                            <td><p-inputtext v-model="destacatSeleccionat.icon" style="width:400px"></p-inputtext></td>
+                        </tr>
+                        <tr>
+                            <td>Imatge</td>
+                            <td><p-inputtext v-model="destacatSeleccionat.img" style="width:400px"></p-inputtext></td>
+                        </tr>
+                        <tr>
+                            <td>Class</td>
+                            <td><p-inputtext v-model="destacatSeleccionat.class" style="width:400px"></p-inputtext></td>
+                        </tr>
+                        <tr>
+                            <td>Url</td>
+                            <td><p-inputtext v-model="destacatSeleccionat.url" style="width:400px"></p-inputtext></td>
+                        </tr>
+                        <tr>
+                            <td>Url target</td>
+                            <td><p-inputtext v-model="destacatSeleccionat.target" style="width:400px"></p-inputtext></td>
+                        </tr>
+                        <tr>
+                            <td>Data (dd/MM/yyyy)</td>
+                            <td><p-inputtext v-model="destacatSeleccionat.pubdate" style="width:400px"></p-inputtext></td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+                <p-button label="Tancar" icon="pi pi-times" class="p-button-secondary" @click="verDlgEditDestacat=false"></p-button>
+        </p-dialog>
+
         <p-dialog header="Previsualització imatge" :visible.sync="verDlgPreviewImage" :modal="true">
             <img v-if="carouselSelection" :src="'../' + carouselSelection[0].img" style="max-width: 600px;"/>
             <br/>
             <p-button label="Tancar" icon="pi pi-times" class="p-button-secondary" @click="verDlgPreviewImage=false"></p-button> 
+        </p-dialog>
+
+        <p-dialog header="Espereu" :visible.sync="verDlgGenerant" :modal="true">
+            <p>
+            <i class="pi pi-spin pi-spinner" style="font-size: 2rem; vertical-align: middle;"></i>
+            Generant el site... Espereu si us plau.
+            </p>
         </p-dialog>
 
     </div>
@@ -152,9 +203,11 @@
     <%- include footer.ejs %>
 
     <script>
-        requirejs(['p_orderlist', 'p_dialog', 'p_textarea', 'p_togglebutton', 'p_dropdown'],
-            function (p_orderlist, p_dialog, p_textarea, p_togglebutton, p_dropdown) {
+        requirejs(['p_orderlist', 'p_dialog', 'p_textarea', 'p_togglebutton', 'p_dropdown', 'p_tabview', 'p_tabpanel'],
+            function (p_orderlist, p_dialog, p_textarea, p_togglebutton, p_dropdown, p_tabview, p_tabpanel) {
  
+                Vue.component('p-tabview', p_tabview);
+                Vue.component('p-tabpanel', p_tabpanel);
                 Vue.component('p-orderlist', p_orderlist); 
                 Vue.component('p-dialog', p_dialog); 
                 Vue.component('p-textarea', p_textarea); 
@@ -168,9 +221,12 @@
                             menuModel: menuModelBuilder(),
                             iniciTable: {},
                             carouselSelection: null,
+                            verDlgGenerant: false,
                             verDlgDelCarousel: false,
                             verDlgPreviewImage: false,
                             verDlgDelDestacat: false,
+                            verDlgEditDestacat: false,
+                            destacatSeleccionat: null,
                             opcionsTarget: [
                                "", "_self", "_blank"
                             ]
@@ -193,19 +249,24 @@
                     methods: {
                         syncChanges: function () {
                             var self = this;
+                            this.verDlgGenerant = true;
                             axios.post("/<%=mountPoint%>/api/settable", { table: self.iniciTable }).then(function (res) {
+                                self.verDlgGenerant = false;
                                 if(res.data && res.data.result) {
                                 } else {
                                     self.$toast.add({ severity: 'error', summary: "No s'han pogut sincronitzar els canvis", life: 3000 });
                                 }
                             }, function (err) {
+                                self.verDlgGenerant = false;
                                 console.log(err);
                                 self.$toast.add({ severity: 'error', summary: "No s'han pogut desar els canvis", life: 3000 });
                             });
                         },
                         saveChanges: function () {
                             var self = this;
+                            this.verDlgGenerant = true;
                             axios.post("/<%=mountPoint%>/api/persist", { table: self.iniciTable }).then(function (res) {
+                                self.verDlgGenerant = false;
                                 if(res.data && res.data.result) {
                                     self.$toast.add({ severity: 'success', summary: "S'han desat els canvis", life: 3000 });
                                 } else {
@@ -213,6 +274,7 @@
                                 }
                             }, function (err) {
                                 console.log(err);
+                                self.verDlgGenerant = false;
                                 self.$toast.add({ severity: 'error', summary: "No s'han pogut desar els canvis", life: 3000 });
                             });
                         },
@@ -260,8 +322,13 @@
                             };
                             this.iniciTable.contents.destacats.unshift(nouDestacat);
                         },
-                        esborrarDestacat: function(destacat) {
-
+                        esborrarDestacat: function() {
+                            console.log("Destacats ----> ", this.destacatSeleccionat);
+                            var pos = this.iniciTable.contents.destacats.indexOf(this.destacatSeleccionat);
+                            if(pos>=0) {
+                                this.iniciTable.contents.destacats.splice(pos, 1);
+                            }
+                            this.verDlgDelDestacat = false;
                         }
                     }
                 }); 
