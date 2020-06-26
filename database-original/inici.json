@@ -60,7 +60,8 @@
             "img": "img/carousel/2.jpg",
             "url": "avaluacions.html#!/diagnostic?id=ad2neso1920",
             "title": "AVALUACIÓ DE DIAGNÒSTIC",
-            "description": "2n ESO - Curs 2019-20"
+            "description": "2n ESO - Curs 2019-20",
+            "hiden": true
         },
         {
             "img": "img/carousel/1.jpg",
