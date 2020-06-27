@@ -24,11 +24,64 @@ module.exports = function(app, mountPoint) {
 
     app.post('/'+mountPoint+'/api/settable', function(req, res) {
 
-        const table = req.body.table; 
+        const tableName = req.body.tableNamne; 
         const result = myjdb.setTable(table);
 
         res.send({result: result});
 
+    });
+
+    app.post('/'+mountPoint+'/api/remove', function(req, res) {
+
+        const tableName = req.body.tableName; 
+        const idPath = req.body.idPath;
+        const result = myjdb.remove(tableName, idPath);
+
+        res.send({result: result});
+
+    });
+
+    app.post('/'+mountPoint+'/api/add', function(req, res) {
+
+        const objectToAdd = req.body.obj;
+        const tableName = req.body.tableName; 
+        const idPath = req.body.idPath;
+        const insertPosition = req.body.insertPosition;
+        const result = myjdb.add(objectToAdd, tableName, idPath, insertPosition);
+
+        res.send({result: result});
+
+    });
+
+    app.post('/'+mountPoint+'/api/update', function(req, res) {
+
+        const newObj = req.body.obj;
+        const tableName = req.body.tableName; 
+        const idPath = req.body.idPath; 
+        const result = myjdb.update(tableName, idPath, newObj);
+
+        res.send({result: result});
+
+    });
+
+    app.post('/'+mountPoint+'/api/reorder', function(req, res) {
+
+        const tableName = req.body.tableName; 
+        const idPath = req.body.idPath; 
+        const position = req.body.position;
+        const result = myjdb.reorder(tableName, idPath, position);
+
+        res.send({result: result});
+
+    });
+
+    app.post('/'+mountPoint+'/api/showtables', function(req, res) {
+       res.send({result: myjdb.showtables()});
+    });
+
+    app.post('/'+mountPoint+'/api/reset', function(req, res) {
+        myjdb.init();
+        res.send({result: myjdb.showtables()});
     });
 
     app.post('/'+mountPoint+'/api/persist', function(req, res) {

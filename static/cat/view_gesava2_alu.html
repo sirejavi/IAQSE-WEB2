@@ -130,4 +130,4 @@ no vàreu realitzar la prova d'aquella matèria.
         </div>
 </div>
 
-<script>app.controller("alumnatController",["$scope","$rootScope","$filter","httpService",function(t,n,o,e){t.navigate=function(t,n){t.preventDefault();var o=document.getElementById(n);if(o){var e=o.offsetTop+100;window.scrollTo(0,e)}},t.printDiv=function(){printDocument("print-area","Alumnat")},e.hit(location.href,"VIEW")}])</script>
+<script>app.controller("alumnatController",["$scope","$rootScope","$filter","httpService",function(t,n,o,e){t.navigate=function(t,n){t.preventDefault();var o,e=document.getElementById(n);e&&(o=e.offsetTop+100,window.scrollTo(0,o))},t.printDiv=function(){printDocument("print-area","Alumnat")},e.hit(location.href,"VIEW")}])</script>

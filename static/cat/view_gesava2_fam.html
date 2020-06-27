@@ -139,4 +139,4 @@ vostre fill no va realitzar la prova d'aquella matèria.
         </div>
 </div>
 
-<script>app.controller("familiesController",["$scope","$rootScope","$filter","httpService",function(t,e,o,n){t.navigate=function(t,e){t.preventDefault();var o=document.getElementById(e);if(o){var n=o.offsetTop+100;window.scrollTo(0,n)}},t.printDiv=function(){printDocument("print-area","Famílies")},n.hit(location.href,"VIEW")}])</script>
+<script>app.controller("familiesController",["$scope","$rootScope","$filter","httpService",function(t,e,o,n){t.navigate=function(t,e){t.preventDefault();var o,n=document.getElementById(e);n&&(o=n.offsetTop+100,window.scrollTo(0,o))},t.printDiv=function(){printDocument("print-area","Famílies")},n.hit(location.href,"VIEW")}])</script>

@@ -355,4 +355,4 @@ A les seves respostes, naturalment, no s'hi podrà accedir.
 </p>
 
 </div>
-<script>app.controller("directorsController",["$scope","$rootScope","$filter","httpService",function(t,o,e,r){t.navigate=function(t,o){t.preventDefault();var e=document.getElementById(o);if(e){var r=e.offsetTop+100;window.scrollTo(0,r)}},t.printDiv=function(){printDocument("print-area","Directors")},r.hit(location.href,"VIEW")}])</script>
+<script>app.controller("directorsController",["$scope","$rootScope","$filter","httpService",function(t,o,e,r){t.navigate=function(t,o){t.preventDefault();var e,r=document.getElementById(o);r&&(e=r.offsetTop+100,window.scrollTo(0,e))},t.printDiv=function(){printDocument("print-area","Directors")},r.hit(location.href,"VIEW")}])</script>

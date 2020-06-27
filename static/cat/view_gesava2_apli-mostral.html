@@ -205,4 +205,4 @@ i els fulls d'incidències allà on l'aplicador de la prova podrà escriure comenta
 
 
 </div>
- <script>app.controller("aplicadors_mostralsController",["$scope","$rootScope","$filter","httpService",function(o,t,r,e){o.navigate=function(o,t){o.preventDefault();var r=document.getElementById(t);if(r){var e=r.offsetTop+100;window.scrollTo(0,e)}},o.printDiv=function(){printDocument("print-area","Aplicadors mostrals")},e.hit(location.href,"VIEW")}])</script>
+ <script>app.controller("aplicadors_mostralsController",["$scope","$rootScope","$filter","httpService",function(o,t,e,r){o.navigate=function(o,t){o.preventDefault();var e,r=document.getElementById(t);r&&(e=r.offsetTop+100,window.scrollTo(0,e))},o.printDiv=function(){printDocument("print-area","Aplicadors mostrals")},r.hit(location.href,"VIEW")}])</script>

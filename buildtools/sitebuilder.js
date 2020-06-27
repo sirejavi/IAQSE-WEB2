@@ -124,8 +124,8 @@ module.exports = function (buildOptions) {
             database[name] = utils.parseCsv(csvContents);
         }
 
-        if (name == "inici") {
-            destacatsManual = database[name].destacats;
+        if (name == "inici_destacats") {
+            destacatsManual = database[name];
         }
 
         if (name == "proves") {
@@ -139,10 +139,14 @@ module.exports = function (buildOptions) {
                     prova.documents = prova.documents || [];
                     const dir2 = path.join("./static", prova.walkdir);
                     console.log("\t\tWalk ", dir2)
-                    fs.readdirSync(dir2).forEach(file => {
-                        prova.documents.push(dir2.replace("static/", "") + file);
-                    });
-
+                    try{
+                        fs.readdirSync(dir2).forEach(file => {
+                            prova.documents.push(dir2.replace("static/", "") + file);
+                        });
+                    } catch(ex2) {
+                        console.log("\t\tERROR: No es pot llistar el directori ", dir2, ". Comprovau que existeixi.");
+                    }
+ 
                 }
             });
 

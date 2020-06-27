@@ -16,7 +16,9 @@
 <script src="/<%=mountPoint%>/assets/primevue/components/toast/toast-patched.js"></script> 
 <script src="/<%=mountPoint%>/assets/uuidv4.min.js"></script>
 <script src="/<%=mountPoint%>/assets/axios.min.js"></script>
-    <script>
+<script src="/<%=mountPoint%>/assets/myjdb-browser.js"></script>
+
+<script>
     // Registra components primeVue globals que s'empraran per tot
     Vue.use(ToastService);
     Vue.component('p-inputtext', inputtext);
@@ -27,8 +29,13 @@
 
     function menuActionHandler(event) {
         console.log("Click on menu item ", event); 
+        console.log("this és: ", this);
         //carrega la nova pàgina
-        location.href = event.item._href;
+        //location.href = event.item._href;
+    }
+
+    function clone(obj) {
+        return JSON.parse(JSON.stringify(obj));
     }
 
     function menuModelBuilder() {
