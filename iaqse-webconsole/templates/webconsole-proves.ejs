@@ -1,62 +1,284 @@
 <!DOCTYPE html">
 <html lang="es">
+
 <head>
-    <meta title="webconsole-proves" />
+    <meta title="webconsole-proves-alliberades" />
     <%- include head.ejs %>
 </head>
+
 <body>
     <div id="webconsole-page">
 
         <%- include header.ejs %>
 
         <h1>PROVES ALLIBERADES</h1>
-        
-        <div v-if="table.contents">
 
-            {{table.contents}}
+        <center>
+            <p-button label="Afegir" @click="addProva()" class="p-button-success" icon="pi pi-plus">
+            </p-button>
+        </center>
+
+        <br />
+
+        <p-orderlist v-model="proves" listStyle="height:auto" dataKey="id" @reorder="reorder">
+            <template #header>
+                proves
+            </template>
+            <template #item="slotProps">
+                <p-button icon="pi pi-pencil" class="p-button-success"
+                    @click="provaSelected=clone(slotProps.item);verDlgEditNormativa=true;"></p-button>
+
+                <p-button class="p-button-danger" icon="pi pi-trash"
+                    @click="provaSelected=slotProps.item; verDlgEditNormativa=true" title="Esborrar">
+                </p-button>
+
+                <img :src="'../'+ slotProps.item.img" style="width:60px; vertical-align: middle;" />
+                <i class="pi pi-eye-slash" v-if="slotProps.item.hiden"></i>
+                <i v-if="!slotProps.item.hiden" style="display: inline-block; width: 18px;"></i>
+                <i class="pi pi-print" v-if="slotProps.item.imprimible"></i>
+                <i v-if="!slotProps.item.imprimible" style="display: inline-block; width: 18px;"></i>  
+                {{slotProps.item.title}}
+            </template>
+        </p-orderlist>
+
+        <br />
 
 
-        </div>
+        <!------------------------------------   DIALOGS  ---------------------------------------------------------->
 
-        <%- include footer.ejs %>
+
+        <p-dialog header="Confirmar esborrar proves" :visible.sync="verDlgDelNormativa" :modal="true">
+            <p>Segur que voleu esborrar aquesta proves?</p>
+            <p-button label="No" icon="pi pi-times" class="p-button-secondary" @click="verDlgDelNormativa=false">
+            </p-button>
+            <p-button label="Sí" icon="pi pi-check" class="p-button-danger" @click="esborrarNormativa"></p-button>
+        </p-dialog>
+
+        <p-dialog header="Editar proves" :visible.sync="verDlgEditNormativa" :modal="true" :maximizable="true">
+            <div v-if="provaSelected">
+                <br />
+
+                <table class="p-datatable" style="width: 98%;">
+                    <thead class="p-datatable-thead">
+                        <tr>
+                            <th style="width: 20%;">Propietat</th>
+                            <th style="width: 80%;">Valor</th>
+                        </tr>
+                    </thead>
+                    <tbody class="p-datatable-tbody">
+                        <tr v-if="provaSelected.id">
+                            <td colspan="2"><span style="color:gray"><i class="pi pi-key"></i>
+                                    {{provaSelected.id}}</span></td>
+                        </tr>
+                        <tr>
+                            <td>Visibilitat</td>
+                            <td>
+                                <p-togglebutton v-model="provaSelected.hiden" on-label="Amagat" off-label="Visible"
+                                    on-icon="pi pi-eye-slash" off-icon="pi pi-eye"></p-togglebutton>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <input type="checkbox" v-model="provaSelected.imprimible"
+                                    style="transform: scale(2);margin-right: 10px;" /> Optimitzat per a impressió</td>
+                        </tr>
+                        <tr>
+                            <td>Avaluació</td>
+                            <td>
+                                <p-inputtext v-model="provaSelected.aval" style="width: 100%;"> </p-inputtext>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Nivell</td>
+                            <td>
+                                <p-inputtext v-model="provaSelected.nivell" style="width: 100%;"> </p-inputtext>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Etiquetes</td>
+                            <td>
+                                <p-chips v-model="provaSelected.tags" style="width: 100%;"
+                                    title="Exemples CMAT CLLE CLLC CLLA CIT 2ESO 4ESO 6EP"> </p-chips>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>title</td>
+                            <td>
+                                <p-textarea v-model="provaSelected.title" style="width: 100%;"></p-textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Imatge</td>
+                            <td>
+                                <p-inputtext v-model="provaSelected.img" style="width: 100%;">
+                                </p-inputtext>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>url</td>
+                            <td>
+                                <p-inputtext v-model="provaSelected.url" style="width: 100%;">
+                                </p-inputtext>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Tooltip de url</td>
+                            <td>
+                                <p-inputtext v-model="provaSelected.url_title" style="width: 100%;">
+                                </p-inputtext>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Any (yyyy-yyyy)</td>
+                            <td>
+                                <p-inputtext v-model="provaSelected.any" style="width: 100%;">
+                                </p-inputtext>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Explorar directori</td>
+                            <td>
+                                <p-inputtext v-model="provaSelected.walkdir" style="width: 100%;">
+                                </p-inputtext>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <br />
+
+                <p-button icon="pi pi-times" class="p-button-secondary"
+                    @click="verDlgEditNormativa=false; provaSelected=null;" label="Cancel·lar"></p-button>
+                <p-button icon="pi pi-tick" class="p-button-primary" @click="confirmEditPersonal" label="Acceptar">
+                </p-button>
+            </div>
+        </p-dialog>
+
+        <p-dialog header="Previsualització imatge" :visible.sync="verDlgPreviewImage" :modal="true">
+            <img v-if="provaSelected" :src="'../' + provaSelected.img" style="max-width: 600px;" />
+            <br />
+            <p-button label="Tancar" icon="pi pi-times" class="p-button-secondary" @click="verDlgPreviewImage=false">
+            </p-button>
+        </p-dialog>
+
+        <p-dialog header="Espereu" :visible.sync="verDlgGenerant" :modal="true">
+            <p>
+                <i class="pi pi-spin pi-spinner" style="font-size: 2rem; vertical-align: middle;"></i>
+                Generant el site... Espereu si us plau.
+            </p>
+        </p-dialog>
 
     </div>
+    <%- include footer.ejs %>
 
     <script>
-        requirejs([], function () {
+        requirejs(['p_orderlist', 'p_dialog', 'p_textarea', 'p_togglebutton', 'p_dropdown', 'p_tabview', 'p_tabpanel', 'p_chips'],
+            function (p_orderlist, p_dialog, p_textarea, p_togglebutton, p_dropdown, p_tabview, p_tabpanel, p_chips) {
 
-            var tableName = "proves";
-            var vm = new Vue({
-                el: '#webconsole-page',
-                data: function () {
-                    return {
-                        menuModel: menuModelBuilder(),
-                        table: {}
-                    }
-                },
-                mounted: function () {
-                    var self = this;
-                    axios.post("/<%=mountPoint%>/api/gettable", { tableName: tableName }).then(function (res) {
-                        // comprova que tots els elements tenen una id
-                        check_ids(res.data.contents);
-                        self.table = res.data;
-                    }, function (err) {
-                        self.table = {};
-                        self.$toast.add({ severity: 'error', summary: "No s'ha pogut carregar la taula " + tableName, life: 3000 });
-                        console.log(err);
-                    });
-                },
-                methods: {
-                    saveChanges: function(){
+                Vue.component('p-tabview', p_tabview);
+                Vue.component('p-tabpanel', p_tabpanel);
+                Vue.component('p-orderlist', p_orderlist);
+                Vue.component('p-dialog', p_dialog);
+                Vue.component('p-textarea', p_textarea);
+                Vue.component('p-togglebutton', p_togglebutton);
+                Vue.component('p-dropdown', p_dropdown);
+                Vue.component('p-chips', p_chips);
 
+                var vm = new Vue({
+                    el: '#webconsole-page',
+                    data: function () {
+                        return {
+                            menuModel: menuModelBuilder(),
+                            proves: [],
+                            provaSelected: null,
+                            verDlgGenerant: false,
+                            verDlgDelNormativa: false,
+                            verDlgPreviewImage: false,
+                            verDlgEditNormativa: false
+                        }
                     },
-                    publish: function() {
+                    mounted: function () {
+                        db = myjdb('<%=mountPoint%>', this);
+                        db.loadTable('proves');
+                    },
+                    methods: {
+                        persist: function () {
+                            var self = this;
+                            this.verDlgGenerant = true;
+                            db.persist().then(function (ok) {
+                                console.log(ok);
+                                self.verDlgGenerant = false;
+                                if (ok) {
+                                    self.$toast.add({ severity: 'success', summary: "S'han persistit els canvis a disc", life: 3000 });
+                                } else {
+                                    self.$toast.add({ severity: 'error', summary: "No s'han pogut persistir els canvis a disc" });
+                                }
+                            }, function (err) {
+                                console.log(err);
+                                self.verDlgGenerant = false;
+                                self.$toast.add({ severity: 'error', summary: "No s'han pogut persistir els canvis a disc" });
+                            });
+                        },
+                        publish: function () {
 
+                        },
+                        revert: function () {
+
+                        },
+                        addProva: function () {
+                            this.provaSelected = {
+                                imprimible: false,
+                                aval: "6è EP",
+                                nivell: "6eEP",
+                                tags: [
+                                    "6eEP", "2nESO", "4tESO",
+                                    "CMAT", "CCLE", "CCLC", "CCLA", "CIT"
+                                ],
+                                url: "documentos/proves/xxxx/xxxx.zip",
+                                url_title: "",
+                                img: "img/general/zip_img.png",
+                                title: "Prova de competència xxxx de l'avaluació diagnòstic zzzz del curs yyyy-yyyy [imprimible].",
+                                any: "2017-2018",
+                                documents: [],
+                                walkdir: "documentos/proves/xxxx/contents/"
+                            };
+
+                            this.verDlgEditNormativa = true;
+                        },
+                        esborrarNormativa: function () {
+                            if (!this.provaSelected) {
+                                return;
+                            }
+                            db.remove('proves', this.provaSelected.id);
+                            this.verDlgDelNormativa = false;
+                            this.provaSelected = null;
+                        },
+                        reorder: function (event) {
+                            if (window.reorderTimeout) {
+                                clearTimeout(window.reorderTimeout);
+                            }
+                            window.reorderTimeout = setTimeout(function () {
+                                db.sync('proves');
+                            }, 2000);
+                        },
+                        confirmEditPersonal: function () {
+                            var self = this;
+                            if (this.provaSelected == null) {
+                                return;
+                            }
+                            if (this.provaSelected.id) {
+                                // update
+                                db.update('proves', this.provaSelected.id, this.provaSelected);
+                            } else {
+                                // insert
+                                db.add(this.provaSelected, 'proves', '/', 0);
+                            }
+                            this.verDlgEditNormativa = false;
+                        }
                     }
-                }
+                });
+
             });
 
-        });
     </script>
 </body>
 
