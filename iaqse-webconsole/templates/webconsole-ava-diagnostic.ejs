@@ -1,62 +1,342 @@
 <!DOCTYPE html">
 <html lang="es">
+
 <head>
-    <meta title="webconsole-ava-diagnostic" />
+    <meta title="webconsole-ava-diagnòstic" />
     <%- include head.ejs %>
 </head>
+
 <body>
     <div id="webconsole-page">
 
         <%- include header.ejs %>
-
+ 
         <h1>AVALUACIONS DE DIAGNÒSTIC</h1>
-        
-        <div v-if="table.contents">
+       
+              
+                <br />
+ 
+                    <p-orderlist v-model="avaluacions_diagnostic" listStyle="height:auto" dataKey="id" @reorder="reorderAva" :selection.sync="avaluacioSelected">
+                        <template #header>
+                           
+                            <p-button label="Afegir avaluació" @click="addAva()" class="p-button-success" icon="pi pi-plus" style="vertical-align: middle;">
+                            </p-button>
+                            Llistat d'avaluacions
 
-            {{table.contents}}
+                        </template>
+                        <template #item="slotProps">
+                            <p-button icon="pi pi-pencil" class="p-button-success"
+                                @click="avaSelected=clone(slotProps.item);verDlgEditAva=true;"></p-button>
+                         
+                            <p-button class="p-button-danger" icon="pi pi-trash"
+                                @click="avaSelected=slotProps.item; verDlgDelAva=true" title="Esborrar">
+                            </p-button>
 
+                            <i class="pi pi-eye-slash" v-if="slotProps.item.hiden"></i>
+                            <i v-if="!slotProps.item.hiden" style="display: inline-block; width: 18px;"></i>
+                            {{slotProps.item.title}}
+                        </template>
+                    </p-orderlist>
 
-        </div>
+                    <br />
+                    <div v-if="avaluacioSelected && avaluacioSelected.length==1"> 
+                        <p-orderlist v-model="avaluacioSelected[0].documents" listStyle="height:auto" dataKey="id" @reorder="reorderDoc">
+                            <template #header>
+                                <p-button label="Afegir document" @click="addDoc()" class="p-button-success" icon="pi pi-plus"  style="vertical-align: middle;">
+                                </p-button>
+                                Documents en {{avaluacioSelected[0].title}}
+                            </template>
+                            <template #item="slotProps">
+                                <p-button icon="pi pi-pencil" class="p-button-success"
+                                    @click="docSelected=clone(slotProps.item);verDlgEditDoc=true;"></p-button>
+                             
+                                <p-button class="p-button-danger" icon="pi pi-trash"
+                                    @click="docSelected=slotProps.item; verDlgDelDoc=true" title="Esborrar">
+                                </p-button>
 
-        <%- include footer.ejs %>
+                                <img :src="'../'+ slotProps.item.img" style="width:60px; vertical-align: middle;" />
+                                <i class="pi pi-eye-slash" v-if="slotProps.item.hiden"></i>
+                                <i v-if="!slotProps.item.hiden" style="display: inline-block; width: 18px;"></i>
+                                {{slotProps.item.title}}
+                            </template>
 
+                        </p-orderlist>
+                    </div>
+         
+        <!------------------------------------   DIALOGS  ---------------------------------------------------------->
+    
+ 
+        <p-dialog header="Confirmar esborrar avaluacio" :visible.sync="verDlgDelAva" :modal="true">
+            <p>Segur que voleu esborrar aquesta avaluacio?</p>
+            <p-button label="No" icon="pi pi-times" class="p-button-secondary" @click="verDlgDelAva=false">
+            </p-button>
+            <p-button label="Sí" icon="pi pi-check" class="p-button-danger" @click="esborrarAva"></p-button>
+        </p-dialog>
+
+        <p-dialog header="Confirmar esborrar document" :visible.sync="verDlgDelDoc" :modal="true">
+            <p>Segur que voleu esborrar aquest document?</p>
+            <p-button label="No" icon="pi pi-times" class="p-button-secondary" @click="verDlgDelDoc=false">
+            </p-button>
+            <p-button label="Sí" icon="pi pi-check" class="p-button-danger" @click="esborrarDoc"></p-button>
+        </p-dialog>
+ 
+        <p-dialog header="Editar avaluacio" :visible.sync="verDlgEditAva" :modal="true" :maximizable="true">
+            <div v-if="avaSelected">
+                <br />
+
+                <table class="p-datatable" style="width: 98%;">
+                    <thead class="p-datatable-thead">
+                        <tr>
+                            <th style="width: 20%;">Propietat</th>
+                            <th style="width: 80%;">Valor</th>
+                        </tr>
+                    </thead>
+                    <tbody class="p-datatable-tbody">
+                        <tr>
+                            <td>Visibilitat</td>
+                            <td>   <p-togglebutton v-model="avaSelected.hiden" on-label="Amagat" off-label="Visible"
+                                on-icon="pi pi-eye-slash" off-icon="pi pi-eye"></p-togglebutton> </td>
+                        </tr>
+                        <tr>
+                            <td>Títol</td> 
+                            <td>
+                                <p-textarea v-model="avaSelected.title" style="width: 100%;"></p-textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Tag</td> 
+                            <td>
+                                <p-dropdown v-model="avaSelected.tag" :options="optionsTag" :editable="true"></p-dropdown>
+                            </td>
+                        </tr>
+                      
+                    </tbody>
+                </table>
+                <br />
+
+                <p-button icon="pi pi-times" class="p-button-secondary" @click="verDlgEditAva=false; avaSelected=null;"
+                    label="Cancel·lar"></p-button>
+                <p-button icon="pi pi-tick" class="p-button-primary" @click="confirmEditAva" label="Acceptar">
+                </p-button>
+            </div>
+        </p-dialog>
+
+        <p-dialog header="Editar document" :visible.sync="verDlgEditDoc" :modal="true" :maximizable="true">
+            <div v-if="docSelected">
+                <br />
+
+                <table class="p-datatable" style="width: 98%;">
+                    <thead class="p-datatable-thead">
+                        <tr>
+                            <th style="width: 20%;">Propietat</th>
+                            <th style="width: 80%;">Valor</th>
+                        </tr>
+                    </thead>
+                    <tbody class="p-datatable-tbody">
+                        <tr>
+                            <td>Visibilitat</td>
+                            <td>   <p-togglebutton v-model="docSelected.hiden" on-label="Amagat" off-label="Visible"
+                                on-icon="pi pi-eye-slash" off-icon="pi pi-eye"></p-togglebutton> </td>
+                        </tr>
+                        <tr>
+                            <td>Títol</td> 
+                            <td>
+                                <p-textarea v-model="docSelected.title" style="width: 100%;"></p-textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Descripció</td> 
+                            <td>
+                                <p-textarea v-model="docSelected.description" style="width: 100%;"></p-textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Url</td> 
+                            <td>
+                                <p-inputtext v-model="docSelected.url" style="width: 100%;"></p-inputtext>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Imatge</td> 
+                            <td>
+                                <p-inputtext v-model="docSelected.img" style="width: 100%;"></p-inputtext>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <br />
+
+                <p-button icon="pi pi-times" class="p-button-secondary" @click="verDlgEditDoc=false; docSelected=null;"
+                    label="Cancel·lar"></p-button>
+                <p-button icon="pi pi-tick" class="p-button-primary" @click="confirmEditDoc" label="Acceptar">
+                </p-button>
+            </div>
+        </p-dialog>
+ 
+        <p-dialog header="Previsualització imatge" :visible.sync="verDlgPreviewImage" :modal="true">
+            <img v-if="avaSelected" :src="'../' + avaSelected.img" style="max-width: 600px;" />
+            <br />
+            <p-button label="Tancar" icon="pi pi-times" class="p-button-secondary" @click="verDlgPreviewImage=false">
+            </p-button>
+        </p-dialog>
+
+        <p-dialog header="Espereu" :visible.sync="verDlgGenerant" :modal="true">
+            <p>
+                <i class="pi pi-spin pi-spinner" style="font-size: 2rem; vertical-align: middle;"></i>
+                Generant el site... Espereu si us plau.
+            </p>
+        </p-dialog>
+   
     </div>
+    <%- include footer.ejs %>
 
     <script>
-        requirejs([], function () {
+        requirejs(['p_orderlist', 'p_dialog', 'p_textarea', 'p_togglebutton', 'p_dropdown', 'p_tabview', 'p_tabpanel'],
+            function (p_orderlist, p_dialog, p_textarea, p_togglebutton, p_dropdown, p_tabview, p_tabpanel) {
 
-            var tableName = "avaluacions_diagnostic";
-            var vm = new Vue({
-                el: '#webconsole-page',
-                data: function () {
-                    return {
-                        menuModel: menuModelBuilder(),
-                        table: {}
-                    }
-                },
-                mounted: function () {
-                    var self = this;
-                    axios.post("/<%=mountPoint%>/api/gettable", { tableName: tableName }).then(function (res) {
-                        // comprova que tots els elements tenen una id
-                        check_ids(res.data.contents);
-                        self.table = res.data;
-                    }, function (err) {
-                        self.table = {};
-                        self.$toast.add({ severity: 'error', summary: "No s'ha pogut carregar la taula " + tableName, life: 3000 });
-                        console.log(err);
-                    });
-                },
-                methods: {
-                    saveChanges: function(){
+                Vue.component('p-tabview', p_tabview);
+                Vue.component('p-tabpanel', p_tabpanel);
+                Vue.component('p-orderlist', p_orderlist);
+                Vue.component('p-dialog', p_dialog);
+                Vue.component('p-textarea', p_textarea);
+                Vue.component('p-togglebutton', p_togglebutton);
+                Vue.component('p-dropdown', p_dropdown);
 
+                var vm = new Vue({
+                    el: '#webconsole-page',
+                    data: function () {
+                        return { 
+                            menuModel: menuModelBuilder(),
+                            avaluacions_diagnostic: [],
+                            avaSelected: null,
+                            docSelected: null,
+                            avaluacioSelected: null,
+                            verDlgGenerant: false,
+                            verDlgDelAva: false,
+                            verDlgDelDoc: false,
+                            verDlgPreviewImage: false, 
+                            verDlgEditAva: false,
+                            verDlgEditDoc: false,
+                            optionsTag: [
+                                'ESO',
+                                'EP'
+                            ]
+                        }
                     },
-                    publish: function() {
+                    mounted: function () {
+                        db = myjdb('<%=mountPoint%>', this); 
+                        db.loadTable('avaluacions_diagnostic'); 
+                    },
+                    methods: {
+                        persist: function () {
+                            var self = this;
+                            this.verDlgGenerant = true;
+                            db.persist().then(function(ok){
+                                console.log(ok);
+                                self.verDlgGenerant = false;
+                                if(ok) {
+                                     self.$toast.add({ severity: 'success', summary: "S'han persistit els canvis a disc", life: 3000 });
+                                } else {
+                                    self.$toast.add({ severity: 'error', summary: "No s'han pogut persistir els canvis a disc"});
+                                }
+                            }, function(err) {
+                                console.log(err);
+                                self.verDlgGenerant = false;
+                                self.$toast.add({ severity: 'error', summary: "No s'han pogut persistir els canvis a disc"});
+                            }); 
+                        },
+                        publish: function () {
 
+                        },
+                        revert: function() {
+
+                        },
+                        addAva: function () {
+                            this.avaSelected = {
+                                title: "Avaluació de ...",
+                                tag: "ESO", 
+                                documents: [] 
+                            };  
+                            this.verDlgEditAva = true;
+                        },
+                        addDoc: function(){
+                            this.docSelected = {
+                                title: "xxx",
+                                url: "../documentos/avaluacions/diagnostic/xxx/xxx.pdf",
+                                img: "../img/avaluacions/diagnostic/xxx/xxxx.jpg",
+                                description: "xxxx"
+                            };  
+                            this.verDlgEditDoc = true;
+                        },
+                        esborrarAva: function () {
+                            if (!this.avaSelected) {
+                                return;
+                            } 
+                            db.remove('avaluacions_diagnostic', this.avaSelected.id);
+                            this.verDlgDelAva = false;
+                            this.avaSelected = null;
+                        },
+                        esborrarDoc: function() {
+                            if (!this.avaluacioSelected || this.avaluacioSelected.length!=1 || !this.docSelected) {
+                                return;
+                            } 
+                            db.remove('avaluacions_diagnostic', this.avaluacioSelected[0].id+":documents/"+this.docSelected.id);
+                            this.verDlgDelDoc = false;
+                            this.docSelected = null;
+                        },
+                        reorderAva: function(event) {
+                            if(window.reorderTimeout) {
+                               clearTimeout(window.reorderTimeout);
+                            } 
+                            window.reorderTimeout = setTimeout(function() {
+                                db.sync('avaluacions_diagnostic');
+                            }, 2000);
+                        },
+                        reorderDoc: function(event) {
+                            if(window.reorderTimeout) {
+                               clearTimeout(window.reorderTimeout);
+                            } 
+                            window.reorderTimeout = setTimeout(function() {
+                                db.sync('avaluacions_diagnostic');
+                            }, 2000);
+                        },
+                        confirmEditAva: function () {
+                            var self = this;
+                            if(!this.avaSelected) {
+                                this.verDlgEditAva = false;
+                                return;
+                            }
+                            if(this.avaSelected.id) {
+                                // update
+                                db.update('avaluacions_diagnostic', this.avaSelected.id, this.avaSelected);
+                            } else {
+                                // insert
+                                db.add(this.avaSelected, 'avaluacions_diagnostic', '/', 0, function(){
+                                    self.avaluacioSelected = [self.avaluacions_diagnostic[0]]; 
+                                });
+                            }
+                            this.verDlgEditAva = false;
+                        },
+                        confirmEditDoc: function () {
+                            var self = this;
+                            if(!this.avaluacioSelected || this.avaluacioSelected.length!=1 || !this.docSelected) {
+                                this.verDlgEditDoc = false;
+                                return;
+                            }
+                            if(this.docSelected.id) {
+                                // update
+                                db.update('avaluacions_diagnostic', this.avaluacioSelected[0].id+":documents/"+this.docSelected.id, this.docSelected);
+                            } else {
+                                // insert
+                                db.add(this.docSelected, 'avaluacions_diagnostic', this.avaluacioSelected[0].id+":documents", 0);
+                            }
+                            this.verDlgEditDoc = false;
+                        }
                     }
-                }
+                });
+
             });
 
-        });
     </script>
 </body>
 
