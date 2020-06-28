@@ -129,11 +129,24 @@
          });
         
         httpService.loadSchema("avaluacions_internacionals").then(function(response){
-            window.avaJSON = response.data;
-            for (var i = 0, len = avaJSON.length; i < len; i++) {
-                var item = avaJSON[i];
-                if(!item.id) {
-                    item.id = "internacional"+i;
+             // Elimina tots els objectes que estan ocults
+             window.avaJSON = [];
+            var len = response.data.length;
+            for (var i = 0; i < len; i++) {
+                var item = response.data[i];
+                if(!item.hiden) { 
+                    if(!item.id) {
+                        item.id = "internacional"+i;
+                    }
+                    var nn = (item.documents || []).length;
+                    var docs = [];
+                    for(var j=0; j < nn; j++) {
+                        if(!item.documents[j].hiden) {
+                            docs.push(item.documents[j]);
+                        }
+                    }
+                    item.documents = docs;
+                    window.avaJSON.push(item);
                 }
             }
             $scope.search();
