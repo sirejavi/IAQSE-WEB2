@@ -1,5 +1,5 @@
 <div class="container-fluid">
-        <% chunk(normativa, 2).forEach( chk => { %>
+        <% chunk(normativa.filter(e=>!e.hiden), 2).forEach( chk => { %>
         <div class="row">
             <% chk.forEach( norm => { %>   
             <div class="list-group-item list-group-item-hover col-md-6">           

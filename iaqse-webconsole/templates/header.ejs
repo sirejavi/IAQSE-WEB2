@@ -5,15 +5,16 @@
    
         <a href="/<%=routes.baseurl%>/index.html" target="_blank" style="margin-right:10px"> Obrir el site local</a>
     
-        <p-button label="Desar canvis" @click="saveChanges" class="p-button-primary"></p-button>
-        <p-button label="Publicar" @click="publish" class="p-button-success"></p-button>
+        <p-button label="Revertir" @click="revert" class="p-button-secondary" title="Reverteix l'estat de la darrera persistència"></p-button>
+        <p-button label="Persistir" @click="persist" class="p-button-primary" title="Persisteix canvis a disc i genera la web"></p-button>
+        <p-button label="Publicar" @click="publish" class="p-button-success" title="Genera el site per publicar i el copia al destí seleccionat"></p-button>
 </div>
 <h1 style="margin-left:10px">Consola d'administració de la WEB IAQSE</h1>
 
 <p-menubar :model="menuModel"></p-menubar>
 </nav>
 
-<br/>
+<br/> 
 
 
-<p-toast id="toast" position="bottomleft"></p-toast>
+<p-toast id="toast" position="bottomright"></p-toast>

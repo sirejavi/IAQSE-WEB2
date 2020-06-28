@@ -24,7 +24,7 @@ module.exports = function(app, mountPoint) {
 
     app.post('/'+mountPoint+'/api/settable', function(req, res) {
 
-        const tableName = req.body.tableNamne; 
+        const table = req.body.table; 
         const result = myjdb.setTable(table);
 
         res.send({result: result});
@@ -87,11 +87,31 @@ module.exports = function(app, mountPoint) {
     app.post('/'+mountPoint+'/api/persist', function(req, res) {
         // Pot contenir opcionalment una taula per actualitzar primer
         let result = true;
+        let msgs = [];
         if(req.body.table) {
-            result = myjdb.setTable(req.body.table);
+            if(Array.isArray(req.body.table)) {
+                req.body.table.forEach((aTable)=> {
+                    const r = myjdb.setTable(aTable);
+                    if(!r) {
+                        msgs.push("Cannot settable ", aTable.name);
+                    }
+                    result = result && r;
+                })
+            } else {
+                const aTable = req.body.table;
+                const r = myjdb.setTable(aTable);
+                if(!r) {
+                    msgs.push("Cannot settable ", aTable.name);
+                }
+                result = result && r;
+            }
         }
         // Ara desa a disc totes les taules que han estat settable!
-        result =  result && myjdb.persist();
+        const r = myjdb.persist();
+        if(!r) {
+            msgs.push("Cannot persist to disc");
+        }
+        result = result && r;
 
         // Torna a generar el site (en local)
         
@@ -106,7 +126,7 @@ module.exports = function(app, mountPoint) {
             sharedSocket.broadcast.emit('reload-event', {event: 'reload'});
         }
 
-        res.send({result: result, msg: ''});
+        res.send({result: result, msg: msgs.join(". ")});
     });
 
 

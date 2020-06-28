@@ -1,6 +1,6 @@
  
 <div class="row" style="text-align: center;">
-    <% personal.forEach( (person) => { %>
+    <% personal.filter(e=>!e.hiden).forEach( (person) => { %>
     <div class="div_bloque_persona">
         <div class="div_img_persona">
             <img class="img_persona" src="../<%=person.img%>" title="<%=person.nom%>">

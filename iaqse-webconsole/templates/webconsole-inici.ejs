@@ -22,7 +22,7 @@
 
                 <br />
  
-                    <p-orderlist v-model="inici_carousel" listStyle="height:auto" dataKey="id">
+                    <p-orderlist v-model="inici_carousel" listStyle="height:auto" dataKey="id" @reorder="carouselReorder">
                         <template #header>
                             Pantalles del carousel
                         </template>
@@ -55,6 +55,9 @@
 
                 <br />
 
+                <div class="pa-info">
+                    <p>Aquestes són notícies MANUALS que s'ordenaran automàticament per data de publicació. A més s'afegiran automàticament les darreres publicacions trobades.</p>
+                </div>
               
                     <table class="p-datatable" style="width:98%; table-layout: fixed;">
                         <thead class="p-datatable-thead">
@@ -74,7 +77,7 @@
                                     {{actual.title}}
                                 </td>
                                 <td>
-                                    {{actual.icon}}
+                                   <i :class="actual.icon" v-if="actual.icon"></i> {{actual.icon}}
                                 </td>
                                 <td>
                                     {{actual.class}}
@@ -93,9 +96,8 @@
                                         @click="verDlgDelDestacat=true;destacatSeleccionat=actual" icon="pi pi-trash">
                                     </p-button>
                                     <p-button class="p-button-primary" icon="pi pi-pencil"
-                                        @click="verDlgEditDestacat=true;destacatSeleccionat=actual"></p-button>
-                                    <p-togglebutton v-model="actual.hiden" on-label="Amagat" off-label="Visible"
-                                        on-icon="pi pi-eye-slash" off-icon="pi pi-eye"></p-togglebutton>
+                                        @click="verDlgEditDestacat=true;destacatSeleccionat=clone(actual);"></p-button>
+                                
                                 </td>
                             </tr>
                         </tbody>
@@ -104,6 +106,8 @@
             </p-tabpanel>
     
         </p-tabview>
+
+        <!------------------------------------   DIALOGS  ---------------------------------------------------------->
     
  
         <p-dialog header="Confirmar esborrar carousel" :visible.sync="verDlgDelCarousel" :modal="true">
@@ -120,7 +124,7 @@
             <p-button label="Sí" icon="pi pi-check" class="p-button-danger" @click="esborrarDestacat"></p-button>
         </p-dialog>
 
-        <p-dialog header="Editar carousel" :visible.sync="verDlgEditCarousel" :modal="true">
+        <p-dialog header="Editar carousel" :visible.sync="verDlgEditCarousel" :modal="true" :maximizable="true">
             <div v-if="pantallaCarousel">
                 <br />
 
@@ -138,7 +142,7 @@
                                 on-icon="pi pi-eye-slash" off-icon="pi pi-eye"></p-togglebutton> </td>
                         </tr>
                         <tr>
-                            <td>Titol</td>
+                            <td>Titol</td> 
                             <td>
                                 <p-inputtext v-model="pantallaCarousel.title" style="width: 100%;"></p-inputtext>
                             </td>
@@ -182,11 +186,19 @@
             </div>
         </p-dialog>
 
-        <p-dialog header="Editar destacat" :visible.sync="verDlgEditDestacat" :modal="true">
+        <p-dialog header="Editar destacat" :visible.sync="verDlgEditDestacat" :modal="true" :maximizable="true">
             <div v-if="destacatSeleccionat">
 
                 <table class="p-table">
                     <tbody class="p-table-tbody">
+                       
+                        <tr>
+                            <td>Visibilitat</td>
+                            <td>
+                                <p-togglebutton v-model="destacatSeleccionat.hiden" on-label="Amagat" off-label="Visible"
+                                on-icon="pi pi-eye-slash" off-icon="pi pi-eye"></p-togglebutton>
+                            </td>
+                        </tr>
                         <tr>
                             <td>Títol</td>
                             <td>
@@ -196,7 +208,7 @@
                         <tr>
                             <td>Icona</td>
                             <td>
-                                <p-inputtext v-model="destacatSeleccionat.icon" style="width:400px"></p-inputtext>
+                                <p-dropdown v-model="destacatSeleccionat.icon" :options="opcionsIcona" style="width:400px" :editable="true"></p-dropdown>
                             </td>
                         </tr>
                         <tr>
@@ -208,7 +220,7 @@
                         <tr>
                             <td>Class</td>
                             <td>
-                                <p-inputtext v-model="destacatSeleccionat.class" style="width:400px"></p-inputtext>
+                                <p-dropdown v-model="destacatSeleccionat.class" :options="opcionsClass" style="width:400px" :editable="true"></p-dropdown>
                             </td>
                         </tr>
                         <tr>
@@ -220,7 +232,7 @@
                         <tr>
                             <td>Url target</td>
                             <td>
-                                <p-inputtext v-model="destacatSeleccionat.target" style="width:400px"></p-inputtext>
+                                <p-dropdown v-model="destacatSeleccionat.target" :options="opcionsTarget" style="width:400px"></p-dropdown>
                             </td>
                         </tr>
                         <tr>
@@ -233,7 +245,9 @@
                 </table>
 
             </div>
-            <p-button label="Tancar" icon="pi pi-times" class="p-button-secondary" @click="verDlgEditDestacat=false">
+            <p-button label="Cancel·lar" icon="pi pi-times" class="p-button-secondary" @click="destacatSeleccionat=null; verDlgEditDestacat=false">
+            </p-button>
+            <p-button label="Acceptar" icon="pi pi-tick" class="p-button-primary" @click="confirmEditDestacat">
             </p-button>
         </p-dialog>
 
@@ -283,54 +297,48 @@
                             destacatSeleccionat: null,
                             opcionsTarget: [
                                 "", "_self", "_blank"
+                            ],
+                            opcionsIcona: [
+                                'fa fa-print',
+                                'fa fa-home',
+                                'fa fa-bookmark',
+                                'fa fa-chart',
+                                'fa fa-book',
+                                'fa fa-comments',
+                                'fa fa-file-pdf-o'
+                            ],
+                            opcionsClass: [
+                                'bg-warning'
                             ]
                         }
                     },
                     mounted: function () {
-                        db = myjdb('<%=mountPoint%>', this);
-                        console.log(db);
+                        db = myjdb('<%=mountPoint%>', this); 
                         db.loadTable('inici_carousel');
                         db.loadTable('inici_destacats');
                     },
                     methods: {
-                        syncChanges: function () {
+                        persist: function () {
                             var self = this;
                             this.verDlgGenerant = true;
-                            var tableNames = ['inici_carousel', 'inici_destacats'];
-                            for (var i = 0; i < tableNames.length; i++) {
-                                axios.post("/<%=mountPoint%>/api/settable", { table: self[table[i]] }).then(function (res) {
-                                    self.verDlgGenerant = false;
-                                    if (res.data && res.data.result) {
-                                    } else {
-                                        self.$toast.add({ severity: 'error', summary: "No s'han pogut sincronitzar els canvis", life: 3000 });
-                                    }
-                                }, function (err) {
-                                    self.verDlgGenerant = false;
-                                    console.log(err);
-                                    self.$toast.add({ severity: 'error', summary: "No s'han pogut desar els canvis", life: 3000 });
-                                });
-                            }
-                        },
-                        saveChanges: function () {
-                            var self = this;
-                            this.verDlgGenerant = true;
-                            var tableNames = ['inici_carousel', 'inici_destacats'];
-                            for (var i = 0; i < tableNames.length; i++) {
-                                axios.post("/<%=mountPoint%>/api/persist", { table: self[tableNames[i]] }).then(function (res) {
-                                    self.verDlgGenerant = false;
-                                    if (res.data && res.data.result) {
-                                        self.$toast.add({ severity: 'success', summary: "S'han desat els canvis", life: 3000 });
-                                    } else {
-                                        self.$toast.add({ severity: 'error', summary: "No s'han pogut desar els canvis", life: 3000 });
-                                    }
-                                }, function (err) {
-                                    console.log(err);
-                                    self.verDlgGenerant = false;
-                                    self.$toast.add({ severity: 'error', summary: "No s'han pogut desar els canvis", life: 3000 });
-                                });
-                            }
+                            db.persist().then(function(ok){
+                                console.log(ok);
+                                self.verDlgGenerant = false;
+                                if(ok) {
+                                     self.$toast.add({ severity: 'success', summary: "S'han persistit els canvis a disc", life: 3000 });
+                                } else {
+                                    self.$toast.add({ severity: 'error', summary: "No s'han pogut persistir els canvis a disc"});
+                                }
+                            }, function(err) {
+                                console.log(err);
+                                self.verDlgGenerant = false;
+                                self.$toast.add({ severity: 'error', summary: "No s'han pogut persistir els canvis a disc"});
+                            }); 
                         },
                         publish: function () {
+
+                        },
+                        revert: function() {
 
                         },
                         addPantallaCarousel: function () {
@@ -351,6 +359,14 @@
                             this.verDlgDelCarousel = false;
                             this.pantallaCarousel = null;
                         },
+                        carouselReorder: function(event) {
+                            if(window.reorderTimeout) {
+                               clearTimeout(window.reorderTimeout);
+                            } 
+                            window.reorderTimeout = setTimeout(function() {
+                                db.sync('inici_carousel');
+                            }, 2000);
+                        },
                         getRealUrl: function (url) {
                             if (url && url.indexOf("http") < 0) {
                                 url = "/cat/" + url;
@@ -359,8 +375,7 @@
                         },
                         addDestacat: function () {
                             var today = new Date();
-                            var nouDestacat = {
-                                id: uuidv4(),
+                            this.destacatSeleccionat = { 
                                 title: 'Nou destacat',
                                 icon: 'fa fa-print',
                                 class: null,
@@ -368,9 +383,12 @@
                                 target: '_self',
                                 pubdate: formatDate(today)
                             };
-                            db.add(nouDestacat, 'inici_destacats', '/', 0);
+                            this.verDlgEditDestacat = true;
                         },
                         esborrarDestacat: function () {
+                            if(!this.destacatSeleccionat) {
+                                return;
+                            }
                             db.remove('inici_destacats', this.destacatSeleccionat.id);
                             this.verDlgDelDestacat = false;
                         },
@@ -387,6 +405,20 @@
                                 db.add(this.pantallaCarousel, 'inici_carousel', '/');
                             }
                             this.verDlgEditCarousel = false;
+                        },
+                        confirmEditDestacat: function() {
+                            var self = this;
+                            if(this.destacatSeleccionat == null) {
+                                return;
+                            }
+                            if(this.destacatSeleccionat.id) {
+                                // update
+                                db.update('inici_destacats', this.destacatSeleccionat.id, this.destacatSeleccionat);
+                            } else {
+                                // insert
+                                db.add(this.destacatSeleccionat, 'inici_destacats', '/', 0);
+                            }
+                            this.verDlgEditDestacat = false;
                         }
                     }
                 });

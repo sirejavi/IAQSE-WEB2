@@ -61,22 +61,23 @@ const init = function() {
 
 const persist = function() {
     // persisteix les taules modificades a disc 
-    let changes = false;
+    let changes = true;
     Object.keys(inMemoryDB).forEach( (tableName)=> {
-
-        const table = inMemoryDB[tableName];
-        if(table.modified) {
-            let outputFile = "./";
-            if(tableName.indexOf("/") < 0) {
-                outputFile += "database/";
+        try {
+            const table = inMemoryDB[tableName];
+            if(table && table.modified) {
+                let outputFile = "./";
+                if(tableName.indexOf("/") < 0) {
+                    outputFile += "database/";
+                }
+                outputFile += tableName + ".json";
+                const content = JSON.stringify(table.contents, null, 2); 
+                fs.writeFileSync(outputFile, content, {encoding: 'utf8'});
+                table.modified = false;
             }
-            outputFile += tableName + ".json";
-            const content = JSON.stringify(table.contents, null, 2); 
-            fs.writeFileSync(outputFile, content, {encoding: 'utf8'});
-            changes = true;
-            table.modified = false;
-        }
-
+        } catch(ex) {
+            changes = false;
+        } 
     });
     return changes;
 };
@@ -189,7 +190,7 @@ const add = function(objToInsert, tableName, idPathContainer, insertPosition) {
     const workingTable = inMemoryDB[tableName];
     let generatedId = null;
     if(!workingTable) {
-        return success;
+        return null;
     }
     try {
         const foundObj = select(tableName, idPathContainer);

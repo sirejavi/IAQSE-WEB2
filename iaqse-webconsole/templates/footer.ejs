@@ -28,10 +28,8 @@
     Vue.component('p-menubar', menubar);
 
     function menuActionHandler(event) {
-        console.log("Click on menu item ", event); 
-        console.log("this és: ", this);
         //carrega la nova pàgina
-        //location.href = event.item._href;
+        location.href = event.item._href;
     }
 
     function clone(obj) {

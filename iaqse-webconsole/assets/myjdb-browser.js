@@ -1,4 +1,4 @@
-window.myjdb = function(mountPoint, self) {
+ window.myjdb = function(mountPoint, self) {
     var inMemoryDB = {};
 
     // Carrega tota la db en memoria
@@ -18,7 +18,7 @@ window.myjdb = function(mountPoint, self) {
             self.$toast.add({ severity: 'info', summary: "S'ha carregat la taula " + tableName, life: 3000 });
         }, function (err) {
             self.inici_carousel = {};
-            self.$toast.add({ severity: 'error', summary: "No s'ha pogut carregar la taula " + tableName, life: 3000 });
+            self.$toast.add({ severity: 'error', summary: "No s'ha pogut carregar la taula " + tableName});
             onError && onError();
         });  
     };
@@ -35,15 +35,29 @@ window.myjdb = function(mountPoint, self) {
         return null;
     };
 
-    // replaces the entire table
-    var setTable = function(table) { 
-        table.modified = true;
-        var existeix = false;
-        if(inMemoryDB[table.name]) {
-            existeix = true;
-        }
-        inMemoryDB[table.name] = table;
-        return existeix;
+    // synchronizes the entire table with server
+    var sync = function(tableName, onSuccess, onError) { 
+        var table = {
+            name: tableName,
+            modified: true,
+            contents: self[tableName]
+        };
+        if(!table) {
+            onError && onError('Table does not exist');
+        } 
+        axios.post("/"+mountPoint+"/api/settable", {table: table}).then(function(res) {
+            if(res.data.result) {
+                self.$toast.add({ severity: 'info', summary: "S'ha sincronitzat " + tableName, life: 3000 });
+                onSuccess && onSuccess();
+            } else {
+                self.$toast.add({ severity: 'error', summary: "No s'ha pogut sincronitzar " + tableName });
+                onError && onError();
+            }
+        }, function(err) {
+            console.log(err);
+            self.$toast.add({ severity: 'error', summary: "No s'ha pogut sincronitzar " + tableName });
+            onError && onError();
+        });
     };
 
     // id ='98234jn-skdjfhd9-3323-ff44'
@@ -105,7 +119,7 @@ window.myjdb = function(mountPoint, self) {
     }
 
     var remove = function(tableName, idPath, onSuccess, onError) {
-        var workingTable = inMemoryDB[tableName];
+        var workingTable = interface[tableName];
         
         if(!workingTable) {
             onError && onError();
@@ -130,11 +144,11 @@ window.myjdb = function(mountPoint, self) {
                     self.$toast.add({ severity: 'info', summary: "S'ha esborrat id="+idPath + " de " + tableName, life: 3000 });
                     onSuccess && onSuccess();
                 } else {
-                    self.$toast.add({ severity: 'error', summary: "Error esborrat id="+idPath + " de " + tableName, life: 3000 });
+                    self.$toast.add({ severity: 'error', summary: "Error esborrat id="+idPath + " de " + tableName});
                     onError && onError();
                 }
             } else {
-                self.$toast.add({ severity: 'error', summary: "Error esborrat id="+idPath + " de " + tableName, life: 3000 });
+                self.$toast.add({ severity: 'error', summary: "Error esborrat id="+idPath + " de " + tableName });
                 onError && onError();
             }
 
@@ -152,7 +166,7 @@ window.myjdb = function(mountPoint, self) {
      */
     var add = function(objToInsert, tableName, idPathContainer, insertPosition, onSuccess, onError) {
         idPathContainer = idPathContainer || "/";
-        var workingTable = inMemoryDB[tableName];
+        var workingTable = interface[tableName];
        
         if(!workingTable) {
             onError && onError();
@@ -178,17 +192,17 @@ window.myjdb = function(mountPoint, self) {
                         } 
                     } catch(ex){ 
                         console.log(ex);
-                        self.$toast.add({ severity: 'error', summary: "No s'ha pogut inserir l'objecte a " + tableName, life: 3000 });
+                        self.$toast.add({ severity: 'error', summary: "No s'ha pogut inserir l'objecte a " + tableName});
                         onError && onError();
                     }
                 } else{
-                    self.$toast.add({ severity: 'error', summary: "No s'ha pogut inserir l'objecte a " + tableName, life: 3000 });
+                    self.$toast.add({ severity: 'error', summary: "No s'ha pogut inserir l'objecte a " + tableName});
                     onError && onError();
                 }
             },
             function(err) {
                 console.log(err);
-                self.$toast.add({ severity: 'error', summary: "No s'ha pogut inserir l'objecte a " + tableName, life: 3000 });
+                self.$toast.add({ severity: 'error', summary: "No s'ha pogut inserir l'objecte a " + tableName});
                 onError && onError();
             });
        
@@ -197,7 +211,7 @@ window.myjdb = function(mountPoint, self) {
     };
 
     var update = function(tableName, idPath, newObj, onSuccess, onError) {
-        var workingTable = inMemoryDB[tableName]; 
+        var workingTable = interface[tableName]; 
         if(!workingTable) {
             onError && onError();
         }
@@ -205,7 +219,7 @@ window.myjdb = function(mountPoint, self) {
         .then(function (res) {
             var success = res.data.result;
             if(success) {
-                try {
+                try { 
                     var foundObj = select(tableName, idPath);
                     if(foundObj) {
                         var parent = foundObj.parent;
@@ -227,15 +241,15 @@ window.myjdb = function(mountPoint, self) {
                     self.$toast.add({ severity: 'success', summary: "S'ha modificat l'objecte " + idPath + " de " + tableName, life: 3000 });
                 } else{
                     onError && onError();
-                    self.$toast.add({ severity: 'error', summary: "No s'ha pogut modificat l'objecte "+idPath+" de " + tableName, life: 3000 });
+                    self.$toast.add({ severity: 'error', summary: "No s'ha pogut modificat l'objecte "+idPath+" de " + tableName });
                 }
             } else {
                 onError && onError();
-                self.$toast.add({ severity: 'error', summary: "No s'ha pogut modificat l'objecte "+idPath+" de " + tableName, life: 3000 });
+                self.$toast.add({ severity: 'error', summary: "No s'ha pogut modificat l'objecte "+idPath+" de " + tableName});
             }
         },
         function(err) {
-            self.$toast.add({ severity: 'error', summary: "No s'ha pogut modificat l'objecte "+idPath+" de " + tableName, life: 3000 });
+            self.$toast.add({ severity: 'error', summary: "No s'ha pogut modificat l'objecte "+idPath+" de " + tableName});
             onError && onError();
         });
 
@@ -243,7 +257,7 @@ window.myjdb = function(mountPoint, self) {
     };
 
     var reorder = function(tableName, idPath, newPosition) {
-        var workingTable = inMemoryDB[tableName];
+        var workingTable = interface[tableName];
         var success = false;
         if(!workingTable) {
             return success;
@@ -284,12 +298,37 @@ window.myjdb = function(mountPoint, self) {
         }
         return out;
     };
+ 
+    var persist = function() {
+        var tablesNames = Object.keys(inMemoryDB);
+        var nn = tablesNames.length;
+        // In the first place sync all tables modified locally
+        var modifiedTables = [];
+        for(var i=0; i < nn; i++) {
+            var table = inMemoryDB[tablesNames[i]];
+            if(table.modified) {
+                modifiedTables.push(table); 
+            }
+        } 
+        return axios.post("/"+mountPoint+"/api/persist", {table: modifiedTables}).then(function(res){ 
+            if(res.data.result) {
+                for(var i=0; i < nn; i++) {
+                    var table = inMemoryDB[tablesNames[i]];
+                    table.modified = false;
+                }  
+            }  
+            return res.data.result
+        }, function(err){
+            return err;
+        });
+    };
 
     init();
 
     // exports
     interface.init = init;
     interface.loadTable =  loadTable;
+    interface.sync = sync;
     interface.getTable =  getTable;
     interface.getContents =  getContents; 
     interface.remove = remove;
@@ -299,6 +338,7 @@ window.myjdb = function(mountPoint, self) {
     interface.reorder = reorder;
     interface.getModified = getModified;
     interface.showTables = showTables;
+    interface.persist = persist;
      
     return interface;
 };

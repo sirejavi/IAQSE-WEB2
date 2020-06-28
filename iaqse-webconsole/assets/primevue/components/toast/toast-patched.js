@@ -23,6 +23,6 @@ var ptoast = {
     },
     
     template: `
-    		<ts-toast ref='toast_message'></ts-toast>
+    		<ts-toast ref='toast_message' position='bottomright'></ts-toast>
     	`
 };
