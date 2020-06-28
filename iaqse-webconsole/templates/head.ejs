@@ -3,6 +3,7 @@
 <link href="/<%=mountPoint%>/assets/primevue/resources/themes/nova/theme.css" rel="stylesheet">
 <link href="/<%=mountPoint%>/assets/primeicons/primeicons.css" rel="stylesheet"> 
 <link href="/<%=mountPoint%>/assets/fontawesome/css/all.min.css" rel="stylesheet">
+<link href="/<%=mountPoint%>/assets/bootstrap.min.css" rel="stylesheet">
 
 <style>
     body {
@@ -17,7 +18,7 @@
         right:0;
         height: 100px;
         background-color: lightblue;
-        z-index: 1000;
+        z-index: 800;
     }
     footer {
         position: fixed;
@@ -43,5 +44,14 @@
         border: 1px solid gray;
         width: 90%;
         margin: 10px auto;
+    }
+    .p-dialog {
+        min-width: 700px!important;
+    }
+    h1 {
+        font-size: 1.75rem;
+    }
+    #webconsole-page {
+        padding: 15px;
     }
 </style>

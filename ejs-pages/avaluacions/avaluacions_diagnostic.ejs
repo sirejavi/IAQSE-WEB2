@@ -129,7 +129,8 @@
                     
                 for (var i = 0, len = avaJSON.length; i < len; i++) {
                     var item = avaJSON[i];
-                    if (!$scope.selectedNivell.value || item.title.indexOf($scope.selectedNivell.value) >= 0) {
+                    if (!$scope.selectedNivell.value || item.title.indexOf($scope.selectedNivell.value) >= 0 ||
+                        (item.tag || "").indexOf($scope.selectedNivell.value) >= 0) {
                         item.chunks = chunker(item.documents, 2);
                         list.push(item);
                     }

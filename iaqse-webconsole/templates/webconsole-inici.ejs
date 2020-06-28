@@ -80,7 +80,7 @@
                                    <i :class="actual.icon" v-if="actual.icon"></i> {{actual.icon}}
                                 </td>
                                 <td>
-                                    {{actual.class}}
+                                   <div :class="actual.class"> {{actual.class}}</div>
                                 </td>
                                 <td>
                                     <span style="word-wrap: break-word;"> {{actual.url}}</span>
@@ -136,6 +136,9 @@
                         </tr>
                     </thead>
                     <tbody class="p-datatable-tbody">
+                        <tr v-if="pantallaCarousel.id">
+                            <td colspan="2"><span style="color:gray"><i class="pi pi-key"></i> {{pantallaCarousel.id}}</span></td> 
+                        </tr>
                         <tr>
                             <td>Visibilitat</td>
                             <td>   <p-togglebutton v-model="pantallaCarousel.hiden" on-label="Amagat" off-label="Visible"
@@ -191,7 +194,9 @@
 
                 <table class="p-table">
                     <tbody class="p-table-tbody">
-                       
+                        <tr v-if="destacatSeleccionat.id">
+                            <td colspan="2"><span style="color:gray"><i class="pi pi-key"></i> {{destacatSeleccionat.id}}</span></td> 
+                        </tr>
                         <tr>
                             <td>Visibilitat</td>
                             <td>
@@ -208,7 +213,7 @@
                         <tr>
                             <td>Icona</td>
                             <td>
-                                <p-dropdown v-model="destacatSeleccionat.icon" :options="opcionsIcona" style="width:400px" :editable="true"></p-dropdown>
+                                <p-dropdown title="Icona de font-awesome4" v-model="destacatSeleccionat.icon" :options="opcionsIcona" style="width:400px" :editable="true"></p-dropdown>
                             </td>
                         </tr>
                         <tr>
@@ -220,7 +225,7 @@
                         <tr>
                             <td>Class</td>
                             <td>
-                                <p-dropdown v-model="destacatSeleccionat.class" :options="opcionsClass" style="width:400px" :editable="true"></p-dropdown>
+                                <p-dropdown title="Classe de bootstrap4" v-model="destacatSeleccionat.class" :options="opcionsClass" style="width:400px" :editable="true"></p-dropdown>
                             </td>
                         </tr>
                         <tr>
@@ -308,7 +313,12 @@
                                 'fa fa-file-pdf-o'
                             ],
                             opcionsClass: [
-                                'bg-warning'
+                                'bg-info',
+                                'bg-primary',
+                                'bg-secondary',
+                                'bg-warning',
+                                'bg-success',
+                                'bg-danger'
                             ]
                         }
                     },

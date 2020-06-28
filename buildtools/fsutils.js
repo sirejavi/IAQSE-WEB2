@@ -16,12 +16,12 @@ const rmdirSync = function(path) {
 };
  
 const mkDirByPathSync = function(targetDir, { isRelativeToScript = false } = {}) {
-  const sep = path.sep;
-  const initDir = path.isAbsolute(targetDir) ? sep : '';
+  const sep = Path.sep;
+  const initDir = Path.isAbsolute(targetDir) ? sep : '';
   const baseDir = isRelativeToScript ? __dirname : '.';
 
   return targetDir.split(sep).reduce((parentDir, childDir) => {
-    const curDir = path.resolve(baseDir, parentDir, childDir);
+    const curDir = Path.resolve(baseDir, parentDir, childDir);
     try {
       fs.mkdirSync(curDir);
     } catch (err) {
@@ -35,7 +35,7 @@ const mkDirByPathSync = function(targetDir, { isRelativeToScript = false } = {})
       }
 
       const caughtErr = ['EACCES', 'EPERM', 'EISDIR'].indexOf(err.code) > -1;
-      if (!caughtErr || caughtErr && curDir === path.resolve(targetDir)) {
+      if (!caughtErr || caughtErr && curDir === Path.resolve(targetDir)) {
         throw err; // Throw if it's just the last created dir.
       }
     }

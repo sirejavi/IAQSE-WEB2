@@ -1,5 +1,7 @@
 const fs = require('fs');
+const fsutils = require('../../buildtools/fsutils');
 const uuid = require('uuid'); 
+const path = require('path');
 
 const ensureIdsOnObjects = function(contents) {
     if(Array.isArray(contents)) {
@@ -55,6 +57,12 @@ const init = function() {
             };
         }
     });
+
+    // Crea un snapshot (o còpia de seguretat) cada pic que es llegeix
+    fsutils.mkDirByPathSync(path.resolve("./database-snapshots"));
+    const now = new Date();
+    let dateStr = now.getDate()+"-"+(now.getMonth()+1)+"-"+now.getFullYear()+"_"+now.getHours()+"-"+now.getMinutes()+"-"+now.getSeconds();
+    fs.writeFileSync("./database-snapshots/dbsnap_"+ dateStr +".json", JSON.stringify(inMemoryDB, null, 2), {encoding: 'utf8'});
     return inMemoryDB;
 };
 

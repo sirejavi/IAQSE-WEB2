@@ -16,7 +16,7 @@
               
                 <br />
  
-                    <p-orderlist v-model="avaluacions_diagnostic" listStyle="height:auto" dataKey="id" @reorder="reorderAva" :selection.sync="avaluacioSelected">
+                    <p-orderlist v-if="!avaluacioSelected" v-model="avaluacions_diagnostic" listStyle="height:auto" dataKey="id" @reorder="reorderAva">
                         <template #header>
                            
                             <p-button label="Afegir avaluació" @click="addAva()" class="p-button-success" icon="pi pi-plus" style="vertical-align: middle;">
@@ -25,9 +25,12 @@
 
                         </template>
                         <template #item="slotProps">
-                            <p-button icon="pi pi-pencil" class="p-button-success"
+                            <p-button icon="pi pi-pencil" class="p-button-success" title="Editar"
                                 @click="avaSelected=clone(slotProps.item);verDlgEditAva=true;"></p-button>
                          
+                            <p-button icon="pi pi-file-pdf" class="p-button-primary" title="Documents"
+                                @click="avaluacioSelected=slotProps.item" :label="(slotProps.item.documents||[]).length" style="width:70px"></p-button>
+
                             <p-button class="p-button-danger" icon="pi pi-trash"
                                 @click="avaSelected=slotProps.item; verDlgDelAva=true" title="Esborrar">
                             </p-button>
@@ -38,13 +41,17 @@
                         </template>
                     </p-orderlist>
 
-                    <br />
-                    <div v-if="avaluacioSelected && avaluacioSelected.length==1"> 
-                        <p-orderlist v-model="avaluacioSelected[0].documents" listStyle="height:auto" dataKey="id" @reorder="reorderDoc">
+                    <div v-if="avaluacioSelected"> 
+
+                        <p-button icon="pi pi-arrow-circle-left" class="p-button-secondary" label="Tornar a llistat avaluacions" @click="avaluacioSelected=null"></p-button>
+
+                        <br/><br/>
+
+                        <p-orderlist v-model="avaluacioSelected.documents" listStyle="height:auto" dataKey="id" @reorder="reorderDoc">
                             <template #header>
                                 <p-button label="Afegir document" @click="addDoc()" class="p-button-success" icon="pi pi-plus"  style="vertical-align: middle;">
                                 </p-button>
-                                Documents en {{avaluacioSelected[0].title}}
+                                Documents en {{avaluacioSelected.title}}
                             </template>
                             <template #item="slotProps">
                                 <p-button icon="pi pi-pencil" class="p-button-success"
@@ -80,7 +87,7 @@
             <p-button label="Sí" icon="pi pi-check" class="p-button-danger" @click="esborrarDoc"></p-button>
         </p-dialog>
  
-        <p-dialog header="Editar avaluacio" :visible.sync="verDlgEditAva" :modal="true" :maximizable="true">
+        <p-dialog header="Editar avaluacio" :visible.sync="verDlgEditAva" :modal="true" :maximizable="true" :content-style="{overflow: 'visible'}">
             <div v-if="avaSelected">
                 <br />
 
@@ -92,6 +99,9 @@
                         </tr>
                     </thead>
                     <tbody class="p-datatable-tbody">
+                        <tr v-if="avaSelected.id">
+                            <td colspan="2"><span style="color:gray"><i class="pi pi-key"></i> {{avaSelected.id}}</span></td> 
+                        </tr>
                         <tr>
                             <td>Visibilitat</td>
                             <td>   <p-togglebutton v-model="avaSelected.hiden" on-label="Amagat" off-label="Visible"
@@ -116,7 +126,7 @@
 
                 <p-button icon="pi pi-times" class="p-button-secondary" @click="verDlgEditAva=false; avaSelected=null;"
                     label="Cancel·lar"></p-button>
-                <p-button icon="pi pi-tick" class="p-button-primary" @click="confirmEditAva" label="Acceptar">
+                <p-button icon="pi pi-check" class="p-button-primary" @click="confirmEditAva" label="Acceptar">
                 </p-button>
             </div>
         </p-dialog>
@@ -133,6 +143,9 @@
                         </tr>
                     </thead>
                     <tbody class="p-datatable-tbody">
+                        <tr v-if="docSelected.id">
+                            <td colspan="2"><span style="color:gray"><i class="pi pi-key"></i> {{docSelected.id}}</span></td> 
+                        </tr>
                         <tr>
                             <td>Visibilitat</td>
                             <td>   <p-togglebutton v-model="docSelected.hiden" on-label="Amagat" off-label="Visible"
@@ -218,8 +231,7 @@
                             verDlgEditAva: false,
                             verDlgEditDoc: false,
                             optionsTag: [
-                                'ESO',
-                                'EP'
+                                '3r EP', '4t EP', '6e EP', '2n ESO', '4t ESO'
                             ]
                         }
                     },
@@ -277,10 +289,10 @@
                             this.avaSelected = null;
                         },
                         esborrarDoc: function() {
-                            if (!this.avaluacioSelected || this.avaluacioSelected.length!=1 || !this.docSelected) {
+                            if (!this.avaluacioSelected || !this.docSelected) {
                                 return;
                             } 
-                            db.remove('avaluacions_diagnostic', this.avaluacioSelected[0].id+":documents/"+this.docSelected.id);
+                            db.remove('avaluacions_diagnostic', this.avaluacioSelected.id+":documents/"+this.docSelected.id);
                             this.verDlgDelDoc = false;
                             this.docSelected = null;
                         },
@@ -319,16 +331,16 @@
                         },
                         confirmEditDoc: function () {
                             var self = this;
-                            if(!this.avaluacioSelected || this.avaluacioSelected.length!=1 || !this.docSelected) {
+                            if(!this.avaluacioSelected || !this.docSelected) {
                                 this.verDlgEditDoc = false;
                                 return;
                             }
                             if(this.docSelected.id) {
                                 // update
-                                db.update('avaluacions_diagnostic', this.avaluacioSelected[0].id+":documents/"+this.docSelected.id, this.docSelected);
+                                db.update('avaluacions_diagnostic', this.avaluacioSelected.id+":documents/"+this.docSelected.id, this.docSelected);
                             } else {
                                 // insert
-                                db.add(this.docSelected, 'avaluacions_diagnostic', this.avaluacioSelected[0].id+":documents", 0);
+                                db.add(this.docSelected, 'avaluacions_diagnostic', this.avaluacioSelected.id+":documents", 0);
                             }
                             this.verDlgEditDoc = false;
                         }

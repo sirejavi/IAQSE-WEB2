@@ -64,6 +64,9 @@
                         </tr>
                     </thead>
                     <tbody class="p-datatable-tbody">
+                        <tr v-if="normativaSelected.id">
+                            <td colspan="2"><span style="color:gray"><i class="pi pi-key"></i> {{normativaSelected.id}}</span></td> 
+                        </tr>
                         <tr>
                             <td>Visibilitat</td>
                             <td>   <p-togglebutton v-model="normativaSelected.hiden" on-label="Amagat" off-label="Visible"

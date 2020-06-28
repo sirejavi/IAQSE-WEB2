@@ -64,6 +64,9 @@
                         </tr>
                     </thead>
                     <tbody class="p-datatable-tbody">
+                        <tr v-if="personalSelected.id">
+                            <td colspan="2"><span style="color:gray"><i class="pi pi-key"></i> {{personalSelected.id}}</span></td> 
+                        </tr>
                         <tr>
                             <td>Visibilitat</td>
                             <td>   <p-togglebutton v-model="personalSelected.hiden" on-label="Amagat" off-label="Visible"
