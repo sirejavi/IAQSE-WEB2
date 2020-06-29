@@ -1,62 +1,280 @@
 <!DOCTYPE html">
 <html lang="es">
+
 <head>
     <meta title="webconsole-publicacions" />
     <%- include head.ejs %>
 </head>
+
 <body>
     <div id="webconsole-page">
 
         <%- include header.ejs %>
 
         <h1>PUBLICACIONS</h1>
-        
-        <div v-if="table.contents">
 
-            {{table.contents}}
+        <center>
+            <p-button label="Afegir" @click="addPublicacio()" class="p-button-success" icon="pi pi-plus">
+            </p-button>
+        </center>
+
+        <br />
+
+        <p>Les publicacions seran ordernades automàticament per data de publicació (pubdata).</p>
+
+        <p-orderlist v-model="publicacions" listStyle="height:auto" dataKey="id" @reorder="reorder">
+            <template #header>
+                Llistat de publicacions
+            </template>
+            <template #item="slotProps">
+                <p-button icon="pi pi-pencil" class="p-button-success"
+                    @click="publicacioSelected=clone(slotProps.item);verDlgEditPublicacio=true;"></p-button>
+
+                <p-button class="p-button-danger" icon="pi pi-trash"
+                    @click="publicacioSelected=slotProps.item; verDlgDelPublicacio=true" title="Esborrar">
+                </p-button>
+
+                <img :src="'../'+ slotProps.item.img" style="width:60px; vertical-align: middle;" />
+                <i class="pi pi-eye-slash" v-if="slotProps.item.hiden"></i>
+                <i v-if="!slotProps.item.hiden" style="display: inline-block; width: 18px;"></i>
+                <i class="pi pi-print" v-if="slotProps.item.imprimible"></i>
+                <i v-if="!slotProps.item.imprimible" style="display: inline-block; width: 18px;"></i>  
+                <div style="display: inline-block;">
+                    {{slotProps.item.title}}
+                    <br/>
+                    <p-chips v-model="slotProps.item.tags" :disabled="true"></p-chips>
+                </div>
+            </template>
+        </p-orderlist>
+
+        <br />
 
 
-        </div>
+        <!------------------------------------   DIALOGS  ---------------------------------------------------------->
 
-        <%- include footer.ejs %>
+
+        <p-dialog header="Confirmar esborrar publicacions" :visible.sync="verDlgDelPublicacio" :modal="true">
+            <p>Segur que voleu esborrar aquesta publicacions?</p>
+            <p-button label="No" icon="pi pi-times" class="p-button-secondary" @click="verDlgDelPublicacio=false">
+            </p-button>
+            <p-button label="Sí" icon="pi pi-check" class="p-button-danger" @click="esborrarPublicacio"></p-button>
+        </p-dialog>
+
+        <p-dialog header="Editar publicació" :visible.sync="verDlgEditPublicacio" :modal="true" :maximizable="true">
+            <div v-if="publicacioSelected">
+                <br />
+
+                <table class="p-datatable" style="width: 98%;">
+                    <thead class="p-datatable-thead">
+                        <tr>
+                            <th style="width: 20%;">Propietat</th>
+                            <th style="width: 80%;">Valor</th>
+                        </tr>
+                    </thead>
+                    <tbody class="p-datatable-tbody">
+                        <tr v-if="publicacioSelected.id">
+                            <td colspan="2"><span style="color:gray"><i class="pi pi-key"></i>
+                                    {{publicacioSelected.id}}</span></td>
+                        </tr>
+                        <tr>
+                            <td>Visibilitat</td>
+                            <td>
+                                <p-togglebutton v-model="publicacioSelected.hiden" on-label="Amagat" off-label="Visible"
+                                    on-icon="pi pi-eye-slash" off-icon="pi pi-eye"></p-togglebutton>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Títol</td>
+                            <td>
+                                <p-textarea v-model="publicacioSelected.title" style="width: 100%;"></p-textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Descripció</td>
+                            <td>
+                                <p-textarea v-model="publicacioSelected.description" style="width: 100%;"></p-textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Etiquetes</td>
+                            <td>
+                                <p-chips v-model="publicacioSelected.tags" style="width: 60%;"> </p-chips>
+                                <p-dropdown v-model="tagSelected" :options="tagsValids" @change="onAddTag"></p-dropdown>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Imatge</td>
+                            <td>
+                                <p-inputtext v-model="publicacioSelected.img" style="width: 100%;">
+                                </p-inputtext>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>url</td>
+                            <td>
+                                <p-inputtext v-model="publicacioSelected.url" style="width: 100%;">
+                                </p-inputtext>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Any (yyyy)</td>
+                            <td>
+                                <p-inputtext v-model="publicacioSelected.date" style="width: 100%;">
+                                </p-inputtext>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Data publicació (dd/MM/yyyy)</td>
+                            <td>
+                                <p-inputtext v-model="publicacioSelected.pubdate" style="width: 100%;">
+                                </p-inputtext>
+                            </td>
+                        </tr>
+                        
+                    </tbody>
+                </table>
+                <br />
+
+                <p-button icon="pi pi-times" class="p-button-secondary"
+                    @click="verDlgEditPublicacio=false; publicacioSelected=null;" label="Cancel·lar"></p-button>
+                <p-button icon="pi pi-tick" class="p-button-primary" @click="confirmEditPersonal" label="Acceptar">
+                </p-button>
+            </div>
+        </p-dialog>
+
+        <p-dialog header="Previsualització imatge" :visible.sync="verDlgPreviewImage" :modal="true">
+            <img v-if="publicacioSelected" :src="'../' + publicacioSelected.img" style="max-width: 600px;" />
+            <br />
+            <p-button label="Tancar" icon="pi pi-times" class="p-button-secondary" @click="verDlgPreviewImage=false">
+            </p-button>
+        </p-dialog>
+
+        <p-dialog header="Espereu" :visible.sync="verDlgGenerant" :modal="true">
+            <p>
+                <i class="pi pi-spin pi-spinner" style="font-size: 2rem; vertical-align: middle;"></i>
+                Generant el site... Espereu si us plau.
+            </p>
+        </p-dialog>
 
     </div>
+    <%- include footer.ejs %>
 
     <script>
-        requirejs([], function () {
+        requirejs(['p_orderlist', 'p_dialog', 'p_textarea', 'p_togglebutton', 'p_dropdown', 'p_tabview', 'p_tabpanel', 'p_chips'],
+            function (p_orderlist, p_dialog, p_textarea, p_togglebutton, p_dropdown, p_tabview, p_tabpanel, p_chips) {
 
-            var tableName = "publicacions";
-            var vm = new Vue({
-                el: '#webconsole-page',
-                data: function () {
-                    return {
-                        menuModel: menuModelBuilder(),
-                        table: {}
-                    }
-                },
-                mounted: function () {
-                    var self = this;
-                    axios.post("/<%=mountPoint%>/api/gettable", { tableName: tableName }).then(function (res) {
-                        // comprova que tots els elements tenen una id
-                        check_ids(res.data.contents);
-                        self.table = res.data;
-                    }, function (err) {
-                        self.table = {};
-                        self.$toast.add({ severity: 'error', summary: "No s'ha pogut carregar la taula " + tableName, life: 3000 });
-                        console.log(err);
-                    });
-                },
-                methods: {
-                    saveChanges: function(){
+                Vue.component('p-tabview', p_tabview);
+                Vue.component('p-tabpanel', p_tabpanel);
+                Vue.component('p-orderlist', p_orderlist);
+                Vue.component('p-dialog', p_dialog);
+                Vue.component('p-textarea', p_textarea);
+                Vue.component('p-togglebutton', p_togglebutton);
+                Vue.component('p-dropdown', p_dropdown);
+                Vue.component('p-chips', p_chips);
 
+                var vm = new Vue({
+                    el: '#webconsole-page',
+                    data: function () {
+                        return {
+                            menuModel: menuModelBuilder(),
+                            publicacions: [],
+                            publicacioSelected: null,
+                            verDlgGenerant: false,
+                            verDlgDelPublicacio: false,
+                            verDlgPreviewImage: false,
+                            verDlgEditPublicacio: false,
+                            tagsValids: [
+                                '','1rEP','3rEP','4tEP','5eEP','6eEP','2nESO','4tESO',
+                                'ad','rubriques','resultats','indicadors','anuari','documents'
+                            ],
+                            tagSelected: null
+                        }
                     },
-                    publish: function() {
+                    mounted: function () {
+                        db = myjdb('<%=mountPoint%>', this);
+                        db.loadTable('publicacions');
+                    },
+                    methods: {
+                        persist: function () {
+                            var self = this;
+                            this.verDlgGenerant = true;
+                            db.persist().then(function (ok) {
+                                console.log(ok);
+                                self.verDlgGenerant = false;
+                                if (ok) {
+                                    self.$toast.add({ severity: 'success', summary: "S'han persistit els canvis a disc", life: 3000 });
+                                } else {
+                                    self.$toast.add({ severity: 'error', summary: "No s'han pogut persistir els canvis a disc" });
+                                }
+                            }, function (err) {
+                                console.log(err);
+                                self.verDlgGenerant = false;
+                                self.$toast.add({ severity: 'error', summary: "No s'han pogut persistir els canvis a disc" });
+                            });
+                        },
+                        publish: function () {
 
+                        },
+                        revert: function () {
+
+                        },
+                        addPublicacio: function () {
+                            this.publicacioSelected = {
+                                tags: [ 
+                                ],
+                                img: "img/publicacions/xxx.jpg",
+                                title: "xxxx",
+                                description: "xxx",
+                                url: "documentos/publicacions/xxx.pdf",
+                                date: "2020",
+                                pubdate: "22/6/2020"
+                            };
+
+                            this.verDlgEditPublicacio = true;
+                        },
+                        esborrarPublicacio: function () {
+                            if (!this.publicacioSelected) {
+                                return;
+                            }
+                            db.remove('publicacions', this.publicacioSelected.id);
+                            this.verDlgDelPublicacio = false;
+                            this.publicacioSelected = null;
+                        },
+                        reorder: function (event) {
+                            if (window.reorderTimeout) {
+                                clearTimeout(window.reorderTimeout);
+                            }
+                            window.reorderTimeout = setTimeout(function () {
+                                db.sync('publicacions');
+                            }, 2000);
+                        },
+                        confirmEditPersonal: function () {
+                            var self = this;
+                            if (this.publicacioSelected == null) {
+                                return;
+                            }
+                            if (this.publicacioSelected.id) {
+                                // update
+                                db.update('publicacions', this.publicacioSelected.id, this.publicacioSelected);
+                            } else {
+                                // insert
+                                db.add(this.publicacioSelected, 'publicacions', '/', 0);
+                            }
+                            this.verDlgEditPublicacio = false;
+                        },
+                        onAddTag: function(evt) {
+                            if(!this.publicacioSelected || !this.tagSelected) {
+                                return;
+                            }
+                            if(this.publicacioSelected.tags.indexOf(this.tagSelected) < 0) {
+                                this.publicacioSelected.tags.push(this.tagSelected);
+                            }
+                        }
                     }
-                }
+                });
+
             });
 
-        });
     </script>
 </body>
 

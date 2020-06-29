@@ -42,6 +42,15 @@
     "id": "449dcb89-94fc-4acb-af4b-ca52f8f3c40e"
   },
   {
+    "img": "img/quisom/xxxxx.jpg",
+    "nom": "Lucrecia",
+    "carrec": "Personal Tècnic",
+    "ext": "11111",
+    "email": "piopìo@iaqse.caib.es",
+    "id": "a4e3965b-ccd9-415f-8321-75461e6c889f",
+    "hiden": true
+  },
+  {
     "img": "img/quisom/luis.jpg",
     "nom": "Luis Vidaña Fernández",
     "carrec": "Personal Tècnic",

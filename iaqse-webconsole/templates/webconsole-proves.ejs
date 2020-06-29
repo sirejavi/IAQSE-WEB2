@@ -29,7 +29,7 @@
                     @click="provaSelected=clone(slotProps.item);verDlgEditNormativa=true;"></p-button>
 
                 <p-button class="p-button-danger" icon="pi pi-trash"
-                    @click="provaSelected=slotProps.item; verDlgEditNormativa=true" title="Esborrar">
+                    @click="provaSelected=slotProps.item; verDlgDelNormativa=true" title="Esborrar">
                 </p-button>
 
                 <img :src="'../'+ slotProps.item.img" style="width:60px; vertical-align: middle;" />
@@ -38,6 +38,7 @@
                 <i class="pi pi-print" v-if="slotProps.item.imprimible"></i>
                 <i v-if="!slotProps.item.imprimible" style="display: inline-block; width: 18px;"></i>  
                 {{slotProps.item.title}}
+              
             </template>
         </p-orderlist>
 

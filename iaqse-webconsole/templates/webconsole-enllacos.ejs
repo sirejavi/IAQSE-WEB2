@@ -1,66 +1,361 @@
 <!DOCTYPE html">
 <html lang="es">
+
 <head>
-    <meta title="webconsole-ava-enllacos" />
+    <meta title="webconsole-enllacos" />
     <%- include head.ejs %>
 </head>
+
 <body>
     <div id="webconsole-page">
 
         <%- include header.ejs %>
-
+ 
         <h1>ENLLAÇOS</h1>
-        
-        <div v-if="table.contents">
+              
+                <br />
+                    <p-orderlist v-if="!tipusSelected" v-model="enllacos" listStyle="height:auto" dataKey="id" @reorder="reorderType">
+                        <template #header>
+                           
+                            <p-button label="Afegir tipus d'enllaç" @click="addTipusLink()" class="p-button-success" icon="pi pi-plus" style="vertical-align: middle;">
+                            </p-button>
+                            Tipus d'enllaços
 
-            {{table.contents}}
+                        </template>
+                        <template #item="slotProps">
+                            <p-button icon="pi pi-pencil" class="p-button-success" title="Editar"
+                                @click="tipusSelected2=clone(slotProps.item);verDlgEditType=true;"></p-button>
+                         
+                            <p-button icon="pi pi-file-pdf" class="p-button-primary" title="Documents"
+                                @click="tipusSelected=slotProps.item" :label="(slotProps.item.list||[]).length" style="width:70px"></p-button>
+
+                            <p-button class="p-button-danger" icon="pi pi-trash"
+                                @click="tipusSelected2=slotProps.item; verDlgDelType=true" title="Esborrar">
+                            </p-button>
+
+                            <i class="pi pi-eye-slash" v-if="slotProps.item.hiden"></i>
+                            <i v-if="!slotProps.item.hiden" style="display: inline-block; width: 18px;"></i>
+                            {{slotProps.item.type}}
+                        </template>
+                    </p-orderlist>
+
+                    <div v-if="tipusSelected"> 
+
+                        <p-button icon="pi pi-arrow-circle-left" class="p-button-secondary" label="Tornar a tipus d'enllaços" @click="tipusSelected=null"></p-button>
 
 
-        </div>
+                        <p-button class="p-button-secondary" label="Veure pàgina" @click="verDlgPreviewImage=true"></p-button>
 
-        <%- include footer.ejs %>
+                        <br/><br/>
 
+                        <p-orderlist v-model="tipusSelected.list" listStyle="height:auto" dataKey="id" @reorder="reorderLink"
+                            :selection.sync="linkSelected2">
+                            <template #header>
+                                <p-button label="Afegir enllaç" @click="addLink()" class="p-button-success" icon="pi pi-plus"  style="vertical-align: middle;">
+                                </p-button>
+                                Enllaços en categoria {{tipusSelected.type}}
+                            </template>
+                            <template #item="slotProps">
+                                <p-button icon="pi pi-pencil" class="p-button-success"
+                                    @click="linkSelected=clone(slotProps.item);verDlgEditLink=true;"></p-button>
+                             
+                                <p-button class="p-button-danger" icon="pi pi-trash"
+                                    @click="linkSelected=slotProps.item; verDlgDelLink=true" title="Esborrar">
+                                </p-button>
+
+                                <img :src="'../'+ slotProps.item.img" style="width:60px; vertical-align: middle;" />
+                                <i class="pi pi-eye-slash" v-if="slotProps.item.hiden"></i>
+                                <i v-if="!slotProps.item.hiden" style="display: inline-block; width: 18px;"></i>
+                                {{slotProps.item.description}}
+                            </template>
+
+                        </p-orderlist>
+
+                        <br/>
+                        
+
+                    </div>
+         
+        <!------------------------------------   DIALOGS  ---------------------------------------------------------->
+    
+ 
+        <p-dialog header="Confirmar esborrar categoria" :visible.sync="verDlgDelType" :modal="true">
+            <p>Segur que voleu esborrar aquesta categoria i TOTS els seus enllaços?</p>
+            <p-button label="No" icon="pi pi-times" class="p-button-secondary" @click="verDlgDelType=false">
+            </p-button>
+            <p-button label="Sí" icon="pi pi-check" class="p-button-danger" @click="esborrarType"></p-button>
+        </p-dialog>
+
+        <p-dialog header="Confirmar esborrar document" :visible.sync="verDlgDelLink" :modal="true">
+            <p>Segur que voleu esborrar aquest document?</p>
+            <p-button label="No" icon="pi pi-times" class="p-button-secondary" @click="verDlgDelLink=false">
+            </p-button>
+            <p-button label="Sí" icon="pi pi-check" class="p-button-danger" @click="esborrarLink"></p-button>
+        </p-dialog>
+ 
+        <p-dialog header="Editar tipus d'enllaç" :visible.sync="verDlgEditType" :modal="true" :maximizable="true" :content-style="{overflow: 'visible'}">
+            <div v-if="tipusSelected2">
+                <br />
+
+                <table class="p-datatable" style="width: 98%;">
+                    <thead class="p-datatable-thead">
+                        <tr>
+                            <th style="width: 20%;">Propietat</th>
+                            <th style="width: 80%;">Valor</th>
+                        </tr>
+                    </thead>
+                    <tbody class="p-datatable-tbody">
+                        <tr v-if="tipusSelected2.id">
+                            <td colspan="2"><span style="color:gray"><i class="pi pi-key"></i> {{tipusSelected2.id}}</span></td> 
+                        </tr>
+                        <tr>
+                            <td>Visibilitat</td>
+                            <td>   <p-togglebutton v-model="tipusSelected2.hiden" on-label="Amagat" off-label="Visible"
+                                on-icon="pi pi-eye-slash" off-icon="pi pi-eye"></p-togglebutton> </td>
+                        </tr>
+                        <tr>
+                            <td>Nom categoria</td> 
+                            <td>
+                                <p-textarea v-model="tipusSelected2.type" style="width: 100%;"></p-textarea>
+                            </td>
+                        </tr> 
+                    </tbody>
+                </table>
+                <br />
+
+                <p-button icon="pi pi-times" class="p-button-secondary" @click="verDlgEditType=false; tipusSelected2=null;"
+                    label="Cancel·lar"></p-button>
+                <p-button icon="pi pi-check" class="p-button-primary" @click="confirmEditType" label="Acceptar">
+                </p-button>
+            </div>
+        </p-dialog>
+
+        <p-dialog header="Editar enllaç" :visible.sync="verDlgEditLink" :modal="true" :maximizable="true">
+            <div v-if="linkSelected">
+                <br />
+
+                <table class="p-datatable" style="width: 98%;">
+                    <thead class="p-datatable-thead">
+                        <tr>
+                            <th style="width: 20%;">Propietat</th>
+                            <th style="width: 80%;">Valor</th>
+                        </tr>
+                    </thead>
+                    <tbody class="p-datatable-tbody">
+                        <tr v-if="linkSelected.id">
+                            <td colspan="2"><span style="color:gray"><i class="pi pi-key"></i> {{linkSelected.id}}</span></td> 
+                        </tr>
+                        <tr>
+                            <td>Visibilitat</td>
+                            <td>   <p-togglebutton v-model="linkSelected.hiden" on-label="Amagat" off-label="Visible"
+                                on-icon="pi pi-eye-slash" off-icon="pi pi-eye"></p-togglebutton> </td>
+                        </tr>
+                        <tr>
+                            <td>Descripció
+                            </td> 
+                            <td>
+                                <p-textarea v-model="linkSelected.description" style="width: 100%;"></p-textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Url</td> 
+                            <td>
+                                <p-textarea v-model="linkSelected.url" style="width: 100%;"></p-textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Tooltip url</td> 
+                            <td>
+                                <p-inputtext v-model="linkSelected.url_title" style="width: 100%;"></p-inputtext>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Imatge</td> 
+                            <td>
+                                <p-inputtext v-model="linkSelected.img" style="width: 100%;"></p-inputtext>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Tooltip img</td> 
+                            <td>
+                                <p-inputtext v-model="linkSelected.img_title" style="width: 100%;"></p-inputtext>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <br />
+
+          
+                <p-button icon="pi pi-times" class="p-button-secondary" @click="verDlgEditLink=false; linkSelected=null;"
+                    label="Cancel·lar"></p-button>
+                <p-button icon="pi pi-tick" class="p-button-primary" @click="confirmEditLink" label="Acceptar">
+                </p-button>
+            </div>
+        </p-dialog>
+  
+        <p-dialog header="Espereu" :visible.sync="verDlgGenerant" :modal="true">
+            <p>
+                <i class="pi pi-spin pi-spinner" style="font-size: 2rem; vertical-align: middle;"></i>
+                Generant el site... Espereu si us plau.
+            </p>
+        </p-dialog>
+
+        <p-dialog header="Preview pàgina enllaç" :visible.sync="verDlgPreviewImage" :resizable="true"> 
+            
+            <div v-if="linkSelected2 && linkSelected2.length==1">
+                <iframe width="560" height="315" :src="linkSelected2[0].url" frameborder="1"></iframe>
+            </div>
+
+        </p-dialog>
+   
     </div>
+    <%- include footer.ejs %>
 
     <script>
-        requirejs([], function () {
+        requirejs(['p_orderlist', 'p_dialog', 'p_textarea', 'p_togglebutton', 'p_dropdown', 'p_tabview', 'p_tabpanel'],
+            function (p_orderlist, p_dialog, p_textarea, p_togglebutton, p_dropdown, p_tabview, p_tabpanel) {
 
-            var tableName = "enllacos";
-            var vm = new Vue({
-                el: '#webconsole-page',
-                data: function () {
-                    return {
-                        menuModel: menuModelBuilder(),
-                        table: {}
-                    }
-                },
-                mounted: function () {
-                    var self = this;
-                    axios.post("/<%=mountPoint%>/api/gettable", { tableName: tableName }).then(function (res) {
-                        // comprova que tots els elements tenen una id
-                        var tipusLen = res.data.contents.length;
-                        for(var i=0; i < tipusLen; i++) {
-                            check_ids(res.data.contents[i].list);
+                Vue.component('p-tabview', p_tabview);
+                Vue.component('p-tabpanel', p_tabpanel);
+                Vue.component('p-orderlist', p_orderlist);
+                Vue.component('p-dialog', p_dialog);
+                Vue.component('p-textarea', p_textarea);
+                Vue.component('p-togglebutton', p_togglebutton);
+                Vue.component('p-dropdown', p_dropdown);
+
+                var vm = new Vue({
+                    el: '#webconsole-page',
+                    data: function () {
+                        return { 
+                            menuModel: menuModelBuilder(),
+                            enllacos: [],
+                            tipusSelected: null,
+                            linkSelected: null,
+                            linkSelected2: null,
+                            tipusSelected2: null,
+                            verDlgGenerant: false,
+                            verDlgDelType: false,
+                            verDlgDelLink: false,
+                            verDlgPreviewImage: false, 
+                            verDlgEditType: false,
+                            verDlgEditLink: false,
+                            optionsTag: [
+                                '3r EP', '4t EP', '6e EP', '2n ESO', '4t ESO'
+                            ]
                         }
-                        self.table = res.data;
-                    }, function (err) {
-                        self.table = {};
-                        self.$toast.add({ severity: 'error', summary: "No s'ha pogut carregar la taula " + tableName, 
-                                          life: 3000 });
-                        console.log(err);
-                    });
-                },
-                methods: {
-                    saveChanges: function(){
-
                     },
-                    publish: function() {
+                    mounted: function () {
+                        db = myjdb('<%=mountPoint%>', this); 
+                        db.loadTable('enllacos'); 
+                    },
+                    methods: {
+                        persist: function () {
+                            var self = this;
+                            this.verDlgGenerant = true;
+                            db.persist().then(function(ok){
+                                console.log(ok);
+                                self.verDlgGenerant = false;
+                                if(ok) {
+                                     self.$toast.add({ severity: 'success', summary: "S'han persistit els canvis a disc", life: 3000 });
+                                } else {
+                                    self.$toast.add({ severity: 'error', summary: "No s'han pogut persistir els canvis a disc"});
+                                }
+                            }, function(err) {
+                                console.log(err);
+                                self.verDlgGenerant = false;
+                                self.$toast.add({ severity: 'error', summary: "No s'han pogut persistir els canvis a disc"});
+                            }); 
+                        },
+                        publish: function () {
 
+                        },
+                        revert: function() {
+
+                        },
+                        addTipusLink: function () {
+                            this.tipusSelected2 = {
+                                type: "Nom de la categoria d'enlllaç",
+                                list: [] 
+                            };  
+                            this.verDlgEditType = true;
+                        },
+                        addLink: function(){
+                            this.linkSelected = {
+                                description: "xxx",
+                                url: "https://",
+                                url_title: "",
+                                img: "img/enllacos/xxxx.jpg",
+                                img_title: ""
+                            };  
+                            this.verDlgEditLink = true;
+                        },
+                        esborrarType: function () {
+                            if (!this.tipusSelected2) {
+                                return;
+                            } 
+                            db.remove('enllacos', this.tipusSelected2.id);
+                            this.verDlgDelType = false;
+                            this.tipusSelected2 = null;
+                        },
+                        esborrarLink: function() {
+                            if (!this.tipusSelected || !this.linkSelected) {
+                                return;
+                            } 
+                            db.remove('enllacos', this.tipusSelected.id+":list/"+this.linkSelected.id);
+                            this.verDlgDelLink = false;
+                            this.linkSelected = null;
+                        },
+                        reorderType: function(event) {
+                            if(window.reorderTimeout) {
+                               clearTimeout(window.reorderTimeout);
+                            } 
+                            window.reorderTimeout = setTimeout(function() {
+                                db.sync('enllacos');
+                            }, 2000);
+                        },
+                        reorderLink: function(event) {
+                            if(window.reorderTimeout) {
+                               clearTimeout(window.reorderTimeout);
+                            } 
+                            window.reorderTimeout = setTimeout(function() {
+                                db.sync('enllacos');
+                            }, 2000);
+                        },
+                        confirmEditType: function () {
+                            var self = this;
+                            if(!this.tipusSelected2) {
+                                this.verDlgEditType = false;
+                                return;
+                            }
+                            if(this.tipusSelected2.id) {
+                                // update
+                                db.update('enllacos', this.tipusSelected2.id, this.tipusSelected2);
+                            } else {
+                                // insert
+                                db.add(this.tipusSelected2, 'enllacos', '/', 0);
+                            }
+                            this.verDlgEditType = false;
+                        },
+                        confirmEditLink: function () {
+                            var self = this;
+                            if(!this.tipusSelected || !this.linkSelected) {
+                                this.verDlgEditLink = false;
+                                return;
+                            }
+                            if(this.linkSelected.id) {
+                                // update
+                                db.update('enllacos', this.tipusSelected.id+":list/"+this.linkSelected.id, this.linkSelected);
+                            } else {
+                                // insert
+                                db.add(this.linkSelected, 'enllacos', this.tipusSelected.id+":list", 0);
+                            }
+                            this.verDlgEditLink = false;
+                        }
                     }
-                }
+                });
+
             });
 
-        });
     </script>
 </body>
 

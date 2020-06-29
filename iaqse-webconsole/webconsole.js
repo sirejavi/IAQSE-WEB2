@@ -51,6 +51,7 @@ app.use((req, res, next) => {
   res.set("Access-Control-Allow-Origin", "*");
   res.set("Access-Control-Allow-Headers", "Content-Type,X-Requested-With");
   res.set("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");
+  
   const url = req.originalUrl.split("?")[0].trim();
   
   // Atenció les pàgines de webconsole estàn en utf8 i no s'ha d'establir aquest content type
