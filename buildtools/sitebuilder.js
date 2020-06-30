@@ -114,6 +114,8 @@ module.exports = function (buildOptions) {
     let destacatsManual = [];
  
     dbFiles.forEach(file => {
+ 
+
         let name;
         if (file.endsWith(".json")) {
             name = path.basename(file, ".json");
@@ -152,6 +154,8 @@ module.exports = function (buildOptions) {
 
         }
 
+        if(name) {
+
         // En la base de dades d'avaluacions convertir les url a les url reals
         if (name.startsWith("avaluacions_")) {
             console.log("\t\tNormalitzant url per a taula " + name);
@@ -187,6 +191,7 @@ module.exports = function (buildOptions) {
             information = "keys: " + Object.keys(database[name]).join(", ");
         }
         console.log("\tdatabase: ", name, information);
+        }
     });
     database.config = config;
     database.routes = routes;

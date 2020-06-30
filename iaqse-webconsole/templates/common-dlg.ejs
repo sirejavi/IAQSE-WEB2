@@ -1,0 +1,23 @@
+<p-dialog header="Espereu" :visible.sync="verDlgGenerant" :modal="true">
+    <p>
+        <i class="pi pi-spin pi-spinner" style="font-size: 2rem; vertical-align: middle;"></i>
+        Generant el site... Espereu si us plau.
+    </p>
+</p-dialog>
+
+<p-dialog header="Publicació en curs" :visible.sync="verDlgPublicant" :modal="true">
+    <p>
+        <i class="pi pi-spin pi-spinner" style="font-size: 2rem; vertical-align: middle;"></i>
+        Generant i publicant el site... Espereu per favor.
+    </p>
+</p-dialog>
+
+<p-dialog header="Confirmar publicar" :visible.sync="verDlgConfirmPublicar" :modal="true">
+    <p>
+        Segur que voleu publicar el nou lloc web en obert?
+    </p>
+    <p-button label="Cancel·lar" icon="pi pi-times" class="p-button-secondary" @click="verDlgConfirmPublicar=false">
+    </p-button>
+    <p-button label="Acceptar" icon="pi pi-tick" class="p-button-primary" @click="verDlgConfirmPublicar=false;publish()">
+    </p-button>
+</p-dialog>

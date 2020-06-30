@@ -80,6 +80,11 @@
              ]
             },
             {
+                label: 'Indicadors', 
+                _href: '/<%=mountPoint%>/indicadors',
+                command: menuActionHandler
+            },
+            {
                 label: 'Publicacions', 
                 _href: '/<%=mountPoint%>/publicacions',
                 command: menuActionHandler
@@ -95,9 +100,16 @@
                 command: menuActionHandler
             },
             {
+                label: 'Configuració',
                 icon: 'pi pi-cog',
-                _href: '/<%=mountPoint%>/home',
-                command: menuActionHandler
+                    items: [
+                        {
+                            label: 'Snapshots',
+                            _href: '/<%=mountPoint%>/snapshots',
+                            command: menuActionHandler
+                        }
+                    
+                ]
             }
 
         ];

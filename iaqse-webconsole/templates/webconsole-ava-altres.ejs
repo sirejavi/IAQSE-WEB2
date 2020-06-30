@@ -192,14 +192,9 @@
             <p-button label="Tancar" icon="pi pi-times" class="p-button-secondary" @click="verDlgPreviewImage=false">
             </p-button>
         </p-dialog>
+ 
+        <% include common-dlg.ejs %>
 
-        <p-dialog header="Espereu" :visible.sync="verDlgGenerant" :modal="true">
-            <p>
-                <i class="pi pi-spin pi-spinner" style="font-size: 2rem; vertical-align: middle;"></i>
-                Generant el site... Espereu si us plau.
-            </p>
-        </p-dialog>
-   
     </div>
     <%- include footer.ejs %>
 
@@ -224,7 +219,10 @@
                             avaSelected: null,
                             docSelected: null,
                             avaluacioSelected: null,
+                            verDlgPublicant: null, 
+                            verDlgConfirmPublicar: false,
                             verDlgGenerant: false,
+                            verDlgPublicant: false,
                             verDlgDelAva: false,
                             verDlgDelDoc: false,
                             verDlgPreviewImage: false, 
@@ -257,12 +255,23 @@
                                 self.$toast.add({ severity: 'error', summary: "No s'han pogut persistir els canvis a disc"});
                             }); 
                         },
-                        publish: function () {
-
-                        },
-                        revert: function() {
-
-                        },
+                        publish: function() {
+                            var self = this;
+                            this.verDlgPublicant = true;
+                            axios.post("/<%=mountPoint%>/api/publish").then(function(res) {
+                                console.log(res);
+                                self.verDlgPublicant = false;
+                                if(res.data.result) {
+                                    self.$toast.add({ severity: 'success', summary: "S'ha publicat corectament el lloc web"});
+                                } else {
+                                    self.$toast.add({ severity: 'error', summary: "No s'han pogut publicar el lloc web"});
+                                }
+                            }, function(err) {
+                                self.verDlgPublicant = false;
+                                console.log(err);
+                                self.$toast.add({ severity: 'error', summary: "No s'han pogut publicar el lloc web"});
+                            });
+                        }, 
                         addAva: function () {
                             this.avaSelected = {
                                 title: "Avaluació de ...",

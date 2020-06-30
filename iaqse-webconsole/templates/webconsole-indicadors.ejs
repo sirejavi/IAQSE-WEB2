@@ -1,50 +1,266 @@
 <!DOCTYPE html">
 <html lang="es">
+
 <head>
-    <meta title="webconsole-indicadors"/>
-    <meta charset="UTF-8"/> 
-    <link href="https://unpkg.com/primevue/resources/themes/saga-blue/theme.css" rel="stylesheet">
-    <link href="https://unpkg.com/primevue/resources/primevue.min.css" rel="stylesheet">
-    <link href="https://unpkg.com/primeicons/primeicons.css" rel="stylesheet">
+    <meta title="webconsole-indicadors" />
+    <%- include head.ejs %>
 </head>
+
 <body>
-    <%- include header.ejs %>
-           
-    <h1>INDICADORS</h1>
- 
-  
+    <div id="webconsole-page">
+
+        <%- include header.ejs %>
+
+        <h1>INDICADORS</h1>
+
+        <center>
+            <p-button label="Afegir" @click="addIndicadors()" class="p-button-success" icon="pi pi-plus">
+            </p-button>
+        </center>
+
+        <br />
+
+     
+        <p-orderlist v-model="indicadors" listStyle="height:auto" dataKey="id" @reorder="reorder">
+            <template #header>
+                Llistat de indicadors
+            </template>
+            <template #item="slotProps">
+                <p-button icon="pi pi-pencil" class="p-button-success"
+                    @click="indicadorSelected=clone(slotProps.item);verDlgEditPublicacio=true;"></p-button>
+
+                <p-button class="p-button-danger" icon="pi pi-trash"
+                    @click="indicadorSelected=slotProps.item; verDlgDelPublicacio=true" title="Esborrar">
+                </p-button>
+
+                <img :src="'../'+ slotProps.item.img" style="width:60px; vertical-align: middle;" />
+                <i class="pi pi-eye-slash" v-if="slotProps.item.hiden"></i>
+                <i v-if="!slotProps.item.hiden" style="display: inline-block; width: 18px;"></i>
+                <i class="pi pi-print" v-if="slotProps.item.imprimible"></i>
+                <i v-if="!slotProps.item.imprimible" style="display: inline-block; width: 18px;"></i>  
+                <div style="display: inline-block;">
+                    {{slotProps.item.title}}
+                    <br/>
+                    <span class="badge badge-primary">{{slotProps.item.tag}}</span>
+                </div>
+            </template>
+        </p-orderlist>
+
+        <br />
+
+
+        <!------------------------------------   DIALOGS  ---------------------------------------------------------->
+
+
+        <p-dialog header="Confirmar esborrar indicador" :visible.sync="verDlgDelPublicacio" :modal="true">
+            <p>Segur que voleu esborrar aquest indicador?</p>
+            <p-button label="No" icon="pi pi-times" class="p-button-secondary" @click="verDlgDelPublicacio=false">
+            </p-button>
+            <p-button label="Sí" icon="pi pi-check" class="p-button-danger" @click="esborrarIndicador"></p-button>
+        </p-dialog>
+
+        <p-dialog header="Editar indicador" :visible.sync="verDlgEditPublicacio" :modal="true" :maximizable="true">
+            <div v-if="indicadorSelected">
+                <br />
+
+                <table class="p-datatable" style="width: 98%;">
+                    <thead class="p-datatable-thead">
+                        <tr>
+                            <th style="width: 20%;">Propietat</th>
+                            <th style="width: 80%;">Valor</th>
+                        </tr>
+                    </thead>
+                    <tbody class="p-datatable-tbody">
+                        <tr v-if="indicadorSelected.id">
+                            <td colspan="2"><span style="color:gray"><i class="pi pi-key"></i>
+                                    {{indicadorSelected.id}}</span></td>
+                        </tr>
+                        <tr>
+                            <td>Visibilitat</td>
+                            <td>
+                                <p-togglebutton v-model="indicadorSelected.hiden" on-label="Amagat" off-label="Visible"
+                                    on-icon="pi pi-eye-slash" off-icon="pi pi-eye"></p-togglebutton>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Títol</td>
+                            <td>
+                                <p-textarea v-model="indicadorSelected.title" style="width: 100%;"></p-textarea>
+                            </td>
+                        </tr> 
+                        <tr>
+                            <td>Etiqueta</td>
+                            <td> 
+                                <p-dropdown v-model="indicadorSelected.tag" :options="tagsValids"></p-dropdown>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Imatge</td>
+                            <td>
+                                <p-inputtext v-model="indicadorSelected.img" style="width: 100%;">
+                                </p-inputtext>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>url</td>
+                            <td>
+                                <p-inputtext v-model="indicadorSelected.url" style="width: 100%;">
+                                </p-inputtext>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Data publicació (dd/MM/yyyy)</td>
+                            <td>
+                                <p-inputtext v-model="indicadorSelected.date" style="width: 100%;">
+                                </p-inputtext>
+                            </td>
+                        </tr> 
+                        
+                    </tbody>
+                </table>
+                <br />
+
+                <p-button icon="pi pi-times" class="p-button-secondary"
+                    @click="verDlgEditPublicacio=false; indicadorSelected=null;" label="Cancel·lar"></p-button>
+                <p-button icon="pi pi-tick" class="p-button-primary" @click="confirmEditIndicador" label="Acceptar">
+                </p-button>
+            </div>
+        </p-dialog>
+
+        <p-dialog header="Previsualització imatge" :visible.sync="verDlgPreviewImage" :modal="true">
+            <img v-if="indicadorSelected" :src="'../' + indicadorSelected.img" style="max-width: 600px;" />
+            <br />
+            <p-button label="Tancar" icon="pi pi-times" class="p-button-secondary" @click="verDlgPreviewImage=false">
+            </p-button>
+        </p-dialog>
+
+        <% include common-dlg.ejs %>
+
+    </div>
     <%- include footer.ejs %>
 
+    <script>
+        requirejs(['p_orderlist', 'p_dialog', 'p_textarea', 'p_togglebutton', 'p_dropdown', 'p_tabview', 'p_tabpanel', 'p_chips'],
+            function (p_orderlist, p_dialog, p_textarea, p_togglebutton, p_dropdown, p_tabview, p_tabpanel, p_chips) {
 
-    <script src="https://unpkg.com/vue"></script>
-    <script src="https://unpkg.com/primevue/components/dialog/dialog.umd.min.js"></script>
-    <script src="https://unpkg.com/primevue/components/calendar/calendar.umd.min.js"></script>
-    <script src="https://unpkg.com/primevue/components/datatable/datatable.umd.min.js"></script>
-    <script src="https://unpkg.com/primevue/components/column/column.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.js"></script>
-    <script> 
-        Vue.component('p-calendar', calendar);
-        Vue.component('p-datatable', datatable);
-        Vue.component('p-column', column);
-        Vue.component('p-dialog', dialog);
+                Vue.component('p-tabview', p_tabview);
+                Vue.component('p-tabpanel', p_tabpanel);
+                Vue.component('p-orderlist', p_orderlist);
+                Vue.component('p-dialog', p_dialog);
+                Vue.component('p-textarea', p_textarea);
+                Vue.component('p-togglebutton', p_togglebutton);
+                Vue.component('p-dropdown', p_dropdown);
+                Vue.component('p-chips', p_chips);
 
-        var vm = new Vue({
-            components: {
-                'p-calendar': calendar,
-                'p-datatable': datatable,
-                'p-column': column,
-                'p-dialog': dialog
-            },
-            data: {
-                config: {},
-            },
-            mounted: function(){
-                var self = this;
-             
-            }
-        }).$mount('#webconsole-page');
+                var vm = new Vue({
+                    el: '#webconsole-page',
+                    data: function () {
+                        return {
+                            menuModel: menuModelBuilder(),
+                            indicadors: [],
+                            indicadorSelected: null,
+                            verDlgConfirmPublicar: false,
+                            verDlgGenerant: false,
+                            verDlgPublicant: false,
+                            verDlgDelPublicacio: false,
+                            verDlgPreviewImage: false,
+                            verDlgEditPublicacio: false,
+                            tagsValids: [
+                                'ISEIB', 'RESULTATS' 
+                            ],
+                            tagSelected: null
+                        }
+                    },
+                    mounted: function () {
+                        db = myjdb('<%=mountPoint%>', this);
+                        db.loadTable('indicadors');
+                    },
+                    methods: {
+                        persist: function () {
+                            var self = this;
+                            this.verDlgGenerant = true;
+                            db.persist().then(function (ok) {
+                                console.log(ok);
+                                self.verDlgGenerant = false;
+                                if (ok) {
+                                    self.$toast.add({ severity: 'success', summary: "S'han persistit els canvis a disc", life: 3000 });
+                                } else {
+                                    self.$toast.add({ severity: 'error', summary: "No s'han pogut persistir els canvis a disc" });
+                                }
+                            }, function (err) {
+                                console.log(err);
+                                self.verDlgGenerant = false;
+                                self.$toast.add({ severity: 'error', summary: "No s'han pogut persistir els canvis a disc" });
+                            });
+                        },
+                        publish: function() {
+                            var self = this;
+                            this.verDlgPublicant = true;
+                            axios.post("/<%=mountPoint%>/api/publish").then(function(res) {
+                                console.log(res);
+                                self.verDlgPublicant = false;
+                                if(res.data.result) {
+                                    self.$toast.add({ severity: 'success', summary: "S'ha publicat corectament el lloc web"});
+                                } else {
+                                    self.$toast.add({ severity: 'error', summary: "No s'han pogut publicar el lloc web"});
+                                }
+                            }, function(err) {
+                                self.verDlgPublicant = false;
+                                console.log(err);
+                                self.$toast.add({ severity: 'error', summary: "No s'han pogut publicar el lloc web"});
+                            });
+                        }, 
+                        addIndicadors: function () {
+                            var now = new Date();
+                            var dd = now.getDate();
+                            var mm = now.getMonth()+1;
+                            var yyyy = now.getFullYear();
+                            this.indicadorSelected = {
+                                tag: 'ISEIB',                              
+                                img: "img/indicadors/xxx/xxx.png",
+                                title: "Indicadors xxx",
+                                url: "documentos/indicadors/xxx/xxx.pdf",
+                                date: dd+"/"+mm+"/"+yyyy
+                            };
+
+                            this.verDlgEditPublicacio = true;
+                        },
+                        esborrarIndicador: function () {
+                            if (!this.indicadorSelected) {
+                                return;
+                            }
+                            db.remove('indicadors', this.indicadorSelected.id);
+                            this.verDlgDelPublicacio = false;
+                            this.indicadorSelected = null;
+                        },
+                        reorder: function (event) {
+                            if (window.reorderTimeout) {
+                                clearTimeout(window.reorderTimeout);
+                            }
+                            window.reorderTimeout = setTimeout(function () {
+                                db.sync('indicadors');
+                            }, 2000);
+                        },
+                        confirmEditIndicador: function () {
+                            var self = this;
+                            if (this.indicadorSelected == null) {
+                                return;
+                            }
+                            if (this.indicadorSelected.id) {
+                                // update
+                                db.update('indicadors', this.indicadorSelected.id, this.indicadorSelected);
+                            } else {
+                                // insert
+                                db.add(this.indicadorSelected, 'indicadors', '/', 0);
+                            }
+                            this.verDlgEditPublicacio = false;
+                        } 
+                    }
+                });
+
+            });
 
     </script>
 </body>
+
 </html>
-	

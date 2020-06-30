@@ -1,0 +1,185 @@
+<!DOCTYPE html">
+<html lang="es">
+
+<head>
+    <meta title="webconsole-snapshots" />
+    <%- include head.ejs %>
+</head>
+
+<body>
+    <div id="webconsole-page">
+
+        <%- include header.ejs %>
+ 
+        <h1>SNAPSHOTS (Imatges)</h1>
+
+        <center>
+            <p-button label="Crear snapshot DB" @click="crearSnap()" class="p-button-success" icon="pi pi-plus">
+            </p-button>
+        </center>
+
+        <br/>
+
+        <p-datatable :value="snapshots">
+            <p-column field="date" header="Data"></p-column>
+            <p-column field="file" header="Fitxer"></p-column>
+            <p-column header="Accions">
+                <template #body="slotProps">
+                    <p-button label="Restaurar" @click="snapSelected=slotProps.data; verDlgRestaurar=true"/>
+                </template>
+            </p-column> 
+        </p-datatable>
+        <!------------------------------------   DIALOGS  ---------------------------------------------------------->
+     
+        <p-dialog header="Espereu" :visible.sync="verDlgRestaurar" :modal="true">
+            <p>
+                Segur que voleu restaurar aquesta imatge de la base de dades? 
+                
+            </p>
+            <p>L'estat actual de la DB es desarà en una nova imatge.</p>
+            <p-button label="No" icon="pi pi-times" class="p-button-secondary" @click="verDlgRestaurar=false">
+            </p-button>
+            <p-button label="Sí" icon="pi pi-check" class="p-button-danger" @click="confirmRestaurar"></p-button>
+        </p-dialog>
+        
+        <% include common-dlg.ejs %>
+   
+    </div>
+    <%- include footer.ejs %>
+
+    <script>
+        requirejs(['p_orderlist', 'p_dialog', 'p_textarea', 'p_togglebutton', 'p_dropdown', 'p_tabview', 'p_tabpanel', 'p_datatable', 'p_column'],
+            function (p_orderlist, p_dialog, p_textarea, p_togglebutton, p_dropdown, p_tabview, p_tabpanel, p_datatable, p_column) {
+
+                Vue.component('p-tabview', p_tabview);
+                Vue.component('p-tabpanel', p_tabpanel);
+                Vue.component('p-orderlist', p_orderlist);
+                Vue.component('p-dialog', p_dialog);
+                Vue.component('p-textarea', p_textarea);
+                Vue.component('p-togglebutton', p_togglebutton);
+                Vue.component('p-dropdown', p_dropdown);
+                Vue.component('p-datatable', p_datatable);
+                Vue.component('p-column', p_column);
+
+                var vm = new Vue({
+                    el: '#webconsole-page',
+                    data: function () {
+                        return { 
+                            menuModel: menuModelBuilder(),
+                            verDlgConfirmPublicar: false,
+                            verDlgGenerant: false,
+                            verDlgPublicant: false,
+                            verDlgRestaurar: false,
+                            snapshots: [],
+                            snapSelected: null
+
+                        }
+                    },
+                    mounted: function () { 
+                        var self = this;
+                        axios.post("/<%=mountPoint%>/api/listsnapshots").then(function(res){
+                            self.snapshots = res.data;
+                            self.$toast.add({ severity: 'info', summary: "S'ha carregat la llista de snapshots", life: 3000});
+                        }, function(err) {
+                            console.log(err);
+                            self.$toast.add({ severity: 'error', summary: "No s'ha pogut carregar la llista de snapshots"});
+                        });
+                    },
+                    methods: {
+                        persist: function () {
+                            var self = this;
+                            this.verDlgGenerant = true;
+                            db.persist().then(function(ok){
+                                console.log(ok);
+                                self.verDlgGenerant = false;
+                                if(ok) {
+                                     self.$toast.add({ severity: 'success', summary: "S'han persistit els canvis a disc", life: 3000 });
+                                } else {
+                                    self.$toast.add({ severity: 'error', summary: "No s'han pogut persistir els canvis a disc"});
+                                }
+                            }, function(err) {
+                                console.log(err);
+                                self.verDlgGenerant = false;
+                                self.$toast.add({ severity: 'error', summary: "No s'han pogut persistir els canvis a disc"});
+                            }); 
+                        },
+                        publish: function() {
+                            var self = this;
+                            this.verDlgPublicant = true;
+                            axios.post("/<%=mountPoint%>/api/publish").then(function(res) {
+                                console.log(res);
+                                self.verDlgPublicant = false;
+                                if(res.data.result) {
+                                    self.$toast.add({ severity: 'success', summary: "S'ha publicat corectament el lloc web"});
+                                } else {
+                                    self.$toast.add({ severity: 'error', summary: "No s'han pogut publicar el lloc web"});
+                                }
+                            }, function(err) {
+                                self.verDlgPublicant = false;
+                                console.log(err);
+                                self.$toast.add({ severity: 'error', summary: "No s'han pogut publicar el lloc web"});
+                            });
+                        }, 
+                        crearSnap: function() {
+                            var self = this;
+                            axios.post("/<%=mountPoint%>/api/createsnapshot").then(
+                                function(res) {
+                                    if(res.data.result) { 
+                                        self.$toast.add({ severity: 'success', summary: "S'ha creat l'snapshot correctament", life:3000});
+                                    } else {
+                                        self.$toast.add({ severity: 'error', summary: "No s'han pogut crear l'snapshot"});
+                                    }
+                                    // Tornam a carregar el llistat
+                                    axios.post("/<%=mountPoint%>/api/listsnapshots").then(function(res){
+                                        self.snapshots = res.data;
+                                        self.$toast.add({ severity: 'info', summary: "S'ha carregat la llista de snapshots", life: 3000});
+                                    }, function(err) {
+                                        console.log(err);
+                                        self.$toast.add({ severity: 'error', summary: "No s'ha pogut carregar la llista de snapshots"});
+                                    });
+                            }, function(err) {
+                                console.log(err);
+                                self.$toast.add({ severity: 'error', summary: "No s'han pogut crear l'snapshot"});
+                            });
+                        },
+                        confirmRestaurar: function() {
+                            if(!this.snapSelected) {
+                                return;
+                            }
+                            var self=this;
+                            axios.post("/<%=mountPoint%>/api/restoresnapshot", {snapshot: self.snapSelected}).then(
+                                function(res) {
+                                    if(res.data.result) { 
+                                        self.$toast.add({ severity: 'success', summary: "S'ha restaurat l'snapshot correctament", life:3000});
+                                    } else {
+                                        self.$toast.add({ severity: 'error', summary: "No s'han pogut restaurar l'snapshot"});
+                                    }
+                                    // torna a carregar el llistat (ha d'aparèixer un de nou)
+                                    axios.post("/<%=mountPoint%>/api/listsnapshots").then(function(res){
+                                        self.snapshots = res.data;
+                                        self.$toast.add({ severity: 'info', summary: "S'ha carregat la llista de snapshots", life: 3000});
+                                    }, function(err) {
+                                        console.log(err);
+                                        self.$toast.add({ severity: 'error', summary: "No s'ha pogut carregar la llista de snapshots"});
+                                    });
+
+
+                                    self.verDlgRestaurar = false;
+                                },
+                                function(err) {
+                                    console.log(err);
+                                    self.verDlgRestaurar = false;
+                                    self.$toast.add({ severity: 'error', summary: "No s'han pogut restaurar l'snapshot"});
+                                }
+                            ) 
+                            this.verDlgRestaurar = false;
+                        }
+                    }
+                });
+
+            });
+
+    </script>
+</body>
+
+</html>

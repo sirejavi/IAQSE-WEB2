@@ -2,6 +2,7 @@ const fs = require('fs');
 const fsutils = require('../../buildtools/fsutils');
 const uuid = require('uuid'); 
 const path = require('path');
+const Zip = require('adm-zip'); 
 
 const ensureIdsOnObjects = function(contents) {
     if(Array.isArray(contents)) {
@@ -21,6 +22,61 @@ const ensureIdsOnObjects = function(contents) {
 }
 
 let inMemoryDB = {};
+
+// Create snapshot from the current in memory db
+const createSnapshot = function() {
+     let newSnap = null;
+     fsutils.mkDirByPathSync(path.resolve("./database-snapshots"));
+     const now = new Date();
+     let dateStr = now.getDate()+"-"+(now.getMonth()+1)+"-"+now.getFullYear()+"_"+now.getHours()+"-"+now.getMinutes()+"-"+now.getSeconds();
+     const contingut = JSON.stringify(inMemoryDB, null, 2);
+     try {
+        const zip = new Zip();
+        zip.addFile("dbsnap_"+ dateStr +".json", Buffer.alloc(contingut.length, contingut)); 
+        const fileName = "./database-snapshots/dbsnap_"+ dateStr +".zip";
+        zip.writeZip(path.resolve(fileName));
+        newSnap = {
+            file: "dbsnap_"+ dateStr +".zip",
+            date: now
+        };
+     } catch(ex) {
+         console.log(ex);
+     }
+     return newSnap;
+} 
+
+// Reads and restores an old snapshot from a given filename
+const restoreSnapshot = function(fileName) {
+    try {
+       const zipContents = new Zip(path.resolve("./database-snapshots/"+fileName)); 
+       const zipEntries = zipContents.getEntries();
+       
+       let oldDatabaseRaw = null;
+
+       zipEntries.forEach( (entry) => {
+           if(entry.entryName == fileName.replace(".zip", ".json")) {
+                oldDatabaseRaw = entry.getData().toString('utf8');
+           }
+       }); 
+       const oldDatabase = JSON.parse(oldDatabaseRaw);
+        
+       Object.keys(oldDatabase).forEach( (tableName) => {
+
+            const tableContents = oldDatabase[tableName];
+            if(tableName.indexOf("/") < 0) {
+                tableName = "database/"+ tableName + ".json";
+            }
+            const fileDest = path.resolve(path.join("./", tableName));
+            fs.writeFileSync(fileDest, JSON.stringify(tableContents, null, 2), {encoding: 'utf8'});
+
+       });
+
+       return true;
+    } catch(ex) {
+        console.log(ex);
+    }
+    return false;
+} 
 
 // Carrega tota la db en memoria
 const init = function() {
@@ -58,11 +114,10 @@ const init = function() {
         }
     });
 
-    // Crea un snapshot (o còpia de seguretat) cada pic que es llegeix
-    fsutils.mkDirByPathSync(path.resolve("./database-snapshots"));
-    const now = new Date();
-    let dateStr = now.getDate()+"-"+(now.getMonth()+1)+"-"+now.getFullYear()+"_"+now.getHours()+"-"+now.getMinutes()+"-"+now.getSeconds();
-    fs.writeFileSync("./database-snapshots/dbsnap_"+ dateStr +".json", JSON.stringify(inMemoryDB, null, 2), {encoding: 'utf8'});
+
+     // Crea un snapshot (o còpia de seguretat) cada pic que es llegeix
+    createSnapshot();
+
     return inMemoryDB;
 };
 
@@ -298,5 +353,7 @@ module.exports = {
     reorder: reorder,
     getModified: getModified,
     showTables: showTables,
-    _findObjById: _findObjById
+    _findObjById: _findObjById,
+    createSnapshot: createSnapshot,
+    restoreSnapshot: restoreSnapshot
 };

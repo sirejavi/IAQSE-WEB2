@@ -1,14 +1,16 @@
+const fs = require("fs");
+const path = require("path");
 const myjdb = require("../myjdb");
 const siteBuilder = require("../../buildtools/sitebuilder");
+const utils = require("../../buildtools/utils");
+const Zip = require("adm-zip");
  
 module.exports = function(app, mountPoint) {
     let sharedSocket;
     app.io.on('connection', (socket)=> { 
-        console.log("A client has connected to the socket"); 
         sharedSocket = socket;
     });
       
-
 
     app.post('/'+mountPoint+'/api/gettable', function(req, res) {
         const tableName = req.body.tableName;
@@ -84,24 +86,23 @@ module.exports = function(app, mountPoint) {
         res.send({result: myjdb.showtables()});
     });
 
-    app.post('/'+mountPoint+'/api/persist', function(req, res) {
+    const _persist = function(table, development) {
         // Pot contenir opcionalment una taula per actualitzar primer
         let result = true;
         let msgs = [];
-        if(req.body.table) {
-            if(Array.isArray(req.body.table)) {
-                req.body.table.forEach((aTable)=> {
+        if(table) {
+            if(Array.isArray(table)) {
+                table.forEach((aTable)=> {
                     const r = myjdb.setTable(aTable);
                     if(!r) {
                         msgs.push("Cannot settable ", aTable.name);
                     }
                     result = result && r;
                 })
-            } else {
-                const aTable = req.body.table;
-                const r = myjdb.setTable(aTable);
+            } else { 
+                const r = myjdb.setTable(table);
                 if(!r) {
-                    msgs.push("Cannot settable ", aTable.name);
+                    msgs.push("Cannot settable ", table.name);
                 }
                 result = result && r;
             }
@@ -117,17 +118,143 @@ module.exports = function(app, mountPoint) {
         
         siteBuilder({
             type: 'pages',  //all or database
-            development: true
+            development: development
         });
         
         // reload client web page
-        app.io.emit('reload-event', {event: 'reload'});
-        if(sharedSocket) {
-            sharedSocket.broadcast.emit('reload-event', {event: 'reload'});
+        if(development) {
+            app.io.emit('reload-event', {event: 'reload'});
+            if(sharedSocket) {
+                sharedSocket.broadcast.emit('reload-event', {event: 'reload'});
+            }
         }
 
-        res.send({result: result, msg: msgs.join(". ")});
+        return {result: result, msg: msgs.join(". ")};
+    }
+
+
+    app.post('/'+mountPoint+'/api/persist', function(req, res) {
+        const resData = _persist(req.body.table, true);
+        res.send(resData);
     });
 
+
+    app.post('/'+mountPoint+'/api/listsnapshots', function(req, res) {
+
+        const files = fs.readdirSync(path.resolve("./database-snapshots"));
+
+        let snapshots = files.map((file)=> {
+            const parts = file.split("_");
+            let fecha = parts[1];
+            let hora = parts[2];
+          
+            hora = hora.replace(".zip",""); 
+            const fecha_parts = fecha.split("-");
+            const hora_parts = hora.split("-");
+ 
+            return {
+                file: file,
+                date: new Date(fecha_parts[2], fecha_parts[1]-1, fecha_parts[0],
+                                hora_parts[0], hora_parts[1], hora_parts[2] )
+            }
+        });
+        // orderna per date DESC
+        snapshots = snapshots.sort((a, b) => b.date - a.date);
+ 
+        res.json(snapshots);
+
+    });
+
+    app.post('/'+mountPoint+'/api/createsnapshot', function(req, res) {
+        let result = myjdb.createSnapshot();
+        res.json({result: result});
+    });
+
+    app.post('/'+mountPoint+'/api/restoresnapshot', function(req, res) {
+ 
+        const snapshot = req.body.snapshot;
+        if(!snapshot) {
+            res.json({result: false, msg: 'A snapshot obj is expected'})
+        }
+
+        const newSnapshot = myjdb.createSnapshot();
+        let result = newSnapshot != null;
+
+        result =  result && myjdb.restoreSnapshot(snapshot.file);
+         
+        res.json({result: result});
+    });
+
+    const copyDirRecursive = function(sourceFolder, sourceRelative, targetFolder, zip, encoding) {
+
+        if(!fs.existsSync(targetFolder)) {
+            fs.mkdirSync(targetFolder, {recursive: true});
+        }
+
+        const dirFiles = fs.readdirSync(sourceFolder);
+        dirFiles.forEach( (fileName) => {
+            const file = path.join(sourceFolder, fileName);
+            const stat = fs.statSync(file);
+            if(stat.isFile()){
+                const data = fs.readFileSync(path.join(sourceFolder, fileName), {encoding: encoding});
+                fs.writeFileSync(path.join(targetFolder, fileName), data, {encoding: encoding});
+                zip.addFile(sourceRelative + fileName, Buffer.alloc(data.length, data));
+            } 
+         });
+
+         // Miram els directoris
+         dirFiles.forEach( (fileName) => {
+            const file = path.join(sourceFolder, fileName);
+            const stat = fs.statSync(file);
+            if(stat.isDirectory()){
+                const sourceRelative2 = sourceRelative +  fileName+"/"; 
+                copyDirRecursive(path.join(sourceFolder, fileName), sourceRelative2,
+                                 path.join(targetFolder, fileName), zip, encoding);
+            }
+         });
+ 
+    }
+
+    app.post('/'+mountPoint+'/api/publish', function(req, res) {
+
+        // En primer lloc fa la compilació (deshabilitant el hot deploy)
+        const resData = _persist(req.body.table, false); 
+        if(resData.result) {
+              // Compilació correcta
+          
+            try {
+                    // Tot seguit copia els fitxers al directori
+                    // Determina el directori desti
+                    const config = utils.requireJSON("./config/config.json");
+                    const pubDir = config.publicationFolder;
+                    if(!pubDir || !fs.existsSync(pubDir)) {
+                        res.json({result: false, msg:'Publication folder not set or does not exist'});
+                        return;
+                    }
+                    const routes = utils.requireJSON("./config/routes.json");
+                    const baseurl = routes.baseurl; 
+
+                    const sourceFolder = path.resolve(
+                        path.join("./static", baseurl)
+                    );
+
+                    // Després desa una còpia en l'històric de publicacions /web-history
+                    const zip = new Zip();
+                    // Copia la compilació al lloc publicat 
+                    copyDirRecursive(sourceFolder, "", pubDir, zip, config.encoding);  
+                    const now = new Date();
+                    const dateStr = now.getDate()+"-"+(now.getMonth()+1)+"-"+now.getFullYear()+"_"+now.getHours()+"-"+now.getMinutes()+"-"+now.getSeconds();
+                    const historyFilename = "web-history_" + dateStr + ".zip";
+                    zip.writeZip(path.resolve(path.join("./web-history", historyFilename))); 
+                    res.json({result: true});
+             } catch(ex) {
+                console.log(ex);
+                res.json({result: false});
+             }
+        } else {
+            res.json(resData);
+        }
+
+    });
 
 };

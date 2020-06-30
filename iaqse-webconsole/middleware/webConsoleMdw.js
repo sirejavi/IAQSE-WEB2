@@ -7,10 +7,10 @@ module.exports = function (app, mountPoint) {
     // Punts de muntatge de les diferents seccions de la consola d'administració
 
     app.get('/' + mountPoint, function (req, res) {
-        res.render('webconsole-home', { mountPoint: mountPoint, config: config, routes: routes });
+        res.render('webconsole-inici', { mountPoint: mountPoint, config: config, routes: routes });
     });
-    app.get('/' + mountPoint + '/home', function (req, res) {
-        res.render('webconsole-home', { mountPoint: mountPoint, config: config, routes: routes });
+    app.get('/' + mountPoint + '/snapshots', function (req, res) {
+        res.render('webconsole-snapshots', { mountPoint: mountPoint, config: config, routes: routes });
     });
     app.get('/' + mountPoint + '/inici', function (req, res) {
         res.render('webconsole-inici', { mountPoint: mountPoint, config: config, routes: routes });
