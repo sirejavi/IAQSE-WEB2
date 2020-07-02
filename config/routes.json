@@ -176,15 +176,7 @@
             "title": "Enllaços",
             "ejs": "enllacos",
             "url": "enllacos"
-        },
-        {
-            "title": "Admin",
-            "title_long": "Consola d'administració",
-            "ejs": "admin_console",
-            "url": "admin_console", 
-            "comment": "Privat",
-            "hide": true
-        }
+        } 
 
     ]
 }

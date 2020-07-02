@@ -118,9 +118,8 @@
         };
         return $http(request);
       }
-        <% if(config.remoteURL) { %>
-      ,
-          isAuthenticated: function(sessionId) {
+    <% if(config.remoteURL) { %>
+      , isAuthenticated: function(sessionId) {
             return $http.post('<%=config.remoteURL%>/authenticate', { sessionId: sessionId });
           },
     login: function(username, password) {
@@ -146,12 +145,15 @@
     },
     geolocations: function(sessionId){
       return $http.post('<%=config.remoteURL%>/priv/visit/geolocations', { sessionId: sessionId });
-    },
-    hit: function (url, tipus) {
+    }
+    <% } %>
+      
+    , hit: function (url, tipus) {
       if(localStorage!=null && localStorage.getItem("iaqse-sessionId")) {
         // No facis seguiment per a usuaris loggeats
         return;
       }
+      <% if(config.remoteURL) { %>
       geolocation.getCurrentPosition().then(
         function (coords) {
           var data = { url: url, tipus: tipus, coords: coords }; 
@@ -162,8 +164,8 @@
           $http.post('<%=config.remoteURL%>/visit/hit', data);
         }
       );
-    }
       <% } %>
+    }
     };
   return service;
   }]);

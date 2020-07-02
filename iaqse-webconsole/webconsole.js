@@ -22,6 +22,7 @@ console.log(" ************************************************");
 console.log("");
 
 const path = require('path');
+const routes = require('../config/routes.json');
 let basePath = path.resolve();
 console.log(basePath)
 // Algunes preferències
@@ -82,4 +83,10 @@ app.use('/', express.static('static'));
 
 
 http.listen(3000);
-console.log('Application server running on port 3000');
+console.log('El servidor està funcionant al port 3000');
+console.log('')
+console.log("CONSOLA D'ADMINISTRACIÓ DE LA WEB");
+console.log('http://localhost:3000/'+CONSOLE_WEB_PATH+'/inici');
+console.log('')
+console.log("PREVIEW DEL SITE PUBLICAT")
+console.log('http://localhost:3000/'+routes.baseurl+'/index.html');

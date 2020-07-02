@@ -19,7 +19,7 @@
                     </div>
 
                     <ul id="tree1">
-                        <% routes.pages.forEach( page => { if(!page.hide){ %>
+                        <% routes.pages.filter(e=>!e.hiden).forEach( page => { if(!page.hide){ %>
                         <li><a href="<%=page.url%>.html"><%=page.title%></a>
                             <% if(page.views && page.views.length) {  %>
                             <ul>
@@ -40,11 +40,11 @@
                         <% } }) %>
                     </ul>
 
+                    <% if(config.remoteURL) { %>
                     <br><br>
                     <div class="alert alert-primary">
                             <h6><i class="fa fa-cogs"></i> Administració</h6>
                     </div>
-                    <% if(config.remoteURL) { %>
                     <login-widget></login-widget>
                     <% } %>
                 </div>
