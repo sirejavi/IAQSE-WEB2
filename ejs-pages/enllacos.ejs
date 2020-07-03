@@ -93,7 +93,22 @@
                 };
             };
             httpService.loadSchema("enllacos").then(function(response){
-                enllacosJSON = response.data;
+                window.enllacosJSON = [];
+                var nn = response.data.length;
+                for(var i=0; i < nn; i++) {
+                    var item = response.data[i];
+                    if(!item.hiden) {
+                        var links = [];
+                        var n2 = (item.list || []).length;
+                        for(var j=0; j<n2; j++) {
+                            if(!item.links[j].hiden) {
+                                links.push(item.links[j]);
+                            }
+                        }
+                        item.list = links;
+                        window.enllacosJSON.push(item);
+                    }
+                }
                 $scope.chooseType(0);      
                 
                 <% if(config.remoteURL) { %>

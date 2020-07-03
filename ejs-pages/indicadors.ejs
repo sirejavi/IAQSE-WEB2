@@ -118,8 +118,15 @@
                 $scope.updateAnalyticsInfo(sessionId);
         });
 
-        httpService.loadSchema("indicadors").then(function (response) {
-            indicadorsJSON = response.data;
+        httpService.loadSchema("indicadors").then(function(response) {
+            window.indicadorsJSON = [];
+            var nn = response.data.length;
+            for(var i=0; i < nn; i++) {
+                var item = response.data[i];
+                if(!item.hiden) {
+                    window.indicadorsJSON.push(item);
+                }
+            }
             $scope.display();
             <% if(config.remoteURL) { %>
                 $scope.updateAnalyticsInfo(localStorage.getItem("iaqse-sessionId"));

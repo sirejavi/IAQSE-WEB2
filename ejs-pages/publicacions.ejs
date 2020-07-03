@@ -251,13 +251,20 @@
             });
 
             httpService.loadSchema("publicacions").then(function (response) {
-                pubJSON = response.data;
+                window.pubJSON = [];
+                var nn = response.data.length;
+                for(var i = 0; i < nn; i++){
+                    var item = response.data[i];
+                    if(!item.hiden) {
+                        window.pubJSON.push(item);
+                    }
+                };
                 var goTo = 0;
                 var tag = getURLParameter("tag"); 
                 if (tag) {
                     try {
                         goTo = parseInt(tag);
-                    } catch (e) { };
+                    } catch (e) { console.log(e); };
                 }
                 if (goTo >= $scope.searchTags.length) {
                     goTo = 0;
