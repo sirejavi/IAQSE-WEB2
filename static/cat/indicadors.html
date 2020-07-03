@@ -294,7 +294,7 @@
 <script>app.controller("mainController",["$scope","$rootScope","httpService","$filter",function(i,e,t,n){i.pubs=[],i.pubslength=0,i.menuItems=[{label:"Sistema educatiu IB",value:"ISEIB",selected:!0},{label:"Resultats acadèmics",value:"RESULTATS",selected:!1}],i.select=function(e){for(var t=0,n=i.menuItems.length;t<n;t++)i.menuItems[t].selected=!1;e.selected=!0,i.display()},i.display=function(){for(var e=[],t=0,n=indicadorsJSON.length;t<n;t++){for(var s=indicadorsJSON[t],a=!0,l=0,c=i.menuItems.length;l<c;l++)i.menuItems[l].selected&&(a&=s.tag==i.menuItems[l].value);a&&e.push(s)}i.pubslength=e.length,i.pubs=chunker(e,2)},e.$on("iaqse-sessionId",function(e,t){i.updateAnalyticsInfo(t)}),t.loadSchema("indicadors").then(function(e){indicadorsJSON=e.data,i.display()})}])</script></main>
                 </div>
             </div>
-                <footer class="py-1" style="width:100%;margin:0" title="Webmaster: IAQSE - Version: 2-7-2020">
+                <footer class="py-1" style="width:100%;margin:0" title="Webmaster: IAQSE - Version: 3-7-2020">
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-6">

@@ -17,7 +17,7 @@
         <li><a href ng-click="navigate($event,'section1')">Accés a l'aplicació</a></li>
         <li><a href ng-click="navigate($event,'section2')">Realitzar el qüestionari</a></li>
         <li><a href ng-click="navigate($event,'section3')">Visualitzar els resultats</a></li>
-        <li class="d-print-none"><a href ng-click="navigate($event,'section4')">Video tutorial</a></li>
+        
     </ol>
 </div>
 
@@ -131,12 +131,6 @@ vostre fill no va realitzar la prova d'aquella matèria.
 
 </div>
 
-<h4 id="section4" class="iaqse-section">4. Video tutorial</h4>
 
-<div class="row-fluid video-center">
-        <div class="embed-responsive embed-responsive-16by9">
-                <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/zpOULjycy-n8?rel=0" allowfullscreen></iframe>
-        </div>
-</div>
 
 <script>app.controller("familiesController",["$scope","$rootScope","$filter","httpService",function(e,t,o,n){e.navigate=function(e,t){e.preventDefault();var o=document.getElementById(t);if(o){var n=o.offsetTop+100;window.scrollTo(0,n)}},e.printDiv=function(){printDocument("print-area","Famílies")}}])</script>

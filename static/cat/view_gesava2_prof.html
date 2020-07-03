@@ -16,7 +16,7 @@
     <ol>
         <li><a href ng-click="navigate($event,'section1')">Accés a l'aplicació</a></li>
         <li><a href ng-click="navigate($event,'section2')">Realitzar el qüestionari</a></li> 
-        <li class="d-print-none"><a href ng-click="navigate($event,'section4')">Video tutorial</a></li>
+        
     </ol>
 </div>
 
@@ -116,13 +116,6 @@
 
 </div> 
 
-<h4 id="section4" class="iaqse-section">3. Video tutorial</h4>
-
-<div class="row-fluid video-center">
-        <div class="embed-responsive embed-responsive-16by9">
-                <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/zpOULjycy-n8?rel=0" allowfullscreen></iframe>
-        </div>
-</div>
 
 
 <script>app.controller("professoratController",["$scope","$rootScope","$filter","httpService",function(o,t,e,r){o.navigate=function(o,t){o.preventDefault();var e=document.getElementById(t);if(e){var r=e.offsetTop+100;window.scrollTo(0,r)}},o.printDiv=function(){printDocument("print-area","Professorat")}}])</script>
