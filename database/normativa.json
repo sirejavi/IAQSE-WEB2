@@ -1,45 +1,32 @@
 [
-  {
-    "img": "img/quisom/xxx.jpg",
-    "url": "documentos/quisom/xxxx.pdf",
-    "title": "Nou decret pel qual puc fer el que vull",
-    "id": "17396344-d158-40a4-bbdf-072e3d475622"
-  },
-  {
-    "img": "img/quisom/decret_iaqse.jpg",
-    "url": "documentos/quisom/decret_iaqse.pdf",
-    "title": "Decret 145/2000, de 3 de novembre, de creació de l'IAQSE.",
-    "id": "ff6932d6-c85a-4ad2-8dc2-3fa1ab6ee69a",
-    "hiden": true
-  },
-  {
-    "img": "img/quisom/mod_decret_iaqse.jpg",
-    "url": "documentos/quisom/mod_decret_iaqse.pdf",
-    "title": "Modificació decret IAQSE que ha estat modi",
-    "id": "806a655d-8cfa-461d-b16e-37c282b8601d"
-  },
-  {
-    "img": "img/quisom/141212_decret_organigrama_modificacio.jpg",
-    "url": "documentos/quisom/141212_decret_organigrama_modificacio.pdf",
-    "title": "Decret de les competències i l'estructura orgànica bàsica de la Conselleria d'Educació, Cultura i Universitats (12/12/2014).",
-    "id": "87f55f76-50fd-445b-9d5c-34c8cc1cbc83"
-  },
-  {
-    "img": "img/quisom/loe_cast.jpg",
-    "url": "documentos/quisom/loe_cast.pdf",
-    "title": "TÍTOL VI de la LOE (castellà).",
-    "id": "b6446707-83c5-4385-9095-59a1229506c7"
-  },
-  {
-    "img": "img/quisom/roc_ies.jpg",
-    "url": "documentos/quisom/roc_ies.pdf",
-    "title": "TÍTOL V del Decret d'aprovació del reglament orgànic dels IES.",
-    "id": "7eaa6e12-3f04-4a24-88c9-0c1b82166896"
-  },
-  {
-    "img": "img/quisom/roc_eip.jpg",
-    "url": "documentos/quisom/roc_eip.pdf",
-    "title": "TÍTOL V del Decret d'aprovació del reglament orgànic dels centres d'EI i EP.",
-    "id": "29620731-b26d-4b19-b32a-ffd753adfd74"
-  }
+    {
+        "img": "img/quisom/decret_iaqse.jpg",
+        "url": "documentos/quisom/decret_iaqse.pdf",
+        "title": "Decret 145/2000, de 3 de novembre, de creació de l'IAQSE."
+    },
+    {
+        "img": "img/quisom/mod_decret_iaqse.jpg",
+        "url": "documentos/quisom/mod_decret_iaqse.pdf",
+        "title": "Modificació decret IAQSE"
+    },
+    {
+        "img": "img/quisom/141212_decret_organigrama_modificacio.jpg",
+        "url": "documentos/quisom/141212_decret_organigrama_modificacio.pdf",
+        "title": "Decret de les competències i l'estructura orgànica bàsica de la Conselleria d'Educació, Cultura i Universitats (12/12/2014)."
+    },
+    {
+        "img": "img/quisom/loe_cast.jpg",
+        "url": "documentos/quisom/loe_cast.pdf",
+        "title": "TÍTOL VI de la LOE (castellà)."
+    },
+    {
+        "img": "img/quisom/roc_ies.jpg",
+        "url": "documentos/quisom/roc_ies.pdf",
+        "title": "TÍTOL V del Decret d'aprovació del reglament orgànic dels IES."
+    },
+    {
+        "img": "img/quisom/roc_eip.jpg",
+        "url": "documentos/quisom/roc_eip.pdf",
+        "title": "TÍTOL V del Decret d'aprovació del reglament orgànic dels centres d'EI i EP."
+    }
 ]

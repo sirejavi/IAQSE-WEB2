@@ -1,41 +1,28 @@
 [
-  {
-    "img": "img/carousel/1.jpg",
-    "url": "quisom.html",
-    "title": "QUI SOM?",
-    "description": "Funcions de l'IAQSE",
-    "id": "1ffffdfb-938b-4754-ac38-74f19f18a48d"
-  },
-  {
-    "img": "img/carousel/3.jpg",
-    "url": "proves.html#!/imprimibles",
-    "title": "PROVES ALLIBERADES",
-    "description": "Proves per baixar i imprimir",
-    "id": "458f5c48-4d2d-4ec4-bd67-c574b2c75686"
-  },
-  {
-    "title": "Nova pantalla",
-    "description": "Aquesta és una nova pantalla",
-    "img": "img/carousel/1.jpg",
-    "url": "https://iedib.net",
-    "target": "_blank",
-    "id": "c9ffa8c4-4ccc-41de-942a-79503beba8f7",
-    "hiden": false
-  },
-  {
-    "img": "img/carousel/0.png",
-    "url": "https://apps.caib.es/gesavafront/",
-    "target": "_blank",
-    "title": "Accés GESAVA",
-    "description": "Programa de gestió de les avaluacions",
-    "id": "67b22e20-158f-427e-af53-e744aae649cc"
-  },
-  {
-    "img": "img/carousel/2.jpg",
-    "url": "avaluacions.html#!/diagnostic?id=ad2neso1920",
-    "title": "AVALUACIÓ DE DIAGNÒSTIC",
-    "description": "2n ESO - Curs 2019-20",
-    "hiden": true,
-    "id": "bd30ed37-847d-49e9-8571-de158604fc1d"
-  }
+    {
+        "img": "img/carousel/0.png",
+        "url": "https://apps.caib.es/gesavafront/",
+        "target": "_blank",
+        "title": "Accés GESAVA",
+        "description": "Programa de gestió de les avaluacions"
+    },
+    {
+        "img": "img/carousel/2.jpg",
+        "url": "avaluacions.html#!/diagnostic?id=ad2neso1920",
+        "title": "AVALUACIÓ DE DIAGNÒSTIC",
+        "description": "2n ESO - Curs 2019-20",
+        "hiden": true
+    },
+    {
+        "img": "img/carousel/1.jpg",
+        "url": "quisom.html",
+        "title": "QUI SOM?",
+        "description": "Funcions de l'IAQSE"
+    },
+    {
+        "img": "img/carousel/3.jpg",
+        "url": "proves.html#!/imprimibles",
+        "title": "PROVES ALLIBERADES",
+        "description": "Proves per baixar i imprimir"
+    }
 ]

@@ -1,7 +1,7 @@
 [
     {
         "title": "PIRLS i TIMSS 2018",
-        "tag": " PIRLS",
+        "tag": "PIRLS",
         "documents": [
             {
                 "title": "Pòster TIMMS 2018-2019 (català)",
@@ -31,7 +31,7 @@
     },
     {
         "title": "TALIS 2018",
-        "tag": " TALIS",
+        "tag": "TALIS",
         "documents": [
             {
                 "title": "Informe Español.",
@@ -79,7 +79,7 @@
     },
     {
         "title": "PIRLS i TIMSS 2015",
-        "tag": " PIRLS",
+        "tag": "PIRLS",
         "documents": [
             {
                 "title": "Informe estatal",
@@ -103,7 +103,7 @@
     },
     {
         "title": "PIRLS i TIMSS 2011",
-        "tag": " PIRLS",
+        "tag": "PIRLS",
         "documents": [
             {
                 "title": "Volum I. Informe estatal.",
@@ -121,7 +121,7 @@
     },
     {
         "title": "PISA 2018",
-        "tag": " PISA",
+        "tag": "PISA",
         "id": "ava_pisa2018",
         "documents": [
             {
@@ -168,7 +168,7 @@
     },
     {
         "title": "PISA 2015",
-        "tag": " PISA",
+        "tag": "PISA",
         "documents": [
             {
                 "title": "Informe resultats PISA 2015 Illes Balears",
@@ -246,7 +246,7 @@
     },
     {
         "title": "PISA 2012",
-        "tag": " PISA",
+        "tag": "PISA",
         "documents": [
             {
                 "title": "Informe Balears.",
@@ -288,7 +288,7 @@
     },
     {
         "title": "PISA 2009",
-        "tag": " PISA",
+        "tag": "PISA",
         "documents": [
             {
                 "title": "Informe Balears.",

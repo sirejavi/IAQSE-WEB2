@@ -1,77 +1,58 @@
 [
-  {
-    "img": "img/quisom/toni_bauza.jpg",
-    "nom": "Antoni Bauzà Sampol",
-    "carrec": "Director",
-    "ext": "62217",
-    "email": "abauzasampol@iaqse.caib.es",
-    "id": "9210d6de-873b-4f5f-a324-04b9c1e6280d"
-  },
-  {
-    "img": "img/quisom/pep_mulet.jpg",
-    "nom": "Josep Mulet Pol",
-    "carrec": "Personal Tècnic",
-    "ext": "62214",
-    "email": "jmulet@iaqse.caib.es",
-    "id": "81f7f038-965e-4a46-9a3f-7471c5030fbd",
-    "hiden": true
-  },
-  {
-    "img": "img/quisom/xavi.jpg",
-    "nom": "Xavier Real Vilà",
-    "carrec": "Personal Tècnic",
-    "ext": "62216",
-    "email": "jreal@iaqse.caib.es",
-    "id": "c6a1f21a-1db7-49cd-8285-7ff6414b4135",
-    "hiden": true
-  },
-  {
-    "img": "img/quisom/javi.jpg",
-    "nom": "Javier Gámez Bauzá",
-    "carrec": "Personal Tècnic",
-    "ext": "62211",
-    "email": "jgamezbauza@iaqse.caib.es",
-    "id": "5ed169f1-e0db-432a-a466-5c7bb91a46f2"
-  },
-  {
-    "img": "img/quisom/joan_manuel.jpg",
-    "nom": "Joan Manuel Pérez i Pinya",
-    "carrec": "Personal Tècnic",
-    "ext": "62215",
-    "email": "jmperez@iaqse.caib.es",
-    "id": "449dcb89-94fc-4acb-af4b-ca52f8f3c40e"
-  },
-  {
-    "img": "img/quisom/xxxxx.jpg",
-    "nom": "Lucrecia",
-    "carrec": "Personal Tècnic",
-    "ext": "11111",
-    "email": "piopìo@iaqse.caib.es",
-    "id": "a4e3965b-ccd9-415f-8321-75461e6c889f",
-    "hiden": true
-  },
-  {
-    "img": "img/quisom/luis.jpg",
-    "nom": "Luis Vidaña Fernández",
-    "carrec": "Personal Tècnic",
-    "ext": "62190",
-    "email": "lvidanyafernandez@iaqse.caib.es",
-    "id": "d1f7f2ab-545d-49e0-81e1-75c18cea80d7"
-  },
-  {
-    "img": "img/quisom/rut_gari.jpg",
-    "nom": "Rut Garí Ruiz",
-    "carrec": "Personal Tècnic",
-    "ext": "62113",
-    "email": "rgari@iaqse.caib.es",
-    "id": "ded3cbb9-1046-47c8-b8da-d00f5a89576b"
-  },
-  {
-    "img": "img/quisom/aniuska.jpg",
-    "nom": "Anastasia Jiménez Cava",
-    "carrec": "Personal Administratiu",
-    "ext": "62212",
-    "email": "aijimenez@iaqse.caib.es",
-    "id": "ea51dbb7-f6b8-4d6f-8ca7-dd61ab2bab35"
-  }
+    {
+        "img": "img/quisom/toni_bauza.jpg",
+        "nom": "Antoni Bauzà Sampol",
+        "carrec": "Director",
+        "ext": "62217",
+        "email": "abauzasampol@iaqse.caib.es"
+    },
+    {
+        "img": "img/quisom/pep_mulet.jpg",
+        "nom": "Josep Mulet Pol",
+        "carrec": "Personal Tècnic",
+        "ext": "62214",
+        "email": "jmulet@iaqse.caib.es"
+    },
+    {
+        "img": "img/quisom/xavi.jpg",
+        "nom": "Xavier Real Vilà",
+        "carrec": "Personal Tècnic",
+        "ext": "62216",
+        "email": "jreal@iaqse.caib.es"
+    },
+    {
+        "img": "img/quisom/javi.jpg",
+        "nom": "Javier Gámez Bauzá",
+        "carrec": "Personal Tècnic",
+        "ext": "62211",
+        "email": "jgamezbauza@iaqse.caib.es"
+    },
+    {
+        "img": "img/quisom/joan_manuel.jpg",
+        "nom": "Joan Manuel Pérez i Pinya",
+        "carrec": "Personal Tècnic",
+        "ext": "62215",
+        "email": "jmperez@iaqse.caib.es"
+    },
+    {
+        "img": "img/quisom/luis.jpg",
+        "nom": "Luis Vidaña Fernández",
+        "carrec": "Personal Tècnic",
+        "ext": "62190",
+        "email": "lvidanyafernandez@iaqse.caib.es"
+    },
+    {
+        "img": "img/quisom/rut_gari.jpg",
+        "nom": "Rut Garí Ruiz",
+        "carrec": "Personal Tècnic",
+        "ext": "62113",
+        "email": "rgari@iaqse.caib.es"
+    },
+    {
+        "img": "img/quisom/aniuska.jpg",
+        "nom": "Anastasia Jiménez Cava",
+        "carrec": "Personal Administratiu",
+        "ext": "62212",
+        "email": "aijimenez@iaqse.caib.es"
+    }
 ]

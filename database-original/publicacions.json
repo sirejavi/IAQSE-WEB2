@@ -1,7 +1,7 @@
 
 [
     {
-        "destacado": true,
+        
         "tags": [
             "destacado",
             "documents"
@@ -14,7 +14,7 @@
         "pubdate": "5/2020"
     },
     {
-        "destacado": false,
+        
         "tags": [
             "resultats",
             "destacado"
@@ -27,7 +27,7 @@
         "pubdate": "15/12/2019"
     },
     {
-        "destacado": true,
+        
         "tags": [
             "destacado",
             "6eep"
@@ -40,7 +40,7 @@
         "pubdate": "11/2019"
     },
     {
-        "destacado": true,
+        
         "tags": [
             "destacado",
             "4teso"
@@ -53,7 +53,7 @@
         "pubdate": "11/2019"
     },
     {
-        "destacado": false,
+        
         "tags": [
             "destacado",
             "documents"
@@ -66,7 +66,7 @@
         "pubdate": "10/2019"
     },
     {
-        "destacado": false,
+        
         "tags": [
             "6eep",
             "destacado",
@@ -80,7 +80,7 @@
         "pubdate": "6/2019"
     },
     {
-        "destacado": true,
+        
         "tags": [
             "destacado",
             "indicadors"
@@ -93,7 +93,7 @@
         "pubdate": "6/2019"
     },
     {
-        "destacado": true,
+        
         "tags": [
             "destacado",
             "documents"
@@ -106,7 +106,7 @@
         "pubdate": "4/2019"
     },
     {
-        "destacado": true,
+        
         "tags": [
             "destacado",
             "documents"
@@ -119,7 +119,7 @@
         "pubdate": "3/2019"
     },
     {
-        "destacado": false,
+        
         "tags": [
             "resultats",
             "destacado"
@@ -128,11 +128,11 @@
         "title": "Evolució del percentatge d'aprovats a les àrees lingüístiques entre els cursos 2010-2011 i 2017-2018",
         "description": "Estudi de l'evolució dels resultats acadèmics dels alumnes de les Illes Balears en les àrees lingüístiques en el tram de l'ensenyament obligatori i en el batxillerat durant el període comprès entre els cursos 2010-2011 i 2017-2018",
         "url": "documentos/publicacions/resultatsLlengues2018.pdf",
-        "date": "",
+        "date": "2018",
         "pubdate": "3/2019"
     },
     {
-        "destacado": false,
+        
         "tags": [
             "4teso",
             "destacado"
@@ -145,7 +145,7 @@
         "pubdate": "2/2019"
     },
     {
-        "destacado": true,
+        
         "tags": [
             "destacado",
             "documents"
@@ -158,7 +158,7 @@
         "pubdate": "2/2019"
     },
     {
-        "destacado": true,
+        
         "tags": [
             "destacado",
             "documents"
@@ -171,7 +171,7 @@
         "pubdate": "1/2019"
     },
     {
-        "destacado": false,
+        
         "tags": [
             "resultats",
             "destacado"
@@ -184,7 +184,7 @@
         "pubdate": "1/2019"
     },
     {
-        "destacado": true,
+        
         "tags": [
             "destacado",
             "documents"
@@ -197,7 +197,7 @@
         "pubdate": "12/2018"
     },
     {
-        "destacado": true,
+        
         "tags": [
             "destacado",
             "documents"
@@ -210,7 +210,7 @@
         "pubdate": "11/2018"
     },
     {
-        "destacado": true,
+        
         "tags": [
             "destacado",
             "documents"
@@ -223,7 +223,7 @@
         "pubdate": "10/2018"
     },
     {
-        "destacado": true,
+        
         "tags": [
             "destacado",
             "documents"
@@ -236,7 +236,7 @@
         "pubdate": "9/2018"
     },
     {
-        "destacado": true,
+        
         "tags": [
             "destacado",
             "documents"
@@ -249,7 +249,7 @@
         "pubdate": "6/2018"
     },
     {
-        "destacado": false,
+        
         "tags": [
             "4teso",
             "destacado"
@@ -262,7 +262,7 @@
         "pubdate": "6/2018"
     },
     {
-        "destacado": true,
+        
         "tags": [
             "destacado",
             "documents"
@@ -275,7 +275,7 @@
         "pubdate": "5/2018"
     },
     {
-        "destacado": false,
+        
         "tags": [
             "6eep",
             "destacado"
@@ -288,7 +288,7 @@
         "pubdate": "5/2018"
     },
     {
-        "destacado": true,
+        
         "tags": [
             "destacado",
             "indicadors"
@@ -301,7 +301,7 @@
         "pubdate": "5/2018"
     },
     {
-        "destacado": false,
+        
         "tags": [
             "2neso",
             "destacado",
@@ -315,7 +315,7 @@
         "pubdate": "5/2018"
     },
     {
-        "destacado": true,
+        
         "tags": [
             "destacado",
             "documents"
@@ -324,11 +324,11 @@
         "title": "Document d'avaluació 9 - Competència docent i observació entre iguals.",
         "description": "Novè document d'avaluació (13 pàg.) referent a la competència docent efectiva i la seva millora a partir de l'observació entre iguals mitjançant un estudi pilot amb dos centres de les Illes Balears.",
         "url": "documentos/documents/document_9.pdf",
-        "date": "209",
+        "date": "2018",
         "pubdate": "4/2018"
     },
     {
-        "destacado": true,
+        
         "tags": [
             "destacado",
             "documents"
@@ -337,11 +337,11 @@
         "title": "Document d'avaluació 8 - Avaluació de centres: Avaluació interna i avaluació externa.",
         "description": "Vuitè document d'avaluació (7 pàg.) dedicat a explanar el concepte d'avaluació i les seves variants interna i externa. També s'hi consideren els requisits d'una bona pràctica de l'autoavaluació de centres i les seves fases.",
         "url": "documentos/documents/document_8_ava.pdf",
-        "date": "20ava",
+        "date": "2018",
         "pubdate": "3/2018"
     },
     {
-        "destacado": true,
+        
         "tags": [
             "destacado",
             "documents"
@@ -350,11 +350,11 @@
         "title": "Document d'avaluació 7 - Les matemàtiques, resultats i necessitats.",
         "description": "Setè document d'avaluació (8 pàg.), amb una anàlisi dels resultats dels alumnes en matemàtiques a les Illes Balears i de les noves tendències en l'ensenyament de les matemàtiques.",
         "url": "documentos/documents/document_7_mat.pdf",
-        "date": "20mat",
+        "date": "2018",
         "pubdate": "2/2018"
     },
     {
-        "destacado": true,
+        
         "tags": [
             "destacado",
             "documents"
@@ -363,11 +363,11 @@
         "title": "Document d'avaluació 6 - Anàlisi del programa per a la millora de l'aprenentatge i el rendiment (PMAR).",
         "description": "Sisè document d'avaluació (11 pàg.) amb l'anàlisi de la implantació a les Illes Balears del programa per a la millora de l'aprenentatge i el rendiment (PMAR) i valoració dels primers resultats.",
         "url": "documentos/documents/document_6_pmar.pdf",
-        "date": "pmar",
+        "date": "2018",
         "pubdate": "1/2018"
     },
     {
-        "destacado": false,
+        
         "tags": [
             "resultats",
             "destacado"
@@ -380,7 +380,7 @@
         "pubdate": "1/2018"
     },
     {
-        "destacado": true,
+        
         "tags": [
             "destacado"
         ],
@@ -388,11 +388,11 @@
         "title": "Informe sobre l'evolució dels resultats de la Llengua anglesa entre 2014 i 2017.",
         "description": "Informe (10 pàg.) sobre l'evolució dels resultats de la Llengua anglesa en el tram de l'educació obligatòria a les Illes Balears en el període comprès entre 2014 i 2017.",
         "url": "documentos/publicacions/inf_ang.pdf",
-        "date": "20ang",
+        "date": "2018",
         "pubdate": "1/2018"
     },
     {
-        "destacado": false,
+        
         "tags": [
             "anuari"
         ],
@@ -404,7 +404,7 @@
         "pubdate": "2017"
     },
     {
-        "destacado": true,
+        
         "tags": [
             "documents"
         ],
@@ -412,11 +412,11 @@
         "title": "Document d'avaluació 5 - Bones pràctiques per combatre l'absentisme escolar en els centres de secundària de les Illes Balears.",
         "description": "Cinquè document d'avaluació (10 pàg.) L'objectiu general de l'informe és estudiar les bones pràctiques per combatre l'absentisme escolar en centres de secundària. S'estudien, fent servir una metodologia qualitativa, el protocol d'absentisme i la seva aplicació als centres, els documents de centre i com fan referència a l'absentisme, el treball preventiu i els programes de suport, com també les relacions família-escola i el treball en xarxa en relació a l'absentisme.",
         "url": "documentos/documents/document_5_absentisme.pdf",
-        "date": "absentisme",
+        "date": "2017",
         "pubdate": "11/2017"
     },
     {
-        "destacado": true,
+        
         "tags": [
             "documents"
         ],
@@ -424,11 +424,11 @@
         "title": "Document d'avaluació 4 - Expressió Oral.",
         "description": "Quart document d'avaluació (15 pàg.) amb el procés seguit per validar una rúbrica que permet valorar les diferents dimensions de l'expressió oral al final de l'educació primària.",
         "url": "documentos/documents/document_4_ExpOral.pdf",
-        "date": "exporal",
+        "date": "2017",
         "pubdate": "10/2017"
     },
     {
-        "destacado": true,
+        
         "tags": [
             "documents"
         ],
@@ -436,11 +436,11 @@
         "title": "Document d'avaluació 3 - Perfil dels directors.",
         "description": "Tercer document d'avaluació (7 pàg.) amb una anàlisi del perfil dels directors dels centres d'educació primària i secundària de les Illes Balears.",
         "url": "documentos/documents/document_3_perfils.pdf",
-        "date": "perfils",
+        "date": "2017",
         "pubdate": "9/2017"
     },
     {
-        "destacado": false,
+        
         "tags": [
             "3rep"
         ],
@@ -452,7 +452,7 @@
         "pubdate": "9/2017"
     },
     {
-        "destacado": true,
+        
         "tags": [
             "indicadors"
         ],
@@ -464,7 +464,7 @@
         "pubdate": "9/2017"
     },
     {
-        "destacado": true,
+        
         "tags": [
             "documents"
         ],
@@ -472,11 +472,11 @@
         "title": "Document d'avaluació 2 - Objectius europeus",
         "description": "Segon document d'avaluació (8 pàg.) amb un informe de seguiment dels objectius europeus de referència de l'estratègia \"EDUCACIÓ I FORMACIÓ 2020\".",
         "url": "documentos/documents/document_2_objectius.pdf",
-        "date": "objectius",
+        "date": "2017",
         "pubdate": "5/2017"
     },
     {
-        "destacado": false,
+        
         "tags": [
             "rubriques",
             "6eep"
@@ -485,11 +485,11 @@
         "title": "Rúbriques per a l'avaluació de l'expressió oral a 6è d'EP.",
         "description": "",
         "url": "documentos/avaluacions/primaria/6_ep_2015_2016/Oral_6e_EP.pdf",
-        "date": "20ep",
+        "date": "2016",
         "pubdate": "4/2017"
     },
     {
-        "destacado": false,
+        
         "tags": [
             "rubriques",
             "3rep"
@@ -498,11 +498,11 @@
         "title": "Rúbriques per a l'avaluació de l'expressió oral a 3r d'EP.",
         "description": "",
         "url": "documentos/avaluacions/primaria/3_ep_2015_2016/Oral_3r_EP.pdf",
-        "date": "20ep",
+        "date": "2016",
         "pubdate": "4/2017"
     },
     {
-        "destacado": true,
+        
         "tags": [
             "documents"
         ],
@@ -510,11 +510,11 @@
         "title": "Document d'avaluació 1 - La repetició escolar",
         "description": "Primer document d'avaluació (6 pàg.) amb una anàlisi de l'eficàcia de la repetició escolar a l'educació obligatòria.",
         "url": "documentos/documents/document_1_repeticio.pdf",
-        "date": "repeticio",
+        "date": "2017",
         "pubdate": "3/2017"
     },
     {
-        "destacado": false,
+        
         "tags": [
             "anuari"
         ],
@@ -526,7 +526,7 @@
         "pubdate": "2016"
     },
     {
-        "destacado": false,
+        
         "tags": [
             "resultats"
         ],
@@ -538,7 +538,7 @@
         "pubdate": "11/2016"
     },
     {
-        "destacado": false,
+        
         "tags": [
             "resultats",
             "6eep"
@@ -551,7 +551,7 @@
         "pubdate": "9/2016"
     },
     {
-        "destacado": false,
+        
         "tags": [
             "2neso"
         ],
@@ -563,7 +563,7 @@
         "pubdate": "6/2016"
     },
     {
-        "destacado": false,
+        
         "tags": [
             "resultats"
         ],
@@ -571,11 +571,11 @@
         "title": "Evolució del percentatge d'aprovats a les àrees lingüístiques entre els cursos 2008-2009 i 2014-2015",
         "description": "Estudi de l'evolució del percentatge d'aprovats dels alumnes de les Illes Balears a les àrees lingüístiques a les etapes d'educació primària, educació secundària obligatòria i batxillerat en el període comprès entre els cursos 2008-2009 i 2014-2015",
         "url": "documentos/publicacions/resultatsLlengues.pdf",
-        "date": "",
+        "date": "2015",
         "pubdate": "6/2016"
     },
     {
-        "destacado": false,
+        
         "tags": [
             "indicadors"
         ],
@@ -587,7 +587,7 @@
         "pubdate": "4/2016"
     },
     {
-        "destacado": false,
+        
         "tags": [
             "resultats"
         ],
@@ -599,7 +599,7 @@
         "pubdate": "1/2016"
     },
     {
-        "destacado": false,
+        
         "tags": [
             "anuari"
         ],
@@ -611,7 +611,7 @@
         "pubdate": "2015"
     },
     {
-        "destacado": false,
+        
         "tags": [
             "ad",
             "3rep"
@@ -624,7 +624,7 @@
         "pubdate": "7/2015"
     },
     {
-        "destacado": false,
+        
         "tags": [
             "anuari"
         ],
@@ -636,7 +636,7 @@
         "pubdate": "2014"
     },
     {
-        "destacado": false,
+        
         "tags": [
             "indicadors"
         ],
@@ -648,7 +648,7 @@
         "pubdate": "12/2014"
     },
     {
-        "destacado": false,
+        
         "tags": [
             "1rep",
             "3rep",
@@ -662,7 +662,7 @@
         "pubdate": "11/2014"
     },
     {
-        "destacado": false,
+        
         "tags": [
             "ad",
             "4tep"
@@ -675,7 +675,7 @@
         "pubdate": "5/2014"
     },
     {
-        "destacado": false,
+        
         "tags": [
             "anuari"
         ],
@@ -687,7 +687,7 @@
         "pubdate": "2013"
     },
     {
-        "destacado": false,
+        
         "tags": [
             "indicadors"
         ],
@@ -699,7 +699,7 @@
         "pubdate": "6/2013"
     },
     {
-        "destacado": false,
+        
         "tags": [
             "ad",
             "4teso"
@@ -712,7 +712,7 @@
         "pubdate": "4/2013"
     },
     {
-        "destacado": false,
+        
         "tags": [
             "anuari"
         ],
@@ -724,7 +724,7 @@
         "pubdate": "2012"
     },
     {
-        "destacado": false,
+        
         "tags": [
             "ad",
             "2neso"
@@ -737,7 +737,7 @@
         "pubdate": "3/2013"
     },
     {
-        "destacado": false,
+        
         "tags": [
             "indicadors"
         ],
@@ -749,7 +749,7 @@
         "pubdate": "6/2012"
     },
     {
-        "destacado": false,
+        
         "tags": [
             "anuari"
         ],
@@ -761,7 +761,7 @@
         "pubdate": "2011"
     },
     {
-        "destacado": false,
+        
         "tags": [
             "ad",
             "4tep"
@@ -774,7 +774,7 @@
         "pubdate": "7/2011"
     },
     {
-        "destacado": false,
+        
         "tags": [
             "ad",
             "2neso"
@@ -787,7 +787,7 @@
         "pubdate": "7/2011"
     },
     {
-        "destacado": false,
+        
         "tags": [
             "indicadors"
         ],
@@ -799,7 +799,7 @@
         "pubdate": "2/2011"
     },
     {
-        "destacado": false,
+        
         "tags": [
             "ad",
             "2neso"
@@ -812,7 +812,7 @@
         "pubdate": "2010"
     },
     {
-        "destacado": false,
+        
         "tags": [
             "anuari"
         ],
@@ -824,7 +824,7 @@
         "pubdate": "2010"
     },
     {
-        "destacado": false,
+        
         "tags": [
             "ad",
             "4tep",
@@ -838,7 +838,7 @@
         "pubdate": "7/2010"
     },
     {
-        "destacado": false,
+        
         "tags": [
             "ad",
             "4tep"
@@ -851,7 +851,7 @@
         "pubdate": "2009"
     },
     {
-        "destacado": false,
+        
         "tags": [
             "ad",
             "6eep"
@@ -864,7 +864,7 @@
         "pubdate": "7/2010"
     },
     {
-        "destacado": false,
+        
         "tags": [
             ""
         ],
@@ -876,7 +876,7 @@
         "pubdate": "9/2008"
     },
     {
-        "destacado": false,
+        
         "tags": [
             ""
         ],
@@ -888,7 +888,7 @@
         "pubdate": "9/2008"
     },
     {
-        "destacado": false,
+        
         "tags": [
             ""
         ],
@@ -900,7 +900,7 @@
         "pubdate": "7/2008"
     },
     {
-        "destacado": false,
+        
         "tags": [
             "indicadors"
         ],
@@ -912,7 +912,7 @@
         "pubdate": "12/2006"
     },
     {
-        "destacado": false,
+        
         "tags": [
             "6eep"
         ],
@@ -924,7 +924,7 @@
         "pubdate": "11/2007"
     },
     {
-        "destacado": false,
+        
         "tags": [
             "4teso"
         ],
@@ -936,7 +936,7 @@
         "pubdate": "10/2005"
     },
     {
-        "destacado": false,
+        
         "tags": [
             "6eep"
         ],
@@ -944,11 +944,11 @@
         "title": "Competències bàsiques en Tecnologies de la Informació i la Comunicació (TIC), en Educació Física i en Educació Artística",
         "description": "L'objectiu de l'estudi és la identificació de les competències bàsiques que tots els estudiants haurien d'haver adquirit acabada l'escolaritat obligatòria. Aquesta recerca es refereix als ensenyaments d'educació artística (música, visual i plàstica, dansa i teatre), d'educació física i de tecnologies de la informació i la comunicació. Presentació de l'estudi (26-01-2005)",
         "url": "documentos/publicacions/comp_bas_tic.zip",
-        "date": "20tic",
+        "date": "2004",
         "pubdate": "12/2004"
     },
     {
-        "destacado": false,
+        
         "tags": [
             ""
         ],
