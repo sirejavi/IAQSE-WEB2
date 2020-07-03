@@ -260,7 +260,7 @@
      <span class="filtrau">Filtrau per </span>
     
     <div class="dropdown">
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="white-space:normal">
+        <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="white-space:normal">
           <span ng-bind="selectedType.type"></span>
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -323,7 +323,7 @@
 
     </div>
     </div>
-    <script>app.controller("mainController",["$scope","$rootScope","$filter","httpService",function(o,e,l,n){o.chooseType=function(e){o.selectedType={type:window.enllacosJSON[e].type,length:window.enllacosJSON[e].list.length,list:chunker(window.enllacosJSON[e].list,2)}},n.loadSchema("enllacos").then(function(e){enllacosJSON=e.data,o.chooseType(0)})}])</script></main>
+    <script>app.controller("mainController",["$scope","$rootScope","$filter","httpService",function(c,e,l,o){c.chooseType=function(e){c.selectedType={type:window.enllacosJSON[e].type,length:window.enllacosJSON[e].list.length,list:chunker(window.enllacosJSON[e].list,2)}},o.loadSchema("enllacos").then(function(e){window.enllacosJSON=[];for(var l=e.data.length,o=0;o<l;o++){var n=e.data[o];if(!n.hiden){for(var t=[],i=(n.list||[]).length,s=0;s<i;s++)n.list[s].hiden||t.push(n.list[s]);n.list=t,window.enllacosJSON.push(n)}}c.chooseType(0)})}])</script></main>
                 </div>
             </div>
                 <footer class="py-1" style="width:100%;margin:0" title="Webmaster: IAQSE - Version: 3-7-2020">

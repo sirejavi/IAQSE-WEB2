@@ -45,7 +45,7 @@
      <span class="filtrau">Filtrau per </span>
     <!--Tipus d'enllaç-->
     <div class="dropdown">
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" 
+        <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" 
         aria-haspopup="true" aria-expanded="false" style="white-space: normal;">
           <span ng-bind="selectedType.type"></span>
         </button>
@@ -101,8 +101,8 @@
                         var links = [];
                         var n2 = (item.list || []).length;
                         for(var j=0; j<n2; j++) {
-                            if(!item.links[j].hiden) {
-                                links.push(item.links[j]);
+                            if(!item.list[j].hiden) {
+                                links.push(item.list[j]);
                             }
                         }
                         item.list = links;
