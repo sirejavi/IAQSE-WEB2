@@ -124,4 +124,4 @@ no vàreu realitzar la prova d'aquella matèria.
 
 
 
-<script>app.controller("alumnatController",["$scope","$rootScope","$filter","httpService",function(t,n,e,o){t.navigate=function(t,n){t.preventDefault();var e=document.getElementById(n);if(e){var o=e.offsetTop+100;window.scrollTo(0,o)}},t.printDiv=function(){printDocument("print-area","Alumnat")}}])</script>
+<script>app.controller("alumnatController",["$scope","$rootScope","$filter","httpService",function(t,n,e,o){t.navigate=function(t,n){t.preventDefault();var e,o=document.getElementById(n);o&&(e=o.offsetTop+100,window.scrollTo(0,e))},t.printDiv=function(){printDocument("print-area","Alumnat")}}])</script>

@@ -11,7 +11,8 @@
         "nom": "Josep Mulet Pol",
         "carrec": "Personal Tècnic",
         "ext": "62214",
-        "email": "jmulet@iaqse.caib.es"
+        "email": "jmulet@iaqse.caib.es",
+        "hiden": true
     },
     {
         "img": "img/quisom/xavi.jpg",

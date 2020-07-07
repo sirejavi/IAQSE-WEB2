@@ -133,4 +133,4 @@ vostre fill no va realitzar la prova d'aquella matèria.
 
 
 
-<script>app.controller("familiesController",["$scope","$rootScope","$filter","httpService",function(e,t,o,n){e.navigate=function(e,t){e.preventDefault();var o=document.getElementById(t);if(o){var n=o.offsetTop+100;window.scrollTo(0,n)}},e.printDiv=function(){printDocument("print-area","Famílies")}}])</script>
+<script>app.controller("familiesController",["$scope","$rootScope","$filter","httpService",function(e,t,o,n){e.navigate=function(e,t){e.preventDefault();var o,n=document.getElementById(t);n&&(o=n.offsetTop+100,window.scrollTo(0,o))},e.printDiv=function(){printDocument("print-area","Famílies")}}])</script>
